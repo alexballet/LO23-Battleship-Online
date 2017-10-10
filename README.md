@@ -9,7 +9,7 @@ Software Project Management - Online Battleship Game
 
 
 # documentation
-to genere documenation run : 
+to generate documenation run : 
 ```
 doxygen Doxyfile
 ``` 
