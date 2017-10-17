@@ -1,5 +1,7 @@
 package lo23.battleship.online.network;
 
+import lo23.battleship.online.network.messages.*;
+
 /**
  * Created by xzirva on 17/10/17.
  */

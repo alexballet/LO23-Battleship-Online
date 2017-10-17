@@ -1,4 +1,4 @@
-package lo23.battleship.online.network;
+package lo23.battleship.online.network.messages;
 
 /**
  * Created by xzirva on 17/10/17.
