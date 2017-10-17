@@ -1,4 +1,4 @@
-====Maven : qu'est ce que c'est ?====
+#### Maven : qu'est ce que c'est ?
 
 Maven permet de faciliter et d'automatiser certaines tâches de la gestion d'un projet Java. Il permet notamment :
 
@@ -8,20 +8,20 @@ Maven permet de faciliter et d'automatiser certaines tâches de la gestion d'un 
 
 
 
-=== installation ===
+### installation 
 
 
-== pour GNU/Linux ==
+## pour GNU/Linux 
 
 utiliser le gestionnaire de paquet
 
-== pour windows ==
+## pour windows 
 
  télécharger ici : <http://maven.apache.org/download.html>, dézipper
 
 utliliser l'assistant
 
-== MAC ==
+## MAC ==
 
 utiliser le gestionnaire de paquet Homebrew : 
 
@@ -32,21 +32,21 @@ ou macPorts
     $ sudo port install maven3
     
     
-=== Utilisation ===
+### Utilisation 
 
 se placer dans le fichier puis lancer la commande : 
     
-    mvn packages
+    mvn package
 
 on peut ensuite lancer l'application créée avec : 
     
     java -jar ./target/battleship-online-1.0.jar
     
-=== ajouter une dépendance ===
+### ajouter une dépendance 
 
 la liste des dépendances se trouve dans le pom.xml 
 
-== ajouter une dépendance avec netbeans ==
+## ajouter une dépendance avec netbeans 
 
 la solution la plus simple pour ajouter une dépendance est d'utiliser un IDE.
 
@@ -54,7 +54,7 @@ la solution la plus simple pour ajouter une dépendance est d'utiliser un IDE.
  * 
     
 
-=== Arborescence d'un projet Maven ===
+### Arborescence d'un projet Maven 
 
 Voici l'arborescence minimum d'un projet Maven.
 
@@ -76,10 +76,10 @@ Voici l'arborescence minimum d'un projet Maven.
 **mon_projet/pom.xml **
   *  un fichier XML qui décrit le projet pour permettre à Maven d'interagir avec lui. 
 
-=== plugins maven ===
+### plugins maven 
 
 Il existe un grand nombre de plugins maven dont certains peuvent être trèsn utiles. Il serait cependant souhaitable d'en discuter à plusieurs avant d'en utiliser pour eviter de partir dans tous les sens. 
 
-=== pour plus d'infos ===
+### pour plus d'infos 
 
 <https://fr.wikibooks.org/wiki/D%C3%A9velopper_en_Java/Introduction_%C3%A0_Apache_Maven#Arborescence_d.27un_projet_Maven>

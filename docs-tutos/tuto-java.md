@@ -1,6 +1,6 @@
-==== liste de conseils sur java ====
+#### liste de conseils sur java 
 
-=== librairie de composants ===
+### librairie de composants 
 
 Il existe déjà un certain nombre de très bons composants libre sur internet. Une bonne adresse pour commencer à chercher est : 
 

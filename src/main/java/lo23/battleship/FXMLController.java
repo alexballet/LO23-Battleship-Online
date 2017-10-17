@@ -12,6 +12,10 @@ public class FXMLController implements Initializable {
     @FXML
     private Label label;
     
+    /**
+     * 
+     * @param event 
+     */
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
