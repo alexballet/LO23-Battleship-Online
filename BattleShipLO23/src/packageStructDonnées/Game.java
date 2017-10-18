@@ -11,6 +11,6 @@ package lo23;
  */
 public class Game {
     
-/* to complete*/
+/* to DO*/
     
 }
