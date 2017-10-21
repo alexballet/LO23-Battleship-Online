@@ -9,11 +9,11 @@ package packageStructDonnées;
  *
  * @author loulou
  */
-public class DataGame extends User {
+public class DataUser extends User {
     private String password;
     private String listContacts;
     
-    public DataGame(){
+    public DataUser(){
         password = "";
         listContacts = "";
     }

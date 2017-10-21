@@ -11,7 +11,7 @@ import java.awt.Image;
  *
  * @author loulou
  */
-public class Profile extends DataGame {
+public class Profile extends DataUser {
     private Image avatar;
     private String lastname;
     private String name;
