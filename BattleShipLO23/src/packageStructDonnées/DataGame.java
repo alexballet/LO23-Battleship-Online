@@ -4,24 +4,26 @@
  * and open the template in the editor.
  */
 package packageStructDonnées;
-
+import java.util.HashSet;
+import java.util.ArrayList;
 /**
  *
  * @author Huiling
  */
 public class DataGame extends Game{
-    private User[] listSpectators;
+    private HashSet listSpectators;
     private Player player1;
     private Player player2;
     private Boolean player1Start;
-    private Message[] listMessages;
+    private ArrayList listMessages;
     
     public DataGame(){
-        listSpectators[0] = new User();
+        super();
+        listSpectators = new HashSet();
         player1 = new Player();
         player2 = new Player();
         player1Start = false;
-        listMessages[0] = new Message();
+        listMessages = new ArrayList();
     }
     
 }
