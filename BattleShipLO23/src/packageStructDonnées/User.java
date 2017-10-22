@@ -4,19 +4,19 @@
  * and open the template in the editor.
  */
 package packageStructDonnées;
-
+import java.util.HashSet;
 import java.util.UUID;
 
 public class User {
     private UUID idUser;
     private String login;
     private String username;
-    private long[] IPs;
+    private HashSet IPs;
     
     public User(){
         idUser = UUID.randomUUID();
         login = "";
         username = "";
-        IPs[0] = 0;
+        IPs = new HashSet();
     }
 }
