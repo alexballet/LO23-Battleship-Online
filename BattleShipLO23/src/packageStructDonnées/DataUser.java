@@ -14,6 +14,7 @@ public class DataUser extends User {
     private String listContacts;
     
     public DataUser(){
+        super();
         password = "";
         listContacts = "";
     }

@@ -22,6 +22,7 @@ public class Profile extends DataUser {
     private int gamesAborted;
     
     public Profile(){
+        super();
         avatar = null;
         lastname = "";
         name = "";
