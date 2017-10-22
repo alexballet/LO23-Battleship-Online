@@ -19,6 +19,7 @@ public class Game {
     private Boolean spectator;
     private Boolean spectatorChat;
     
+    
     public Game(){
         idGame = UUID.randomUUID();
         status = StatusGame.WAITINGPLAYER;
