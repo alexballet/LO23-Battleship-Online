@@ -1,4 +1,4 @@
-package lo23.battleship.online;
+package lo23.battleship;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;

@@ -1,4 +1,4 @@
-package lo23.battleship.online;
+package lo23.battleship;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,10 +12,6 @@ public class FXMLController implements Initializable {
     @FXML
     private Label label;
     
-    /**
-     * 
-     * @param event 
-     */
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
