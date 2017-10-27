@@ -1,3 +1,4 @@
+package guiMain;
 import packageStructDonnées.*;
 
 /**
@@ -21,7 +22,7 @@ public interface GuiMainInterface {
 	 * Displays the statistics of a player
 	 * @param profil : profile of the player.
 	 */
-	public void sendStatistics(Profil profil);
+	public void sendStatistics(Profile profil);
 
 	/**
 	 * Updates the status of the game.
