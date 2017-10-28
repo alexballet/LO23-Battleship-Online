@@ -21,7 +21,6 @@ Créer son identité :
 
 Pour afficher sa configuration :
 
-
     $ git config -l 
 
 ----
