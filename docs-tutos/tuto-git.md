@@ -4,7 +4,7 @@
 ## Nouveau sur Git 
 * [Télécharger Git](https://git-scm.com/downloads) Bash/CMD/GUI (Mac, Windows, Linux).
 * [Tutoriel en français](https://youtu.be/V6Zo68uQPqE) hyper complet pour apprendre à utiliser Git et GitHub.
-* [Ecrire de la documentation](http://markdownlivepreview.com/) en Markdown (.md).
+* [Ecrire de la documentation](https://dillinger.io/) en Markdown (.md).
 
 ### Ouverture de la console
 Pour se placer directement dans le bon répertoire avec GitBash, clic-droit dans le dossier puis « Git Bash Here ».
@@ -47,12 +47,11 @@ Changer de disque ('C:', 'D:', etc.) :
 
 ----
 ## Git – Procédé et méthode
->Les étapes de travail sont définies comme suit : 
-
->* 1.Pull du projet à partir du repository GitHub
+Les étapes de travail sont définies comme suit : 
+* 1.Pull du projet à partir du repository GitHub
 * 2a.Création d'une nouvelle branche (uniquement si nouvelle fonctionnalité)
-* 2b. Versioning des fichiers locaux (*add* et *commit*)
-* 3. Push des fichiers locaux
+* 2b.Versioning des fichiers locaux (*add* et *commit*)
+* 3.Push des fichiers locaux
 
 >**IMPORTANT** : NE PAS OUBLIER DE PULL A NOUVEAU LE PROJET UNE FOIS LE PUSH EFFECTUE !
 
