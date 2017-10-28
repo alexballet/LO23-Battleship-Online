@@ -51,9 +51,9 @@ Les étapes de travail sont définies comme suit :
 * 1.Pull du projet à partir du repository GitHub
 * 2a.Création d'une nouvelle branche (uniquement si nouvelle fonctionnalité)
 * 2b.Versioning des fichiers locaux (*add* et *commit*)
-* 3.Push des fichiers locaux
+* 3.Push des fichiers locaux et pull request
 
->**IMPORTANT** : NE PAS OUBLIER DE PULL A NOUVEAU LE PROJET UNE FOIS LE PUSH EFFECTUE !
+>**IMPORTANT** : NE PAS OUBLIER DE PULL A NOUVEAU LE PROJET UNE FOIS LE PUSH EFFECTUE (SURTOUT APRES LA PULL REQUEST) !
 
 Initialisation du repository local Git :
 
@@ -144,12 +144,14 @@ Pour savoir ce qui a changé dans le repository par rapport au dernier commit (a
     $ git diff <file>  /*changement sur un seul fichier*/
 
 ---
-### 3. Push des fichiers locaux 
+### 3. Push des fichiers locaux et pull request
 **Envoyer ses fichiers :**
 
     $ git push <remote> <branch>
    
 *Par exemple : `$ git push origin master`*
+
+Faire ensuite valider sa *pull request* par son équipe.
 
 ---
 ### 4. NE PAS OUBLIER DE PULL AVANT DE TRAVAILLER A NOUVEAU SUR LE PROJET !
