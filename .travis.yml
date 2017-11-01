@@ -1,13 +1,1 @@
 language: java
-addons:
-  sonarcloud:
-    organization: "lo23-battleshiponline" # the key of the org you chose at step #3
-    branches:
-      - master
-      - com
-      - data
-      - ihm-main
-      - ihm-plateau
-script:
-  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
