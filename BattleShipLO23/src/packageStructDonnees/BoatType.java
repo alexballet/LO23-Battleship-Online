@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package packageStructDonnées;
+package packageStructDonnees;
 
 /**
  * BoatType is an emumerate of all the types of boats.
- * @author lola
  */
 public enum BoatType {
     PORTEAVIONS, 

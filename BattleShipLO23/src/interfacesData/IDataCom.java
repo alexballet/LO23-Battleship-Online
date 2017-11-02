@@ -5,8 +5,15 @@
  */
 package interfacesData;
 
+import packageStructDonnees.Boat;
+import packageStructDonnees.Shot;
+import packageStructDonnees.DataGame;
+import packageStructDonnees.Position;
+import packageStructDonnees.Message;
+import packageStructDonnees.User;
+import packageStructDonnees.Game;
+import packageStructDonnees.Profile;
 import java.util.HashSet;
-import packageStructDonnées.*;
 import java.util.Set;
 import java.util.List;
 

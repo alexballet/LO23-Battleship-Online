@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package packageStructDonnées;
+package packageStructDonnees;
 
 /**
  * Position is a class of a position in a table.
- * @author lola
  */
 public class Position {
     protected Byte x;
