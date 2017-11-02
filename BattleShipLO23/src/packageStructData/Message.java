@@ -5,7 +5,7 @@
  */
 
 
-package packageStructDonnees;
+package packageStructData;
 import java.util.Date;
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package packageStructDonnees;
+package packageStructData;
 
 /**
  * StatusGame is an emumerate of all the status of games.

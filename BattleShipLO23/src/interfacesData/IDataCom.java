@@ -5,15 +5,14 @@
  */
 package interfacesData;
 
-import packageStructDonnees.Boat;
-import packageStructDonnees.Shot;
-import packageStructDonnees.DataGame;
-import packageStructDonnees.Position;
-import packageStructDonnees.Message;
-import packageStructDonnees.User;
-import packageStructDonnees.Game;
-import packageStructDonnees.Profile;
-import java.util.HashSet;
+import packageStructData.Boat;
+import packageStructData.Shot;
+import packageStructData.DataGame;
+import packageStructData.Position;
+import packageStructData.Message;
+import packageStructData.User;
+import packageStructData.Game;
+import packageStructData.Profile;
 import java.util.Set;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public interface IDataCom {
      * @param IPs (returned) : ipadresses known by local user to send to send to a new user
      * @param dataGame (returned) : the game the user is playing
      */
-     public void getIPTableAdresses(Boolean withGame, HashSet IPs, DataGame dataGame);
+     public void getIPTableAdresses(Boolean withGame, Set iPs, DataGame dataGame);
 
      /**
       * Returns all of the created games

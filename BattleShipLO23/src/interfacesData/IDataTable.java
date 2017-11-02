@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 package interfacesData;
-import packageStructDonnees.Position;
-import packageStructDonnees.Message;
+import packageStructData.Position;
+import packageStructData.Message;
 import java.util.Date;
 import java.util.List;
 
