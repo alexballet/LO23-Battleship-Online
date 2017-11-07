@@ -1,4 +1,4 @@
-package GuiTable;
+package guiTable;
 
 
 /**
