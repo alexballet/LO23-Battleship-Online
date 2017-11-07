@@ -76,7 +76,7 @@ public class Game {
     }
     
     /**
-     * Method to copy a Gamr
+     * Method to copy a Game
      * @param g a Game to copy
      * @return a copied Game
      */
