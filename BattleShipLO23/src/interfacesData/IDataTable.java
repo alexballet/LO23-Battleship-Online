@@ -5,7 +5,7 @@
  */
 package interfacesData;
 import packageStructData.Position;
-import packageStructData.Message;
+import packageStructData.ChatMessage;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +23,7 @@ public interface IDataTable {
     * Add the message to the chat in the current game.
     * @param message : The main part of message that the player wants to send.
     */
-    public void textMessage(Message message);
+    public void textMessage(ChatMessage message);
 
     /**
     * Returns a message after the creation of chat in the game.

@@ -14,7 +14,7 @@ import packageStructData.User;
  *
  * @author Irvin
  */
-public interface IDateMain {
+public interface IDataMain {
     
     /**
      * Modify the local profile
