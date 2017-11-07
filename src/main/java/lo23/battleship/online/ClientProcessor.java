@@ -1,5 +1,8 @@
 package lo23.battleship.online;
 
+import lo23.battleship.online.network.messages.CustomMessage;
+import lo23.battleship.online.network.messages.Message;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -53,7 +56,7 @@ public class ClientProcessor implements Runnable{
                 //Warning: use flush()
                 //Otherwise data is not sent to the client(infinitely waiting)
                 //writer.flush();
-                if (response.type.equals("Communication Over")) closeConnexion = true;
+                if (response.getType().equals("Communication Over")) closeConnexion = true;
                 if(closeConnexion){
                     System.err.println("Close Message");
                     writer = null;

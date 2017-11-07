@@ -1,12 +1,12 @@
-package lo23.battleship.online;
+package lo23.battleship.online.network.messages;
 
 public class CustomMessage extends Message {
 
-    CustomMessage(String test) {
+    public CustomMessage(String test) {
         this.type = test;
     }
 
-    String getType() {
+    public String getType() {
         return type;
     }
 
@@ -27,6 +27,7 @@ public class CustomMessage extends Message {
                 break;
             case "UNKNOWN":
                 response.type = "!!!!!!Unknown Message!!!!!!";
+                break;
             default :
                 response.type = this.type + " Message Received!";
                 break;

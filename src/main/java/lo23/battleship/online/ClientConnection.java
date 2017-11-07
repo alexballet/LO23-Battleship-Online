@@ -1,5 +1,8 @@
 package lo23.battleship.online;
 
+import lo23.battleship.online.network.messages.CustomMessage;
+import lo23.battleship.online.network.messages.Message;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
