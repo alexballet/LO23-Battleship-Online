@@ -19,4 +19,23 @@ public class Message implements Serializable {
     public String toString() {
         return "Message type: " + getType();
     }
+
+    public Message process() {
+        //Request processing
+        Message response = new Message("");
+        switch(this.getType().toUpperCase()){
+            case "CLOSE":
+                response.type = "Communication over";
+                break;
+            case "RAGEQUIT":
+                response.type = "You suck! Get lost you faggot!";
+                break;
+            case "UNKNOWN":
+                response.type = "!!!!!!Unknown Message!!!!!!";
+            default :
+                response.type = this.type + " Message Received!";
+                break;
+        }
+        return response;
+    }
 }

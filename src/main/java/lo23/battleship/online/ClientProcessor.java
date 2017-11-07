@@ -47,29 +47,13 @@ public class ClientProcessor implements Runnable{
                 debug += "\n Request Received at " + timeStamps;
                 System.err.println("\n" + debug);
 
-                //Request processing
-                String response = "";
-                switch(request.getType().toUpperCase()){
-                    case "CLOSE":
-                        response = "Communication terminée";
-                        closeConnexion = true;
-                        break;
-                    case "RAGEQUIT":
-                        response = "You suck! Get lost you faggot!";
-                        break;
-                    case "UNKNOWN":
-                        response = "!!!!!!Unknown Message!!!!!!";
-                    default :
-                        response = request + " Message Received!";
-                        break;
-                }
-
+                Message response = request.process();
                 //Send response
-                writer.writeObject(new Message(response));
+                writer.writeObject(response);
                 //Warning: use flush()
                 //Otherwise data is not sent to the client(infinitely waiting)
                 //writer.flush();
-
+                if (response.type.equals("Communication Over")) closeConnexion = true;
                 if(closeConnexion){
                     System.err.println("Close Message");
                     writer = null;
