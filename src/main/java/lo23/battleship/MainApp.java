@@ -2,24 +2,35 @@ package lo23.battleship;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+
+import guiMain.controller.menuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
 public class MainApp extends Application {
 
+	private AnchorPane rootLayout;
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
-        
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/Styles.css");
-        
-        stage.setTitle("JavaFX and Maven");
-        stage.setScene(scene);
-        stage.show();
+        	
+    	FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
+		rootLayout = (AnchorPane) loader.load();
+		
+		menuController controller = loader.getController();
+        controller.init();
+		
+		Scene scene = new Scene(rootLayout);
+		stage.setTitle("Battleship-Online");
+		stage.setScene(scene);
+		stage.show();
+    	
+    	
     }
 
     /**
