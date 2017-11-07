@@ -82,7 +82,7 @@ public class menuController {
 	@FXML
 	private void option(){
 		playersView.getItems().add(new UserTest());
-
+ 
 	}
 
 
