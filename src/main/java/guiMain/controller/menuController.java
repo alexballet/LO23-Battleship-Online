@@ -1,36 +1,25 @@
 package guiMain.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.util.Callback;
-import lo23.battleship.MainApp;
 import packageStructDonnées.User;
 
 public class menuController {
 
 
-	private MainApp mainApp;
+	List<User> playersList;
 
-
-	List<UserTest> myList;
-
-	ObservableList<UserTest> players;
+	ObservableList<User> playersObservable;
 
 	@FXML 
-	private ListView<UserTest> playersView;
+	private ListView<User> playersView;
 
 	@FXML 
 	private Button optionButton;
@@ -43,22 +32,23 @@ public class menuController {
 
 
 	public void init() {
-		randomListUser();
-		players = FXCollections.observableList(myList);
-		playersView.setItems(players);
+		//randomListUser();
+		playersList = new ArrayList<>();
+		playersObservable = FXCollections.observableList(playersList);
+		playersView.setItems(playersObservable);
 
-		playersView.setCellFactory(new Callback<ListView<UserTest>, ListCell<UserTest>>(){
+		playersView.setCellFactory(new Callback<ListView<User>, ListCell<User>>(){
 
 			@Override
-			public ListCell<UserTest> call(ListView<UserTest> p) {
+			public ListCell<User> call(ListView<User> p) {
 
-				ListCell<UserTest> cell = new ListCell<UserTest>(){
+				ListCell<User> cell = new ListCell<User>(){
 
 					@Override
-					protected void updateItem(UserTest t, boolean bln) {
+					protected void updateItem(User t, boolean bln) {
 						super.updateItem(t, bln);
 						if (t != null) {
-							setText(t.login + "  :  " +  t.username);
+							setText(t.getLogin() + "  :  " +  t.getUsername());
 						}
 					}
 
@@ -81,7 +71,7 @@ public class menuController {
 
 	@FXML
 	private void option(){
-		playersView.getItems().add(new UserTest());
+		playersView.getItems().add(new User());
  
 	}
 
@@ -99,38 +89,6 @@ public class menuController {
 		playersView.getItems().add(user);
 	}
 	 */
-
-
-
-
-
-	/**
-	 *  Classe et fonctions de test en attendant que Data confirme la création de getter/setter dans leurs classes.
-	 */
-
-
-	public class UserTest {
-		public UUID idUser;
-		public String login;
-		public String username;
-		public HashSet IPs;
-
-		public UserTest(){
-			idUser = UUID.randomUUID();
-			login = "A";
-			username = "B";
-			IPs = new HashSet();
-		}
-	}
-
-	private void randomListUser(){
-		myList = new ArrayList<>();
-		myList.add(new UserTest());
-		myList.add(new UserTest());
-		myList.add(new UserTest());
-		myList.add(new UserTest());
-	}
-
 
 
 
