@@ -1,5 +1,9 @@
 package guiTable;
 
+import packageStructDonnées.Boat;
+import packageStructDonnées.Message;
+import packageStructDonnées.Shot;
+
 
 /**
  * Interface for the Ihm Table team
@@ -57,6 +61,7 @@ public interface GuiTableInterface {
      * @param messageType : Error type to show
      * @param message : Error message to show.
      */
-    public void displayMessage(MessageType messageType, String message);
+    //public void displayMessage(MessageType messageType, String message);
+    public void displayMessage(String message);
 
 }
