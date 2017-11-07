@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package packageStructDonnées;
+package structData;
 import java.util.HashSet;
 import java.util.ArrayList;
 /**
@@ -20,8 +20,8 @@ public class DataGame extends Game{
     public DataGame(){
         super();
         listSpectators = new HashSet();
-        player1 = new Player();
-        player2 = new Player();
+        //player1 = new Player();
+        //player2 = new Player();
         player1Start = false;
         listMessages = new ArrayList();
     }

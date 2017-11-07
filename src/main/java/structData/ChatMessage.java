@@ -3,19 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package packageStructDonnées;
 
+
+package structData;
 import java.util.Date;
-
 /**
- * Shot is a class of a shot of a player.
- * @author lola
+ *
+ * @author loulou
  */
-public class Shot extends Position{
+public class ChatMessage {
+    private User profile;
+    private String content;
     private Date time;
     
-    public Shot(){
-        super();
+    public ChatMessage() {
+        profile = new User();
+        content = "";
         time = new Date();
-  } 
+    }
+
 }
+

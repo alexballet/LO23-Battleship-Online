@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package packageStructDonnées;
+package structData;
 import java.util.HashSet;
 
 /**
  * Boat is the class which represents a ship of a player.
- * @author lola
  */
 public class Boat {
     private BoatType type;

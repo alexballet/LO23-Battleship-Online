@@ -5,8 +5,14 @@
  */
 package interfacesData;
 
-import java.util.HashSet;
-import packageStructDonnées.*;
+import structData.Boat;
+import structData.Shot;
+import structData.DataGame;
+import structData.Position;
+import structData.ChatMessage;
+import structData.User;
+import structData.Game;
+import structData.Profile;
 import java.util.Set;
 import java.util.List;
 
@@ -18,10 +24,10 @@ public interface IDataCom {
     /**
      * Sends known user's IP table to new user and the current game if the new user is playing a game
      * @param withGame : if (withGame==true) return the game the user is playing
-     * @param IPs (returned) : ipadresses known by local user to send to send to a new user
+     * @param iPs (returned) : ipadresses known by local user to send to send to a new user
      * @param dataGame (returned) : the game the user is playing
      */
-     public void getIPTableAdresses(Boolean withGame, HashSet IPs, DataGame dataGame);
+     public void getIPTableAdresses(Boolean withGame, Set iPs, DataGame dataGame);
 
      /**
       * Returns all of the created games
@@ -31,13 +37,13 @@ public interface IDataCom {
 
      /**
       * If there is a new game, the list of games in the local application should be updated
-      * @param createdGame : New games
+      * @param createdGames : New games
       */
      public void addGame(List<DataGame> createdGames);
 
      /**
       * If there is a new user, the list of users in the local application should be updated
-      * @param New users
+      * @param users : New users
       */
      public void addUser(Set<User> users);
 
@@ -93,7 +99,7 @@ this distant user
       * Takes the chat message given as a parameter in order to transmit it to IHM-Table
       * @param message : The chat message to transmit
       */
-     public void receiveMessage(Message message);
+     public void receiveMessage(ChatMessage message);
 
      /**
       * Indicates that a player is ready to play (all his boats are placed on his table) so that the shots
