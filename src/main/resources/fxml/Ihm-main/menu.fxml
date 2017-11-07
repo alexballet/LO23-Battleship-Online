@@ -110,7 +110,7 @@
                               </HBox>
                               <HBox GridPane.columnIndex="2">
                                  <children>
-                                    <Button fx:id="optionButton" mnemonicParsing="false" onAction="#option" text="Option" />
+                                    <Button fx:id="optionButton" mnemonicParsing="false" onAction="#option" prefHeight="46.0" prefWidth="81.0" text="Option" />
                                  </children>
                               </HBox>
                            </children>
