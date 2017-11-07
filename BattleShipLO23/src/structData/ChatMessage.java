@@ -5,7 +5,7 @@
  */
 
 
-package packageStructData;
+package structData;
 import java.util.Date;
 /**
  *

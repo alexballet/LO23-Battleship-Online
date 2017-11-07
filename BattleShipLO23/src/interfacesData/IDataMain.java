@@ -6,9 +6,9 @@
 package interfacesData;
 
 import java.util.Date;
-import packageStructData.ContactGroup;
-import packageStructData.Game;
-import packageStructData.User;
+import structData.ContactGroup;
+import structData.Game;
+import structData.User;
 
 /**
  *

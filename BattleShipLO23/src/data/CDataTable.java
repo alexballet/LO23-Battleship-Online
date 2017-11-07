@@ -8,8 +8,8 @@ package data;
 import interfacesData.IDataTable;
 import java.util.Date;
 import java.util.List;
-import packageStructData.ChatMessage;
-import packageStructData.Position;
+import structData.ChatMessage;
+import structData.Position;
 
 /**
  *

@@ -7,15 +7,22 @@ package data;
 
 import interfacesData.IDataMain;
 import java.util.Date;
-import packageStructData.ContactGroup;
-import packageStructData.Game;
-import packageStructData.User;
+import structData.ContactGroup;
+import structData.Game;
+import structData.User;
 
 /**
  *
  * @author Irvin
  */
 public class CDataMain implements IDataMain {
+    
+    private DataController controller;
+    
+    public CDataMain(DataController dc){
+        super();
+        controller = dc;
+    }
 
     @Override
     public void editProfile(String username, String password, int avatar, String lastName, String firstName, Date borthDate) {
@@ -49,7 +56,7 @@ public class CDataMain implements IDataMain {
 
     @Override
     public void connection() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //searchForPlayers(controller.getUser().getiPs());
     }
 
     @Override

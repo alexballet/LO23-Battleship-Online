@@ -6,8 +6,8 @@
 package data;
 
 import java.util.ArrayList;
-import packageStructData.Game;
-import packageStructData.User;
+import structData.Game;
+import structData.User;
 
 /**
  *
@@ -25,6 +25,8 @@ public class DataController {
     private ArrayList<Game> listGames;
     
     
+    
+    
     public CDataCom getInterfaceDataCom(){
         return InterfaceDataCom;
     }
@@ -35,5 +37,9 @@ public class DataController {
     
     public CDataTable getInterfaceDataTable(){
         return InterfaceDataTable;
+    }
+    
+    public User getUser(){
+        return localUser;
     }
 }

@@ -8,14 +8,14 @@ package data;
 import interfacesData.IDataCom;
 import java.util.List;
 import java.util.Set;
-import packageStructData.Boat;
-import packageStructData.ChatMessage;
-import packageStructData.DataGame;
-import packageStructData.Game;
-import packageStructData.Position;
-import packageStructData.Profile;
-import packageStructData.Shot;
-import packageStructData.User;
+import structData.Boat;
+import structData.ChatMessage;
+import structData.DataGame;
+import structData.Game;
+import structData.Position;
+import structData.Profile;
+import structData.Shot;
+import structData.User;
 
 /**
  *

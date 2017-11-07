@@ -5,14 +5,14 @@
  */
 package interfacesData;
 
-import packageStructData.Boat;
-import packageStructData.Shot;
-import packageStructData.DataGame;
-import packageStructData.Position;
-import packageStructData.ChatMessage;
-import packageStructData.User;
-import packageStructData.Game;
-import packageStructData.Profile;
+import structData.Boat;
+import structData.Shot;
+import structData.DataGame;
+import structData.Position;
+import structData.ChatMessage;
+import structData.User;
+import structData.Game;
+import structData.Profile;
 import java.util.Set;
 import java.util.List;
 

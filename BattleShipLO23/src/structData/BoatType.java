@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package packageStructData;
+package structData;
 
 /**
  * BoatType is an emumerate of all the types of boats.
