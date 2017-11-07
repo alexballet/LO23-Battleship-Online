@@ -12,7 +12,7 @@ public class ServerTest {
     private int port = 2345;
     private String host = "127.0.0.1";
     private ServerSocket server = null;
-    private boolean isRunning = true;
+    private ServerListener listener = null;
 
     public ServerTest(){
         try {
@@ -42,41 +42,24 @@ public class ServerTest {
     public void open(){
 
         //A different thread to run the server
-        Thread t = new Thread(new Runnable(){
-            public void run(){
-                while(isRunning){
+        listener = new ServerListener(server);
 
-                    try {
-                        //Waiting for client request --> Accept
-                        Socket client = server.accept();
+        listener.start();
 
-                        //request accepted --> New thread to process it
-                        System.out.println("NEW MESSAGE RECEIVED");
-                        Thread t = new Thread(new ClientProcessor(client));
-                        t.start();//Run the client request process thread
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                try {
-                    server.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    server = null;
-                }
-            }
-        });
-
-        t.start(); // Run the server thread
     }
 
     /**
      * Close server
      * Turn isRunning into false
      * */
-    public void close(){
-        isRunning = false;
+    public void close() {
+
+        listener.setIsRunning(false);
+
+        try {
+            server.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

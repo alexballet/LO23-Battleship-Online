@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Random;
 
-public class ClientConnection implements Runnable{
+public class ClientConnection extends Thread {
 
     private Socket senderSocket = null;
     private ObjectOutputStream writer = null;
@@ -21,7 +21,9 @@ public class ClientConnection implements Runnable{
     public ClientConnection(String host, int port){
         name += ++count;
         try {
+            System.out.println("TEST");
             senderSocket = new Socket(host, port);
+
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -31,6 +33,8 @@ public class ClientConnection implements Runnable{
 
 
     public void run(){
+
+        System.out.println("BLA");
 
         //10 request per thread (Just for the test)
         for(int i =0; i < 10; i++){

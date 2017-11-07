@@ -14,7 +14,10 @@ public class Server {
         try {
 
             socketserver = new ServerSocket(2009);
+
             socketduserveur = socketserver.accept();
+
+
             System.out.println("Un zéro s'est connecté !");
             socketserver.close();
             socketduserveur.close();

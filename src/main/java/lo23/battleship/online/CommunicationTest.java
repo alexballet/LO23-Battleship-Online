@@ -10,9 +10,9 @@ public class CommunicationTest {
         ts.open();
         System.out.println("Serveur initialisé.");
 
-        for(int i = 0; i < 5; i++){
-            Thread t = new Thread(new ClientConnection(host, port));
-            t.start();
-        }
+        //for(int i = 0; i < 5; i++){
+        ClientConnection cConnection = new ClientConnection(host, port);
+        cConnection.start();
+        //}
     }
 }

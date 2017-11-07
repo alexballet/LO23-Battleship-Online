@@ -14,7 +14,7 @@ public class Client {
 
         try {
 
-            socket = new Socket(InetAddress.getLocalHost(),2009);
+            socket = new Socket(InetAddress.getByName("172.25.35.108"),2009);
             socket.close();
 
         }catch (UnknownHostException e) {
