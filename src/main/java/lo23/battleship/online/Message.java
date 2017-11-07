@@ -8,6 +8,6 @@ import java.io.Serializable;
 public abstract class Message implements Serializable {
 
     String type;
-
+    public abstract Message process();
 }
 

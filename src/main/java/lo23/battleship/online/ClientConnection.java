@@ -70,7 +70,7 @@ public class ClientConnection extends Thread {
             }
         }
         try {
-            writer.writeObject(new Message("CLOSE"));
+            writer.writeObject(new CustomMessage("CLOSE"));
             writer.close();
         } catch (IOException e) {
             System.out.println("----------Something went wrong while closing---------");
@@ -80,7 +80,7 @@ public class ClientConnection extends Thread {
     //Random Messages
     private Message newRandomMessage(){
         Random rand = new Random();
-        return new Message(listMessages[rand.nextInt(listMessages.length)].toUpperCase());
+        return new CustomMessage(listMessages[rand.nextInt(listMessages.length)].toUpperCase());
     }
 
     //Read data:  byte --> string
@@ -89,7 +89,7 @@ public class ClientConnection extends Thread {
             Message message = (Message) reader.readObject();
             return message;
         } catch(ClassNotFoundException e) {
-            return new Message("UNKNOWN");
+            return new CustomMessage("UNKNOWN");
         }
     }
 }

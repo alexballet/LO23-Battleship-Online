@@ -1,5 +1,12 @@
 package lo23.battleship.online.network;
 
+import packageStructDonnées.Game;
+import packageStructDonnées.Profile;
+import packageStructDonnées.Shot;
+import packageStructDonnées.User;
+
+import java.util.ArrayList;
+
 /**
  * Created by xzirva on 17/10/17.
  */
@@ -9,7 +16,6 @@ package lo23.battleship.online.network;
 * */
 
 public interface Interface {
-/*
     public boolean notifyReady(User user);
 
     public boolean sendChatMessage(String message);
@@ -25,5 +31,4 @@ public interface Interface {
     public boolean sendShot(User player, Game game, Shot shot);
 
     public ArrayList<User> searchForPlayers(User user);
-*/
 }

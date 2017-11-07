@@ -77,7 +77,7 @@ public class ClientProcessor implements Runnable{
             Message message = (Message) reader.readObject();
             return message;
         } catch(ClassNotFoundException e) {
-            return new Message("UNKNOWN");
+            return new CustomMessage("UNKNOWN");
         }
     }
 
