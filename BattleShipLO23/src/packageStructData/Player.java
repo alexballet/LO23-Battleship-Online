@@ -14,8 +14,8 @@ public class Player {
     private HashSet listBoats;
     private HashSet listShots;
     
-    public Player() {
-        profile = new Profile();
+    public Player(Profile p) {
+        profile = new Profile(p);
         listBoats = new HashSet();
         listShots = new HashSet();
     }
