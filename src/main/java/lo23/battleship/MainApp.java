@@ -4,6 +4,7 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 
 import guiMain.controller.menuController;
+import guiTable.controllers.PlacementPhaseController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,11 +20,23 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         	
     	FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
+        
+                //Retirer les commentaires ci-après pour lancer l'application depuis le menu principal   
+		/*loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
+                
 		rootLayout = (AnchorPane) loader.load();
 		
 		menuController controller = loader.getController();
-        controller.init();
+                controller.init(); */
+                
+
+                //Commenter les 4 prochaines lignes pour lancer l'application depuis le menu principal  
+                
+                loader.setLocation(getClass().getResource("/fxml/Ihm-plateau/placementPhase.fxml"));
+		rootLayout = (AnchorPane) loader.load();
+		PlacementPhaseController controller = loader.getController();
+                controller.init();  
+
 		
 		Scene scene = new Scene(rootLayout);
 		stage.setTitle("Battleship-Online");

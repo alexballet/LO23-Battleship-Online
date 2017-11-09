@@ -30,3 +30,4 @@ nb-configuration.xml
 tmp/*
 
 doc/*
+/src/JavaFXApplication1/nbproject/private/
