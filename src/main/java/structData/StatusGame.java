@@ -11,6 +11,7 @@ package structData;
  */
 public enum StatusGame {
     WAITINGPLAYER,
+    WAITINGBOT,
     PLAYER1READY,
     PLAYER2READY,
     PLAYING,

@@ -58,21 +58,21 @@ public class User {
      * 
      * @return the login of the user
      */
-    public String getLogin(){
+    public String getlogin(){
         return login;
     } 
     /**
      * 
      * @return the username of the user
      */
-    public String getUsername(){
+    public String getusername(){
         return username;
     }
     /**
      * 
      * @return iPs of the user
      */
-    public HashSet getIPs(){
+    public HashSet getiPs(){
         return iPs;
     }
     
@@ -81,28 +81,28 @@ public class User {
      * 
      * @param idUserdata : the new value of the id of the user
      */
-    public void setIdUser(UUID idUserdata){
+    public void setidUser(UUID idUserdata){
         this.idUser = idUserdata;
     }
     /**
      * 
      * @param logindata : the new value of the login of the user
      */
-    public void setLogin(String logindata){
+    public void setlogin(String logindata){
         this.login = logindata;
     }
     /**
      * 
      * @param usernamedata : the new value of the username of the user
      */
-    public void setUsername(String usernamedata){
+    public void setusername(String usernamedata){
         this.username = usernamedata;
     }
     /**
      * 
      * @param iPsdata : the new value of the iPs of the user
      */
-    public void setIPs(HashSet iPsdata){
+    public void setiPs(HashSet iPsdata){
         this.iPs = iPsdata;
     }
     
