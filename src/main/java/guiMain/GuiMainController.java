@@ -18,6 +18,7 @@ public class GuiMainController implements GuiMainInterface {
 	private Stage stage;
 	private AnchorPane rootLayout;
 	private IDataMain idata;
+	private menuController menuController;
 	
 	public IDataMain getIdata() {
 		return idata;
@@ -55,20 +56,18 @@ public class GuiMainController implements GuiMainInterface {
 	}
 
 	public void startIHM(){
-
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
 		try {
 			rootLayout = (AnchorPane) loader.load();
 
-			menuController controller = loader.getController();
-			controller.init();
+			menuController = loader.getController();
+			menuController.init();
 
 			Scene scene = new Scene(rootLayout);
 			stage.setTitle("Battleship-Online");
 			stage.setScene(scene);
 			stage.show();
-
 
 		} catch (IOException e) {
 			e.printStackTrace();

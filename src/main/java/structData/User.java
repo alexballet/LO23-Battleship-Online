@@ -29,8 +29,8 @@ public class User {
      */
     public User(String logindata, String usernamedata){
         idUser = UUID.randomUUID();
-        login = logindata;
-        username = usernamedata;
+        login = new String(logindata);
+        username = new String(usernamedata);
         iPs = new HashSet();
     }
     
@@ -51,28 +51,28 @@ public class User {
      * 
      * @return the id of the user
      */
-    public UUID getidUser(){
+    public UUID getIdUser(){
         return idUser;
     }
     /**
      * 
      * @return the login of the user
      */
-    public String getlogin(){
+    public String getLogin(){
         return login;
     } 
     /**
      * 
      * @return the username of the user
      */
-    public String getusername(){
+    public String getUsername(){
         return username;
     }
     /**
      * 
      * @return iPs of the user
      */
-    public HashSet getiPs(){
+    public HashSet getIPs(){
         return iPs;
     }
     
@@ -88,21 +88,21 @@ public class User {
      * 
      * @param logindata : the new value of the login of the user
      */
-    public void setlogin(String logindata){
+    public void setLogin(String logindata){
         this.login = logindata;
     }
     /**
      * 
      * @param usernamedata : the new value of the username of the user
      */
-    public void setusername(String usernamedata){
+    public void setUsername(String usernamedata){
         this.username = usernamedata;
     }
     /**
      * 
      * @param iPsdata : the new value of the iPs of the user
      */
-    public void setiPs(HashSet iPsdata){
+    public void setIPs(HashSet iPsdata){
         this.iPs = iPsdata;
     }
     
