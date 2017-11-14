@@ -122,7 +122,7 @@ public class DataGame extends Game{
      * Add a message to the list of message
      * @param msg the message to add
      */
-    public void addMessage(Message msg){
+    public void addMessage(MessageType msg){
         listMessages.add(msg);
     }
  
