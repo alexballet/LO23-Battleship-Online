@@ -249,29 +249,17 @@ public class placementPhaseClassicController implements Initializable{
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode() == KeyCode.R) {
                     if(rotationIsValide){
-<<<<<<< HEAD
                         
                         isActive.setRotate(isActive.getRotate(+90));
                         
                         
                         
                         
-=======
                         // If the rotation is valid (The mouse is overe the grid)
->>>>>>> aeb156fc4a00891223a23c28680eb8c8af7a8b6a
                         if(porteAvions.isActive()){
                             // and this boat is active
                             if (porteAvionsDrawing.getRotate()==0){
-<<<<<<< HEAD
-                                porteAvionsDrawing.setRotate(porteAvionsDrawing.getRotate()+90);
-                                porteAvionsDrawing.setLayoutX(GRIDX + SPACE + 35*porteAvions.getGridCol()-70);
-                                porteAvionsDrawing.setLayoutY(GRIDY + SPACE + 35*porteAvions.getGridRow()+70);
-                                porteAvions.setRotation(!porteAvions.isRotation());
-                            } else if (porteAvionsDrawing.getRotate()==90){
-                                porteAvionsDrawing.setRotate(180);
-                                porteAvionsDrawing.setLayoutX(GRIDX + SPACE + 35*porteAvions.getGridCol());
-                                porteAvionsDrawing.setLayoutY(GRIDY + SPACE + 35*porteAvions.getGridRow());
-=======
+
                                 // Switches its rotation angle
                                 porteAvionsDrawing.setRotate(90);
                                 // Draws the boat in the new position
@@ -283,7 +271,6 @@ public class placementPhaseClassicController implements Initializable{
                                 porteAvionsDrawing.setRotate(0);
                                 porteAvionsDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*porteAvions.getGridCol());
                                 porteAvionsDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*porteAvions.getGridRow());
->>>>>>> aeb156fc4a00891223a23c28680eb8c8af7a8b6a
                                 porteAvions.setRotation(false);                            
                             }
                         } else if(croiseur.isActive()){
@@ -492,43 +479,13 @@ public class placementPhaseClassicController implements Initializable{
         EventHandler<MouseEvent> mousePressGridHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-<<<<<<< HEAD
                     
                     isActive.setActive(false);
                     isActive.setMouseTransparent(false);
                     isActive.setFill(Color.web("#ababab"));
                     
                                         
-=======
-                    //If the user has placed the boat
-                    if(porteAvions.isActive()){
-                        //And this boat is active, the method makes the boat unactive and not
-                        // transparent to mouse events and changes the boat's color.
-                        porteAvions.setActive(false);
-                        porteAvionsDrawing.setMouseTransparent(false);
-                        porteAvionsDrawing.setFill(Color.web("#ababab"));
-                    }
-                    if(croiseur.isActive()){
-                        croiseur.setActive(false);
-                        croiseurDrawing.setMouseTransparent(false);
-                        croiseurDrawing.setFill(Color.web("#ababab"));
-                    }
-                    if(contreTorpilleur.isActive()){
-                        contreTorpilleur.setActive(false);
-                        contreTorpilleurDrawing.setMouseTransparent(false);
-                        contreTorpilleurDrawing.setFill(Color.web("#ababab"));
-                    }
-                    if(sousMarin.isActive()){
-                        sousMarin.setActive(false);
-                        sousMarinDrawing.setMouseTransparent(false);
-                        sousMarinDrawing.setFill(Color.web("#ababab"));
-                    }
-                    if(torpilleur.isActive()){
-                        torpilleur.setActive(false);
-                        torpilleurDrawing.setMouseTransparent(false);
-                        torpilleurDrawing.setFill(Color.web("#ababab"));
-                    }        
->>>>>>> aeb156fc4a00891223a23c28680eb8c8af7a8b6a
+    
                 }
             }
         };
