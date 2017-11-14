@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
 
-public interface NetworkInterface {
+public interface COMInterface {
     /**
      * Notify if a player is ready or not
      * @param user player who is notify
