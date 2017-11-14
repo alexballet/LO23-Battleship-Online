@@ -49,7 +49,8 @@ public class placementPhaseClassicController implements Initializable{
     private static final int SPACE = 3;
     
     private boolean rotationIsValide;
-    
+    private BoatDrawing isActive;
+            
     private BoatDrawing porteAvions;
     private BoatDrawing croiseur;
     private BoatDrawing contreTorpilleur;
@@ -222,14 +223,20 @@ public class placementPhaseClassicController implements Initializable{
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode() == KeyCode.R) {
                     if(rotationIsValide){
+                        
+                        isActive.setRotate(isActive.getRotate(+90));
+                        
+                        
+                        
+                        
                         if(porteAvions.isActive()){
                             if (porteAvionsDrawing.getRotate()==0){
-                                porteAvionsDrawing.setRotate(90);
+                                porteAvionsDrawing.setRotate(porteAvionsDrawing.getRotate()+90);
                                 porteAvionsDrawing.setLayoutX(GRIDX + SPACE + 35*porteAvions.getGridCol()-70);
                                 porteAvionsDrawing.setLayoutY(GRIDY + SPACE + 35*porteAvions.getGridRow()+70);
-                                porteAvions.setRotation(true);
+                                porteAvions.setRotation(!porteAvions.isRotation());
                             } else if (porteAvionsDrawing.getRotate()==90){
-                                porteAvionsDrawing.setRotate(0);
+                                porteAvionsDrawing.setRotate(180);
                                 porteAvionsDrawing.setLayoutX(GRIDX + SPACE + 35*porteAvions.getGridCol());
                                 porteAvionsDrawing.setLayoutY(GRIDY + SPACE + 35*porteAvions.getGridRow());
                                 porteAvions.setRotation(false);                            
@@ -297,6 +304,33 @@ public class placementPhaseClassicController implements Initializable{
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
 
+                    BoatDrawing boat = (BoatDrawing) event.getSource();
+                    
+                    /*
+                    active boat
+                    porteAvions.setActive(true);
+                        croiseur.setActive(false);
+                        contreTorpilleur.setActive(false);
+                        sousMarin.setActive(false);
+                        torpilleur.setActive(false);
+                        
+                        porteAvionsDrawing.setMouseTransparent(true);
+                        croiseurDrawing.setMouseTransparent(false);
+                        contreTorpilleurDrawing.setMouseTransparent(false);
+                        sousMarinDrawing.setMouseTransparent(false);
+                        torpilleurDrawing.setMouseTransparent(false);
+                        
+                        porteAvionsDrawing.setFill(Color.web("#d8d875"));
+                        croiseurDrawing.setFill(Color.web("#ababab"));
+                        contreTorpilleurDrawing.setFill(Color.web("#ababab"));
+                        sousMarinDrawing.setFill(Color.web("#ababab"));
+                        torpilleurDrawing.setFill(Color.web("#ababab"));
+                    
+                        boat.setActive(true)
+                    */
+                    
+                    isActive = boat;
+                    
                     if(event.getSource().equals(porteAvionsDrawing)){
                         porteAvions.setActive(true);
                         croiseur.setActive(false);
@@ -380,6 +414,7 @@ public class placementPhaseClassicController implements Initializable{
                         sousMarin.setActive(false);
                         torpilleur.setActive(true);
                         
+                        
                         porteAvionsDrawing.setMouseTransparent(false);
                         croiseurDrawing.setMouseTransparent(false);
                         contreTorpilleurDrawing.setMouseTransparent(false);
@@ -403,32 +438,12 @@ public class placementPhaseClassicController implements Initializable{
 
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    if(porteAvions.isActive()){
-                        porteAvions.setActive(false);
-                        porteAvionsDrawing.setMouseTransparent(false);
-                        porteAvionsDrawing.setFill(Color.web("#ababab"));
-                    }
-                    if(croiseur.isActive()){
-                        croiseur.setActive(false);
-                        croiseurDrawing.setMouseTransparent(false);
-                        croiseurDrawing.setFill(Color.web("#ababab"));
-                    }
-                    if(contreTorpilleur.isActive()){
-                        contreTorpilleur.setActive(false);
-                        contreTorpilleurDrawing.setMouseTransparent(false);
-                        contreTorpilleurDrawing.setFill(Color.web("#ababab"));
-                    }
-                    if(sousMarin.isActive()){
-                        sousMarin.setActive(false);
-                        sousMarinDrawing.setMouseTransparent(false);
-                        sousMarinDrawing.setFill(Color.web("#ababab"));
-                    }
-                    if(torpilleur.isActive()){
-                        torpilleur.setActive(false);
-                        torpilleurDrawing.setMouseTransparent(false);
-                        torpilleurDrawing.setFill(Color.web("#ababab"));
-                    }
                     
+                    isActive.setActive(false);
+                    isActive.setMouseTransparent(false);
+                    isActive.setFill(Color.web("#ababab"));
+                    
+                                        
                 }
             }
         };
