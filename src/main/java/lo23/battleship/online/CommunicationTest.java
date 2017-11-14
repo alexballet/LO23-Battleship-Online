@@ -13,7 +13,7 @@ public class CommunicationTest {
         String host = "172.25.35.108";
         int port = 2345;
         NetworkModuleInterface networkInterface = new NetworkModuleInterface();
-        networkInterface.sendRandomMessage(host, port);
+        //networkInterface.sendRandomMessage(host, port);
 
     }
 }
