@@ -53,11 +53,6 @@ public class CDataCom implements IDataCom {
     }
 
     @Override
-    public void addUser(Set<User> users) {
-        
-    }
-
-    @Override
     public void setGameJoinResponse(Boolean ok, User player1, User player2) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
