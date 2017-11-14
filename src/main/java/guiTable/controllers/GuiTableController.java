@@ -16,12 +16,34 @@ import packageStructDonnées.Shot;
 
 /**
  *
- * @author raphael
+ * @author Raphael
  */
 public class GuiTableController implements GuiTableInterface {
 
     
     private AnchorPane rootLayout;
+    private static GuiTableController INSTANCE = null;
+
+    /**
+     * Private constructor for GuiTableController.
+     */
+    private GuiTableController(){
+    }
+    
+    
+    /**
+     * Entry point for a unique instance of singleton GuiTableController;
+     * @return GuiTableController : the singleton GuiTableController.
+     */
+    public static GuiTableInterface getInstance()
+    {			
+        if (INSTANCE == null)
+        { 
+            INSTANCE = new GuiTableController();	
+        }
+        return INSTANCE;
+    }
+    
     
     @Override
     public void displayPlacementPhase(Stage currentStage) throws Exception {
@@ -34,7 +56,6 @@ public class GuiTableController implements GuiTableInterface {
         currentStage.setTitle("Battleship-Online");
         currentStage.setScene(scene);
         currentStage.show();
-        
     }
 
     @Override

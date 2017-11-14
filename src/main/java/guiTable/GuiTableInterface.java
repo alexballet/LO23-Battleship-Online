@@ -11,6 +11,7 @@ import packageStructDonnées.Shot;
  * @author corentinhembise
  */
 public interface GuiTableInterface {
+    
     /**
      * Displays the window where the player will place their ships.
      * @param currentStage 

@@ -10,7 +10,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
 import packageStructDonnées.User;
-import guiTable.GuiTableInterface;
 import guiTable.controllers.GuiTableController;
 import javafx.stage.Stage;
 import sun.security.ssl.Debug;
@@ -89,9 +88,9 @@ public class menuController {
          */        
 	@FXML
 	private void createGame(){
-            GuiTableInterface guiTableController = new GuiTableController();
+            
             try{
-                guiTableController.displayPlacementPhase( this.currentStage );
+                GuiTableController.getInstance().displayPlacementPhase( this.currentStage );
             }
             catch(Exception e){
                 System.err.println(e.getMessage());
