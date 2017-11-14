@@ -4,9 +4,11 @@ import data.DataController;
 import lo23.battleship.online.network.messages.ConnectionRequestMessage;
 import lo23.battleship.online.network.messages.Message;
 import structData.DataUser;
+import interfacesData.IDataCom;
 
 import java.io.IOException;
 import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.HashSet;
 import java.util.Map;
@@ -29,6 +31,7 @@ public class NetworkController {
     private static NetworkController instance;
     // TODO: uncomment when User class is defined
     //private HashMap<User, Inet4Address> networkState;
+    IDataCom dataInterface;
     private NetworkServer networkServer;
 
 
@@ -51,7 +54,7 @@ public class NetworkController {
         }
     }
 
-    public void sendMessage(Message message, String destinationIpAddress) {
+    public void sendMessage(Message message, InetAddress destinationIpAddress) {
 
         Socket destinationSocket = null;
 
@@ -66,6 +69,15 @@ public class NetworkController {
 
     private void discoverNetwork(HashSet ipsHash) {
 
+    }
 
+
+
+    public void setDataInterface(IDataCom IData) {
+        this.dataInterface = IData;
+    }
+
+    public COMInterface getCOMInterface() {
+        return networkInterface;
     }
 }
