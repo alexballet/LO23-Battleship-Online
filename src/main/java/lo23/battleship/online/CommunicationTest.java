@@ -6,9 +6,9 @@ public class CommunicationTest {
 
         String host = "172.25.35.108";
         int port = 2345;
-        ServerTest ts = new ServerTest(host, port);
-        ts.open();
-        System.out.println("Serveur initialisé.");
+        //NetworkServer ts = new NetworkServer(host, port);
+        //ts.open();
+        //System.out.println("Serveur initialisé.");
 
         //for(int i = 0; i < 5; i++){
 //        ClientConnection cConnection = new ClientConnection(host, port);

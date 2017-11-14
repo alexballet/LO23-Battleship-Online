@@ -9,6 +9,17 @@ public class NetworkController {
     private NetworkModuleInterface networkInterface;
     // TODO: uncomment when User class is defined
     //private HashMap<User, Inet4Address> networkState;
-    private NetworkListener networkListener;
+    private NetworkServer networkServer;
 
+    public NetworkController() {
+
+        this.networkServer = new NetworkServer(this);
+
+        this.networkServer.open();
+    }
+
+    public static void main(String[] args) {
+
+        new NetworkController();
+    }
 }
