@@ -5,6 +5,7 @@
  */
 package data;
 
+import guiMain.GuiMainInterface;
 import interfacesData.IDataCom;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +23,19 @@ import structData.User;
  * @author Irvin
  */
 public class CDataCom implements IDataCom {
+    
+    private DataController controller;
+    
+    private GuiMainInterface interfaceMain;
+    
+    public CDataCom(DataController dc){
+        super();
+        controller = dc;
+    }
+    
+    public void setInterfaceMain(GuiMainInterface i){
+        interfaceMain = i;
+    }
 
     @Override
     public void getIPTableAdresses(Boolean withGame, Set iPs, DataGame dataGame) {
@@ -40,7 +54,7 @@ public class CDataCom implements IDataCom {
 
     @Override
     public void addUser(Set<User> users) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
@@ -55,7 +69,8 @@ public class CDataCom implements IDataCom {
 
     @Override
     public void addUserToUserList(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.addUserToList(user);
+        interfaceMain.addUser(user);
     }
 
     @Override

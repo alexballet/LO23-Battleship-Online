@@ -5,6 +5,7 @@
  */
 package data;
 
+import guiMain.GuiMainInterface;
 import interfacesData.IDataMain;
 import java.util.Date;
 import structData.ContactGroup;
@@ -18,6 +19,7 @@ import structData.User;
 public class CDataMain implements IDataMain {
     
     private DataController controller;
+    
     
     public CDataMain(DataController dc){
         super();
@@ -56,7 +58,8 @@ public class CDataMain implements IDataMain {
 
     @Override
     public void connection() {
-        //searchForPlayers(controller.getUser().getiPs());
+        User u = new User("login", "username");
+        controller.setLocalUser(u);
     }
 
     @Override
