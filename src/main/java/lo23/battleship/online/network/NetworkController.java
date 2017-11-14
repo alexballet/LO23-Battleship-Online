@@ -24,7 +24,8 @@ public class NetworkController {
 
     }
     private NetworkController() {
-
+        networkInterface = new NetworkModuleInterface();
+        networkInterface.setDataInterface(dataInterface);
     }
 
     public void launchServer() {

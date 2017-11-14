@@ -68,6 +68,7 @@ public class GuiMainController implements GuiMainInterface {
 			stage.setTitle("Battleship-Online");
 			stage.setScene(scene);
 			stage.show();
+			idata.connection();
 
 		} catch (IOException e) {
 			e.printStackTrace();
