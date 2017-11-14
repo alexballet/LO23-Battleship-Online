@@ -70,8 +70,8 @@ public class Boat {
     
     //verify if a position belong to a
     public Boolean verifyPosition (Position pos){
-        
-        return listCases.contains(pos);
+        //fonction not yet finished
+        return true;
         
     }
     
