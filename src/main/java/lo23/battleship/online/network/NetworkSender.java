@@ -12,7 +12,7 @@ import java.text.DateFormat;
 import java.util.Date;
 
 //  {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
-public class NetworkSender implements Runnable{
+public class NetworkSender implements Runnable {
 
     private Socket sock;
     private ObjectOutputStream writer = null;
@@ -20,13 +20,16 @@ public class NetworkSender implements Runnable{
     private static int count = 0;
     private Message message;
     private String name;
+
     public NetworkSender(Socket socket, Message message) {
+
         sock = socket;
         this.message = message;
     }
 
     //New thread to process request
-    public void run(){
+    public void run() {
+
         try {
             boolean closeConnexion = false;
             writer = new ObjectOutputStream(sock.getOutputStream());
@@ -35,14 +38,17 @@ public class NetworkSender implements Runnable{
             writer.writeObject(message);
 
             if (message.getType().equals("CommunicationOver")) closeConnexion = true;
-            if(closeConnexion){
+
+            if(closeConnexion) {
+
                 System.err.println("Close Message");
                 writer = null;
                 reader = null;
                 System.err.println("----------------Closing-----------------");
                 sock.close();
             }
-        }catch(SocketException e){
+
+        } catch(SocketException e) {
             System.err.println(" / ! \\ Interrupted: Something went wrong / ! \\");
         } catch (IOException e) {
             e.printStackTrace();
