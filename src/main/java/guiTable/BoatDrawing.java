@@ -18,70 +18,25 @@ public class BoatDrawing{
     private boolean active;
     private boolean rotation;
     private Boat boat;
-    private Rectangle boatDrawing;
+    private Rectangle boatRectangle;
+    private BoatType boatType;
     private double initialLayoutX;
     private double initialLayoutY;
     private Integer gridRow;
     private Integer gridCol;
     
-    /**
-     * Constructor of the object.
-     * @param boatType
-     * @param boatDrawing 
-     */
-    public BoatDrawing(BoatType boatType, Rectangle boatDrawing) {
+    private static final float PORTE_AVIONS_OFFSET = 70;
+    private static final float CROISEUR_OFFSET = (float) 52.5;
+    private static final float CONTRE_TORPILLEUR_OFFSET = 35;
+    private static final float SOUS_MARIN_OFFSET = 35;
+    private static final float TOURPILLEUR_OFFSET = (float) 17.5;
+
+    public BoatDrawing(BoatType boatType, Rectangle boatRectangle) {
         this.active = false;
         this.rotation = false;
         this.boat = new Boat(); //Include boattype??
-        this.boatDrawing = boatDrawing;
-    }
-
-    /**
-     * Returns the boat's row on the grid.
-     * @return gridRow
-     */
-    public Integer getGridRow() {
-        return gridRow;
-    }
-    
-    /**
-     * Sets the boat's row on the grid.
-     * @param gridRow 
-     */
-    public void setGridRow(Integer gridRow) {
-        this.gridRow = gridRow;
-    }
-
-    /**
-     * Returns the boat's column on the grid.
-     * @return 
-     */
-    public Integer getGridCol() {
-        return gridCol;
-    }
-
-    /**
-     * Sets the boat's column on the grid.
-     * @param gridCol 
-     */
-    public void setGridCol(Integer gridCol) {
-        this.gridCol = gridCol;
-    }
-
-    public double getInitialLayoutX() {
-        return initialLayoutX;
-    }
-
-    public double getInitialLayoutY() {
-        return initialLayoutY;
-    }
-
-    public void setInitialLayoutY(double initialLayoutY) {
-        this.initialLayoutY = initialLayoutY;
-    }
-
-    public void setInitialLayoutX(double initialLayoutX) {
-        this.initialLayoutX = initialLayoutX;
+        this.boatRectangle = boatRectangle;
+        this.boatType = boatType;
     }
 
     public boolean isActive() {
@@ -99,12 +54,79 @@ public class BoatDrawing{
     public void setRotation(boolean rotation) {
         this.rotation = rotation;
     }
+
+    public Boat getBoat() {
+        return boat;
+    }
+
+    public void setBoat(Boat boat) {
+        this.boat = boat;
+    }
+
+    public Rectangle getBoatRectangle() {
+        return boatRectangle;
+    }
+
+    public void setBoatRectangle(Rectangle boatRectangle) {
+        this.boatRectangle = boatRectangle;
+    }
+
+    public double getInitialLayoutX() {
+        return initialLayoutX;
+    }
+
+    public void setInitialLayoutX(double initialLayoutX) {
+        this.initialLayoutX = initialLayoutX;
+    }
+
+    public double getInitialLayoutY() {
+        return initialLayoutY;
+    }
+
+    public void setInitialLayoutY(double initialLayoutY) {
+        this.initialLayoutY = initialLayoutY;
+    }
+
+    public Integer getGridRow() {
+        return gridRow;
+    }
+
+    public void setGridRow(Integer gridRow) {
+        this.gridRow = gridRow;
+    }
+
+    public Integer getGridCol() {
+        return gridCol;
+    }
+
+    public void setGridCol(Integer gridCol) {
+        this.gridCol = gridCol;
+    }
+
+    public BoatType getBoatType() {
+        return boatType;
+    }
+
+    public void setBoatType(BoatType boatType) {
+        this.boatType = boatType;
+    }
     
-    public void rotate(){
-         if (boatDrawing.getRotate()==0){
-            this.rotation = true;
-        } else if (boatDrawing.getRotate()==90){
-            this.rotation = false;
+    public static float getBoatDrawingOffset(BoatType boatType){
+        switch (boatType) {
+            case PORTEAVIONS:
+                return PORTE_AVIONS_OFFSET;
+            case CROISEURFR:
+                return CROISEUR_OFFSET;
+            case CONTRETORPILLEUR:
+                return CONTRE_TORPILLEUR_OFFSET;
+            case SOUSMARINFR:
+                return SOUS_MARIN_OFFSET;
+            case TORPILLEUR:
+                return TOURPILLEUR_OFFSET;
+            default:
+                return 0;
         }
     }
+    
+    
 }

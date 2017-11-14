@@ -209,11 +209,13 @@
                   </Label>
                </children>
             </Pane>
-            <Rectangle fx:id="croiseurDrawing" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" width="134.0" />
-            <Rectangle fx:id="contreTorpilleurDrawing" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="108.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
-            <Rectangle fx:id="sousMarinDrawing" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
-            <Rectangle fx:id="torpilleurDrawing" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />            
-            <Rectangle fx:id="porteAvionsDrawing" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="169.0" />
+            <Rectangle fx:id="croiseurRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" width="134.0" />
+            <Rectangle fx:id="contreTorpilleurRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="108.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
+            <Rectangle fx:id="sousMarinRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
+            <Rectangle fx:id="torpilleurRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />            
+            <Rectangle fx:id="porteAvionsRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="169.0" />
+            <Button layoutX="450.0" layoutY="505.0" mnemonicParsing="false" text="Valider" />
+            <Button layoutX="14.0" layoutY="505.0" mnemonicParsing="false" text="Quitter" />
          </children>
       </Pane>
       <Button layoutX="550.0" layoutY="571.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="250.0" text="Envoyer" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">

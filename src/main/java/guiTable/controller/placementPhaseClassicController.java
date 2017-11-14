@@ -30,15 +30,15 @@ import packageStructDonnées.BoatType;
 public class placementPhaseClassicController implements Initializable{
     
     @FXML
-    private Rectangle porteAvionsDrawing;
+    private Rectangle porteAvionsRectangle;
     @FXML
-    private Rectangle croiseurDrawing;
+    private Rectangle croiseurRectangle;
     @FXML
-    private Rectangle contreTorpilleurDrawing;
+    private Rectangle contreTorpilleurRectangle;
     @FXML
-    private Rectangle sousMarinDrawing;
+    private Rectangle sousMarinRectangle;
     @FXML
-    private Rectangle torpilleurDrawing; 
+    private Rectangle torpilleurRectangle; 
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -50,7 +50,7 @@ public class placementPhaseClassicController implements Initializable{
     private static final int GRID_ELEMENT_SIZE = 35;
     
     private boolean rotationIsValide;
-    private BoatDrawing isActive;
+    private BoatDrawing activeBoat;
             
     private BoatDrawing porteAvions;
     private BoatDrawing croiseur;
@@ -68,50 +68,52 @@ public class placementPhaseClassicController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        porteAvions = new BoatDrawing(BoatType.PORTEAVIONS,porteAvionsDrawing);
-        croiseur = new BoatDrawing(BoatType.CROISEURFR,croiseurDrawing);
-        contreTorpilleur = new BoatDrawing(BoatType.CONTRETORPILLEUR,contreTorpilleurDrawing);
-        sousMarin = new BoatDrawing(BoatType.SOUSMARINFR,sousMarinDrawing);
-        torpilleur = new BoatDrawing(BoatType.TORPILLEUR,torpilleurDrawing);
+        porteAvions = new BoatDrawing(BoatType.PORTEAVIONS,porteAvionsRectangle);
+        croiseur = new BoatDrawing(BoatType.CROISEURFR,croiseurRectangle);
+        contreTorpilleur = new BoatDrawing(BoatType.CONTRETORPILLEUR,contreTorpilleurRectangle);
+        sousMarin = new BoatDrawing(BoatType.SOUSMARINFR,sousMarinRectangle);
+        torpilleur = new BoatDrawing(BoatType.TORPILLEUR,torpilleurRectangle);
         
-        porteAvions.setInitialLayoutX(porteAvionsDrawing.getLayoutX());
-        porteAvions.setInitialLayoutY(porteAvionsDrawing.getLayoutY());
+        porteAvions.setInitialLayoutX(porteAvionsRectangle.getLayoutX());
+        porteAvions.setInitialLayoutY(porteAvionsRectangle.getLayoutY());
         
-        croiseur.setInitialLayoutX(croiseurDrawing.getLayoutX());
-        croiseur.setInitialLayoutY(croiseurDrawing.getLayoutY());
+        croiseur.setInitialLayoutX(croiseurRectangle.getLayoutX());
+        croiseur.setInitialLayoutY(croiseurRectangle.getLayoutY());
         
-        contreTorpilleur.setInitialLayoutX(contreTorpilleurDrawing.getLayoutX());
-        contreTorpilleur.setInitialLayoutY(contreTorpilleurDrawing.getLayoutY());
+        contreTorpilleur.setInitialLayoutX(contreTorpilleurRectangle.getLayoutX());
+        contreTorpilleur.setInitialLayoutY(contreTorpilleurRectangle.getLayoutY());
         
-        sousMarin.setInitialLayoutX(sousMarinDrawing.getLayoutX());
-        sousMarin.setInitialLayoutY(sousMarinDrawing.getLayoutY());
+        sousMarin.setInitialLayoutX(sousMarinRectangle.getLayoutX());
+        sousMarin.setInitialLayoutY(sousMarinRectangle.getLayoutY());
         
-        torpilleur.setInitialLayoutX(torpilleurDrawing.getLayoutX());
-        torpilleur.setInitialLayoutY(torpilleurDrawing.getLayoutY());
+        torpilleur.setInitialLayoutX(torpilleurRectangle.getLayoutX());
+        torpilleur.setInitialLayoutY(torpilleurRectangle.getLayoutY());
         
-        porteAvionsDrawing.setOnMousePressed(pressMouse());
+        porteAvionsRectangle.setOnMousePressed(activateBoat());
         
-        croiseurDrawing.setOnMousePressed(pressMouse());
+        croiseurRectangle.setOnMousePressed(activateBoat());
  
-        contreTorpilleurDrawing.setOnMousePressed(pressMouse());
+        contreTorpilleurRectangle.setOnMousePressed(activateBoat());
         
-        sousMarinDrawing.setOnMousePressed(pressMouse());
+        sousMarinRectangle.setOnMousePressed(activateBoat());
         
-        torpilleurDrawing.setOnMousePressed(pressMouse());
+        torpilleurRectangle.setOnMousePressed(activateBoat());
+        
+        activeBoat = null;
 
         for (int i = 0 ; i < 10 ; i++) {
             for (int j = 0; j < 10; j++) {
                 Pane pane = new Pane();
-                pane.setOnMouseEntered(detectMouse());
+                pane.setOnMouseEntered(drawBoatsNewPosition());
                 table.add(pane, i, j);
             }
         }
         
-        table.setOnMousePressed(pressMouseGrid());
+        table.setOnMousePressed(unactiveBoat());
         table.setOnMouseEntered(enableRotation());
         table.setOnMouseExited(disableRotation());
         
-        anchorPane.addEventHandler(KeyEvent.KEY_PRESSED, pressR());
+        anchorPane.addEventHandler(KeyEvent.KEY_PRESSED, rotateBoat());
         
         rotationIsValide = false;
     }
@@ -121,7 +123,6 @@ public class placementPhaseClassicController implements Initializable{
      * over the grid.
      * @return mouseLocationHandler
      */
-    
     private EventHandler<MouseEvent> enableRotation() {
         EventHandler<MouseEvent> mouseLocationHandler = new EventHandler<MouseEvent>() {
             @Override
@@ -132,12 +133,12 @@ public class placementPhaseClassicController implements Initializable{
         };
         return mouseLocationHandler;
     }
+    
     /**
      * Method that disables the boat rotation, because the mouse is not over
      * the grid.
      * @return 
      */
-    
     private EventHandler<MouseEvent> disableRotation() {
         EventHandler<MouseEvent> mouseLocationHandler = new EventHandler<MouseEvent>() {
             @Override
@@ -154,82 +155,15 @@ public class placementPhaseClassicController implements Initializable{
      * element of the grid.
      * @return mousePositionHandler
      */
-    
-    private EventHandler<MouseEvent> detectMouse() {
+    private EventHandler<MouseEvent> drawBoatsNewPosition() {
         EventHandler<MouseEvent> mousePositionHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                // Gets the row and the column of the mouse
-                Node source = (Node)event.getSource() ;
-                Integer colIndex = GridPane.getColumnIndex(source);
-                Integer rowIndex = GridPane.getRowIndex(source);
-                if(porteAvions.isActive()){
-                    //If this boat is active( the user has selected it)
-                    if(!porteAvions.isRotation()){  
-                        // Draws the boat in the new Position
-                        porteAvionsDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
-                        porteAvionsDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
-                        // Sets the boat's new coordinates
-                        porteAvions.setGridCol(colIndex);
-                        porteAvions.setGridRow(rowIndex);
-                    } else if(porteAvions.isRotation()){
-                        porteAvionsDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - 70);
-                        porteAvionsDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + 70);
-                        porteAvions.setGridCol(colIndex);
-                        porteAvions.setGridRow(rowIndex);
-                    }
-                }
-                if(croiseur.isActive()){
-                    if(!croiseur.isRotation()){  
-                        croiseurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
-                        croiseurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
-                        croiseur.setGridCol(colIndex);
-                        croiseur.setGridRow(rowIndex);
-                    } else if(croiseur.isRotation()){
-                        croiseurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - 52.5);
-                        croiseurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + 52.5);
-                        croiseur.setGridCol(colIndex);
-                        croiseur.setGridRow(rowIndex);
-                    }
-                }
-                if(contreTorpilleur.isActive()){
-                    if(!contreTorpilleur.isRotation()){  
-                        contreTorpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
-                        contreTorpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
-                        contreTorpilleur.setGridCol(colIndex);
-                        contreTorpilleur.setGridRow(rowIndex);
-                    } else if(contreTorpilleur.isRotation()){
-                        contreTorpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - 35);
-                        contreTorpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + 35);
-                        contreTorpilleur.setGridCol(colIndex);
-                        contreTorpilleur.setGridRow(rowIndex);
-                    }
-                }
-                if(sousMarin.isActive()){
-                    if(!sousMarin.isRotation()){  
-                        sousMarinDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
-                        sousMarinDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
-                        sousMarin.setGridCol(colIndex);
-                        sousMarin.setGridRow(rowIndex);
-                    } else if(sousMarin.isRotation()){
-                        sousMarinDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - 35);
-                        sousMarinDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + 35);
-                        sousMarin.setGridCol(colIndex);
-                        sousMarin.setGridRow(rowIndex);
-                    }
-                }
-                if(torpilleur.isActive()){
-                    if(!torpilleur.isRotation()){  
-                        torpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
-                        torpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
-                        torpilleur.setGridCol(colIndex);
-                        torpilleur.setGridRow(rowIndex);
-                    } else if(torpilleur.isRotation()){
-                        torpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - 17.5);
-                        torpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + 17.5);
-                        torpilleur.setGridCol(colIndex);
-                        torpilleur.setGridRow(rowIndex);
-                    }
+                if(activeBoat!=null){
+                    Node source = (Node)event.getSource() ;
+                    Integer colIndex = GridPane.getColumnIndex(source);
+                    Integer rowIndex = GridPane.getRowIndex(source);
+                    draw(activeBoat, colIndex, rowIndex);                    
                 }
                 event.consume();
             }
@@ -238,232 +172,88 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
+     * 
+     * @param boat
+     * @param colIndex
+     * @param rowIndex 
+     */
+    private void draw(BoatDrawing boat, Integer colIndex, Integer rowIndex){
+        if(!boat.isRotation()){
+            boat.getBoatRectangle().setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
+            boat.getBoatRectangle().setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
+            boat.setGridCol(colIndex);
+            boat.setGridRow(rowIndex);
+        } else if (boat.isRotation()){
+            boat.getBoatRectangle().setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - BoatDrawing.getBoatDrawingOffset(boat.getBoatType()));
+            boat.getBoatRectangle().setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + BoatDrawing.getBoatDrawingOffset(boat.getBoatType()));
+            boat.setGridCol(colIndex);
+            boat.setGridRow(rowIndex);
+        }
+    }
+       
+    /**
      * Method that rotates the boat active when the user press R.
      * @return keyEeventHandler
-     */
-    
-    public EventHandler<KeyEvent> pressR() {
+     */  
+    public EventHandler<KeyEvent> rotateBoat() {
         EventHandler<KeyEvent> keyEventHandler;
         keyEventHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode() == KeyCode.R) {
                     if(rotationIsValide){
-                        
-                        isActive.setRotate(isActive.getRotate(+90));
-                        
-                        
-                        
-                        
-                        // If the rotation is valid (The mouse is overe the grid)
-                        if(porteAvions.isActive()){
-                            // and this boat is active
-                            if (porteAvionsDrawing.getRotate()==0){
-
-                                // Switches its rotation angle
-                                porteAvionsDrawing.setRotate(90);
-                                // Draws the boat in the new position
-                                porteAvionsDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*porteAvions.getGridCol()-70);
-                                porteAvionsDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*porteAvions.getGridRow()+70);
-                                // Sets its new rotation
-                                porteAvions.setRotation(true);
-                            } else if (porteAvionsDrawing.getRotate()==90){
-                                porteAvionsDrawing.setRotate(0);
-                                porteAvionsDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*porteAvions.getGridCol());
-                                porteAvionsDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*porteAvions.getGridRow());
-                                porteAvions.setRotation(false);                            
-                            }
-                        } else if(croiseur.isActive()){
-                            if (croiseurDrawing.getRotate()==0){
-                                croiseurDrawing.setRotate(90);
-                                croiseurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*croiseur.getGridCol()-52.5);
-                                croiseurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*croiseur.getGridRow()+52.5);
-                                croiseur.setRotation(true);
-                            } else if (croiseurDrawing.getRotate()==90){
-                                croiseurDrawing.setRotate(0);
-                                croiseurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*croiseur.getGridCol());
-                                croiseurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*croiseur.getGridRow());
-                                croiseur.setRotation(false);                            
-                            }
-                        } else if(contreTorpilleur.isActive()){
-                            if (contreTorpilleurDrawing.getRotate()==0){
-                                contreTorpilleurDrawing.setRotate(90);
-                                contreTorpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*contreTorpilleur.getGridCol()-35);
-                                contreTorpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*contreTorpilleur.getGridRow()+35);
-                                contreTorpilleur.setRotation(true);
-                            } else if (contreTorpilleurDrawing.getRotate()==90){
-                                contreTorpilleurDrawing.setRotate(0);
-                                contreTorpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*contreTorpilleur.getGridCol());
-                                contreTorpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*contreTorpilleur.getGridRow());
-                                contreTorpilleur.setRotation(false);                            
-                            }
-                        } else if(sousMarin.isActive()){
-                            if (sousMarinDrawing.getRotate()==0){
-                                sousMarinDrawing.setRotate(90);
-                                sousMarinDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*sousMarin.getGridCol()-35);
-                                sousMarinDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*sousMarin.getGridRow()+35);
-                                sousMarin.setRotation(true);
-                            } else if (sousMarinDrawing.getRotate()==90){
-                                sousMarinDrawing.setRotate(0);
-                                sousMarinDrawing.setLayoutX(GRID_X + SPACE + 35*sousMarin.getGridCol());
-                                sousMarinDrawing.setLayoutY(GRID_Y + SPACE + 35*sousMarin.getGridRow());
-                                sousMarin.setRotation(false);                            
-                            }
-                        } else if(torpilleur.isActive()){
-                            if (torpilleurDrawing.getRotate()==0){
-                                torpilleurDrawing.setRotate(90);
-                                torpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*torpilleur.getGridCol()-17.5);
-                                torpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*torpilleur.getGridRow()+17.5);
-                                torpilleur.setRotation(true);
-                            } else if (torpilleurDrawing.getRotate()==90){
-                                torpilleurDrawing.setRotate(0);
-                                torpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*torpilleur.getGridCol());
-                                torpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*torpilleur.getGridRow());
-                                torpilleur.setRotation(false);                            
-                            }
+                        if(activeBoat!=null){
+                            drawRotation(activeBoat);                            
                         }
                     }   
                 }
+                keyEvent.consume();
             }
         };
         return keyEventHandler;
     }
     
     /**
+     * 
+     * @param boat 
+     */
+    private void drawRotation(BoatDrawing boat){
+        if(boat.isRotation()){
+            boat.setRotation(false);
+            boat.getBoatRectangle().setRotate(0);
+            draw(boat,boat.getGridCol(),boat.getGridRow());
+        } else if(!boat.isRotation()){
+            boat.setRotation(true);
+            boat.getBoatRectangle().setRotate(90);
+            draw(boat,boat.getGridCol(),boat.getGridRow());
+        }
+    }
+    
+    /**
      * Method that actives the boat when the user clicks  on it.
      * @return mousePressHandler
      */   
-    private EventHandler<MouseEvent> pressMouse() {
+    private EventHandler<MouseEvent> activateBoat() {
         EventHandler<MouseEvent> mousePressHandler;
         mousePressHandler = new EventHandler<MouseEvent>() {
             
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-
-                    BoatDrawing boat = (BoatDrawing) event.getSource();
-                    
-                    /*
-                    active boat
-                    porteAvions.setActive(true);
-                        croiseur.setActive(false);
-                        contreTorpilleur.setActive(false);
-                        sousMarin.setActive(false);
-                        torpilleur.setActive(false);
-                        
-                        porteAvionsDrawing.setMouseTransparent(true);
-                        croiseurDrawing.setMouseTransparent(false);
-                        contreTorpilleurDrawing.setMouseTransparent(false);
-                        sousMarinDrawing.setMouseTransparent(false);
-                        torpilleurDrawing.setMouseTransparent(false);
-                        
-                        porteAvionsDrawing.setFill(Color.web("#d8d875"));
-                        croiseurDrawing.setFill(Color.web("#ababab"));
-                        contreTorpilleurDrawing.setFill(Color.web("#ababab"));
-                        sousMarinDrawing.setFill(Color.web("#ababab"));
-                        torpilleurDrawing.setFill(Color.web("#ababab"));
-                    
-                        boat.setActive(true)
-                    */
-                    
-                    isActive = boat;
-
                     //If the user has clicked in the window
-                    if(event.getSource().equals(porteAvionsDrawing)){
-                        //Over this boat, sets that this boat is active and the others are not
-                        porteAvions.setActive(true);
-                        croiseur.setActive(false);
-                        contreTorpilleur.setActive(false);
-                        sousMarin.setActive(false);
-                        torpilleur.setActive(false);
-                        //Sets this boat invisible to mouse events and the others are not
-                        porteAvionsDrawing.setMouseTransparent(true);
-                        croiseurDrawing.setMouseTransparent(false);
-                        contreTorpilleurDrawing.setMouseTransparent(false);
-                        sousMarinDrawing.setMouseTransparent(false);
-                        torpilleurDrawing.setMouseTransparent(false);
-                        // Change its color to yellow and the color of the other to gray
-                        porteAvionsDrawing.setFill(Color.web("#d8d875"));
-                        croiseurDrawing.setFill(Color.web("#ababab"));
-                        contreTorpilleurDrawing.setFill(Color.web("#ababab"));
-                        sousMarinDrawing.setFill(Color.web("#ababab"));
-                        torpilleurDrawing.setFill(Color.web("#ababab"));
+                    if(event.getSource().equals(porteAvionsRectangle)){
+                        setActiveBoat(porteAvions);
                     }   
-                    if(event.getSource().equals(croiseurDrawing)){
-                        porteAvions.setActive(false);
-                        croiseur.setActive(true);
-                        contreTorpilleur.setActive(false);
-                        sousMarin.setActive(false);
-                        torpilleur.setActive(false);
-                        
-                        porteAvionsDrawing.setMouseTransparent(false);
-                        croiseurDrawing.setMouseTransparent(true);
-                        contreTorpilleurDrawing.setMouseTransparent(false);
-                        sousMarinDrawing.setMouseTransparent(false);
-                        torpilleurDrawing.setMouseTransparent(false);
-                        
-                        porteAvionsDrawing.setFill(Color.web("#ababab"));
-                        croiseurDrawing.setFill(Color.web("#d8d875"));
-                        contreTorpilleurDrawing.setFill(Color.web("#ababab"));
-                        sousMarinDrawing.setFill(Color.web("#ababab"));
-                        torpilleurDrawing.setFill(Color.web("#ababab"));
+                    if(event.getSource().equals(croiseurRectangle)){
+                        setActiveBoat(croiseur);
                     }    
-                    if(event.getSource().equals(contreTorpilleurDrawing)){
-                        porteAvions.setActive(false);
-                        croiseur.setActive(false);
-                        contreTorpilleur.setActive(true);
-                        sousMarin.setActive(false);
-                        torpilleur.setActive(false);
-                        
-                        porteAvionsDrawing.setMouseTransparent(false);
-                        croiseurDrawing.setMouseTransparent(false);
-                        contreTorpilleurDrawing.setMouseTransparent(true);
-                        sousMarinDrawing.setMouseTransparent(false);
-                        torpilleurDrawing.setMouseTransparent(false);
-                        
-                        porteAvionsDrawing.setFill(Color.web("#ababab"));
-                        croiseurDrawing.setFill(Color.web("#ababab"));
-                        contreTorpilleurDrawing.setFill(Color.web("#d8d875"));
-                        sousMarinDrawing.setFill(Color.web("#ababab"));
-                        torpilleurDrawing.setFill(Color.web("#ababab"));
+                    if(event.getSource().equals(contreTorpilleurRectangle)){
+                        setActiveBoat(contreTorpilleur);
                     }  
-                    if(event.getSource().equals(sousMarinDrawing)){
-                        porteAvions.setActive(false);
-                        croiseur.setActive(false);
-                        contreTorpilleur.setActive(false);
-                        sousMarin.setActive(true);
-                        torpilleur.setActive(false);
-                        
-                        porteAvionsDrawing.setMouseTransparent(false);
-                        croiseurDrawing.setMouseTransparent(false);
-                        contreTorpilleurDrawing.setMouseTransparent(false);
-                        sousMarinDrawing.setMouseTransparent(true);
-                        torpilleurDrawing.setMouseTransparent(false);
-                        
-                        porteAvionsDrawing.setFill(Color.web("#ababab"));
-                        croiseurDrawing.setFill(Color.web("#ababab"));
-                        contreTorpilleurDrawing.setFill(Color.web("#ababab"));
-                        sousMarinDrawing.setFill(Color.web("#d8d875"));
-                        torpilleurDrawing.setFill(Color.web("#ababab"));
+                    if(event.getSource().equals(sousMarinRectangle)){
+                        setActiveBoat(sousMarin);
                     }  
-                    if(event.getSource().equals(torpilleurDrawing)){
-                        porteAvions.setActive(false);
-                        croiseur.setActive(false);
-                        contreTorpilleur.setActive(false);
-                        sousMarin.setActive(false);
-                        torpilleur.setActive(true);
-                        
-                        
-                        porteAvionsDrawing.setMouseTransparent(false);
-                        croiseurDrawing.setMouseTransparent(false);
-                        contreTorpilleurDrawing.setMouseTransparent(false);
-                        sousMarinDrawing.setMouseTransparent(false);
-                        torpilleurDrawing.setMouseTransparent(true);
-                        
-                        porteAvionsDrawing.setFill(Color.web("#ababab"));
-                        croiseurDrawing.setFill(Color.web("#ababab"));
-                        contreTorpilleurDrawing.setFill(Color.web("#ababab"));
-                        sousMarinDrawing.setFill(Color.web("#ababab"));
-                        torpilleurDrawing.setFill(Color.web("#d8d875"));
+                    if(event.getSource().equals(torpilleurRectangle)){
+                        setActiveBoat(torpilleur);
                     }  
                 }
             }
@@ -472,21 +262,51 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
+     * 
+     * @param boat 
+     */
+    private void setActiveBoat(BoatDrawing boat){
+        porteAvions.setActive(false);
+        croiseur.setActive(false);
+        contreTorpilleur.setActive(false);
+        sousMarin.setActive(false);
+        torpilleur.setActive(false);
+        //Sets this boat invisible to mouse events and the others are not
+        porteAvions.getBoatRectangle().setMouseTransparent(false);
+        croiseur.getBoatRectangle().setMouseTransparent(false);
+        contreTorpilleur.getBoatRectangle().setMouseTransparent(false);
+        sousMarin.getBoatRectangle().setMouseTransparent(false);
+        torpilleur.getBoatRectangle().setMouseTransparent(false);
+        // Change its color to yellow and the color of the other to gray
+        porteAvions.getBoatRectangle().setFill(Color.web("#ababab"));
+        croiseur.getBoatRectangle().setFill(Color.web("#ababab"));
+        contreTorpilleur.getBoatRectangle().setFill(Color.web("#ababab"));
+        sousMarin.getBoatRectangle().setFill(Color.web("#ababab"));
+        torpilleur.getBoatRectangle().setFill(Color.web("#ababab"));
+        
+        boat.setActive(true);
+        boat.getBoatRectangle().setMouseTransparent(true);        
+        boat.getBoatRectangle().setFill(Color.web("#d8d875"));
+        
+        activeBoat = boat; 
+    }
+    
+    /**
      * Method that unactivates the boat when it is placed sur le grid.
      * @return mousePressGridHandler
      */    
-    private EventHandler<MouseEvent> pressMouseGrid() {
+    private EventHandler<MouseEvent> unactiveBoat() {
         EventHandler<MouseEvent> mousePressGridHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    
-                    isActive.setActive(false);
-                    isActive.setMouseTransparent(false);
-                    isActive.setFill(Color.web("#ababab"));
-                    
-                                        
-    
+                    if(activeBoat!=null){
+                        activeBoat.setActive(false);
+                        activeBoat.getBoatRectangle().setMouseTransparent(false);
+                        activeBoat.getBoatRectangle().setFill(Color.web("#ababab"));
+                        activeBoat=null;
+                    }                 
                 }
+                event.consume();
             }
         };
         return mousePressGridHandler;
