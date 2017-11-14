@@ -25,7 +25,11 @@ public class NetworkController {
     }
     private NetworkController() {
 
+    }
+
+    public void launchServer() {
         this.networkServer = new NetworkServer(this);
+        networkServer.setDataInterface(dataInterface);
 
         try {
             this.networkServer.open();
@@ -33,7 +37,6 @@ public class NetworkController {
             e.printStackTrace();
         }
     }
-
     //
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;

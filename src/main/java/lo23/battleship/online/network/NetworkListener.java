@@ -1,6 +1,7 @@
 package lo23.battleship.online.network;
 
 import com.sun.security.ntlm.Server;
+import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkSender;
 import lo23.battleship.online.network.messages.CustomMessage;
 import lo23.battleship.online.network.messages.Message;
@@ -25,14 +26,16 @@ public class NetworkListener extends Thread {
 
     private ServerSocket serverSocket = null;
     boolean isRunning ;
+    private IDataCom dataInterface;
     private ObjectInputStream reader;
     private NetworkServer server;
     private NetworkController networkController;
     private static String name = "Client-";
     private static int count = 0;
-    NetworkListener(NetworkServer server, ServerSocket socket) {
+    NetworkListener(NetworkServer server, ServerSocket socket, IDataCom IData) {
         this.server = server;
         this.serverSocket = socket;
+        this.dataInterface = IData;
     }
 
     public void setIsRunning (boolean newValue) {
@@ -66,10 +69,10 @@ public class NetworkListener extends Thread {
                 debug += "\n Request Received at " + timeStamps;
                 System.err.println("\n" + debug);
 
-                Message responseToSend = request.process();
+                request.process(dataInterface);
 
-                Thread t = new Thread(new NetworkSender(client, responseToSend));
-                t.start();//Run the client request process thread
+//                Thread t = new Thread(new NetworkSender(client, responseToSend));
+//                t.start();//Run the client request process thread
                 //Waiting for server response
 //                Message responseFromServer = read();
 //                System.out.println("\t * " + name + " : Server response: " + responseFromServer);

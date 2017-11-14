@@ -1,5 +1,6 @@
 package lo23.battleship.online.network;
 
+import interfacesData.IDataCom;
 import lo23.battleship.online.network.messages.CustomMessage;
 import lo23.battleship.online.network.messages.Message;
 import structData.*;
@@ -16,8 +17,10 @@ import java.util.Random;
  * TODO: To be completed with the methods' implementation
  */
 public class NetworkModuleInterface implements COMInterface{
-    private String[] listMessages = {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
+    private IDataCom dataInterface;
 
+    private String[] listMessages = {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
+    private NetworkController controller;
     public boolean notifyReady(User user) {
         return true;
     }
@@ -32,11 +35,11 @@ public class NetworkModuleInterface implements COMInterface{
      * @param port
      * @return true= message sent, false= message not sent
      */
-    public boolean sendRandomMessage(String host, int port) {
+    public boolean sendRandomMessage(String host, int port, User u) {
         try {
             System.out.println("TEST");
             Socket destinationSocket = new Socket(host, port);
-            Thread t = new Thread(new NetworkSender(destinationSocket, newRandomMessage()));
+            Thread t = new Thread(new NetworkSender(destinationSocket, newRandomMessage(u)));
             t.start();
             return true;
         } catch (UnknownHostException e) {
@@ -70,12 +73,20 @@ public class NetworkModuleInterface implements COMInterface{
         return true;
     }
 
-    public ArrayList<User> searchForPlayers(ArrayList<InetAddress> knownUsersAddresses) {
-        return new ArrayList<>();
+    public void setDataInterface(IDataCom IData) {
+        this.dataInterface = IData;
+    }
+
+    public void searchForPlayers(User user) {
+        // Launch server
+        controller.launchServer();
+        sendRandomMessage("123.456.678.788",2345, user);
     }
     //Random Messages
-    private Message newRandomMessage(){
+    private Message newRandomMessage(User u){
         Random rand = new Random();
-        return new CustomMessage(listMessages[rand.nextInt(listMessages.length)].toUpperCase());
+        CustomMessage mes = new CustomMessage(listMessages[rand.nextInt(listMessages.length)].toUpperCase());
+        mes.setUser(u);
+        return mes;
     }
 }
