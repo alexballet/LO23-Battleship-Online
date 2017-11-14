@@ -2,12 +2,10 @@ package lo23.battleship.online.network;
 
 import lo23.battleship.online.network.messages.CustomMessage;
 import lo23.battleship.online.network.messages.Message;
-import structData.Game;
-import structData.Profile;
-import structData.Shot;
-import structData.User;
+import structData.*;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -24,7 +22,7 @@ public class NetworkModuleInterface implements Interface{
         return true;
     }
 
-    public boolean sendChatMessage(String message) {
+    public boolean sendChatMessage(String message, DataGame game) {
         return true;
     }
 
@@ -32,7 +30,7 @@ public class NetworkModuleInterface implements Interface{
      * NOTE: this method is only use in test environment
      * @param host
      * @param port
-     * @return
+     * @return true= message sent, false= message not sent
      */
     public boolean sendRandomMessage(String host, int port) {
         try {
@@ -52,12 +50,15 @@ public class NetworkModuleInterface implements Interface{
         return null;
     }
 
-
-    public boolean notifyNewGame(User user, Game game) {
+    public boolean notifyJoinGameResponse(Boolean isOk, User user, DataGame game){
         return true;
     }
 
-    public boolean joinGame(User user) {
+    public boolean notifyNewGame(DataGame game) {
+        return true;
+    }
+
+    public boolean joinGame(User user, DataGame game) {
         return true;
     }
 
@@ -65,11 +66,11 @@ public class NetworkModuleInterface implements Interface{
         return true;
     }
 
-    public boolean sendShot(User player, Game game, Shot shot) {
+    public boolean sendShot(Player player, DataGame game, Shot shot) {
         return true;
     }
 
-    public ArrayList<User> searchForPlayers(User user) {
+    public ArrayList<User> searchForPlayers(ArrayList<InetAddress> knownUsersAddresses) {
         return new ArrayList<>();
     }
     //Random Messages
