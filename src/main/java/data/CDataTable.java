@@ -16,6 +16,13 @@ import structData.Position;
  * @author Irvin
  */
 public class CDataTable implements IDataTable {
+    
+    private DataController controller;
+    
+    public CDataTable(DataController dc){
+        super();
+        controller = dc;
+    }
 
     @Override
     public Boolean exit() {

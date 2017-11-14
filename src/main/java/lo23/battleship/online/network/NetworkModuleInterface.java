@@ -1,5 +1,7 @@
 package lo23.battleship.online.network;
 
+import data.DataController;
+import lo23.battleship.online.network.messages.ConnectionRequestMessage;
 import lo23.battleship.online.network.messages.CustomMessage;
 import lo23.battleship.online.network.messages.Message;
 import structData.*;
@@ -10,12 +12,15 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Created by xzirva on 17/10/17.
  * TODO: To be completed with the methods' implementation
  */
-public class NetworkModuleInterface implements COMInterface{
+
+public class NetworkModuleInterface implements COMInterface {
+
     private String[] listMessages = {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
 
     public boolean notifyReady(User user) {
@@ -70,9 +75,19 @@ public class NetworkModuleInterface implements COMInterface{
         return true;
     }
 
-    public ArrayList<User> searchForPlayers(ArrayList<InetAddress> knownUsersAddresses) {
-        return new ArrayList<>();
+    public ArrayList<User> searchForPlayers(ArrayList<InetAddress> knownUsersAddresses, User user) {
+
+        ConnectionRequestMessage connectionRequestMessage = new ConnectionRequestMessage(user);
+
+        for (InetAddress ipAddress : knownUsersAddresses) {
+
+            NetworkController.getInstance().sendMessage(connectionRequestMessage,ipAddress);
+
+        }
+
+        return new ArrayList<User>();
     }
+
     //Random Messages
     private Message newRandomMessage(){
         Random rand = new Random();

@@ -30,6 +30,7 @@ public class NetworkListener extends Thread {
     private NetworkController networkController;
     private static String name = "Client-";
     private static int count = 0;
+
     NetworkListener(NetworkServer server, ServerSocket socket) {
         this.server = server;
         this.serverSocket = socket;
