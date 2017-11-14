@@ -18,7 +18,7 @@ public class PlacementPhaseController {
 
 
     /**
-     * Assigne à chaque pane le module correspondant
+     * Assign to each pane the associated module
      * @throws Exception
      */
     public void init() throws Exception {
@@ -39,10 +39,10 @@ public class PlacementPhaseController {
     }
 
     /**
-     * 
+     * Allows to replace pane by another one
      * @param paneToFill
      * @param contentAdress
-     * @return
+     * @return FXMLLoader
      * @throws Exception 
      */
     private FXMLLoader fillElement(AnchorPane paneToFill, String contentAdress) throws Exception {
