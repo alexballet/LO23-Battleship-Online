@@ -29,6 +29,12 @@ public class NetworkModuleInterface implements Interface{
         return true;
     }
 
+    /**
+     * NOTE: this method is only use in test environment
+     * @param host
+     * @param port
+     * @return
+     */
     public boolean sendRandomMessage(String host, int port) {
         try {
             System.out.println("TEST");
