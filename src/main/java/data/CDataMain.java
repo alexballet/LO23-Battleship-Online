@@ -67,7 +67,7 @@ public class CDataMain implements IDataMain {
     public void connection() {
         User u = new User("login", "username");
         controller.setLocalUser(u);
-        //interfaceCom.searchForPlayers()
+        interfaceCom.searchForPlayers(u);
     }
 
     @Override

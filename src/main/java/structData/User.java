@@ -21,9 +21,8 @@ public class User {
         iPs = new HashSet();
     }
     
-     /*constructor with parameters*/
     /**
-     * 
+     * constructor with parameters
      * @param logindata : the login of the new user
      * @param usernamedata : the username of the new user
      */
