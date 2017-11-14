@@ -10,6 +10,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
 import packageStructDonnées.User;
+import guiTable.GuiTableInterface;
+import guiTable.controllers.GuiTableController;
+import javafx.stage.Stage;
+import sun.security.ssl.Debug;
 
 public class menuController {
 
@@ -17,6 +21,7 @@ public class menuController {
 	List<User> playersList;
 
 	ObservableList<User> playersObservable;
+        private Stage currentStage;
 
 	@FXML 
 	private ListView<User> playersView;
@@ -31,8 +36,10 @@ public class menuController {
 	 */
 
 
-	public void init() {
+	public void init(Stage stage) {
 		//randomListUser();
+                
+                currentStage = stage;
 		playersList = new ArrayList<>();
 		playersObservable = FXCollections.observableList(playersList);
 		playersView.setItems(playersObservable);
@@ -71,9 +78,27 @@ public class menuController {
 
 	@FXML
 	private void option(){
-		playersView.getItems().add(new User());
+            playersView.getItems().add(new User());
  
 	}
+        
+        
+        /**
+         * Use the createGame Button as a way to start the displayPlacementPhase method from a guiTableController. 
+         * To be removed for integration.
+         */        
+	@FXML
+	private void createGame(){
+            GuiTableInterface guiTableController = new GuiTableController();
+            try{
+                guiTableController.displayPlacementPhase( this.currentStage );
+            }
+            catch(Exception e){
+                System.err.println(e.getMessage());
+            }
+	}
+        
+        
 
 
 

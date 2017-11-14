@@ -1,5 +1,6 @@
 package guiTable;
 
+import javafx.stage.Stage;
 import packageStructDonnées.Boat;
 import packageStructDonnées.Message;
 import packageStructDonnées.Shot;
@@ -12,8 +13,10 @@ import packageStructDonnées.Shot;
 public interface GuiTableInterface {
     /**
      * Displays the window where the player will place their ships.
+     * @param currentStage 
+     * @throws Exception 
      */
-    public void displayPlacementPhase();
+    public void displayPlacementPhase(Stage currentStage) throws Exception;
     
     /**
      * Notifies the IHM Table that the opponent is ready so that it can adapt its views.

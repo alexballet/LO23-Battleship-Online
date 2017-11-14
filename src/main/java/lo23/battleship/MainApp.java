@@ -20,28 +20,18 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         	
     	FXMLLoader loader = new FXMLLoader();
-        
-                //Retirer les commentaires ci-après pour lancer l'application depuis le menu principal   
-		/*loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
-                
-		rootLayout = (AnchorPane) loader.load();
-		
-		menuController controller = loader.getController();
-                controller.init(); */
-                
 
-                //Commenter les 4 prochaines lignes pour lancer l'application depuis le menu principal  
-                
-                loader.setLocation(getClass().getResource("/fxml/Ihm-plateau/placementPhase.fxml"));
-		rootLayout = (AnchorPane) loader.load();
-		PlacementPhaseController controller = loader.getController();
-                controller.init();  
+        loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
 
-		
-		Scene scene = new Scene(rootLayout);
-		stage.setTitle("Battleship-Online");
-		stage.setScene(scene);
-		stage.show();
+        rootLayout = (AnchorPane) loader.load();
+        menuController controller = loader.getController();
+        controller.init(stage);   
+
+
+        Scene scene = new Scene(rootLayout);
+        stage.setTitle("Battleship-Online");
+        stage.setScene(scene);
+        stage.show();
     	
     	
     }
