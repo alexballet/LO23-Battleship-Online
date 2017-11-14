@@ -1,6 +1,7 @@
 package guiMain;
 
 import java.io.IOException;
+import java.util.List;
 
 import guiMain.controller.menuController;
 import interfacesData.IDataMain;
@@ -13,6 +14,9 @@ import structData.Profile;
 import structData.User;
 
 public class GuiMainController implements GuiMainInterface {
+	
+	List<User> playersList;
+	List<Game> gamesList;
 
 	private Stage stage;
 	private AnchorPane rootLayout;

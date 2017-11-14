@@ -9,32 +9,35 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
-import structData.User;
+import structData.*;
 
 public class menuController {
 
-
-	List<User> playersList;
-
-	ObservableList<User> playersObservable;
-
 	@FXML 
 	private ListView<User> playersView;
+	@FXML 
+	private ListView<Game> gamesView;
+	
 
 	@FXML 
 	private Button optionButton;
-
-
+	
+	
 	/**
 	 *  	Init listView configuration
 	 *  	UserTest à remplacer par User lorsque les getter/setter seront dispo
 	 */
-
-
 	public void init() {
 		//randomListUser();
-		playersList = new ArrayList<>();
-		playersObservable = FXCollections.observableList(playersList);
+		this.initUserList();
+		this.initGamesList();
+	}
+	
+	/**
+	 * Initialise the user list in the main GUI
+	 */
+	private void initUserList() {
+		ObservableList<User> playersObservable = FXCollections.observableList(new ArrayList<User>());
 		playersView.setItems(playersObservable);
 
 		playersView.setCellFactory(new Callback<ListView<User>, ListCell<User>>(){
@@ -53,26 +56,44 @@ public class menuController {
 					}
 
 				};
-
 				return cell;
 			}
 		});
-
-
-
-
-
 	}
+	
+	private void initGamesList() {
+		ObservableList<Game> playersObservable = FXCollections.observableList(new ArrayList<Game>());
+		gamesView.setItems(playersObservable);
+
+		gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>(){
+			@Override
+			public ListCell<Game> call(ListView<Game> p) {
+
+				ListCell<Game> cell = new ListCell<Game>(){
+
+					@Override
+					protected void updateItem(Game game, boolean bln) {
+						super.updateItem(game, bln);
+						if (game != null) {
+							setText(game.getName());
+						}
+					}
+
+				};
+				return cell;
+			}
+		});
+	}
+	
 
 	/**
 	 *  	Access to option windows
 	 *  	Actuellement, dans le cadre d'un test, permet de tester l'ajout d'utilisateurs
 	 */
-
 	@FXML
 	private void option(){
-		playersView.getItems().add(new User());
- 
+		// playersView.getItems().add(new User());
+		gamesView.getItems().add(new Game());
 	}
 
 
@@ -83,7 +104,6 @@ public class menuController {
 	 * 
 	 *  A décommenter pour l'intégration
 	 */
-
 	/*
 	public void addUser(User user){
 		playersView.getItems().add(user);
