@@ -9,7 +9,7 @@ import guiMain.GuiMainInterface;
 import java.util.HashSet;
 import java.util.Set;
 import lo23.battleship.online.network.COMInterface;
-import structData.Game;
+import structData.DataGame;
 import structData.User;
 
 /**
@@ -30,9 +30,9 @@ public class DataController {
     //private
         
     private User localUser;
-    private Game localGame;
+    private DataGame localDataGame;
     private HashSet<User> listUsers;
-    private HashSet<Game> listGames;
+    private HashSet<DataGame> listDataGames;
     
     
     public DataController(){
