@@ -29,8 +29,6 @@ public class MainApp extends Application {
 		stage.setTitle("Battleship-Online");
 		stage.setScene(scene);
 		stage.show();
-    	
-    	
     }
 
     /**
