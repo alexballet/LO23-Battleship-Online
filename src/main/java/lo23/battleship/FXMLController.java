@@ -1,4 +1,4 @@
-package lo23.battleship.online;
+package lo23.battleship;
 
 import java.net.URL;
 import java.util.ResourceBundle;
