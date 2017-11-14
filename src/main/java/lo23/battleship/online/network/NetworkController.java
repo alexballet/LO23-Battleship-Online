@@ -1,5 +1,7 @@
 package lo23.battleship.online.network;
 
+import interfacesData.IDataCom;
+
 import java.io.IOException;
 import java.net.Inet4Address;
 
@@ -12,6 +14,7 @@ public class NetworkController {
     private static NetworkController instance;
     // TODO: uncomment when User class is defined
     //private HashMap<User, Inet4Address> networkState;
+    IDataCom dataInterface;
     private NetworkServer networkServer;
     public static NetworkController getInstance() {
         if(instance == null)
@@ -29,5 +32,14 @@ public class NetworkController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //
+    public void setDataInterface(IDataCom IData) {
+        this.dataInterface = IData;
+    }
+
+    public COMInterface getCOMInterface() {
+        return networkInterface;
     }
 }
