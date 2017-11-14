@@ -17,8 +17,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        	
-    
+
     DataController dataController = new DataController();
     GuiMainController guiMainController = new GuiMainController(stage);
     guiMainController.setIdata(dataController.getInterfaceDataMain());
@@ -26,9 +25,7 @@ public class MainApp extends Application {
     
     
     guiMainController.startIHM();
-    
-    	
-    	
+
     }
 
     /**
