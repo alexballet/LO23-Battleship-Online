@@ -6,7 +6,6 @@
 package structData;
 import java.util.HashSet;
 import java.util.ArrayList;
-import java.util.UUID;
 /**
  *
  * @author Huiling
@@ -150,6 +149,30 @@ public class DataGame extends Game{
      */
     public void addSpectators(User spectator){
         listSpectators.add(spectator);
+    }
+    
+     /**
+     * Accessor for the player 1
+     * @return player 1 as a Player
+     */
+    public Player getPlayer1(){
+        return this.player1;
+    }
+    
+    /**
+     * Accessor for the player 2
+     * @return player 2 as a Player
+     */
+    public Player getPlayer2(){
+        return this.player2;
+    }
+    
+     /**
+     * Accessor for player1Start
+     * @return player1Start as a Boolean
+     */
+    public Boolean getPlayer1Start(){
+        return this.player1Start;
     }
 }
 
