@@ -23,30 +23,49 @@ public class BoatDrawing{
     private double initialLayoutY;
     private Integer gridRow;
     private Integer gridCol;
-
-    public Integer getGridRow() {
-        return gridRow;
-    }
-
-    public void setGridRow(Integer gridRow) {
-        this.gridRow = gridRow;
-    }
-
-    public Integer getGridCol() {
-        return gridCol;
-    }
-
-    public void setGridCol(Integer gridCol) {
-        this.gridCol = gridCol;
-    }
     
+    /**
+     * Constructor of the object.
+     * @param boatType
+     * @param boatDrawing 
+     */
     public BoatDrawing(BoatType boatType, Rectangle boatDrawing) {
-        
         this.active = false;
         this.rotation = false;
         this.boat = new Boat(); //Include boattype??
         this.boatDrawing = boatDrawing;
-        
+    }
+
+    /**
+     * Returns the boat's row on the grid.
+     * @return gridRow
+     */
+    public Integer getGridRow() {
+        return gridRow;
+    }
+    
+    /**
+     * Sets the boat's row on the grid.
+     * @param gridRow 
+     */
+    public void setGridRow(Integer gridRow) {
+        this.gridRow = gridRow;
+    }
+
+    /**
+     * Returns the boat's column on the grid.
+     * @return 
+     */
+    public Integer getGridCol() {
+        return gridCol;
+    }
+
+    /**
+     * Sets the boat's column on the grid.
+     * @param gridCol 
+     */
+    public void setGridCol(Integer gridCol) {
+        this.gridCol = gridCol;
     }
 
     public double getInitialLayoutX() {
