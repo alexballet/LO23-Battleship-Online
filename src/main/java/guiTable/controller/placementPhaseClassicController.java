@@ -44,9 +44,10 @@ public class placementPhaseClassicController implements Initializable{
     @FXML
     private GridPane table;
     
-    private static final int GRIDX = 100;
-    private static final int GRIDY = 100;
+    private static final int GRID_X = 100;
+    private static final int GRID_Y = 100;
     private static final int SPACE = 3;
+    private static final int GRID_ELEMENT_SIZE = 35;
     
     private boolean rotationIsValide;
     
@@ -56,6 +57,13 @@ public class placementPhaseClassicController implements Initializable{
     private BoatDrawing sousMarin;
     private BoatDrawing torpilleur; 
     
+    
+    /**
+     * The method initialize starts the window and assigns values BoatDrawing 
+     * objects and methods to the window's objects.
+     * @param location
+     * @param resources 
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
@@ -107,113 +115,131 @@ public class placementPhaseClassicController implements Initializable{
         rotationIsValide = false;
     }
     
+    /**
+     * Method that enables the boat rotation, this only happens when the mouse is
+     * over the grid.
+     * @return mouseLocationHandler
+     */
+    
     private EventHandler<MouseEvent> enableRotation() {
-        EventHandler<MouseEvent> mousePressHandler = new EventHandler<MouseEvent>() {
-
+        EventHandler<MouseEvent> mouseLocationHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                
-               rotationIsValide = true;
-                
+                rotationIsValide = true;
                 event.consume();
             }
         };
-        return mousePressHandler;
+        return mouseLocationHandler;
     }
+    /**
+     * Method that disables the boat rotation, because the mouse is not over
+     * the grid.
+     * @return 
+     */
     
     private EventHandler<MouseEvent> disableRotation() {
-        EventHandler<MouseEvent> mousePressHandler = new EventHandler<MouseEvent>() {
-
+        EventHandler<MouseEvent> mouseLocationHandler = new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) {
-                
-               rotationIsValide = false;
-                
+            public void handle(MouseEvent event) {   
+                rotationIsValide = false;
                 event.consume();
             }
         };
-        return mousePressHandler;
+        return mouseLocationHandler;
     }
     
+    /**
+     * Method that draw the boats over the grid when the mouse enters one 
+     * element of the grid.
+     * @return mousePositionHandler
+     */
+    
     private EventHandler<MouseEvent> detectMouse() {
-        EventHandler<MouseEvent> mousePressHandler = new EventHandler<MouseEvent>() {
-
+        EventHandler<MouseEvent> mousePositionHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                // Gets the row and the column of the mouse
                 Node source = (Node)event.getSource() ;
                 Integer colIndex = GridPane.getColumnIndex(source);
                 Integer rowIndex = GridPane.getRowIndex(source);
                 if(porteAvions.isActive()){
+                    //If this boat is active( the user has selected it)
                     if(!porteAvions.isRotation()){  
-                        porteAvionsDrawing.setLayoutX(GRIDX + SPACE + 35*colIndex);
-                        porteAvionsDrawing.setLayoutY(GRIDY + SPACE + 35*rowIndex);
+                        // Draws the boat in the new Position
+                        porteAvionsDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
+                        porteAvionsDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
+                        // Sets the boat's new coordinates
                         porteAvions.setGridCol(colIndex);
                         porteAvions.setGridRow(rowIndex);
                     } else if(porteAvions.isRotation()){
-                        porteAvionsDrawing.setLayoutX(GRIDX + SPACE + 35*colIndex - 70);
-                        porteAvionsDrawing.setLayoutY(GRIDY + SPACE + 35*rowIndex + 70);
+                        porteAvionsDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - 70);
+                        porteAvionsDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + 70);
                         porteAvions.setGridCol(colIndex);
                         porteAvions.setGridRow(rowIndex);
                     }
                 }
                 if(croiseur.isActive()){
                     if(!croiseur.isRotation()){  
-                        croiseurDrawing.setLayoutX(GRIDX + SPACE + 35*colIndex);
-                        croiseurDrawing.setLayoutY(GRIDY + SPACE + 35*rowIndex);
+                        croiseurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
+                        croiseurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
                         croiseur.setGridCol(colIndex);
                         croiseur.setGridRow(rowIndex);
                     } else if(croiseur.isRotation()){
-                        croiseurDrawing.setLayoutX(GRIDX + SPACE + 35*colIndex - 52.5);
-                        croiseurDrawing.setLayoutY(GRIDY + SPACE + 35*rowIndex + 52.5);
+                        croiseurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - 52.5);
+                        croiseurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + 52.5);
                         croiseur.setGridCol(colIndex);
                         croiseur.setGridRow(rowIndex);
                     }
                 }
                 if(contreTorpilleur.isActive()){
                     if(!contreTorpilleur.isRotation()){  
-                        contreTorpilleurDrawing.setLayoutX(GRIDX + SPACE + 35*colIndex);
-                        contreTorpilleurDrawing.setLayoutY(GRIDY + SPACE + 35*rowIndex);
+                        contreTorpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
+                        contreTorpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
                         contreTorpilleur.setGridCol(colIndex);
                         contreTorpilleur.setGridRow(rowIndex);
                     } else if(contreTorpilleur.isRotation()){
-                        contreTorpilleurDrawing.setLayoutX(GRIDX + SPACE + 35*colIndex - 35);
-                        contreTorpilleurDrawing.setLayoutY(GRIDY + SPACE + 35*rowIndex + 35);
+                        contreTorpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - 35);
+                        contreTorpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + 35);
                         contreTorpilleur.setGridCol(colIndex);
                         contreTorpilleur.setGridRow(rowIndex);
                     }
                 }
                 if(sousMarin.isActive()){
                     if(!sousMarin.isRotation()){  
-                        sousMarinDrawing.setLayoutX(GRIDX + SPACE + 35*colIndex);
-                        sousMarinDrawing.setLayoutY(GRIDY + SPACE + 35*rowIndex);
+                        sousMarinDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
+                        sousMarinDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
                         sousMarin.setGridCol(colIndex);
                         sousMarin.setGridRow(rowIndex);
                     } else if(sousMarin.isRotation()){
-                        sousMarinDrawing.setLayoutX(GRIDX + SPACE + 35*colIndex - 35);
-                        sousMarinDrawing.setLayoutY(GRIDY + SPACE + 35*rowIndex + 35);
+                        sousMarinDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - 35);
+                        sousMarinDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + 35);
                         sousMarin.setGridCol(colIndex);
                         sousMarin.setGridRow(rowIndex);
                     }
                 }
                 if(torpilleur.isActive()){
                     if(!torpilleur.isRotation()){  
-                        torpilleurDrawing.setLayoutX(GRIDX + SPACE + 35*colIndex);
-                        torpilleurDrawing.setLayoutY(GRIDY + SPACE + 35*rowIndex);
+                        torpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
+                        torpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
                         torpilleur.setGridCol(colIndex);
                         torpilleur.setGridRow(rowIndex);
                     } else if(torpilleur.isRotation()){
-                        torpilleurDrawing.setLayoutX(GRIDX + SPACE + 35*colIndex - 17.5);
-                        torpilleurDrawing.setLayoutY(GRIDY + SPACE + 35*rowIndex + 17.5);
+                        torpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - 17.5);
+                        torpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + 17.5);
                         torpilleur.setGridCol(colIndex);
                         torpilleur.setGridRow(rowIndex);
                     }
                 }
-                
                 event.consume();
             }
         };
-        return mousePressHandler;
+        return mousePositionHandler;
     }
+    
+    /**
+     * Method that rotates the boat active when the user press R.
+     * @return keyEeventHandler
+     */
     
     public EventHandler<KeyEvent> pressR() {
         EventHandler<KeyEvent> keyEventHandler;
@@ -222,64 +248,69 @@ public class placementPhaseClassicController implements Initializable{
             public void handle(KeyEvent keyEvent) {
                 if (keyEvent.getCode() == KeyCode.R) {
                     if(rotationIsValide){
+                        // If the rotation is valid (The mouse is overe the grid)
                         if(porteAvions.isActive()){
+                            // and this boat is active
                             if (porteAvionsDrawing.getRotate()==0){
+                                // Switches its rotation angle
                                 porteAvionsDrawing.setRotate(90);
-                                porteAvionsDrawing.setLayoutX(GRIDX + SPACE + 35*porteAvions.getGridCol()-70);
-                                porteAvionsDrawing.setLayoutY(GRIDY + SPACE + 35*porteAvions.getGridRow()+70);
+                                // Draws the boat in the new position
+                                porteAvionsDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*porteAvions.getGridCol()-70);
+                                porteAvionsDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*porteAvions.getGridRow()+70);
+                                // Sets its new rotation
                                 porteAvions.setRotation(true);
                             } else if (porteAvionsDrawing.getRotate()==90){
                                 porteAvionsDrawing.setRotate(0);
-                                porteAvionsDrawing.setLayoutX(GRIDX + SPACE + 35*porteAvions.getGridCol());
-                                porteAvionsDrawing.setLayoutY(GRIDY + SPACE + 35*porteAvions.getGridRow());
+                                porteAvionsDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*porteAvions.getGridCol());
+                                porteAvionsDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*porteAvions.getGridRow());
                                 porteAvions.setRotation(false);                            
                             }
                         } else if(croiseur.isActive()){
                             if (croiseurDrawing.getRotate()==0){
                                 croiseurDrawing.setRotate(90);
-                                croiseurDrawing.setLayoutX(GRIDX + SPACE + 35*croiseur.getGridCol()-52.5);
-                                croiseurDrawing.setLayoutY(GRIDY + SPACE + 35*croiseur.getGridRow()+52.5);
+                                croiseurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*croiseur.getGridCol()-52.5);
+                                croiseurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*croiseur.getGridRow()+52.5);
                                 croiseur.setRotation(true);
                             } else if (croiseurDrawing.getRotate()==90){
                                 croiseurDrawing.setRotate(0);
-                                croiseurDrawing.setLayoutX(GRIDX + SPACE + 35*croiseur.getGridCol());
-                                croiseurDrawing.setLayoutY(GRIDY + SPACE + 35*croiseur.getGridRow());
+                                croiseurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*croiseur.getGridCol());
+                                croiseurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*croiseur.getGridRow());
                                 croiseur.setRotation(false);                            
                             }
                         } else if(contreTorpilleur.isActive()){
                             if (contreTorpilleurDrawing.getRotate()==0){
                                 contreTorpilleurDrawing.setRotate(90);
-                                contreTorpilleurDrawing.setLayoutX(GRIDX + SPACE + 35*contreTorpilleur.getGridCol()-35);
-                                contreTorpilleurDrawing.setLayoutY(GRIDY + SPACE + 35*contreTorpilleur.getGridRow()+35);
+                                contreTorpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*contreTorpilleur.getGridCol()-35);
+                                contreTorpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*contreTorpilleur.getGridRow()+35);
                                 contreTorpilleur.setRotation(true);
                             } else if (contreTorpilleurDrawing.getRotate()==90){
                                 contreTorpilleurDrawing.setRotate(0);
-                                contreTorpilleurDrawing.setLayoutX(GRIDX + SPACE + 35*contreTorpilleur.getGridCol());
-                                contreTorpilleurDrawing.setLayoutY(GRIDY + SPACE + 35*contreTorpilleur.getGridRow());
+                                contreTorpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*contreTorpilleur.getGridCol());
+                                contreTorpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*contreTorpilleur.getGridRow());
                                 contreTorpilleur.setRotation(false);                            
                             }
                         } else if(sousMarin.isActive()){
                             if (sousMarinDrawing.getRotate()==0){
                                 sousMarinDrawing.setRotate(90);
-                                sousMarinDrawing.setLayoutX(GRIDX + SPACE + 35*sousMarin.getGridCol()-35);
-                                sousMarinDrawing.setLayoutY(GRIDY + SPACE + 35*sousMarin.getGridRow()+35);
+                                sousMarinDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*sousMarin.getGridCol()-35);
+                                sousMarinDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*sousMarin.getGridRow()+35);
                                 sousMarin.setRotation(true);
                             } else if (sousMarinDrawing.getRotate()==90){
                                 sousMarinDrawing.setRotate(0);
-                                sousMarinDrawing.setLayoutX(GRIDX + SPACE + 35*sousMarin.getGridCol());
-                                sousMarinDrawing.setLayoutY(GRIDY + SPACE + 35*sousMarin.getGridRow());
+                                sousMarinDrawing.setLayoutX(GRID_X + SPACE + 35*sousMarin.getGridCol());
+                                sousMarinDrawing.setLayoutY(GRID_Y + SPACE + 35*sousMarin.getGridRow());
                                 sousMarin.setRotation(false);                            
                             }
                         } else if(torpilleur.isActive()){
                             if (torpilleurDrawing.getRotate()==0){
                                 torpilleurDrawing.setRotate(90);
-                                torpilleurDrawing.setLayoutX(GRIDX + SPACE + 35*torpilleur.getGridCol()-17.5);
-                                torpilleurDrawing.setLayoutY(GRIDY + SPACE + 35*torpilleur.getGridRow()+17.5);
+                                torpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*torpilleur.getGridCol()-17.5);
+                                torpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*torpilleur.getGridRow()+17.5);
                                 torpilleur.setRotation(true);
                             } else if (torpilleurDrawing.getRotate()==90){
                                 torpilleurDrawing.setRotate(0);
-                                torpilleurDrawing.setLayoutX(GRIDX + SPACE + 35*torpilleur.getGridCol());
-                                torpilleurDrawing.setLayoutY(GRIDY + SPACE + 35*torpilleur.getGridRow());
+                                torpilleurDrawing.setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*torpilleur.getGridCol());
+                                torpilleurDrawing.setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*torpilleur.getGridRow());
                                 torpilleur.setRotation(false);                            
                             }
                         }
@@ -290,26 +321,31 @@ public class placementPhaseClassicController implements Initializable{
         return keyEventHandler;
     }
     
+    /**
+     * Method that actives the boat when the user clicks  on it.
+     * @return mousePressHandler
+     */   
     private EventHandler<MouseEvent> pressMouse() {
         EventHandler<MouseEvent> mousePressHandler;
         mousePressHandler = new EventHandler<MouseEvent>() {
             
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-
+                    //If the user has clicked in the window
                     if(event.getSource().equals(porteAvionsDrawing)){
+                        //Over this boat, sets that this boat is active and the others are not
                         porteAvions.setActive(true);
                         croiseur.setActive(false);
                         contreTorpilleur.setActive(false);
                         sousMarin.setActive(false);
                         torpilleur.setActive(false);
-                        
+                        //Sets this boat invisible to mouse events and the others are not
                         porteAvionsDrawing.setMouseTransparent(true);
                         croiseurDrawing.setMouseTransparent(false);
                         contreTorpilleurDrawing.setMouseTransparent(false);
                         sousMarinDrawing.setMouseTransparent(false);
                         torpilleurDrawing.setMouseTransparent(false);
-                        
+                        // Change its color to yellow and the color of the other to gray
                         porteAvionsDrawing.setFill(Color.web("#d8d875"));
                         croiseurDrawing.setFill(Color.web("#ababab"));
                         contreTorpilleurDrawing.setFill(Color.web("#ababab"));
@@ -398,12 +434,18 @@ public class placementPhaseClassicController implements Initializable{
         return mousePressHandler;
     }
     
+    /**
+     * Method that unactivates the boat when it is placed sur le grid.
+     * @return mousePressGridHandler
+     */    
     private EventHandler<MouseEvent> pressMouseGrid() {
-        EventHandler<MouseEvent> mousePressHandler = new EventHandler<MouseEvent>() {
-
+        EventHandler<MouseEvent> mousePressGridHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
+                    //If the user has placed the boat
                     if(porteAvions.isActive()){
+                        //And this boat is active, the method makes the boat unactive and not
+                        // transparent to mouse events and changes the boat's color.
                         porteAvions.setActive(false);
                         porteAvionsDrawing.setMouseTransparent(false);
                         porteAvionsDrawing.setFill(Color.web("#ababab"));
@@ -427,11 +469,10 @@ public class placementPhaseClassicController implements Initializable{
                         torpilleur.setActive(false);
                         torpilleurDrawing.setMouseTransparent(false);
                         torpilleurDrawing.setFill(Color.web("#ababab"));
-                    }
-                    
+                    }        
                 }
             }
         };
-        return mousePressHandler;
+        return mousePressGridHandler;
     }
 }
