@@ -3,6 +3,8 @@ package lo23.battleship;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 
+import data.DataController;
+import guiMain.GuiMainController;
 import guiMain.controller.menuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,22 +15,18 @@ import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-	private AnchorPane rootLayout;
-
     @Override
     public void start(Stage stage) throws Exception {
         	
-    	FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
-		rootLayout = (AnchorPane) loader.load();
-		
-		menuController controller = loader.getController();
-        controller.init();
-		
-		Scene scene = new Scene(rootLayout);
-		stage.setTitle("Battleship-Online");
-		stage.setScene(scene);
-		stage.show();
+    
+    DataController dataController = new DataController();
+    GuiMainController guiMainController = new GuiMainController(stage);
+    guiMainController.setIdata(dataController.getInterfaceDataMain());
+    
+    
+    
+    guiMainController.startIHM();
+    
     	
     	
     }
