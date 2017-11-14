@@ -75,7 +75,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    public ArrayList<User> searchForPlayers(ArrayList<InetAddress> knownUsersAddresses, User user) {
+    public void searchForPlayers(ArrayList<InetAddress> knownUsersAddresses, User user) {
 
         ConnectionRequestMessage connectionRequestMessage = new ConnectionRequestMessage(user);
 
@@ -84,8 +84,6 @@ public class NetworkModuleInterface implements COMInterface {
             NetworkController.getInstance().sendMessage(connectionRequestMessage,ipAddress);
 
         }
-
-        return new ArrayList<User>();
     }
 
     //Random Messages

@@ -79,5 +79,5 @@ public interface COMInterface {
      * @param knownUsersIPAddresses Initially known users' IPAddresses
      * @return list of all users who are connected
      */
-    public ArrayList<User> searchForPlayers(ArrayList<InetAddress> knownUsersIPAddresses, User user);
+    public void searchForPlayers(User user);
 }
