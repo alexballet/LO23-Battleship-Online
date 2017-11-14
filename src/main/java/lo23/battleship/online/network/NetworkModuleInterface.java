@@ -2,11 +2,10 @@ package lo23.battleship.online.network;
 
 import lo23.battleship.online.network.messages.CustomMessage;
 import lo23.battleship.online.network.messages.Message;
-import packageStructDonnées.Game;
-import packageStructDonnées.Profile;
-import packageStructDonnées.Shot;
-import packageStructDonnées.User;
-import sun.java2d.loops.GraphicsPrimitive;
+import structData.Game;
+import structData.Profile;
+import structData.Shot;
+import structData.User;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -50,7 +49,7 @@ public class NetworkModuleInterface implements Interface{
         return false;
     }
     public Profile getProfile(User user) {
-        return new Profile();
+        return null;
     }
 
 

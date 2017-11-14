@@ -1,9 +1,9 @@
 package lo23.battleship.online.network;
 
-import packageStructDonnées.Game;
-import packageStructDonnées.Profile;
-import packageStructDonnées.Shot;
-import packageStructDonnées.User;
+import structData.Game;
+import structData.Profile;
+import structData.Shot;
+import structData.User;
 
 import java.util.ArrayList;
 
