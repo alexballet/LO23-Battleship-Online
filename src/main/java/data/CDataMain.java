@@ -5,8 +5,10 @@
  */
 package data;
 
+import guiMain.GuiMainInterface;
 import interfacesData.IDataMain;
 import java.util.Date;
+import lo23.battleship.online.network.COMInterface;
 import structData.ContactGroup;
 import structData.Game;
 import structData.User;
@@ -19,9 +21,16 @@ public class CDataMain implements IDataMain {
     
     private DataController controller;
     
+    private COMInterface interfaceCom;
+    
+    
     public CDataMain(DataController dc){
         super();
         controller = dc;
+    }
+    
+    public void setInterfaceCom(COMInterface i){
+        interfaceCom = i;
     }
 
     @Override
@@ -56,7 +65,9 @@ public class CDataMain implements IDataMain {
 
     @Override
     public void connection() {
-        //searchForPlayers(controller.getUser().getiPs());
+        User u = new User("login", "username");
+        controller.setLocalUser(u);
+        //interfaceCom.searchForPlayers()
     }
 
     @Override
