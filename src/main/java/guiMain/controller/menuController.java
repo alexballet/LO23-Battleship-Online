@@ -48,7 +48,7 @@ public class menuController {
 					protected void updateItem(User t, boolean bln) {
 						super.updateItem(t, bln);
 						if (t != null) {
-							setText(t.getLogin() + "  :  " +  t.getUsername());
+							setText(t.getlogin() + "  :  " +  t.getusername());
 						}
 					}
 
