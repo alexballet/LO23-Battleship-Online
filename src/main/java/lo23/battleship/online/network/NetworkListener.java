@@ -1,6 +1,6 @@
 package lo23.battleship.online.network;
 
-import lo23.battleship.online.ClientProcessor;
+import lo23.battleship.online.network.NetworkSender;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -38,7 +38,7 @@ public class NetworkListener extends Thread {
 
                 //request accepted --> New thread to process it
                 System.out.println("NEW MESSAGE RECEIVED");
-                Thread t = new Thread(new ClientProcessor(client));
+                Thread t = new Thread(new NetworkSender(client));
                 t.start();//Run the client request process thread
 
             } catch (IOException e) {

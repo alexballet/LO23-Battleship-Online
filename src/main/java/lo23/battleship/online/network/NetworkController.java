@@ -17,9 +17,4 @@ public class NetworkController {
 
         this.networkServer.open();
     }
-
-    public static void main(String[] args) {
-
-        new NetworkController();
-    }
 }
