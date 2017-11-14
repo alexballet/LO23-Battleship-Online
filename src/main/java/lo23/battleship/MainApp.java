@@ -19,12 +19,12 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         	
     	FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
+		loader.setLocation(getClass().getResource("/fxml/IhmTable/placementPhaseClassic.fxml"));
 		rootLayout = (AnchorPane) loader.load();
-		
+		/*
 		menuController controller = loader.getController();
-        controller.init();
-		
+                controller.init();
+		*/
 		Scene scene = new Scene(rootLayout);
 		stage.setTitle("Battleship-Online");
 		stage.setScene(scene);
