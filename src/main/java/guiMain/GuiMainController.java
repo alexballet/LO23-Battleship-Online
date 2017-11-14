@@ -27,7 +27,7 @@ public class GuiMainController implements GuiMainInterface {
 
 	@Override
 	public void addUser(User user) {
-		// TODO Auto-generated method stub
+		menuController.addUser(user);
 
 	}
 
