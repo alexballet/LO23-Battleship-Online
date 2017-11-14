@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package packageStructDonnées;
+package lo23.battleship.data.packageStructDonnées;
 
 /**
  * StatusGame is an emumerate of all the status of games.

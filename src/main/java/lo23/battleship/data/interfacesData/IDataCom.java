@@ -3,10 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfacesData;
+package lo23.battleship.data.interfacesData;
 
+import lo23.battleship.data.packageStructDonnées.Boat;
+import lo23.battleship.data.packageStructDonnées.User;
+import lo23.battleship.data.packageStructDonnées.Shot;
+import lo23.battleship.data.packageStructDonnées.Profile;
+import lo23.battleship.data.packageStructDonnées.Message;
+import lo23.battleship.data.packageStructDonnées.DataGame;
+import lo23.battleship.data.packageStructDonnées.Position;
+import lo23.battleship.data.packageStructDonnées.Game;
 import java.util.HashSet;
-import packageStructDonnées.*;
 import java.util.Set;
 import java.util.List;
 

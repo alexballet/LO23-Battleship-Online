@@ -1,5 +1,7 @@
-package guiMain;
-import packageStructDonnées.*;
+package lo23.battleship.ihmMain.guiMain;
+import lo23.battleship.data.packageStructDonnées.User;
+import lo23.battleship.data.packageStructDonnées.Profile;
+import lo23.battleship.data.packageStructDonnées.Game;
 
 /**
  * GUI Main Interface

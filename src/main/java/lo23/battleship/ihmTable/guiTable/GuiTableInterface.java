@@ -1,8 +1,8 @@
-package guiTable;
+package lo23.battleship.ihmTable.guiTable;
 
-import packageStructDonnées.Boat;
-import packageStructDonnées.Message;
-import packageStructDonnées.Shot;
+import lo23.battleship.data.packageStructDonnées.Boat;
+import lo23.battleship.data.packageStructDonnées.Message;
+import lo23.battleship.data.packageStructDonnées.Shot;
 
 
 /**

@@ -1,4 +1,4 @@
-package guiMain.controller;
+package lo23.battleship.ihmMain.guiMain.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
-import packageStructDonnées.User;
+import lo23.battleship.data.packageStructDonnées.User;
 
 public class menuController {
 

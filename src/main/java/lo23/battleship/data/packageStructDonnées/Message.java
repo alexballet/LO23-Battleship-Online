@@ -5,7 +5,7 @@
  */
 
 
-package packageStructDonnées;
+package lo23.battleship.data.packageStructDonnées;
 import java.util.Date;
 /**
  *

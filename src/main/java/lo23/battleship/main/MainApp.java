@@ -1,9 +1,9 @@
-package lo23.battleship;
+package lo23.battleship.main;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 
-import guiMain.controller.menuController;
+import lo23.battleship.ihmMain.guiMain.controller.menuController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
