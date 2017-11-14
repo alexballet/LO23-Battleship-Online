@@ -5,14 +5,13 @@ import lo23.battleship.online.network.messages.ConnectionRequestMessage;
 import lo23.battleship.online.network.messages.Message;
 import structData.DataUser;
 import interfacesData.IDataCom;
+import structData.User;
 
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by xzirva on 17/10/17.
@@ -30,7 +29,7 @@ public class NetworkController {
     private NetworkModuleInterface networkInterface;
     private static NetworkController instance;
     // TODO: uncomment when User class is defined
-    //private HashMap<User, Inet4Address> networkState;
+    private HashMap<User, InetAddress> networkState;
     IDataCom dataInterface;
     private NetworkServer networkServer;
 
@@ -71,10 +70,21 @@ public class NetworkController {
 
     }
 
+    public List<InetAddress> getIPTable(){
+        List<InetAddress> ret=new ArrayList<InetAddress>();
+        for(HashMap.Entry<User, InetAddress> entry : networkState.entrySet()){
+            ret.add(entry.getValue());
+        }
+        return ret;
+    }
 
 
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
+    }
+
+    public IDataCom getDataInterface(){
+        return dataInterface;
     }
 
     public COMInterface getCOMInterface() {
