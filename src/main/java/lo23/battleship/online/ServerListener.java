@@ -19,7 +19,7 @@ boolean isRunning ;
     public void setIsRunning (boolean newValue) {
         isRunning = newValue;
     }
-
+/*
     @Override
     public void run() {
         isRunning = true;
@@ -39,5 +39,5 @@ boolean isRunning ;
             }
         }
     }
-
+*/
 }

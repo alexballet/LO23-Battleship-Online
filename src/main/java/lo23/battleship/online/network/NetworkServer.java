@@ -1,4 +1,5 @@
-package lo23.battleship.online;
+package lo23.battleship.online.network;
+
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -6,29 +7,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class ServerTest {
+public class NetworkServer {
 
     //Configuration
     private int port = 2345;
-    private String host = "127.0.0.1";
+    private String host = "172.25.35.108";
     private ServerSocket server = null;
-    private ServerListener listener = null;
+    private NetworkListener listener = null;
+    private NetworkController networkController;
 
-    public ServerTest(){
+    public NetworkServer(NetworkController networkController) {
+        this.networkController = networkController;
         try {
-            server = new ServerSocket(port, 100, InetAddress.getByName(host));
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public ServerTest(String host, int port) {
-        this.host = host;
-        this.port = port;
-        try {
-            server = new ServerSocket(port, 100, InetAddress.getByName(host));
+            server = new ServerSocket(port, 100, InetAddress.getLocalHost());
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -42,7 +33,7 @@ public class ServerTest {
     public void open(){
 
         //A different thread to run the server
-        listener = new ServerListener(server);
+        listener = new NetworkListener(server, this.networkController);
 
         listener.start();
 
