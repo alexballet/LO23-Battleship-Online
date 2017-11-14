@@ -15,7 +15,7 @@ import java.util.Random;
  * Created by xzirva on 17/10/17.
  * TODO: To be completed with the methods' implementation
  */
-public class NetworkModuleInterface implements NetworkInterface{
+public class NetworkModuleInterface implements COMInterface{
     private String[] listMessages = {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
 
     public boolean notifyReady(User user) {
