@@ -8,6 +8,7 @@ package data;
 import guiMain.GuiMainInterface;
 import java.util.HashSet;
 import java.util.Set;
+import lo23.battleship.online.network.COMInterface;
 import structData.Game;
 import structData.User;
 
@@ -22,7 +23,7 @@ public class DataController {
     private CDataTable interfaceDataTable;
     
     private GuiMainInterface interfaceMain;
-    private NetworkModuleInterface interfaceCom;
+    private COMInterface interfaceCom;
     
     
     
@@ -44,7 +45,12 @@ public class DataController {
     
     public void setInterfaceMain(GuiMainInterface i){
         interfaceMain = i;
-        interfaceDataMain.setInterfaceMain(i);
+        interfaceDataCom.setInterfaceMain(i);
+    }
+    
+    public void setInterfaceCom(COMInterface i){
+        interfaceCom = i;
+        interfaceDataMain.setInterfaceCom(i);
     }
     
     
