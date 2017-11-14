@@ -19,6 +19,9 @@ import java.util.Random;
 public class NetworkModuleInterface implements COMInterface{
     private IDataCom dataInterface;
 
+    public NetworkModuleInterface(NetworkController cont) {
+        controller = cont;
+    }
     private String[] listMessages = {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
     private NetworkController controller;
     public boolean notifyReady(User user) {
