@@ -30,13 +30,16 @@ public class BoatDrawing{
     private static final float CONTRE_TORPILLEUR_OFFSET = 35;
     private static final float SOUS_MARIN_OFFSET = 35;
     private static final float TOURPILLEUR_OFFSET = (float) 17.5;
-
+    
     public BoatDrawing(BoatType boatType, Rectangle boatRectangle) {
         this.active = false;
         this.rotation = false;
         this.boat = new Boat(); //Include boattype??
         this.boatRectangle = boatRectangle;
         this.boatType = boatType;
+        
+        this.initialLayoutX = boatRectangle.getLayoutX();
+        this.initialLayoutY = boatRectangle.getLayoutY();   
     }
 
     public boolean isActive() {

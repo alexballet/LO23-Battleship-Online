@@ -74,21 +74,6 @@ public class placementPhaseClassicController implements Initializable{
         sousMarin = new BoatDrawing(BoatType.SOUSMARINFR,sousMarinRectangle);
         torpilleur = new BoatDrawing(BoatType.TORPILLEUR,torpilleurRectangle);
         
-        porteAvions.setInitialLayoutX(porteAvionsRectangle.getLayoutX());
-        porteAvions.setInitialLayoutY(porteAvionsRectangle.getLayoutY());
-        
-        croiseur.setInitialLayoutX(croiseurRectangle.getLayoutX());
-        croiseur.setInitialLayoutY(croiseurRectangle.getLayoutY());
-        
-        contreTorpilleur.setInitialLayoutX(contreTorpilleurRectangle.getLayoutX());
-        contreTorpilleur.setInitialLayoutY(contreTorpilleurRectangle.getLayoutY());
-        
-        sousMarin.setInitialLayoutX(sousMarinRectangle.getLayoutX());
-        sousMarin.setInitialLayoutY(sousMarinRectangle.getLayoutY());
-        
-        torpilleur.setInitialLayoutX(torpilleurRectangle.getLayoutX());
-        torpilleur.setInitialLayoutY(torpilleurRectangle.getLayoutY());
-        
         porteAvionsRectangle.setOnMousePressed(activateBoat());
         
         croiseurRectangle.setOnMousePressed(activateBoat());
@@ -218,15 +203,11 @@ public class placementPhaseClassicController implements Initializable{
      * @param boat 
      */
     private void drawRotation(BoatDrawing boat){
-        if(boat.isRotation()){
-            boat.setRotation(false);
-            boat.getBoatRectangle().setRotate(0);
-            draw(boat,boat.getGridCol(),boat.getGridRow());
-        } else if(!boat.isRotation()){
-            boat.setRotation(true);
-            boat.getBoatRectangle().setRotate(90);
-            draw(boat,boat.getGridCol(),boat.getGridRow());
-        }
+       
+        boat.setRotation(!boat.isRotation());
+        Rectangle rectangleBoat = boat.getBoatRectangle();
+        rectangleBoat.setRotate(rectangleBoat.getRotate()+90);
+        draw(boat,boat.getGridCol(),boat.getGridRow());
     }
     
     /**
@@ -252,7 +233,7 @@ public class placementPhaseClassicController implements Initializable{
                     if(event.getSource().equals(sousMarinRectangle)){
                         setActiveBoat(sousMarin);
                     }  
-                    if(event.getSource().equals(torpilleurRectangle)){
+                    if(event.getSource().equals(torpilleurRectangle)){                  
                         setActiveBoat(torpilleur);
                     }  
                 }
