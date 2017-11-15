@@ -82,4 +82,12 @@ public class DataController {
         //comparer les UUID de u et des objets de listUser et enlever l'user si présent
         listUsers.remove(u);
     }
+
+    /**
+    * Accessor local DataGame
+    * @return the local DataGame
+    */
+    public DataGame getLocalDataGame(){
+        return localDataGame;
+    }
 }

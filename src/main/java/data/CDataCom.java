@@ -9,7 +9,7 @@ import guiMain.GuiMainInterface;
 import interfacesData.IDataCom;
 import java.util.List;
 import java.util.Set;
-import java.util.Hashset;
+import java.util.HashSet;
 import jdk.internal.util.xml.impl.Pair;
 import structData.Boat;
 import structData.ChatMessage;
