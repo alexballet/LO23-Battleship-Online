@@ -9,10 +9,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import structData.User;
 
 public class menuController {
 
+        // to log use log.info(message)
+        final static private Log log = LogFactory.getLog(menuController.class);
 
 	List<User> playersList;
 
@@ -32,6 +36,7 @@ public class menuController {
 
 
 	public void init() {
+                log.info("init main App");
 		//randomListUser();
 		playersList = new ArrayList<>();
 		playersObservable = FXCollections.observableList(playersList);
