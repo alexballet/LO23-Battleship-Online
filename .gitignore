@@ -27,6 +27,8 @@ nbactions.xml
 nb-configuration.xml
 .nb-gradle/
 
+BattleShipLO23/nbproject/private/
+
 tmp/*
 
 doc/*
