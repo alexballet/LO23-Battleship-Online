@@ -44,7 +44,11 @@ public class GuiTableController implements GuiTableInterface {
         return INSTANCE;
     }
     
-    
+    /**
+     * this function call an other fxml context and refresh page
+     * @param currentStage
+     * @throws Exception 
+     */
     @Override
     public void displayPlacementPhase(Stage currentStage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
