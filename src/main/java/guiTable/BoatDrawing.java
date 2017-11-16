@@ -5,6 +5,9 @@
  */
 package guiTable;
 
+import java.util.HashMap;
+import java.util.Map;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import packageStructDonnées.Boat;
 import packageStructDonnées.BoatType;
@@ -24,22 +27,22 @@ public class BoatDrawing{
     private double initialLayoutY;
     private Integer gridRow;
     private Integer gridCol;
+    private final float offset;
     
-    private static final float PORTE_AVIONS_OFFSET = 70;
-    private static final float CROISEUR_OFFSET = (float) 52.5;
-    private static final float CONTRE_TORPILLEUR_OFFSET = 35;
-    private static final float SOUS_MARIN_OFFSET = 35;
-    private static final float TOURPILLEUR_OFFSET = (float) 17.5;
+    private static final float GRID_OFFSET = (float) 17.5;
     
     public BoatDrawing(BoatType boatType, Rectangle boatRectangle) {
         this.active = false;
         this.rotation = false;
-        this.boat = new Boat(); //Include boattype??
+        this.boat = new Boat(boatType); //Include boattype??
         this.boatRectangle = boatRectangle;
         this.boatType = boatType;
         
         this.initialLayoutX = boatRectangle.getLayoutX();
         this.initialLayoutY = boatRectangle.getLayoutY();   
+        
+        //calculate boat offset for rotation
+        this.offset = (this.boat.getListCases().size()-1)*GRID_OFFSET;
     }
 
     public boolean isActive() {
@@ -114,22 +117,34 @@ public class BoatDrawing{
         this.boatType = boatType;
     }
     
-    public static float getBoatDrawingOffset(BoatType boatType){
-        switch (boatType) {
-            case PORTEAVIONS:
-                return PORTE_AVIONS_OFFSET;
-            case CROISEURFR:
-                return CROISEUR_OFFSET;
-            case CONTRETORPILLEUR:
-                return CONTRE_TORPILLEUR_OFFSET;
-            case SOUSMARINFR:
-                return SOUS_MARIN_OFFSET;
-            case TORPILLEUR:
-                return TOURPILLEUR_OFFSET;
-            default:
-                return 0;
-        }
+    public float getOffset(){
+        return this.offset;
     }
     
+        /**
+     * 
+     * @param boatMap
+     * @param boat 
+     * @return  
+     */
+    public BoatDrawing setActiveBoat(HashMap<Rectangle, BoatDrawing> boatMap){
+        
+        for (Map.Entry<Rectangle, BoatDrawing> entry : boatMap.entrySet()) {
+            Rectangle myRectangle = entry.getKey();
+            BoatDrawing myBoat = entry.getValue();
+            
+            myBoat.setActive(false);
+            //Sets this boat invisible to mouse events and the others are not
+            myRectangle.setMouseTransparent(false);
+            // Change its color to yellow and the color of the other to gray
+            myRectangle.setFill(Color.web("#ababab"));
+        }
+        this.setActive(true);
+        Rectangle rectangle = this.getBoatRectangle();
+        rectangle.setMouseTransparent(true);
+        rectangle.setFill(Color.web("#d8d875"));
+        
+        return this; 
+    }
     
 }

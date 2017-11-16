@@ -7,6 +7,7 @@ package guiTable.controller;
 
 import guiTable.BoatDrawing;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -48,15 +49,12 @@ public class placementPhaseClassicController implements Initializable{
     private static final int GRID_Y = 100;
     private static final int SPACE = 3;
     private static final int GRID_ELEMENT_SIZE = 35;
+    private static final int NB_CASES_GRID = 10;
     
     private boolean rotationIsValide;
     private BoatDrawing activeBoat;
-            
-    private BoatDrawing porteAvions;
-    private BoatDrawing croiseur;
-    private BoatDrawing contreTorpilleur;
-    private BoatDrawing sousMarin;
-    private BoatDrawing torpilleur; 
+    
+    HashMap<Rectangle, BoatDrawing> boatMap;
     
     
     /**
@@ -68,26 +66,22 @@ public class placementPhaseClassicController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        porteAvions = new BoatDrawing(BoatType.PORTEAVIONS,porteAvionsRectangle);
-        croiseur = new BoatDrawing(BoatType.CROISEURFR,croiseurRectangle);
-        contreTorpilleur = new BoatDrawing(BoatType.CONTRETORPILLEUR,contreTorpilleurRectangle);
-        sousMarin = new BoatDrawing(BoatType.SOUSMARINFR,sousMarinRectangle);
-        torpilleur = new BoatDrawing(BoatType.TORPILLEUR,torpilleurRectangle);
+        boatMap = new HashMap<>();
+        // init boat set
+        boatMap.put(porteAvionsRectangle,new BoatDrawing(BoatType.PORTEAVIONS,porteAvionsRectangle));
+        boatMap.put(croiseurRectangle, new BoatDrawing(BoatType.CROISEURFR,croiseurRectangle));
+        boatMap.put(contreTorpilleurRectangle, new BoatDrawing(BoatType.CONTRETORPILLEUR,contreTorpilleurRectangle));
+        boatMap.put(sousMarinRectangle, new BoatDrawing(BoatType.SOUSMARINFR,sousMarinRectangle));
+        boatMap.put(torpilleurRectangle, new BoatDrawing(BoatType.TORPILLEUR,torpilleurRectangle));
         
-        porteAvionsRectangle.setOnMousePressed(activateBoat());
-        
-        croiseurRectangle.setOnMousePressed(activateBoat());
- 
-        contreTorpilleurRectangle.setOnMousePressed(activateBoat());
-        
-        sousMarinRectangle.setOnMousePressed(activateBoat());
-        
-        torpilleurRectangle.setOnMousePressed(activateBoat());
-        
+        // acctive selection boat
+        for (Rectangle rectangle : boatMap.keySet()) {
+            rectangle.setOnMousePressed(activateBoat());
+        }        
         activeBoat = null;
 
-        for (int i = 0 ; i < 10 ; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0 ; i < NB_CASES_GRID ; i++) {
+            for (int j = 0; j < NB_CASES_GRID; j++) {
                 Pane pane = new Pane();
                 pane.setOnMouseEntered(drawBoatsNewPosition());
                 table.add(pane, i, j);
@@ -168,11 +162,13 @@ public class placementPhaseClassicController implements Initializable{
             boat.getBoatRectangle().setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
             boat.setGridCol(colIndex);
             boat.setGridRow(rowIndex);
+            System.out.println("no rotation");
         } else if (boat.isRotation()){
-            boat.getBoatRectangle().setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - BoatDrawing.getBoatDrawingOffset(boat.getBoatType()));
-            boat.getBoatRectangle().setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + BoatDrawing.getBoatDrawingOffset(boat.getBoatType()));
+            boat.getBoatRectangle().setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - boat.getOffset());
+            boat.getBoatRectangle().setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + boat.getOffset());
             boat.setGridCol(colIndex);
             boat.setGridRow(rowIndex);
+            System.out.println("rotation"+boat.getOffset());
         }
     }
        
@@ -199,11 +195,11 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
-     * 
+     * rotate boat with 90° and update view
      * @param boat 
      */
     private void drawRotation(BoatDrawing boat){
-       
+
         boat.setRotation(!boat.isRotation());
         Rectangle rectangleBoat = boat.getBoatRectangle();
         rectangleBoat.setRotate(rectangleBoat.getRotate()+90);
@@ -221,55 +217,14 @@ public class placementPhaseClassicController implements Initializable{
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     //If the user has clicked in the window
-                    if(event.getSource().equals(porteAvionsRectangle)){
-                        setActiveBoat(porteAvions);
-                    }   
-                    if(event.getSource().equals(croiseurRectangle)){
-                        setActiveBoat(croiseur);
-                    }    
-                    if(event.getSource().equals(contreTorpilleurRectangle)){
-                        setActiveBoat(contreTorpilleur);
-                    }  
-                    if(event.getSource().equals(sousMarinRectangle)){
-                        setActiveBoat(sousMarin);
-                    }  
-                    if(event.getSource().equals(torpilleurRectangle)){                  
-                        setActiveBoat(torpilleur);
-                    }  
+                    Rectangle myRectangle =(Rectangle) event.getSource();
+                    BoatDrawing myboat  = boatMap.get(myRectangle);
+                    activeBoat = myboat.setActiveBoat(boatMap);
+                    
                 }
             }
         };
         return mousePressHandler;
-    }
-    
-    /**
-     * 
-     * @param boat 
-     */
-    private void setActiveBoat(BoatDrawing boat){
-        porteAvions.setActive(false);
-        croiseur.setActive(false);
-        contreTorpilleur.setActive(false);
-        sousMarin.setActive(false);
-        torpilleur.setActive(false);
-        //Sets this boat invisible to mouse events and the others are not
-        porteAvions.getBoatRectangle().setMouseTransparent(false);
-        croiseur.getBoatRectangle().setMouseTransparent(false);
-        contreTorpilleur.getBoatRectangle().setMouseTransparent(false);
-        sousMarin.getBoatRectangle().setMouseTransparent(false);
-        torpilleur.getBoatRectangle().setMouseTransparent(false);
-        // Change its color to yellow and the color of the other to gray
-        porteAvions.getBoatRectangle().setFill(Color.web("#ababab"));
-        croiseur.getBoatRectangle().setFill(Color.web("#ababab"));
-        contreTorpilleur.getBoatRectangle().setFill(Color.web("#ababab"));
-        sousMarin.getBoatRectangle().setFill(Color.web("#ababab"));
-        torpilleur.getBoatRectangle().setFill(Color.web("#ababab"));
-        
-        boat.setActive(true);
-        boat.getBoatRectangle().setMouseTransparent(true);        
-        boat.getBoatRectangle().setFill(Color.web("#d8d875"));
-        
-        activeBoat = boat; 
     }
     
     /**
