@@ -24,11 +24,11 @@
    <children>
       <SplitPane dividerPositions="0.6" prefHeight="617.0" prefWidth="880.0">
         <items>
-            <AnchorPane fx:id="boardPane" prefHeight="200.0" prefWidth="200.0" />
-            <SplitPane dividerPositions="0.4" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+            <AnchorPane fx:id="boardPane" prefHeight="200.0" />
+            <SplitPane dividerPositions="0.4" orientation="VERTICAL" prefHeight="200.0">
               <items>
-                  <AnchorPane fx:id="availableBoatsPane" prefHeight="200.0" prefWidth="200.0" />
-                  <AnchorPane fx:id="chatPane" prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane fx:id="availableBoatsPane" prefHeight="200.0" />
+                  <AnchorPane fx:id="chatPane" prefHeight="200.0" />
               </items>
             </SplitPane>
         </items>
