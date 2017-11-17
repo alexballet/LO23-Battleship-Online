@@ -6,7 +6,6 @@
 package guiTable;
 
 import java.util.HashMap;
-import java.util.Map;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import packageStructDonnées.Boat;
@@ -27,10 +26,8 @@ public class BoatDrawing{
     private double initialLayoutY;
     private Integer gridRow;
     private Integer gridCol;
-    private final float offset;
     
-    private static final float GRID_OFFSET = (float) 17.5;
-    
+
     public BoatDrawing(BoatType boatType, Rectangle boatRectangle) {
         this.active = false;
         this.rotation = false;
@@ -41,8 +38,7 @@ public class BoatDrawing{
         this.initialLayoutX = boatRectangle.getLayoutX();
         this.initialLayoutY = boatRectangle.getLayoutY();   
         
-        //calculate boat offset for rotation
-        this.offset = (this.boat.getListCases().size()-1)*GRID_OFFSET;
+
     }
 
     public boolean isActive() {
@@ -117,10 +113,7 @@ public class BoatDrawing{
         this.boatType = boatType;
     }
     
-    public float getOffset(){
-        return this.offset;
-    }
-    
+
         /**
      * 
      * @param boatMap 

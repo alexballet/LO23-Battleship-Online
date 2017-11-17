@@ -92,7 +92,7 @@ public class placementPhaseClassicController implements Initializable{
         table.setOnMouseEntered(enableRotation());
         table.setOnMouseExited(disableRotation());
         
-        anchorPane.addEventHandler(KeyEvent.KEY_PRESSED, rotateBoat());
+        anchorPane.addEventHandler(KeyEvent.KEY_PRESSED, playKeyEvent());
         
         rotationIsValide = false;
     }
@@ -158,14 +158,24 @@ public class placementPhaseClassicController implements Initializable{
      * @param rowIndex 
      */
     private void draw(BoatDrawing boat, Integer colIndex, Integer rowIndex){
-        // if boat have rotation, we must deplace boat
-        float offset = boat.isRotation()?boat.getOffset():0;
+        // if boat have rotation, we must deplace boat 
+        
+        // offset is value to move rotation from center of boat to first case
+        /*
+             ___ ___ ___ ___ ___   
+            |___|___|_*_|___|___| normal point of rotation
+             ___ ___ ___ ___ ___   
+            |_*_|___|___|___|___| our point of rotation
+        
+            (nb case-1)/2
+        
+        */
+        float offset = boat.isRotation()? ((float) boat.getBoatType().getNbCases()-1)/2:0;
             
-        float positionX = GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - offset;
-        float positionY = GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + offset;
+        float positionX = GRID_X + SPACE + GRID_ELEMENT_SIZE*(colIndex - offset);
+        float positionY = GRID_Y + SPACE + GRID_ELEMENT_SIZE*(rowIndex + offset);
             
-        boat.getBoatRectangle().setLayoutX(positionX);
-        boat.getBoatRectangle().setLayoutY(positionY);
+        boat.getBoatRectangle().relocate(positionX, positionY);
         boat.setGridCol(colIndex);
         boat.setGridRow(rowIndex);
     }
@@ -174,11 +184,12 @@ public class placementPhaseClassicController implements Initializable{
      * Method that rotates the boat active when the user press R.
      * @return keyEeventHandler
      */  
-    public EventHandler<KeyEvent> rotateBoat() {
+    public EventHandler<KeyEvent> playKeyEvent() {
         EventHandler<KeyEvent> keyEventHandler;
         keyEventHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
+                // rotate boat
                 if (keyEvent.getCode() == KeyCode.R) {
                     if(rotationIsValide){
                         if(activeBoat!=null){
@@ -186,12 +197,23 @@ public class placementPhaseClassicController implements Initializable{
                         }
                     }   
                 }
+                // replace boat to origin
+                if (keyEvent.getCode() == KeyCode.DELETE) {
+                   if(activeBoat!=null) {
+                       reinitBoat(activeBoat);
+                   }
+                }
+                System.out.println(keyEvent.getCode());
                 keyEvent.consume();
             }
         };
         return keyEventHandler;
     }
     
+    private void reinitBoat(BoatDrawing myboat) {
+            // TODO
+    }        
+            
     /**
      * rotate boat with 90° and update view
      * @param boat 
@@ -247,4 +269,5 @@ public class placementPhaseClassicController implements Initializable{
         };
         return mousePressGridHandler;
     }
+    
 }
