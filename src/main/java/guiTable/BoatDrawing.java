@@ -123,22 +123,11 @@ public class BoatDrawing{
     
         /**
      * 
-     * @param boatMap
-     * @param boat 
+     * @param boatMap 
      * @return  
      */
     public BoatDrawing setActiveBoat(HashMap<Rectangle, BoatDrawing> boatMap){
         
-        for (Map.Entry<Rectangle, BoatDrawing> entry : boatMap.entrySet()) {
-            Rectangle myRectangle = entry.getKey();
-            BoatDrawing myBoat = entry.getValue();
-            
-            myBoat.setActive(false);
-            //Sets this boat invisible to mouse events and the others are not
-            myRectangle.setMouseTransparent(false);
-            // Change its color to yellow and the color of the other to gray
-            myRectangle.setFill(Color.web("#ababab"));
-        }
         this.setActive(true);
         Rectangle rectangle = this.getBoatRectangle();
         rectangle.setMouseTransparent(true);

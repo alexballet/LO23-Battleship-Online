@@ -152,7 +152,7 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
-     * draw boat in new position and update boat
+     * draw boat in new position and update boat position
      * @param boat
      * @param colIndex
      * @param rowIndex 
@@ -214,10 +214,12 @@ public class placementPhaseClassicController implements Initializable{
             
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    //If the user has clicked in the window
+                    //If the user has clicked in the window and no other boat already selected
+                    if (activeBoat == null) {
                     Rectangle myRectangle =(Rectangle) event.getSource();
                     BoatDrawing myboat  = boatMap.get(myRectangle);
                     activeBoat = myboat.setActiveBoat(boatMap);
+                    }
                     
                 }
             }
@@ -226,7 +228,7 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
-     * Method that unactivates the boat when it is placed sur le grid.
+     * Method that unactivates the boat when it is placed on the grid.
      * @return mousePressGridHandler
      */    
     private EventHandler<MouseEvent> unactiveBoat() {
