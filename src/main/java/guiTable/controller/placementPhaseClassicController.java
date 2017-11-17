@@ -100,6 +100,7 @@ public class placementPhaseClassicController implements Initializable{
     /**
      * Method that enables the boat rotation, this only happens when the mouse is
      * over the grid.
+     * QUESTION : utile ?
      * @return mouseLocationHandler
      */
     private EventHandler<MouseEvent> enableRotation() {
@@ -151,25 +152,22 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
-     * 
+     * draw boat in new position and update boat
      * @param boat
      * @param colIndex
      * @param rowIndex 
      */
     private void draw(BoatDrawing boat, Integer colIndex, Integer rowIndex){
-        if(!boat.isRotation()){
-            boat.getBoatRectangle().setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex);
-            boat.getBoatRectangle().setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex);
-            boat.setGridCol(colIndex);
-            boat.setGridRow(rowIndex);
-            System.out.println("no rotation");
-        } else if (boat.isRotation()){
-            boat.getBoatRectangle().setLayoutX(GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - boat.getOffset());
-            boat.getBoatRectangle().setLayoutY(GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + boat.getOffset());
-            boat.setGridCol(colIndex);
-            boat.setGridRow(rowIndex);
-            System.out.println("rotation"+boat.getOffset());
-        }
+        // if boat have rotation, we must deplace boat
+        float offset = boat.isRotation()?boat.getOffset():0;
+            
+        float positionX = GRID_X + SPACE + GRID_ELEMENT_SIZE*colIndex - offset;
+        float positionY = GRID_Y + SPACE + GRID_ELEMENT_SIZE*rowIndex + offset;
+            
+        boat.getBoatRectangle().setLayoutX(positionX);
+        boat.getBoatRectangle().setLayoutY(positionY);
+        boat.setGridCol(colIndex);
+        boat.setGridRow(rowIndex);
     }
        
     /**
