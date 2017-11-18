@@ -20,10 +20,9 @@ public class BoatDrawing{
     private Boat boat;
     private Rectangle boatRectangle;
     private BoatType boatType;
-    private double initialLayoutX;
-    private double initialLayoutY;
     private Integer gridRow;
     private Integer gridCol;
+    private boolean placed;
     
     private static final float PORTE_AVIONS_OFFSET = 70;
     private static final float CROISEUR_OFFSET = (float) 52.5;
@@ -31,15 +30,18 @@ public class BoatDrawing{
     private static final float SOUS_MARIN_OFFSET = 35;
     private static final float TOURPILLEUR_OFFSET = (float) 17.5;
     
+    private static final int PORTE_AVIONS_LENGTH = 5;
+    private static final int CROISEUR_LENGTH = 4;
+    private static final int CONTRE_TORPILLEUR_LENGTH = 3;
+    private static final int SOUS_MARIN_LENGTH = 3;
+    private static final int TOURPILLEUR_LENGTH = 2;
+    
     public BoatDrawing(BoatType boatType, Rectangle boatRectangle) {
         this.active = false;
         this.rotation = false;
         this.boat = new Boat(); //Include boattype??
         this.boatRectangle = boatRectangle;
-        this.boatType = boatType;
-        
-        this.initialLayoutX = boatRectangle.getLayoutX();
-        this.initialLayoutY = boatRectangle.getLayoutY();   
+        this.boatType = boatType; 
     }
 
     public boolean isActive() {
@@ -74,22 +76,6 @@ public class BoatDrawing{
         this.boatRectangle = boatRectangle;
     }
 
-    public double getInitialLayoutX() {
-        return initialLayoutX;
-    }
-
-    public void setInitialLayoutX(double initialLayoutX) {
-        this.initialLayoutX = initialLayoutX;
-    }
-
-    public double getInitialLayoutY() {
-        return initialLayoutY;
-    }
-
-    public void setInitialLayoutY(double initialLayoutY) {
-        this.initialLayoutY = initialLayoutY;
-    }
-
     public Integer getGridRow() {
         return gridRow;
     }
@@ -113,6 +99,16 @@ public class BoatDrawing{
     public void setBoatType(BoatType boatType) {
         this.boatType = boatType;
     }
+
+    public boolean isPlaced() {
+        return placed;
+    }
+
+    public void setPlaced(boolean placed) {
+        this.placed = placed;
+    }
+    
+    
     
     public static float getBoatDrawingOffset(BoatType boatType){
         switch (boatType) {
@@ -131,5 +127,21 @@ public class BoatDrawing{
         }
     }
     
+    public static int getBoatDrawingLength(BoatType boatType){
+        switch (boatType) {
+            case PORTEAVIONS:
+                return PORTE_AVIONS_LENGTH;
+            case CROISEURFR:
+                return CROISEUR_LENGTH;
+            case CONTRETORPILLEUR:
+                return CONTRE_TORPILLEUR_LENGTH;
+            case SOUSMARINFR:
+                return SOUS_MARIN_LENGTH;
+            case TORPILLEUR:
+                return TOURPILLEUR_LENGTH;
+            default:
+                return 0;
+        }
+    }
     
 }
