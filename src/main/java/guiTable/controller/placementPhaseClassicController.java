@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -248,7 +249,32 @@ public class placementPhaseClassicController implements Initializable{
         };
         return mousePressHandler;
     }
-    
+    /**
+     * check if you can put the boat at the place
+     * @param activeBoat
+     * @return true if position is correct
+     */
+    private boolean positionCorrect(BoatDrawing activeBoat) {
+        // get active rectangle bound
+        Rectangle activeRectangle = activeBoat.getBoatRectangle();
+        Bounds boundR1 = activeRectangle.getBoundsInParent();
+        
+        // try to find intersection with all other boats
+        for (Rectangle myRectangle : boatMap.keySet()) {
+            if(activeRectangle.equals(myRectangle)) {} else {
+                Bounds boundR2 = myRectangle.getBoundsInParent();
+                if (boundR1.intersects(boundR2)) {
+                    return false ;
+                }
+            }
+        //TODO check grid position
+            
+        }
+        
+        
+        
+        return true ;        
+    }
     /**
      * Method that unactivates the boat when it is placed on the grid.
      * @return mousePressGridHandler
@@ -258,14 +284,18 @@ public class placementPhaseClassicController implements Initializable{
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if(activeBoat!=null){
+                        if(positionCorrect(activeBoat)) {
                         activeBoat.setActive(false);
                         activeBoat.getBoatRectangle().setMouseTransparent(false);
                         activeBoat.getBoatRectangle().setFill(Color.web("#ababab"));
                         activeBoat=null;
+                            
+                        }
                     }                 
                 }
                 event.consume();
             }
+
         };
         return mousePressGridHandler;
     }
