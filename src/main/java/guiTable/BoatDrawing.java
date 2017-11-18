@@ -113,6 +113,17 @@ public class BoatDrawing{
         this.boatType = boatType;
     }
     
+    public int getBoatSize() {
+        return this.boatType.getNbCases();
+    }
+
+    public void reinit() {
+        this.setGridCol(null);
+        this.setGridRow(null);
+        this.setActive(false);
+        this.setRotation(false);
+    }
+    
 
         /**
      * 

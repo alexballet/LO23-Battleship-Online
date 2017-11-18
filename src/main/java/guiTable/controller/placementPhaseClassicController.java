@@ -89,7 +89,7 @@ public class placementPhaseClassicController implements Initializable{
             }
         }
         
-        table.setOnMousePressed(unactiveBoat());
+        table.setOnMousePressed(placeBoat());
         table.setOnMouseEntered(enableRotation());
         table.setOnMouseExited(disableRotation());
         
@@ -171,7 +171,7 @@ public class placementPhaseClassicController implements Initializable{
             (nb case-1)/2
         
         */
-        float offset = boat.isRotation()? ((float) boat.getBoatType().getNbCases()-1)/2:0;
+        float offset = boat.isRotation()? ((float) boat.getBoatSize()-1)/2:0;
             
         float positionX = GRID_X + SPACE + GRID_ELEMENT_SIZE*(colIndex - offset);
         float positionY = GRID_Y + SPACE + GRID_ELEMENT_SIZE*(rowIndex + offset);
@@ -211,8 +211,14 @@ public class placementPhaseClassicController implements Initializable{
         return keyEventHandler;
     }
     
+    /**
+     * replace boat in initial position and desactive it
+     * @param myboat 
+     */
     private void reinitBoat(BoatDrawing myboat) {
-            // TODO
+        myboat.reinit();
+        myboat.getBoatRectangle().relocate(myboat.getInitialLayoutX(), myboat.getInitialLayoutY());
+        unactiveBoat();
     }        
             
     /**
@@ -268,34 +274,46 @@ public class placementPhaseClassicController implements Initializable{
                 }
             }
         //TODO check grid position
-            
-        }
+        
+    }
         
         
         
         return true ;        
     }
+    
     /**
-     * Method that unactivates the boat when it is placed on the grid.
+     * disactive boat when selected
+     * @throws nullpointer exception
+     */
+    private void unactiveBoat() {
+    if (activeBoat==null) {
+        if(positionCorrect(activeBoat)) {
+            activeBoat.setActive(false);
+            activeBoat.getBoatRectangle().setMouseTransparent(false);
+            activeBoat.getBoatRectangle().setFill(Color.web("#ababab"));
+            activeBoat=null;
+        } // else do nothing
+        
+    }
+    // function might never be used without any boat active so throw execption
+        
+        
+    }
+
+    
+    /**
+     * Method that place the boat in the grid and disactivate it.
      * @return mousePressGridHandler
      */    
-    private EventHandler<MouseEvent> unactiveBoat() {
+    private EventHandler<MouseEvent> placeBoat() {
         EventHandler<MouseEvent> mousePressGridHandler = new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    if(activeBoat!=null){
-                        if(positionCorrect(activeBoat)) {
-                        activeBoat.setActive(false);
-                        activeBoat.getBoatRectangle().setMouseTransparent(false);
-                        activeBoat.getBoatRectangle().setFill(Color.web("#ababab"));
-                        activeBoat=null;
-                            
-                        }
-                    }                 
+                    unactiveBoat();                 
                 }
                 event.consume();
             }
-
         };
         return mousePressGridHandler;
     }
