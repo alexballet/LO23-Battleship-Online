@@ -214,7 +214,7 @@
             <Rectangle fx:id="sousMarinRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
             <Rectangle fx:id="torpilleurRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />            
             <Rectangle fx:id="porteAvionsRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="169.0" />
-            <Button layoutX="450.0" layoutY="505.0" mnemonicParsing="false" text="Valider" />
+            <Button  fx:id="valider" layoutX="450.0" layoutY="505.0" mnemonicParsing="false" text="Valider" />
             <Button layoutX="14.0" layoutY="505.0" mnemonicParsing="false" text="Quitter" />
          </children>
       </Pane>

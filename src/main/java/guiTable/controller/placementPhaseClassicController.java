@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -45,6 +46,8 @@ public class placementPhaseClassicController implements Initializable{
     private AnchorPane anchorPane;
     @FXML
     private GridPane table;
+    @FXML
+    private Button valider;
     
     private static final int GRID_X = 100;
     private static final int GRID_Y = 100;
@@ -99,7 +102,7 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
-     * Method that enables the boat rotation, this only happens when the mouse is
+     * Enables the boat rotation, this only happens when the mouse is
      * over the grid.
      * QUESTION : utile ?
      * @return mouseLocationHandler
@@ -116,9 +119,8 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
-     * Method that disables the boat rotation, because the mouse is not over
-     * the grid.
-     * @return 
+     * Disables the boat rotation when the mouse exits the grid
+     * @return mouseLocationHandler
      */
     private EventHandler<MouseEvent> disableRotation() {
         EventHandler<MouseEvent> mouseLocationHandler = new EventHandler<MouseEvent>() {
@@ -132,8 +134,7 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
-     * Method that draw the boats over the grid when the mouse enters one 
-     * element of the grid.
+     * Moves the boat on the grid when the mouse moves over the squares.
      * @return mousePositionHandler
      */
     private EventHandler<MouseEvent> drawBoatsNewPosition() {
@@ -144,7 +145,7 @@ public class placementPhaseClassicController implements Initializable{
                     Node source = (Node)event.getSource() ;
                     Integer colIndex = GridPane.getColumnIndex(source);
                     Integer rowIndex = GridPane.getRowIndex(source);
-                    draw(activeBoat, colIndex, rowIndex);                    
+                    draw(activeBoat, colIndex, rowIndex);  
                 }
                 event.consume();
             }
@@ -181,8 +182,8 @@ public class placementPhaseClassicController implements Initializable{
         boat.setGridRow(rowIndex);
     }
        
-    /**
-     * Method that rotates the boat active when the user press R.
+    /** FIXME
+     * Rotates the boat active when the user press R.
      * @return keyEeventHandler
      */  
     public EventHandler<KeyEvent> playKeyEvent() {
@@ -217,7 +218,9 @@ public class placementPhaseClassicController implements Initializable{
      */
     private void reinitBoat(BoatDrawing myboat) {
         myboat.reinit();
-        myboat.getBoatRectangle().relocate(myboat.getInitialLayoutX(), myboat.getInitialLayoutY());
+        Rectangle myRectangle = myboat.getBoatRectangle();
+        myRectangle.setRotate(0);
+        myRectangle.relocate(myboat.getInitialLayoutX(), myboat.getInitialLayoutY());
         unactiveBoat();
     }        
             
@@ -234,13 +237,14 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
-     * Method that actives the boat when the user clicks  on it.
+     * Actives the boat when the user clicks on.
      * @return mousePressHandler
      */   
     private EventHandler<MouseEvent> activateBoat() {
         EventHandler<MouseEvent> mousePressHandler;
         mousePressHandler = new EventHandler<MouseEvent>() {
             
+            @Override
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     //If the user has clicked in the window and no other boat already selected
@@ -248,6 +252,7 @@ public class placementPhaseClassicController implements Initializable{
                     Rectangle myRectangle =(Rectangle) event.getSource();
                     BoatDrawing myboat  = boatMap.get(myRectangle);
                     activeBoat = myboat.setActiveBoat(boatMap);
+                    activeBoat.setPlaced(false);
                     }
                     
                 }
@@ -264,7 +269,8 @@ public class placementPhaseClassicController implements Initializable{
         // get active rectangle bound
         Rectangle activeRectangle = activeBoat.getBoatRectangle();
         Bounds boundR1 = activeRectangle.getBoundsInParent();
-        
+        System.out.println("bound = "+ boundR1 + " boat rectangle : "+ activeRectangle); // debug
+
         // try to find intersection with all other boats
         for (Rectangle myRectangle : boatMap.keySet()) {
             if(activeRectangle.equals(myRectangle)) {} else {
@@ -273,49 +279,51 @@ public class placementPhaseClassicController implements Initializable{
                     return false ;
                 }
             }
-        //TODO check grid position
-        
-    }
-        
-        
-        
-        return true ;        
+        } 
+        //check grid position
+        int index ;
+        if(activeBoat.isRotation()) {
+            index= activeBoat.getGridRow();
+        } else {
+            index= activeBoat.getGridCol();
+        }
+
+        System.out.println("index = "+ index + " boat Size : "+ activeBoat.getBoatSize()); //debug
+        return activeBoat.getBoatSize()+index <= NB_CASES_GRID ;        
     }
     
     /**
-     * disactive boat when selected
      * @throws nullpointer exception
      */
     private void unactiveBoat() {
-    if (activeBoat==null) {
-        if(positionCorrect(activeBoat)) {
+    if (activeBoat!=null) {
             activeBoat.setActive(false);
             activeBoat.getBoatRectangle().setMouseTransparent(false);
             activeBoat.getBoatRectangle().setFill(Color.web("#ababab"));
             activeBoat=null;
         } // else do nothing
-        
-    }
     // function might never be used without any boat active so throw execption
-        
         
     }
 
     
     /**
-     * Method that place the boat in the grid and disactivate it.
+     * Unactivates the boat when it is placed over le grid.
      * @return mousePressGridHandler
      */    
     private EventHandler<MouseEvent> placeBoat() {
         EventHandler<MouseEvent> mousePressGridHandler = new EventHandler<MouseEvent>() {
+            @Override
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    unactiveBoat();                 
+                    if(positionCorrect(activeBoat)) {
+                        activeBoat.setPlaced(true);
+                        unactiveBoat(); 
+                    }
                 }
                 event.consume();
             }
         };
         return mousePressGridHandler;
     }
-    
 }

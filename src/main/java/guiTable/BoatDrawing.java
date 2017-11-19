@@ -22,12 +22,17 @@ public class BoatDrawing{
     private Boat boat;
     private Rectangle boatRectangle;
     private BoatType boatType;
-    private double initialLayoutX;
-    private double initialLayoutY;
     private Integer gridRow;
     private Integer gridCol;
+    private boolean placed;
     
-
+    //not supposed to change
+    final private double initialLayoutX;
+    final private double initialLayoutY;
+    
+    final private Color activeColor = Color.web("#d8d875") ;
+    final private Color disactiveColor = Color.web("#ababab") ;
+    
     public BoatDrawing(BoatType boatType, Rectangle boatRectangle) {
         this.active = false;
         this.rotation = false;
@@ -38,7 +43,6 @@ public class BoatDrawing{
         this.initialLayoutX = boatRectangle.getLayoutX();
         this.initialLayoutY = boatRectangle.getLayoutY();   
         
-
     }
 
     public boolean isActive() {
@@ -77,16 +81,9 @@ public class BoatDrawing{
         return initialLayoutX;
     }
 
-    public void setInitialLayoutX(double initialLayoutX) {
-        this.initialLayoutX = initialLayoutX;
-    }
 
     public double getInitialLayoutY() {
         return initialLayoutY;
-    }
-
-    public void setInitialLayoutY(double initialLayoutY) {
-        this.initialLayoutY = initialLayoutY;
     }
 
     public Integer getGridRow() {
@@ -112,6 +109,28 @@ public class BoatDrawing{
     public void setBoatType(BoatType boatType) {
         this.boatType = boatType;
     }
+
+    public boolean isPlaced() {
+        return placed;
+    }
+
+    public void setPlaced(boolean placed) {
+        this.placed = placed;
+    }
+
+    /**
+     * @return the activeColor
+     */
+    public Color getActiveColor() {
+        return activeColor;
+    }
+
+    /**
+     * @return the disactiveColor
+     */
+    public Color getDisactiveColor() {
+        return disactiveColor;
+    }
     
     public int getBoatSize() {
         return this.boatType.getNbCases();
@@ -122,6 +141,7 @@ public class BoatDrawing{
         this.setGridRow(null);
         this.setActive(false);
         this.setRotation(false);
+        this.setPlaced(false);
     }
     
 
@@ -135,9 +155,8 @@ public class BoatDrawing{
         this.setActive(true);
         Rectangle rectangle = this.getBoatRectangle();
         rectangle.setMouseTransparent(true);
-        rectangle.setFill(Color.web("#d8d875"));
-        
+        rectangle.setFill(getActiveColor());
         return this; 
+
     }
-    
 }
