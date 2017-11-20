@@ -76,9 +76,13 @@ public class CDataCom implements IDataCom {
         interfaceMain.addUser(user);
     }
 
+    /**
+     * Sends the profile of a distant user to the local user 
+     * @param profile : the profile of distant user
+     */
     @Override
     public void sendStatistics(Profile profile) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        interfaceMain.sendStatistics(profile);
     }
 
     @Override
@@ -115,10 +119,15 @@ public class CDataCom implements IDataCom {
     public void coordinates(Shot shot, Boat boat) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /**
+     * Returns the local user's profile
+     * @return the local user's profile
+     */
     @Override
     public Profile getUserProfile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Profile localProfile = controller.getLocalProfile();
+        return localProfile;
     }
 
     @Override
