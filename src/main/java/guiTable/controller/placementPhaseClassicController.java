@@ -59,8 +59,7 @@ public class placementPhaseClassicController implements Initializable{
     private BoatDrawing activeBoat;
     
     HashMap<Rectangle, BoatDrawing> boatMap;
-    
-    
+     
     /**
      * The method initialize starts the window and assigns values BoatDrawing 
      * objects and methods to the window's objects.
@@ -71,14 +70,14 @@ public class placementPhaseClassicController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         
         boatMap = new HashMap<>();
-        // init boat set
+        // Initializes the boat set
         boatMap.put(porteAvionsRectangle,new BoatDrawing(BoatType.PORTEAVIONS,porteAvionsRectangle));
         boatMap.put(croiseurRectangle, new BoatDrawing(BoatType.CROISEURFR,croiseurRectangle));
         boatMap.put(contreTorpilleurRectangle, new BoatDrawing(BoatType.CONTRETORPILLEUR,contreTorpilleurRectangle));
         boatMap.put(sousMarinRectangle, new BoatDrawing(BoatType.SOUSMARINFR,sousMarinRectangle));
         boatMap.put(torpilleurRectangle, new BoatDrawing(BoatType.TORPILLEUR,torpilleurRectangle));
         
-        // acctive selection boat
+        // Sets the events handles of the grid's squares.
         for (Rectangle rectangle : boatMap.keySet()) {
             rectangle.setOnMousePressed(activateBoat());
         }        
@@ -92,20 +91,46 @@ public class placementPhaseClassicController implements Initializable{
             }
         }
         
+        // Sets the events handlers
         table.setOnMousePressed(placeBoat());
         table.setOnMouseEntered(enableRotation());
         table.setOnMouseExited(disableRotation());
-        
+        // This probably will change after the addition of the chat.
         anchorPane.addEventHandler(KeyEvent.KEY_PRESSED, playKeyEvent());
         
         rotationIsValide = false;
     }
     
     /**
+     * Actives the boat when the user clicks on it.
+     * @return mousePressHandler The handler of the event (Click over the boat).
+     */   
+    private EventHandler<MouseEvent> activateBoat() {
+        EventHandler<MouseEvent> mousePressHandler = new EventHandler<MouseEvent>() {        
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    //If the user has clicked in the window and no other boat is already selected
+                    if (activeBoat == null) {
+                        Rectangle myRectangle =(Rectangle) event.getSource();
+                        BoatDrawing myboat  = boatMap.get(myRectangle);
+                        activeBoat = myboat.setActiveBoat(boatMap);
+                        activeBoat.setPlaced(false);
+                    }
+                    
+                }
+            }
+        };
+        return mousePressHandler;
+    }
+    
+    /**
      * Enables the boat rotation, this only happens when the mouse is
      * over the grid.
      * QUESTION : utile ?
-     * @return mouseLocationHandler
+     * REPONSE : Oui, sans rotationIsValide le bateau peut tourner sans être sur 
+     * le grid (quand il est à la position initiale), ce qui va être bizarre. Qu'est-ce que tu en penses?
+     * @return mouseLocationHandler The handler of the event (Mouse enters ther grid).
      */
     private EventHandler<MouseEvent> enableRotation() {
         EventHandler<MouseEvent> mouseLocationHandler = new EventHandler<MouseEvent>() {
@@ -120,7 +145,7 @@ public class placementPhaseClassicController implements Initializable{
     
     /**
      * Disables the boat rotation when the mouse exits the grid
-     * @return mouseLocationHandler
+     * @return mouseLocationHandler The handler of the event (Mouse exits the grid).
      */
     private EventHandler<MouseEvent> disableRotation() {
         EventHandler<MouseEvent> mouseLocationHandler = new EventHandler<MouseEvent>() {
@@ -135,7 +160,7 @@ public class placementPhaseClassicController implements Initializable{
     
     /**
      * Moves the boat on the grid when the mouse moves over the squares.
-     * @return mousePositionHandler
+     * @return mousePositionHandler The handler of the event (Mouse enters a grid position).
      */
     private EventHandler<MouseEvent> drawBoatsNewPosition() {
         EventHandler<MouseEvent> mousePositionHandler = new EventHandler<MouseEvent>() {
@@ -154,10 +179,10 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
-     * draw boat in new position and update boat position
-     * @param boat
-     * @param colIndex
-     * @param rowIndex 
+     * Draws and updates the boat's position
+     * @param boat The boat that will be drawn.
+     * @param colIndex The grid column of its position.
+     * @param rowIndex The grid row of tis position.
      */
     private void draw(BoatDrawing boat, Integer colIndex, Integer rowIndex){
         // if boat have rotation, we must deplace boat 
@@ -182,16 +207,17 @@ public class placementPhaseClassicController implements Initializable{
         boat.setGridRow(rowIndex);
     }
        
-    /** FIXME
-     * Rotates the boat active when the user press R.
-     * @return keyEeventHandler
+    /**
+     * Rotates the active boat when the user press R and deletes the active boat
+     * when the user presses delete.
+     * @return keyEeventHandler The handler of the event (Users types any key).
      */  
     public EventHandler<KeyEvent> playKeyEvent() {
         EventHandler<KeyEvent> keyEventHandler;
         keyEventHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                // rotate boat
+                // Rotates the boat.
                 if (keyEvent.getCode() == KeyCode.R) {
                     if(rotationIsValide){
                         if(activeBoat!=null){
@@ -199,7 +225,7 @@ public class placementPhaseClassicController implements Initializable{
                         }
                     }   
                 }
-                // replace boat to origin
+                // Relocates the boat to origin.
                 if (keyEvent.getCode() == KeyCode.DELETE) {
                    if(activeBoat!=null) {
                        reinitBoat(activeBoat);
@@ -211,25 +237,12 @@ public class placementPhaseClassicController implements Initializable{
         };
         return keyEventHandler;
     }
-    
+                  
     /**
-     * replace boat in initial position and desactive it
-     * @param myboat 
-     */
-    private void reinitBoat(BoatDrawing myboat) {
-        myboat.reinit();
-        Rectangle myRectangle = myboat.getBoatRectangle();
-        myRectangle.setRotate(0);
-        myRectangle.relocate(myboat.getInitialLayoutX(), myboat.getInitialLayoutY());
-        unactiveBoat();
-    }        
-            
-    /**
-     * rotate boat with 90° and update view
-     * @param boat 
+     * Rotates the boat with 90° and updates the view.
+     * @param boat The boat that will be rotated
      */
     private void drawRotation(BoatDrawing boat){
-
         boat.setRotation(!boat.isRotation());
         Rectangle rectangleBoat = boat.getBoatRectangle();
         rectangleBoat.setRotate(rectangleBoat.getRotate()+90);
@@ -237,41 +250,29 @@ public class placementPhaseClassicController implements Initializable{
     }
     
     /**
-     * Actives the boat when the user clicks on.
-     * @return mousePressHandler
-     */   
-    private EventHandler<MouseEvent> activateBoat() {
-        EventHandler<MouseEvent> mousePressHandler;
-        mousePressHandler = new EventHandler<MouseEvent>() {
-            
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.getButton() == MouseButton.PRIMARY) {
-                    //If the user has clicked in the window and no other boat already selected
-                    if (activeBoat == null) {
-                    Rectangle myRectangle =(Rectangle) event.getSource();
-                    BoatDrawing myboat  = boatMap.get(myRectangle);
-                    activeBoat = myboat.setActiveBoat(boatMap);
-                    activeBoat.setPlaced(false);
-                    }
-                    
-                }
-            }
-        };
-        return mousePressHandler;
-    }
+     * Relocates the boat in the initial position and deactives it.
+     * @param boat The boat that will be relocated and deactivated.
+     */
+    private void reinitBoat(BoatDrawing boat) {
+        boat.reinit();
+        Rectangle myRectangle = boat.getBoatRectangle();
+        myRectangle.setRotate(0);
+        myRectangle.relocate(boat.getInitialLayoutX(), boat.getInitialLayoutY());
+        deactiveBoat();
+    }        
+    
     /**
-     * check if you can put the boat at the place
-     * @param activeBoat
-     * @return true if position is correct
+     * Checks if the user cans put the boat at the selected position.
+     * @param activeBoat The active boat that will have its positions checked.
+     * @return True if the position is correct.
      */
     private boolean positionCorrect(BoatDrawing activeBoat) {
-        // get active rectangle bound
+        // Gets the active rectangle's bound
         Rectangle activeRectangle = activeBoat.getBoatRectangle();
         Bounds boundR1 = activeRectangle.getBoundsInParent();
         System.out.println("bound = "+ boundR1 + " boat rectangle : "+ activeRectangle); // debug
 
-        // try to find intersection with all other boats
+        // Tries to find any intersection with the other boats.
         for (Rectangle myRectangle : boatMap.keySet()) {
             if(activeRectangle.equals(myRectangle)) {} else {
                 Bounds boundR2 = myRectangle.getBoundsInParent();
@@ -280,7 +281,7 @@ public class placementPhaseClassicController implements Initializable{
                 }
             }
         } 
-        //check grid position
+        // Checks the boat's position in relation to the grid.
         int index ;
         if(activeBoat.isRotation()) {
             index= activeBoat.getGridRow();
@@ -291,39 +292,42 @@ public class placementPhaseClassicController implements Initializable{
         System.out.println("index = "+ index + " boat Size : "+ activeBoat.getBoatSize()); //debug
         return activeBoat.getBoatSize()+index <= NB_CASES_GRID ;        
     }
-    
+   
     /**
-     * @throws nullpointer exception
-     */
-    private void unactiveBoat() {
-    if (activeBoat!=null) {
-            activeBoat.setActive(false);
-            activeBoat.getBoatRectangle().setMouseTransparent(false);
-            activeBoat.getBoatRectangle().setFill(Color.web("#ababab"));
-            activeBoat=null;
-        } // else do nothing
-    // function might never be used without any boat active so throw execption
-        
-    }
-
-    
-    /**
-     * Unactivates the boat when it is placed over le grid.
-     * @return mousePressGridHandler
+     * Unactivates the boat when it is placed over the grid.
+     * @return mousePressGridHandler The handler of the event (Click over the grid).
      */    
     private EventHandler<MouseEvent> placeBoat() {
         EventHandler<MouseEvent> mousePressGridHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    if(positionCorrect(activeBoat)) {
-                        activeBoat.setPlaced(true);
-                        unactiveBoat(); 
+                    if(activeBoat!=null){
+                        if(positionCorrect(activeBoat)) {
+                            activeBoat.setPlaced(true);
+                            deactiveBoat(); 
+                        }
                     }
                 }
                 event.consume();
             }
         };
         return mousePressGridHandler;
+    }
+           
+    /**
+     * Deactivates the active boat.
+     * @throws nullpointer exception
+     */
+    private void deactiveBoat() {
+        if (activeBoat!=null) {
+            activeBoat.setActive(false);
+            activeBoat.getBoatRectangle().setMouseTransparent(false);
+            activeBoat.getBoatRectangle().setFill(Color.web("#ababab"));
+            activeBoat=null;
+        } // else do nothing
+    // function might never be used without any boat active so throw execption
+    // Le if est necéssaire? Parce qu'on vérifie toujours si le activeBoat est null 
+    // avant d'appeler la function.
     }
 }

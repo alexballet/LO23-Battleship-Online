@@ -33,10 +33,15 @@ public class BoatDrawing{
     final private Color activeColor = Color.web("#d8d875") ;
     final private Color disactiveColor = Color.web("#ababab") ;
     
+    /**
+     * Constructor of a object.
+     * @param boatType The type of the boat.
+     * @param boatRectangle The object Rectangle associated with this boat.
+     */
     public BoatDrawing(BoatType boatType, Rectangle boatRectangle) {
         this.active = false;
         this.rotation = false;
-        this.boat = new Boat(boatType); //Include boattype??
+        this.boat = new Boat(boatType);
         this.boatRectangle = boatRectangle;
         this.boatType = boatType;
         
@@ -48,7 +53,7 @@ public class BoatDrawing{
     public boolean isActive() {
         return active;
     }
-
+    
     public void setActive(boolean active) {
         this.active = active;
     }
@@ -136,6 +141,9 @@ public class BoatDrawing{
         return this.boatType.getNbCases();
     }
 
+    /**
+     * Reiniciates the boat, meaning that it has returned to its original position.
+     */
     public void reinit() {
         this.setGridCol(null);
         this.setGridRow(null);
@@ -145,18 +153,16 @@ public class BoatDrawing{
     }
     
 
-        /**
-     * 
-     * @param boatMap 
-     * @return  
+    /**
+     * Activates the boat.
+     * @param boatMap HashMap containing all the boats.
+     * @return  This (the active boat).
      */
-    public BoatDrawing setActiveBoat(HashMap<Rectangle, BoatDrawing> boatMap){
-        
+    public BoatDrawing setActiveBoat(HashMap<Rectangle, BoatDrawing> boatMap){  
         this.setActive(true);
         Rectangle rectangle = this.getBoatRectangle();
         rectangle.setMouseTransparent(true);
         rectangle.setFill(getActiveColor());
         return this; 
-
     }
 }
