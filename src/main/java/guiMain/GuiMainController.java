@@ -21,7 +21,7 @@ public class GuiMainController implements GuiMainInterface {
 	private Stage stage;
 	private AnchorPane rootLayout;
 	private IDataMain idata;
-	private menuController menuController;
+        private menuController menuController;
 	
 	public IDataMain getIdata() {
 		return idata;
@@ -64,8 +64,8 @@ public class GuiMainController implements GuiMainInterface {
 		try {
 			rootLayout = (AnchorPane) loader.load();
 
-			menuController = loader.getController();
-			menuController.init();
+                        menuController = loader.getController();
+                        menuController.init();
 
 			Scene scene = new Scene(rootLayout);
 			stage.setTitle("Battleship-Online");
