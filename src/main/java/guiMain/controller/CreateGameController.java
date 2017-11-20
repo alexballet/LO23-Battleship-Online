@@ -94,8 +94,6 @@ public class CreateGameController implements Initializable{
         Boolean chat = chatAutorise.isSelected();
         Boolean classicGame = classicGameType.isSelected();
         Boolean oponent = humanGameAdversaire.isSelected();          
-     
-        /****** Implement to accept just int numbers ******/
         int timePerShot = Integer.parseInt(reflectionTime.getText());
 
         // Create new game object
