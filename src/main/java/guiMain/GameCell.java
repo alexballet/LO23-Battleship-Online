@@ -52,7 +52,7 @@ public class GameCell extends ListCell<Game> {
         HBox.setHgrow(title, Priority.ALWAYS);
    }
     
-   protected void updateItem(Game game, boolean empty) {
+   protected void updateItem(final Game game, boolean empty) {
         super.updateItem(game, empty);
         setText(null);
         setGraphic(null);
