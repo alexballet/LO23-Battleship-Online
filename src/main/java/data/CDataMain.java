@@ -12,7 +12,10 @@ import lo23.battleship.online.network.COMInterface;
 import structData.ContactGroup;
 import structData.Game;
 import structData.User;
+import structData.DataUser;
+import structData.Profile;
 import java.awt.Image;
+import java.util.HashSet;
 
 
 /**
@@ -48,8 +51,16 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public void createAccount(String idUser, String login, String username, Long[] ips, String password, ContactGroup[] contactList, int avatar, String lastname, String firstname, Date birthDate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void createAccount(String login, String username, HashSet ips, String password, String contactList, Image avatar, String lastname, String firstname, Date birthDate) {
+        User newUser = new User(login,username);
+        newUser.setIPs(ips);
+        
+        DataUser newDataUser = new DataUser(newUser,password,contactList);
+        
+        Profile newProfile = new Profile(newDataUser,avatar,lastname,firstname,birthDate);
+     
+        controller.setLocalUser(newUser);
+        controller.addUserToList(newUser);
     }
 
     @Override

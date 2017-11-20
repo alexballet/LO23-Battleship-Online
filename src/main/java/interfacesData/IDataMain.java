@@ -10,6 +10,7 @@ import structData.ContactGroup;
 import structData.Game;
 import structData.User;
 import java.awt.Image;
+import java.util.HashSet;
 
 /**
  *
@@ -41,7 +42,7 @@ public interface IDataMain {
      * @param firstname
      * @param birthDate
      */
-    void createAccount(String idUser, String login, String username, Long[] ips, String password, ContactGroup[] contactList, int avatar, String lastname, String firstname, Date birthDate);
+    void createAccount(String login, String username, HashSet ips, String password, String contactList, Image avatar, String lastname, String firstname, Date birthDate);
     
     /**
      * Add a distant user to the local list of user
