@@ -19,7 +19,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         	
     	FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/fxml/IhmTable/placementPhaseClassic.fxml"));
+		loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
 		rootLayout = (AnchorPane) loader.load();
 		/*
 		menuController controller = loader.getController();

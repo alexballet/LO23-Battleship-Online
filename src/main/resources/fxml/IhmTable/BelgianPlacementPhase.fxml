@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controller.placementPhaseClassicController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controller.BelgianPlacementPhaseController">
    <children>
       <MenuBar prefHeight="25.0" prefWidth="812.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -208,13 +208,18 @@
                      </font>
                   </Label>
                </children>
-            </Pane>
-            <Rectangle fx:id="croiseurRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" width="134.0" />
-            <Rectangle fx:id="contreTorpilleurRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="108.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
-            <Rectangle fx:id="sousMarinRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
-            <Rectangle fx:id="torpilleurRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />            
-            <Rectangle fx:id="porteAvionsRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="169.0" />
-            <Button  fx:id="valider" layoutX="450.0" layoutY="505.0" mnemonicParsing="false" text="Valider" />
+            </Pane>            
+            <Rectangle fx:id="cuirasseRectangle" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="40.0" stroke="BLACK" strokeType="INSIDE" width="134.0" />
+            <Rectangle fx:id="croiseurRectangle1" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="74.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
+            <Rectangle fx:id="croiseurRectangle2" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="108.0" stroke="BLACK" strokeType="INSIDE" width="99.0" />
+            <Rectangle fx:id="torpilleurRectangle1" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+            <Rectangle fx:id="torpilleurRectangle2" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="629.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+            <Rectangle fx:id="torpilleurRectangle3" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="698.0" layoutY="142.0" stroke="BLACK" strokeType="INSIDE" width="64.0" />
+            <Rectangle fx:id="sousMarinRectangle1" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="560.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="29.0" />
+            <Rectangle fx:id="sousMarinRectangle2" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="594.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="29.0" />
+            <Rectangle fx:id="sousMarinRectangle3" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="628.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="29.0" />
+            <Rectangle fx:id="sousMarinRectangle4" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="662.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="29.0" />
+            <Button fx:id="valider" layoutX="450.0" layoutY="505.0" mnemonicParsing="false" text="Valider" />
             <Button layoutX="14.0" layoutY="505.0" mnemonicParsing="false" text="Quitter" />
          </children>
       </Pane>
