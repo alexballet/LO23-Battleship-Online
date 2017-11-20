@@ -2,6 +2,9 @@ package guiMain.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import guiMain.GameCell;
+import guiMain.GuiMainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,16 +15,19 @@ import javafx.util.Callback;
 import structData.*;
 
 public class menuController {
+	
+	private GuiMainController mainController;
 
 	@FXML 
 	private ListView<User> playersView;
 	@FXML 
 	private ListView<Game> gamesView;
-	
-
 	@FXML 
 	private Button optionButton;
 	
+	public void setMainController (GuiMainController c) {
+		mainController = c;
+	}
 	
 	/**
 	 *  	Init listView configuration
@@ -62,27 +68,19 @@ public class menuController {
 	}
 	
 	private void initGamesList() {
-		ObservableList<Game> playersObservable = FXCollections.observableList(new ArrayList<Game>());
+		ObservableList<Game> playersObservable = FXCollections.observableArrayList(new ArrayList<Game>());
 		gamesView.setItems(playersObservable);
-
-		gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>(){
-			@Override
-			public ListCell<Game> call(ListView<Game> p) {
-
-				ListCell<Game> cell = new ListCell<Game>(){
-
-					@Override
-					protected void updateItem(Game game, boolean bln) {
-						super.updateItem(game, bln);
-						if (game != null) {
-							setText(game.getName());
-						}
-					}
-
-				};
-				return cell;
-			}
+		gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>() { 
+			  
+		    @Override 
+		    public ListCell<Game> call(ListView<Game> lv) { 
+		        return new GameCell(); 
+		    } 
 		});
+	}
+	
+	public void joinGame(Game game) {
+		
 	}
 	
 
@@ -92,8 +90,10 @@ public class menuController {
 	 */
 	@FXML
 	private void option(){
-		// playersView.getItems().add(new User());
-		gamesView.getItems().add(new Game());
+		gamesView.getItems().add(new Game(true, "Game test 1", false, 100, true, true));
+		gamesView.getItems().add(new Game(false, "Game test 2", false, 100, true, true));
+		gamesView.getItems().add(new Game(true, "Game test 3", true, 100, true, true));
+		gamesView.getItems().add(new Game(false, "Game test 4", true, 100, true, true));
 	}
 
 

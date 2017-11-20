@@ -65,6 +65,7 @@ public class GuiMainController implements GuiMainInterface {
 			rootLayout = (AnchorPane) loader.load();
 
 			menuController = loader.getController();
+			menuController.setMainController(this);
 			menuController.init();
 
 			Scene scene = new Scene(rootLayout);
