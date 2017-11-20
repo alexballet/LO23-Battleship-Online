@@ -12,6 +12,8 @@ import lo23.battleship.online.network.COMInterface;
 import structData.ContactGroup;
 import structData.Game;
 import structData.User;
+import java.awt.Image;
+
 
 /**
  *
@@ -34,8 +36,15 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public void editProfile(String username, String password, int avatar, String lastName, String firstName, Date borthDate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editProfile(String username, String password, Image avatar, String lastName, String firstName, Date birthDate) {
+  
+        controller.getLocalUser().setUsername(username);
+        controller.getLocalDataUser().setPassword(password);
+        controller.getLocalProfile().setAvatar(avatar);
+        controller.getLocalProfile().setLastname(lastName);
+        controller.getLocalProfile().setName(firstName);
+        controller.getLocalProfile().setBirthdate(birthDate);
+        
     }
 
     @Override

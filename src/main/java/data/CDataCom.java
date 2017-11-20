@@ -45,7 +45,7 @@ public class CDataCom implements IDataCom {
     */    
     @Override
     public DataGame getCreatedGame() {
-        DataGame dg = controller.getDataGame();
+        DataGame dg = controller.getLocalDataGame();
         return dg;
     }
 

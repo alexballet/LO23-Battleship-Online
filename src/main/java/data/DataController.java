@@ -11,6 +11,8 @@ import java.util.Set;
 import lo23.battleship.online.network.COMInterface;
 import structData.DataGame;
 import structData.User;
+import structData.DataUser;
+import structData.Profile;
 
 /**
  *
@@ -30,8 +32,10 @@ public class DataController {
     //private
         
     private User localUser;
+    private DataUser localDataUser;
     private DataGame localDataGame;
     private HashSet<User> listUsers;
+    private Profile localProfile;
     private HashSet<DataGame> listDataGames;
     
     
@@ -41,6 +45,8 @@ public class DataController {
         interfaceDataTable = new CDataTable(this);
         
         listUsers = new HashSet<User>();
+        localDataUser = new DataUser(localUser);
+        localProfile = new Profile(localDataUser);
     }
     
     public void setInterfaceMain(GuiMainInterface i){
@@ -70,6 +76,14 @@ public class DataController {
         return localUser;
     }
     
+    public DataUser getLocalDataUser(){
+        return localDataUser;
+    }
+    
+    public Profile getLocalProfile(){
+        return localProfile;
+    }
+
     public void setLocalUser(User u){
         localUser = u;
     }
@@ -82,6 +96,7 @@ public class DataController {
         //comparer les UUID de u et des objets de listUser et enlever l'user si présent
         listUsers.remove(u);
     }
+    
 
     /**
     * Accessor local DataGame

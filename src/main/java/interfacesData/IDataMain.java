@@ -9,6 +9,7 @@ import java.util.Date;
 import structData.ContactGroup;
 import structData.Game;
 import structData.User;
+import java.awt.Image;
 
 /**
  *
@@ -25,7 +26,7 @@ public interface IDataMain {
      * @param firstName : new firstName
      * @param borthDate : new birthDate
      */
-    void editProfile(String username, String password, int avatar, String lastName, String firstName, Date borthDate);
+    void editProfile(String username, String password, Image avatar, String lastName, String firstName, Date borthDate);
     
     /**
      * Create a local account
