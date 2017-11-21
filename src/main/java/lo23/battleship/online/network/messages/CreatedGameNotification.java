@@ -1,8 +1,8 @@
 package lo23.battleship.online.network.messages;
 
-/* Attente interface dans les dossier lo23*/
 import structData.Game;
-
+import interfacesData.IDataCom;
+import java.net.InetAddress;
 
 public class CreatedGameNotification extends Message{
 
@@ -16,8 +16,11 @@ public class CreatedGameNotification extends Message{
         return type;
     }
 
-    public CreatedGameNotification process(){
-        //addNewGameList(Game game);
-        return new CreatedGameNotification(game);}
+    public void process(IDataCom IData){
+        IData.addNewGameList(game);
+    }
+
+    public void process(IDataCom IData, InetAddress senderAddress){}
 
 }
+

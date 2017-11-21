@@ -1,25 +1,36 @@
-/*package lo23.battleship.online.network.messages;
+package lo23.battleship.online.network.messages;
 
 
-//Attente interface dans les dossier lo23
-//Attente de data pour une méthode spectateur et une méthode joueur
+import interfacesData.IDataCom;
+import structData.Game;
+import structData.User;
+
+import java.net.InetAddress;
 
 public class JoinGameRequest extends Message{
 
-    enum user{"player", "spectator"};
+    User sender;
+    Game game;
 
-    public CreatedGameNotification(enum user) {
-        this.user;
+    public JoinGameRequest(User senderGame, Game gameSend){
+        this.sender = senderGame;
+        this.game = gameSend;
         this.type = "JoinGameRequest";}
 
     public String getType() {
         return type;
     }
 
-    public JoinGameRequest process(){
-        return new JoinGameRequest();}
+    public void process(IDataCom IData){
+        }
+
+    public void process(IDataCom IData, InetAddress senderAddress){
+        IData.notifToJoinGame(sender, game);
+    }
+
+
 
 }
-*/
+
 
 

@@ -1,16 +1,16 @@
 package lo23.battleship.online.network.messages;
 
-import structData.StatusGame;
+import structData.Game;
+import interfacesData.IDataCom;
+import java.net.InetAddress;
 
-/* Attente interface dans les dossier lo23
-Attente de data pour une méthode contenant les statuts*/
 
 public class UpdateGame extends Message{
 
-    StatusGame status;
+    Game gameUpdate;
 
-    public UpdateGame(StatusGame s){
-        this.status = s;
+    public UpdateGame(Game game){
+        this.gameUpdate = game;
         this.type = "UpdateGame";
     }
 
@@ -18,7 +18,9 @@ public class UpdateGame extends Message{
         return type;
     }
 
-    public UpdateGame process(){
-        //changeStatusGame(game);
-        return new UpdateGame(status);}
+    public void process(IDataCom IData){
+        IData.changeStatusGame(gameUpdate);
+       }
+
+    public void process(IDataCom IData, InetAddress senderAddress){}
 }
