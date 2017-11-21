@@ -6,8 +6,9 @@
 package structData;
 import java.util.HashSet;
 import java.util.UUID;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable{
     protected UUID idUser;
     protected String login;
     protected String username;

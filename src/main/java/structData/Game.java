@@ -7,10 +7,11 @@ package structData;
 import java.util.UUID;
 import java.util.HashSet;
 import java.util.ArrayList;
+import java.io.Serializable;
 /**
  * Game is a class for the user's game
  */
-public class Game {
+public class Game implements Serializable{
     private UUID idGame;
     private StatusGame status;
     private Boolean classicType;
