@@ -40,7 +40,8 @@ public class ConnectionEstablishedMessage extends Message {
         for(InetAddress ipAddress : filteredAddresses) {
             User user = new User();
             user.setUsername("TryingToConnect");
-            ConnectionRequestMessage connectionRequestMessage = new ConnectionRequestMessage(user);
+            ConnectionEstablishedMessage connectionEstablishedMessage = new ConnectionEstablishedMessage(user, controller.getIPTable(), null);
+            controller.sendMessage(connectionEstablishedMessage, ipAddress);
         }
     }
 }
