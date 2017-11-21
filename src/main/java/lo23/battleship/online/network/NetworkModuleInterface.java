@@ -44,8 +44,11 @@ public class NetworkModuleInterface implements COMInterface {
         //InetAddress address = InetAddress.getByAddress(host)
         //controller.sendMessage(newRandomMessage(u), host);
     }
-    public void getProfile(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+    public void getProfile(User userRequested) {
+
+        GetProfileRequestMessage getProfileRequestMessage = new GetProfileRequestMessage(dataInterface.getUserProfile());
+
+        controller.sendMessage(getProfileRequestMessage, controller.getAddressForUser(userRequested));
     }
 
     public boolean notifyJoinGameResponse(Boolean isOk, User user, DataGame game) {
