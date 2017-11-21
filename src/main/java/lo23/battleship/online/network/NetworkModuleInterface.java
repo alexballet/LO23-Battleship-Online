@@ -22,7 +22,7 @@ public class NetworkModuleInterface implements COMInterface{
         return true;
     }
 
-    public boolean sendChatMessage(String message, DataGame game) {
+    public boolean sendChatMessage(String message, Game g) {
         return true;
     }
 
@@ -50,15 +50,15 @@ public class NetworkModuleInterface implements COMInterface{
         return null;
     }
 
-    public boolean notifyJoinGameResponse(Boolean isOk, User user, DataGame game){
+    public boolean notifyJoinGameResponse(Boolean isOk, User user, Game g){
         return true;
     }
 
-    public boolean notifyNewGame(DataGame game) {
+    public boolean notifyNewGame(Game g) {
         return true;
     }
 
-    public boolean joinGame(User user, DataGame game) {
+    public boolean joinGame(User user, Game g) {
         return true;
     }
 
@@ -66,7 +66,7 @@ public class NetworkModuleInterface implements COMInterface{
         return true;
     }
 
-    public boolean sendShot(Player player, DataGame game, Shot shot) {
+    public boolean sendShot(Player player, Game g, Shot shot) {
         return true;
     }
 
