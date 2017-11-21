@@ -44,7 +44,7 @@ public class DataController {
     
     
     public DataController(){
-        localUser = new User();
+        localUser = new User(); //test
         interfaceDataCom = new CDataCom(this);
         interfaceDataMain = new CDataMain(this);
         interfaceDataTable = new CDataTable(this);
