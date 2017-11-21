@@ -9,13 +9,14 @@ import guiMain.GuiMainInterface;
 import interfacesData.IDataCom;
 import java.util.List;
 import java.util.Set;
-import java.util.HashSet;
+import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.Game;
 import structData.Position;
 import structData.Profile;
 import structData.Shot;
+import structData.StatusGame;
 import structData.User;
 import structData.Player;
 
@@ -28,6 +29,7 @@ public class CDataCom implements IDataCom {
     private DataController controller;
     
     private GuiMainInterface interfaceMain;
+    private COMInterface interfaceCom;
     
     public CDataCom(DataController dc){
         super();
@@ -48,10 +50,6 @@ public class CDataCom implements IDataCom {
         return g;
     }
 
-    @Override
-    public void addGame(List<Game> createdGames) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
 
 
@@ -91,9 +89,26 @@ public class CDataCom implements IDataCom {
         interfaceMain.sendStatistics(profile);
     }
 
+    /**
+    * Add the player to the game if it is available.
+    * @param sender : The player who sends this request
+    * @param g : The game that the player wants to join
+    * @return 1 if the parameter game is an avaiable game and add the player 
+    * to this game, 0 if not
+    */
     @Override
-    public Boolean notifToJoinGame(User sender, Game g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void notifToJoinGame(User sender, Game g) {
+        Boolean isOk = false;
+        for (Game ga: controller.getListGames()) {
+            if (ga.getIdGame() == g.getIdGame()) {
+                if (ga.getStatus() == StatusGame.WAITINGPLAYER){
+                    isOk = true;
+                }else{
+                    isOk = false;           
+                }
+            }
+        }
+        interfaceCom.notifyJoinGameResponse(isOk, sender, g);
     }
 
     /**

@@ -6,14 +6,16 @@
 package structData;
 import java.util.HashSet;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author loulou
  */
 public class Player implements Serializable{
     private Profile profile;
-    private HashSet listBoats;
-    private HashSet listShots;
+    private List<Boat> listBoats;
+    private HashSet<Shot> listShots;
     
     /**
      * Constructor by default 
@@ -21,7 +23,7 @@ public class Player implements Serializable{
      */
     public Player(DataUser dUser) {
         profile = new Profile(dUser);
-        listBoats = new HashSet();
+        listBoats = new ArrayList();
         listShots = new HashSet();
     }
     
@@ -31,7 +33,7 @@ public class Player implements Serializable{
      * @param listBoatsData : the list of boats of the new player
      * @param listShotsData : the list of shots of the new player
      */
-    public Player(Profile p, HashSet listBoatsData, HashSet listShotsData){
+    public Player(Profile p, List<Boat> listBoatsdata, HashSet<Shot> listShotsdata){
         profile = p;
         listBoats = listBoatsData;
         listShots = listShotsData;
@@ -49,7 +51,7 @@ public class Player implements Serializable{
      * Accessors for listBoats
      * @return the list of boats of the player
      */
-    public HashSet getListBoats(){
+    public List<Boat> getlistBoats(){
         return listBoats;
     }
     
@@ -57,7 +59,7 @@ public class Player implements Serializable{
      * Accessors for listShots
      * @return the list of shots of the player
      */
-    public HashSet getListShots(){
+    public HashSet<Shot> getlistShots(){
         return listShots;
     }
     
@@ -73,16 +75,16 @@ public class Player implements Serializable{
      * Mutator for listBoats
      * @param listBoatsData : the new value of the list of boats of the player
      */
-    public void setListBoats(HashSet listBoatsData){
-        this.listBoats = listBoatsData;
+    public void setlistBoats(List<Boat> listBoatsdata){
+        this.listBoats = listBoatsdata;
     }
     
     /**
      * Mutator for listShots
      * @param listShotsData : the new value of the list of shots of the player
      */
-    public void setListShots(HashSet listShotsData){
-        this.listShots = listShotsData;
+    public void setlistShots(HashSet<Shot> listShotsdata){
+        this.listShots = listShotsdata;
     }
     
     /**

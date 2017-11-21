@@ -28,12 +28,6 @@ public interface IDataCom {
       */
      public Game getCreatedGame();
 
-     /**
-      * If there is a new game, the list of games in the local application 
-      * should be updated
-      * @param createdGames : New games
-      */
-     public void addGame(List<Game> createdGames);
 
 
      /**
@@ -66,7 +60,7 @@ public interface IDataCom {
       * @return 1 if the parameter game is an avaiable game and add the player 
       * to this game, 0 if not
       */
-     public Boolean notifToJoinGame(User sender, Game g);
+     public void notifToJoinGame(User sender, Game g);
 
      /**
       * Adds the game given as a parameter to the list of games.

@@ -12,7 +12,7 @@ public class User implements Serializable{
     protected UUID idUser;
     protected String login;
     protected String username;
-    protected HashSet iPs;
+    protected HashSet<Long> iPs;
     
     /**
      * Constructor by default

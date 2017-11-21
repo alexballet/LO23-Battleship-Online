@@ -20,7 +20,7 @@ public class Game implements Serializable{
     private int timePerShot;
     private Boolean spectator;
     private Boolean spectatorChat;
-    private HashSet listSpectators;
+    private HashSet<User> listSpectators;
     private Player player1;
     private Player player2;
     private Boolean player1Start;
@@ -181,7 +181,7 @@ public class Game implements Serializable{
      * Accessor for idGame
      * @return the Game's id
      */
-    public UUID getidGame(){
+    public UUID getIdGame(){
         return this.idGame;
     }
     
@@ -275,7 +275,7 @@ public class Game implements Serializable{
      * Mutator for the list of spectator
      * @param lS a HashSet
      */
-    public void setListSpectators(HashSet lS){
+    public void setListSpectators(HashSet<User> lS){
         if (this.spectator == true) {
             this.listSpectators = lS;
         }       
