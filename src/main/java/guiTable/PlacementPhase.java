@@ -258,7 +258,7 @@ public abstract class PlacementPhase {
     }
     
     /**
-     * Relocates the boat in the initial position and deactives it.
+     * Relocates the boat in the initial position and desactives it.
      * @param boat The boat that will be relocated and deactivated.
      */
     protected void reinitBoat(BoatDrawing boat) {
