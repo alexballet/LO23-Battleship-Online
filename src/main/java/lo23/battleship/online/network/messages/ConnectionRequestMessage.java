@@ -11,11 +11,11 @@ import java.net.InetAddress;
  * Created by xzirva on 14/11/17.
  */
 public class ConnectionRequestMessage extends Message {
-    private User user;
+    private User sender;
     private Inet4Address destinationIPAddress;
 
     public ConnectionRequestMessage(User user) {
-        this.user = user;
+        this.sender = user;
         type = "ConnectionRequestMessage";
     }
     public String getType() {
@@ -32,11 +32,15 @@ public class ConnectionRequestMessage extends Message {
 
         // TODO getCurrentUserGame
 
+        NetworkController controller = NetworkController.getInstance();
+
         User user = new User();
         user.setUsername("testUsername");
 
-        ConnectionEstablishedMessage connectionEstablishedMessage = new ConnectionEstablishedMessage(user, NetworkController.getInstance().getIPTable(), null);
+        controller.updateNetwork(sender, senderAddress, null);
 
-        NetworkController.getInstance().sendMessage(connectionEstablishedMessage, senderAddress);
+        ConnectionEstablishedMessage connectionEstablishedMessage = new ConnectionEstablishedMessage(user, controller.getIPTable(), null);
+
+        controller.sendMessage(connectionEstablishedMessage, senderAddress);
     }
 }

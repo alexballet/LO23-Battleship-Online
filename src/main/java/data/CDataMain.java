@@ -71,12 +71,14 @@ public class CDataMain implements IDataMain {
 
     @Override
     public void connection() throws UnknownHostException {
+
         User u = new User("login", "username");
         HashSet<InetAddress> addresses = new HashSet<InetAddress>();
-        addresses.add(InetAddress.getByName("172.25.21.101"));
+        addresses.add(InetAddress.getByName("172.25.35.108"));
         u.setIPs(addresses);
         controller.setLocalUser(u);
         interfaceCom.searchForPlayers(u);
+
     }
 
     @Override

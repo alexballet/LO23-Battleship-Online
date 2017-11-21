@@ -11,7 +11,6 @@ public class NetworkServer {
 
     //Configuration
     private int port = 2345;
-    private String host = "172.25.35.108";
     private InetAddress address;
     private int backlog = 100;
     private ServerSocket server = null;
