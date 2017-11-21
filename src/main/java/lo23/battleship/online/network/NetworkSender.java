@@ -51,7 +51,7 @@ public class NetworkSender extends Thread{
         try {
             writer = new ObjectOutputStream(sock.getOutputStream());
             String timeStamps = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM).format(new Date());
-            System.out.println("Message " + message.getType() + " sent to server at " + timeStamps);
+            System.out.println("Message " + message.getType() + " sent to " + sock.getInetAddress() + " at " + timeStamps);
             writer.writeObject(message);
             sock.close();
 
