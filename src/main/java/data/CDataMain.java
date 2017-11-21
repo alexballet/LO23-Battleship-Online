@@ -14,7 +14,7 @@ import structData.Game;
 import structData.User;
 import structData.DataUser;
 import structData.Profile;
-import java.awt.Image;
+import javax.swing.ImageIcon;
 import java.util.HashSet;
 
 
@@ -39,7 +39,7 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public void editProfile(String username, String password, Image avatar, String lastName, String firstName, Date birthDate) {
+    public void editProfile(String username, String password, ImageIcon avatar, String lastName, String firstName, Date birthDate) {
   
         controller.getLocalUser().setUsername(username);
         controller.getLocalDataUser().setPassword(password);
@@ -51,7 +51,7 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public void createAccount(String login, String username, HashSet ips, String password, String contactList, Image avatar, String lastname, String firstname, Date birthDate) {
+    public void createAccount(String login, String username, HashSet ips, String password, String contactList, ImageIcon avatar, String lastname, String firstname, Date birthDate) {
         User newUser = new User(login,username);
         newUser.setIPs(ips);
         
@@ -72,10 +72,15 @@ public class CDataMain implements IDataMain {
     public void getStatistics(User u, int nbGamePlayed, int nbGameWon, int nbGameLost, int nbGameAbandoned) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /**
+     * Notifies the away application that an user wants to join the game given as parameter
+     * @param g : the game the user wants to join
+     */
     @Override
     public void notifGameChosen(Game g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        User u = controller.getLocalUser();
+        interfaceCom.joinGame(u, g);    
     }
 
     @Override
@@ -90,9 +95,13 @@ public class CDataMain implements IDataMain {
         //interfaceCom.searchForPlayers()
     }
 
+    /**
+     * Adds a new game to the list of games
+     * @param g game to add
+     */
     @Override
     public void newGame(Game g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.addGameToList(g);
+        interfaceCom.notifyNewGame(g);
     }
-    
 }

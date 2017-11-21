@@ -7,11 +7,12 @@
 
 package structData;
 import java.util.Date;
+import java.io.Serializable;
 /**
  *
  * @author loulou
  */
-public class ChatMessage {
+public class ChatMessage implements Serializable{
     private User profile;
     private String content;
     private Date time;
