@@ -65,9 +65,20 @@ public class NetworkController {
         }
     }
 
-
+    public List<InetAddress> getIPTable(){
+        List<InetAddress> ret=new ArrayList<InetAddress>();
+        for(HashMap.Entry<User, InetAddress> entry : networkState.entrySet()){
+            ret.add(entry.getValue());
+        }
+        return ret;
+    }
+    
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
+    }
+
+    public IDataCom getDataInterface(){
+        return dataInterface;
     }
 
     public COMInterface getCOMInterface() {
