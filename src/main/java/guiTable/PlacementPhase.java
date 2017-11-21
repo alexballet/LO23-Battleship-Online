@@ -190,6 +190,11 @@ public abstract class PlacementPhase {
         boat.getBoatRectangle().relocate(positionX, positionY);
         boat.setGridCol(colIndex);
         boat.setGridRow(rowIndex);
+        if(!positionCorrect(boat)) {
+           boat.getBoatRectangle().setFill(boat.getBadPlacementColor());
+        } else {
+           boat.getBoatRectangle().setFill(boat.getActiveColor());
+        }
     }
        
     /**
