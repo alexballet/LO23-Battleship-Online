@@ -17,6 +17,7 @@ import structData.Position;
 import structData.Profile;
 import structData.Shot;
 import structData.User;
+import structData.Player;
 
 /**
  *
@@ -54,14 +55,21 @@ public class CDataCom implements IDataCom {
 
 
 
+ /**
+    * 
+    * @param ok : true if game is accepted, false if game is refused
+    * @param player1 : local player
+    * @param player2 : distant player
+    */
     @Override
-    public void setGameJoinResponse(Boolean ok, User player1, User player2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void setGameJoinResponse(Boolean ok, Player player1, Player player2) {
+        
+       interfaceMain.setGameJoinResponse(ok);
+       
+       if (ok == true){
+           controller.updateGameData(ok, player1, player2); 
+       }
 
-    @Override
-    public void setGameJoinResponse(Boolean no) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

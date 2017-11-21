@@ -14,6 +14,7 @@ import structData.User;
 import structData.DataUser;
 import structData.Profile;
 import structData.StatusGame;
+import structData.Player;
 
 /**
  *
@@ -88,7 +89,14 @@ public class DataController {
     public void setLocalUser(User u){
         localUser = u;
     }
+    public void setLocalDataUser (DataUser du){
+        localDataUser = du;
+    }
     
+    public void setLocalProfile (Profile p){
+        localProfile = p;
+    }
+
     public void addUserToList(User u){
         listUsers.add(u);
     }
