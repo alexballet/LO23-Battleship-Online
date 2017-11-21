@@ -12,7 +12,6 @@ import javafx.util.Callback;
 import packageStructDonnées.User;
 import guiTable.controllers.GuiTableController;
 import javafx.stage.Stage;
-import sun.security.ssl.Debug;
 
 public class menuController {
 
@@ -90,7 +89,7 @@ public class menuController {
 	private void createGame(){
             
             try{
-                GuiTableController.getInstance().displayPlacementPhase( this.currentStage );
+                GuiTableController.getInstance().displayPlacementPhase( this.currentStage, false ); // use boolean to specifie classic type or not
             }
             catch(Exception e){
                 System.err.println(e.getMessage());

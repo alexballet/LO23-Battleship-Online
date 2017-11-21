@@ -4,9 +4,7 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 
 import guiMain.controller.menuController;
-import guiTable.controllers.PlacementPhaseController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -20,7 +18,6 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         	
     	FXMLLoader loader = new FXMLLoader();
-
         loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
 
         rootLayout = (AnchorPane) loader.load();
@@ -32,8 +29,7 @@ public class MainApp extends Application {
         stage.setTitle("Battleship-Online");
         stage.setScene(scene);
         stage.show();
-    	
-    	
+
     }
 
     /**

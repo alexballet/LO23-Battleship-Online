@@ -15,9 +15,10 @@ public interface GuiTableInterface {
     /**
      * Displays the window where the player will place their ships.
      * @param currentStage 
+     * @param classic 
      * @throws Exception 
      */
-    public void displayPlacementPhase(Stage currentStage) throws Exception;
+    public void displayPlacementPhase(Stage currentStage, Boolean classic) throws Exception;
     
     /**
      * Notifies the IHM Table that the opponent is ready so that it can adapt its views.
