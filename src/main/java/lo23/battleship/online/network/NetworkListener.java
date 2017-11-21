@@ -69,7 +69,7 @@ public class NetworkListener extends Thread {
                 debug += "\n Request Received at " + timeStamps;
                 System.err.println("\n" + debug);
 
-                request.process(dataInterface);
+                request.process(dataInterface, remote.getAddress());
 
 //                Thread t = new Thread(new NetworkSender(client, responseToSend));
 //                t.start();//Run the client request process thread

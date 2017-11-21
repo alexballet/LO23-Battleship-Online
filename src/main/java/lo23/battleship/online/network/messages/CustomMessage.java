@@ -1,7 +1,10 @@
 package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
+import lo23.battleship.online.network.NetworkController;
 import structData.User;
+
+import java.net.InetAddress;
 
 public class CustomMessage extends Message {
     private User user;
@@ -41,5 +44,9 @@ public class CustomMessage extends Message {
 //                break;
 //        }
         //return response;
+    }
+
+    public void process(IDataCom IData, InetAddress senderAddress) {
+        
     }
 }
