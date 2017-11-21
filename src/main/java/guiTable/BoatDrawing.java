@@ -7,6 +7,7 @@ package guiTable;
 
 import java.util.HashMap;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import packageStructDonnées.Boat;
 import packageStructDonnées.BoatType;
@@ -32,6 +33,7 @@ public class BoatDrawing{
     
     final private Color activeColor = Color.web("#d8d875") ;
     final private Color disactiveColor = Color.web("#ababab") ;
+    final private Color badPlacementColor = Color.CRIMSON;
     
     /**
      * Constructor of a object.
@@ -126,19 +128,23 @@ public class BoatDrawing{
     /**
      * @return the activeColor
      */
-    public Color getActiveColor() {
+    public Paint getActiveColor() {
         return activeColor;
     }
 
     /**
      * @return the disactiveColor
      */
-    public Color getDisactiveColor() {
+    public Paint getDisactiveColor() {
         return disactiveColor;
     }
     
     public int getBoatSize() {
         return this.boatType.getNbCases();
+    }
+
+    public Paint getBadPlacementColor() {
+        return this.badPlacementColor;
     }
 
     /**

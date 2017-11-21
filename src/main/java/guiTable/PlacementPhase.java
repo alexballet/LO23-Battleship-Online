@@ -48,29 +48,7 @@ public abstract class PlacementPhase {
     protected BoatDrawing activeBoat;
     
     protected HashMap<Rectangle, BoatDrawing> boatMap;
-    
-    /**
-     * Trigger validation of placement phase
-     */
-    @FXML
-    protected void onValidate() {
-        List<Boat> boats = this.getBoats();
-        // TODO: Call the coordinateShips(boats) function in Data interface, once the arguement is changed by Data team
-    }
-    
-    /**
-     * Convert the boatMap of type HashMap<Rectangle, BoatDrawing> to List<Boat>
-     * @return List<Boat> list of boats
-     */
-    protected List<Boat> getBoats() {
-        List<Boat> boats = new ArrayList(this.boatMap.size());
-        for(BoatDrawing boatDraw : boatMap.values()) {
-            boats.add(boatDraw.getBoat());
-        }
-        
-        return boats;
-    }
-    
+
     /**
      * method to put boat in the boatMap. 
      * method must be override by subclasses.
@@ -312,8 +290,6 @@ public abstract class PlacementPhase {
                         if(positionCorrect(activeBoat)) {
                             activeBoat.setPlaced(true);
                             desactiveBoat();
-                            // enable validate button if all boats are well placed
-                            valider.setDisable(!allBoatsArePlaced());
                         }
                     }
                 }
@@ -334,20 +310,5 @@ public abstract class PlacementPhase {
             activeBoat=null;
         } 
     }
-    
-    /**
-     * Check if all boats are placed
-     * (ie. every boats are on the gird)
-     * @return boolean true if all boats are placed, false else
-     */
-    protected boolean allBoatsArePlaced() {
-        boolean allBoatsArePlaced = true;
-        for(BoatDrawing boat : boatMap.values()) {
-            if (!boat.isPlaced()) {
-                allBoatsArePlaced = false;
-            }
-        }
-        
-        return allBoatsArePlaced;
-    }
+
 }

@@ -18,7 +18,8 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controller.ClassicPlacementPhaseController">
+
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controllers.ClassicPlacementPhaseController">
    <children>
       <MenuBar prefHeight="25.0" prefWidth="812.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -223,10 +224,6 @@
             <Button layoutX="14.0" layoutY="505.0" mnemonicParsing="false" text="Quitter" />
          </children>
       </Pane>
-      <Button layoutX="550.0" layoutY="571.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="250.0" text="Envoyer" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
+      <AnchorPane fx:id="chatPane" layoutX="548.0" layoutY="274.0" prefHeight="324.0" prefWidth="250.0" />
    </children>
 </AnchorPane>
