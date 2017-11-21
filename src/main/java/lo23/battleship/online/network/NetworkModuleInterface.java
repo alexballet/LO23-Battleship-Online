@@ -28,8 +28,8 @@ public class NetworkModuleInterface implements COMInterface {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean sendChatMessage(String message, DataGame game) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+    public boolean sendChatMessage(String message, Game g) {
+            throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -51,7 +51,7 @@ public class NetworkModuleInterface implements COMInterface {
         controller.sendMessage(getProfileRequestMessage, controller.getAddressForUser(userRequested));
     }
 
-    public boolean notifyJoinGameResponse(Boolean isOk, User user, DataGame game) {
+    public boolean notifyJoinGameResponse(Boolean isOk, User user, Game g) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
@@ -70,11 +70,11 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    public boolean notifyNewGame(DataGame game) {
+    public boolean notifyNewGame(Game g) {
 
         List<InetAddress> ipAddresses = controller.getIPTable();
 
-        CreatedGameNotificationMessage createdGameNotification = new CreatedGameNotificationMessage(game);
+        CreatedGameNotificationMessage createdGameNotification = new CreatedGameNotificationMessage(g);
 
         for (InetAddress ipAddress : ipAddresses) {
 
@@ -85,11 +85,11 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    public boolean joinGame(User user, DataGame game) {
+    public boolean joinGame(User user, Game g) {
 
-        InetAddress destinationAddress = controller.getAddressForUser(game.getPlayer1().getprofile());
+        InetAddress destinationAddress = controller.getAddressForUser(g.getPlayer1().getprofile());
 
-        JoinGameRequestMessage joinGameRequest = new JoinGameRequestMessage(user, game);
+        JoinGameRequestMessage joinGameRequest = new JoinGameRequestMessage(user, g);
 
         controller.sendMessage(joinGameRequest, destinationAddress);
 
@@ -111,7 +111,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    public boolean sendShot(Player player, DataGame game, Shot shot) {
+    public boolean sendShot(Player player, Game g, Shot shot) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 

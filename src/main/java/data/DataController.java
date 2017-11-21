@@ -9,7 +9,7 @@ import guiMain.GuiMainInterface;
 import java.util.HashSet;
 import java.util.Set;
 import lo23.battleship.online.network.COMInterface;
-import structData.DataGame;
+import structData.Game;
 import structData.User;
 import structData.DataUser;
 import structData.Profile;
@@ -33,19 +33,21 @@ public class DataController {
         
     private User localUser;
     private DataUser localDataUser;
-    private DataGame localDataGame;
+    private Game localGame;
     private HashSet<User> listUsers;
     private Profile localProfile;
-    private HashSet<DataGame> listDataGames;
+    private HashSet<Game> listGames;
     
     
     public DataController(){
+        User user = new User("truc", "machin"); // for test
+           
         interfaceDataCom = new CDataCom(this);
         interfaceDataMain = new CDataMain(this);
         interfaceDataTable = new CDataTable(this);
         
         listUsers = new HashSet<User>();
-        localDataUser = new DataUser(localUser);
+        localDataUser = new DataUser(user);
         localProfile = new Profile(localDataUser);
     }
     
@@ -99,10 +101,34 @@ public class DataController {
     
 
     /**
-    * Accessor local DataGame
-    * @return the local DataGame
+    * Accessor local Game
+    * @return the local Game
     */
-    public DataGame getLocalDataGame(){
-        return localDataGame;
+    public Game getLocalGame(){
+        return localGame;
+    }
+    
+    /**
+     * Add a Game to the local list
+     * @param g : game to add to the local list
+     */
+    public void addGameToList(Game g){
+        listGames.add(g);
+    }
+    
+    /**
+     * Update the status of game and add it into the list of Game
+     * @param g : the game which status has been modified
+     */
+    public void updateGameStatus(Game g){
+        localGame = g;
+        listGames.add(localGame);
+    }
+    /**
+     * Remove the game
+     * @param g : game has to be remove
+     */
+    public void removeGameFromList(Game g){
+        listGames.remove(g);
     }
 }

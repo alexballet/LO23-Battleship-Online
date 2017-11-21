@@ -2,13 +2,10 @@ package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkController;
-import lo23.battleship.online.network.NetworkModuleInterface;
-import structData.DataGame;
 import structData.User;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

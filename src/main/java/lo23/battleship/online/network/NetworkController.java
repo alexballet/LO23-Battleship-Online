@@ -1,11 +1,8 @@
 package lo23.battleship.online.network;
 
-import data.DataController;
-import lo23.battleship.online.network.messages.ConnectionRequestMessage;
 import lo23.battleship.online.network.messages.Message;
-import structData.DataGame;
-import structData.DataUser;
 import interfacesData.IDataCom;
+import structData.Game;
 import structData.User;
 
 import java.io.IOException;
@@ -113,7 +110,7 @@ public class NetworkController {
         return filteredAddresses;
     }
 
-    public void updateNetwork(User sender, InetAddress senderAddress, DataGame game) {
+    public void updateNetwork(User sender, InetAddress senderAddress, Game game) {
             networkState.put(sender, senderAddress);
             dataInterface.addUserToUserList(sender);
         try {
