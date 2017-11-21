@@ -83,7 +83,7 @@ public class NetworkModuleInterface implements COMInterface{
     public void searchForPlayers(User user) {
         // Launch server
         controller.launchServer();
-        sendRandomMessage("172.25.30.230",2345, user);
+        sendRandomMessage("172.25.35.108",2345, user);
     }
     //Random Messages
     private Message newRandomMessage(User u){
