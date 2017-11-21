@@ -1,10 +1,12 @@
 package guiMain;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 import guiMain.controller.connectionController;
 import guiMain.controller.menuController;
 import interfacesData.IDataMain;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -25,13 +27,18 @@ public class GuiMainController implements GuiMainInterface {
 	}
 
 
-
 	@Override
-	public void addUser(User user) {
-		System.out.println("GUIMain");
-		menuController.addUser(user);
-		System.out.println("After GUIMain");
+	public void addUser(final User user) {
 
+		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("GUIMain");
+				menuController.addUser(user);
+				System.out.println("After GUIMain");
+			}
+		};
+		Platform.runLater(command);
 	}
 
 	@Override

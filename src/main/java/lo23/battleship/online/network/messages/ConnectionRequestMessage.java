@@ -34,12 +34,10 @@ public class ConnectionRequestMessage extends Message {
 
         NetworkController controller = NetworkController.getInstance();
 
-        User user = new User();
-        user.setUsername("testUsername");
-        user.setLogin("loginTest");
         controller.updateNetwork(sender, senderAddress, null);
 
-        ConnectionEstablishedMessage connectionEstablishedMessage = new ConnectionEstablishedMessage(user, controller.getIPTable(), null);
+        ConnectionEstablishedMessage connectionEstablishedMessage =
+                new ConnectionEstablishedMessage(IData.getLocalUser(), controller.getIPTable(), null);
 
         controller.sendMessage(connectionEstablishedMessage, senderAddress);
     }

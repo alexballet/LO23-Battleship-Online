@@ -39,8 +39,8 @@ public class ConnectionEstablishedMessage extends Message {
         controller.updateNetwork(sender, senderAddress, createdGame);
         for(InetAddress ipAddress : filteredAddresses) {
             User user = IData.getLocalUser();
-            user.setUsername("");
-            ConnectionEstablishedMessage connectionEstablishedMessage = new ConnectionEstablishedMessage(user, controller.getIPTable(), null);
+            ConnectionEstablishedMessage connectionEstablishedMessage =
+                    new ConnectionEstablishedMessage(user, controller.getIPTable(), null);
             controller.sendMessage(connectionEstablishedMessage, ipAddress);
         }
     }
