@@ -8,7 +8,6 @@ import interfacesData.IDataCom;
 import structData.User;
 
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.*;
@@ -65,10 +64,6 @@ public class NetworkController {
         networkSender.start();
     }
 
-    private void discoverNetwork(HashSet ipsHash) {
-
-    }
-
     public List<InetAddress> getIPTable(){
         List<InetAddress> ret=new ArrayList<InetAddress>();
         for(HashMap.Entry<User, InetAddress> entry : networkState.entrySet()){
@@ -88,4 +83,18 @@ public class NetworkController {
     public COMInterface getCOMInterface() {
         return networkInterface;
     }
+
+    public ArrayList<InetAddress> filterUnknownIPAddresses(ArrayList<InetAddress> iPAddressesTable) {
+
+        for (InetAddress ipAddress : iPAddressesTable) {
+
+            if (!networkState.containsValue(ipAddress)) {
+
+                //ConnectionRequestMessage connectionRequestMessage = new ConnectionRequestMessage(user);
+            }
+
+        }
+        return new ArrayList<InetAddress>();
+    }
+
 }

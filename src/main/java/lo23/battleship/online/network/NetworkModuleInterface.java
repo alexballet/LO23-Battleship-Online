@@ -10,6 +10,7 @@ import structData.*;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
 /**
@@ -67,10 +68,13 @@ public class NetworkModuleInterface implements COMInterface {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
-    public void searchForPlayers(ArrayList<InetAddress> knownUsersAddresses, User user) {
+    public void searchForPlayers(User user) {
         // Launch server
         controller.launchServer();
+
         ConnectionRequestMessage connectionRequestMessage = new ConnectionRequestMessage(user);
+
+        HashSet<InetAddress> knownUsersAddresses = user.getIPs();
 
         for (InetAddress ipAddress : knownUsersAddresses) {
 
@@ -82,12 +86,15 @@ public class NetworkModuleInterface implements COMInterface {
         this.dataInterface = IData;
     }
 
+
     // TODO: Delete this when integration is complete
+    /*
     public void searchForPlayers(User user) {
         // Launch server
         controller.launchServer();
         sendRandomMessage("172.25.30.230",2345, user);
     }
+    */
 
     //Random Messages
     private Message newRandomMessage(User u){
