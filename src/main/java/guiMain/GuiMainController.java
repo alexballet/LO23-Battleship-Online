@@ -25,6 +25,7 @@ public class GuiMainController implements GuiMainInterface {
 	}
 
 
+
 	@Override
 	public void addUser(User user) {
 		menuController.addUser(user);
@@ -56,19 +57,24 @@ public class GuiMainController implements GuiMainInterface {
 	}
 
 	public void startIHM(){
+				
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
 		try {
 			rootLayout = (AnchorPane) loader.load();
 
 			menuController = loader.getController();
-			menuController.init();
+			menuController.init(idata);
 
 			Scene scene = new Scene(rootLayout);
 			stage.setTitle("Battleship-Online");
 			stage.setScene(scene);
 			stage.show();
+			
+			System.out.println("start connection");
 			idata.connection();
+			System.out.println("Connection etablished");
+			
 
 		} catch (IOException e) {
 			e.printStackTrace();
