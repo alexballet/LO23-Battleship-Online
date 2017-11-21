@@ -40,6 +40,7 @@ public class DataController {
     
     
     public DataController(){
+        localUser = new User();
         interfaceDataCom = new CDataCom(this);
         interfaceDataMain = new CDataMain(this);
         interfaceDataTable = new CDataTable(this);
