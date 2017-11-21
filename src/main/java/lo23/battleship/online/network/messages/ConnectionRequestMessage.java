@@ -1,5 +1,6 @@
 package lo23.battleship.online.network.messages;
 
+import interfacesData.IDataCom;
 import structData.User;
 
 import java.net.Inet4Address;
@@ -17,7 +18,7 @@ public class ConnectionRequestMessage extends Message {
     public String getType() {
         return type;
     }
-    public Message process() {
-        return null;
+    public void process(IDataCom dataInterface) {
+
     }
 }

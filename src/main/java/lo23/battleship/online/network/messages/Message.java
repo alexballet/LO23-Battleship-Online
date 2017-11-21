@@ -1,5 +1,7 @@
 package lo23.battleship.online.network.messages;
 
+import interfacesData.IDataCom;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +11,6 @@ public abstract class Message implements Serializable {
 
     String type;
     public abstract String getType();
-    public abstract Message process();
+    public abstract void process(IDataCom IData);
 }
 

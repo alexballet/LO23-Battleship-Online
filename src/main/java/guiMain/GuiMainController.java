@@ -2,6 +2,7 @@ package guiMain;
 
 import java.io.IOException;
 
+import guiMain.controller.connectionController;
 import guiMain.controller.menuController;
 import interfacesData.IDataMain;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +27,7 @@ public class GuiMainController implements GuiMainInterface {
 
 	@Override
 	public void addUser(User user) {
-		// TODO Auto-generated method stub
+		menuController.addUser(user);
 
 	}
 
@@ -67,6 +68,7 @@ public class GuiMainController implements GuiMainInterface {
 			stage.setTitle("Battleship-Online");
 			stage.setScene(scene);
 			stage.show();
+			idata.connection();
 
 		} catch (IOException e) {
 			e.printStackTrace();

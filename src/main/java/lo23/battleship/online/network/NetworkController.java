@@ -43,8 +43,13 @@ public class NetworkController {
     }
 
     private NetworkController() {
+        networkInterface = new NetworkModuleInterface(this);
+        networkInterface.setDataInterface(dataInterface);
+    }
 
+    public void launchServer() {
         this.networkServer = new NetworkServer(this);
+        networkServer.setDataInterface(dataInterface);
 
         try {
             this.networkServer.open();
@@ -56,14 +61,8 @@ public class NetworkController {
     public void sendMessage(Message message, InetAddress destinationIpAddress) {
 
         Socket destinationSocket = null;
-
-        try {
-            destinationSocket = new Socket(destinationIpAddress, NetworkController.getInstance().getPort());
-            NetworkSender networkSender = new NetworkSender(destinationSocket,message);
-            networkSender.run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        NetworkSender networkSender = new NetworkSender(destinationIpAddress, this.getPort(), message);
+        networkSender.start();
     }
 
     private void discoverNetwork(HashSet ipsHash) {
@@ -77,7 +76,6 @@ public class NetworkController {
         }
         return ret;
     }
-
 
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;

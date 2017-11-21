@@ -1,6 +1,8 @@
 package lo23.battleship.online.network;
 
 
+import interfacesData.IDataCom;
+
 import java.io.IOException;
 import java.net.*;
 import java.util.Enumeration;
@@ -15,7 +17,7 @@ public class NetworkServer {
     private ServerSocket server = null;
     private NetworkListener listener = null;
     private NetworkController networkController;
-
+    private IDataCom dataInterface;
     public NetworkServer(NetworkController networkController) {
         this.networkController = networkController;
         try {
@@ -47,12 +49,15 @@ public class NetworkServer {
 
     }
 
+    public void setDataInterface(IDataCom IData) {
+        dataInterface = IData;
+    }
 
     //Open and run server
     public void open() throws IOException {
 
         //A different thread to run the server
-        listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
+        listener = new NetworkListener(this, new ServerSocket(port, backlog, address), dataInterface);
         System.out.println(listener.getServerSocketIPAddress().toString());
         listener.start();
 

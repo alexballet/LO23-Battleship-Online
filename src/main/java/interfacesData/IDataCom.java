@@ -42,12 +42,6 @@ public interface IDataCom {
      public void addGame(List<DataGame> createdGames);
 
      /**
-      * If there is a new user, the list of users in the local application should be updated
-      * @param users : New users
-      */
-     public void addUser(Set<User> users);
-
-     /**
       * The distant user has accepted the request to join the game and the method updateGameData
 will be used to update the game data
       * @param ok : Acceptance of the request to join the game
