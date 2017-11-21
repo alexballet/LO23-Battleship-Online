@@ -243,7 +243,7 @@ public abstract class PlacementPhase {
         Rectangle myRectangle = boat.getBoatRectangle();
         myRectangle.setRotate(0);
         myRectangle.relocate(boat.getInitialLayoutX(), boat.getInitialLayoutY());
-        deactiveBoat();
+        desactiveBoat();
     }        
     
     /**
@@ -288,7 +288,7 @@ public abstract class PlacementPhase {
                     if(activeBoat!=null){
                         if(positionCorrect(activeBoat)) {
                             activeBoat.setPlaced(true);
-                            deactiveBoat(); 
+                            desactiveBoat(); 
                         }
                     }
                 }
@@ -301,11 +301,11 @@ public abstract class PlacementPhase {
     /**
      * Deactivates the active boat.
      */
-    protected void deactiveBoat() {
+    protected void desactiveBoat() {
         if (activeBoat!=null) {
             activeBoat.setActive(false);
             activeBoat.getBoatRectangle().setMouseTransparent(false);
-            activeBoat.getBoatRectangle().setFill(Color.web("#ababab"));
+            activeBoat.getBoatRectangle().setFill(activeBoat.getDisactiveColor());
             activeBoat=null;
         } 
     }
