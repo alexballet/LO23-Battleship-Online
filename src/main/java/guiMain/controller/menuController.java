@@ -84,11 +84,11 @@ public class menuController {
 	 *  A décommenter pour l'intégration
 	 */
 
-	/*
+	
 	public void addUser(User user){
 		playersView.getItems().add(user);
 	}
-	 */
+	
 
 
 

@@ -3,16 +3,15 @@ package lo23.battleship.online.network;
 import data.DataController;
 import lo23.battleship.online.network.messages.ConnectionRequestMessage;
 import lo23.battleship.online.network.messages.Message;
+import structData.DataGame;
 import structData.DataUser;
 import interfacesData.IDataCom;
+import structData.User;
 
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by xzirva on 17/10/17.
@@ -30,7 +29,7 @@ public class NetworkController {
     private NetworkModuleInterface networkInterface;
     private static NetworkController instance;
     // TODO: uncomment when User class is defined
-    //private HashMap<User, Inet4Address> networkState;
+    private HashMap<User, InetAddress> networkState;
     IDataCom dataInterface;
     private NetworkServer networkServer;
 
@@ -44,8 +43,14 @@ public class NetworkController {
     }
 
     private NetworkController() {
+        networkInterface = new NetworkModuleInterface(this);
+        networkState = new HashMap<>();
+        networkInterface.setDataInterface(dataInterface);
+    }
 
+    public void launchServer() {
         this.networkServer = new NetworkServer(this);
+        networkServer.setDataInterface(dataInterface);
 
         try {
             this.networkServer.open();
@@ -57,27 +62,54 @@ public class NetworkController {
     public void sendMessage(Message message, InetAddress destinationIpAddress) {
 
         Socket destinationSocket = null;
-
-        try {
-            destinationSocket = new Socket(destinationIpAddress, NetworkController.getInstance().getPort());
-            NetworkSender networkSender = new NetworkSender(destinationSocket,message);
-            networkSender.run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        NetworkSender networkSender = new NetworkSender(destinationIpAddress, this.getPort(), message);
+        networkSender.start();
     }
 
-    private void discoverNetwork(HashSet ipsHash) {
+    public List<InetAddress> getIPTable(){
+//        List<InetAddress> ret=new ArrayList<InetAddress>();
+//        for(HashMap.Entry<User, InetAddress> entry : networkState.entrySet()){
+//            ret.add(entry.getValue());
+//        }
+//        return ret;
+        return new ArrayList<InetAddress>(networkState.values());
 
     }
-
-
 
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
     }
 
+    public IDataCom getDataInterface(){
+        return dataInterface;
+    }
+
     public COMInterface getCOMInterface() {
         return networkInterface;
     }
+
+    public List<InetAddress> filterUnknownIPAddresses(List<InetAddress> iPAddressesTable) {
+        List<InetAddress> filteredAddresses = new ArrayList<>();
+        for (InetAddress ipAddress : iPAddressesTable) {
+
+            if (!networkState.containsValue(ipAddress)) {
+                filteredAddresses.add(ipAddress);
+            }
+
+        }
+        return filteredAddresses;
+    }
+
+    public void updateNetwork(User sender, InetAddress senderAddress, DataGame game) {
+            networkState.put(sender, senderAddress);
+            dataInterface.addUserToUserList(sender);
+        try {
+
+            dataInterface.addNewGameList(game);
+
+        } catch (UnsupportedOperationException e) {
+
+        }
+    }
+
 }
