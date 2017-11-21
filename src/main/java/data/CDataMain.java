@@ -66,7 +66,8 @@ public class CDataMain implements IDataMain {
 
     @Override
     public void askDisconnection() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        interfaceCom.askDisconnection(controller.getLocalUser());
+        controller.eraseNetwork();
     }
 
     @Override

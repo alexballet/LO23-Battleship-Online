@@ -82,4 +82,12 @@ public class DataController {
         //comparer les UUID de u et des objets de listUser et enlever l'user si présent
         listUsers.remove(u);
     }
+    
+    public void eraseNetwork(){
+        localUser = null;
+        localGame = null;
+        
+        listUsers = new HashSet<User>();
+        listGames = new HashSet<Game>();
+    }
 }
