@@ -6,7 +6,9 @@
 package guiTable;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import packageStructDonnées.Boat;
 
 /**
  *
@@ -46,6 +49,27 @@ public abstract class PlacementPhase {
     
     protected HashMap<Rectangle, BoatDrawing> boatMap;
     
+    /**
+     * Trigger validation of placement phase
+     */
+    @FXML
+    protected void onValidate() {
+        List<Boat> boats = this.getBoats();
+        // TODO: Call the coordinateShips(boats) function in Data interface, once the arguement is changed by Data team
+    }
+    
+    /**
+     * Convert the boatMap of type HashMap<Rectangle, BoatDrawing> to List<Boat>
+     * @return List<Boat> list of boats
+     */
+    protected List<Boat> getBoats() {
+        List<Boat> boats = new ArrayList(this.boatMap.size());
+        for(BoatDrawing boatDraw : boatMap.values()) {
+            boats.add(boatDraw.getBoat());
+        }
+        
+        return boats;
+    }
     
     /**
      * method to put boat in the boatMap. 
