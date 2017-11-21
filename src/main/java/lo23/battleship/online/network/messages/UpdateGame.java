@@ -4,6 +4,10 @@ import structData.Game;
 import interfacesData.IDataCom;
 import java.net.InetAddress;
 
+/**
+ * UpdateGame,descendant class Message, send a update game to Data in order to register the modification
+ * @author Lejeune Lola
+ */
 
 public class UpdateGame extends Message{
 

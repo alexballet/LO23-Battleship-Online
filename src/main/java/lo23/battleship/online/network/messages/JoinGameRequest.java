@@ -1,11 +1,14 @@
 package lo23.battleship.online.network.messages;
 
-
 import interfacesData.IDataCom;
 import structData.Game;
 import structData.User;
-
 import java.net.InetAddress;
+
+/**
+ * JoinGameRequest,descendant class Message, received a game request and send to data.
+ * @author Lejeune Lola
+ */
 
 public class JoinGameRequest extends Message{
 

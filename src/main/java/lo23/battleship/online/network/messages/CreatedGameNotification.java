@@ -4,6 +4,11 @@ import structData.Game;
 import interfacesData.IDataCom;
 import java.net.InetAddress;
 
+/**
+ * CreatedGameNotification,descendant class Message, create a game notification and send the new game to data
+ * @author Lejeune Lola
+ */
+
 public class CreatedGameNotification extends Message{
 
     Game game;
