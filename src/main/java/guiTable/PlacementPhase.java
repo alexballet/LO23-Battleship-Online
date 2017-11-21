@@ -239,6 +239,8 @@ public abstract class PlacementPhase {
                    if(activeBoat!=null) {
                        reinitBoat(activeBoat);
                    }
+                   // enable validate button if all boats are well placed
+                   valider.setDisable(!allBoatsArePlaced());
                 }
                 keyEvent.consume();
             }
