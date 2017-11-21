@@ -27,7 +27,9 @@ public class GuiMainController implements GuiMainInterface {
 
 	@Override
 	public void addUser(User user) {
+		System.out.println("GUIMain");
 		menuController.addUser(user);
+		System.out.println("After GUIMain");
 
 	}
 

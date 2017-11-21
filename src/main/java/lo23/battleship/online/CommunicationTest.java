@@ -10,7 +10,6 @@ public class CommunicationTest {
         NetworkController controller = NetworkController.getInstance();
         System.out.println("Serveur initialisé.");
 
-        String host = "172.25.35.108";
         int port = 2345;
 //        NetworkModuleInterface networkInterface = new NetworkModuleInterface();
         //networkInterface.sendRandomMessage(host, port);

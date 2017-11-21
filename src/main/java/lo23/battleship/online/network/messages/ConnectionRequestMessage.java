@@ -36,7 +36,7 @@ public class ConnectionRequestMessage extends Message {
 
         User user = new User();
         user.setUsername("testUsername");
-
+        user.setLogin("loginTest");
         controller.updateNetwork(sender, senderAddress, null);
 
         ConnectionEstablishedMessage connectionEstablishedMessage = new ConnectionEstablishedMessage(user, controller.getIPTable(), null);

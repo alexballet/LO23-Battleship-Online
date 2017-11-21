@@ -5,6 +5,7 @@
  */
 package data;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import guiMain.GuiMainInterface;
 import interfacesData.IDataCom;
 import java.util.List;
@@ -65,7 +66,10 @@ public class CDataCom implements IDataCom {
     @Override
     public void addUserToUserList(User user) {
         controller.addUserToList(user);
+        System.out.println("AddUserToUserLIst");
         interfaceMain.addUser(user);
+        System.out.println("After AddUserToUserLIst");
+
         System.out.println(user.getUsername());
     }
 

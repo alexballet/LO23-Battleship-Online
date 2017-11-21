@@ -74,7 +74,7 @@ public class CDataMain implements IDataMain {
 
         User u = new User("login", "username");
         HashSet<InetAddress> addresses = new HashSet<InetAddress>();
-        addresses.add(InetAddress.getByName("172.25.35.108"));
+        addresses.add(InetAddress.getByName("192.168.1.16"));
         u.setIPs(addresses);
         controller.setLocalUser(u);
         interfaceCom.searchForPlayers(u);
