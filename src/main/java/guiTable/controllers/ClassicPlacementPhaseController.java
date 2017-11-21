@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package guiTable.controller;
+package guiTable.controllers;
 
 import guiTable.BoatDrawing;
-import guiTable.PlacementPhase;
+import guiTable.controllers.PlacementPhaseController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.shape.Rectangle;
@@ -16,7 +16,7 @@ import packageStructDonnées.BoatType;
  * implementation of placement controller for classic phase
  * @author caioz
  */
-public class ClassicPlacementPhaseController extends PlacementPhase implements Initializable{
+public class ClassicPlacementPhaseController extends PlacementPhaseController implements Initializable{
     
     @FXML
     private Rectangle porteAvionsRectangle;

@@ -20,17 +20,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controllers.PlacementPhaseController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="282.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controllers.ChatController">
    <children>
-      <SplitPane dividerPositions="0.6" prefHeight="617.0" prefWidth="880.0">
+      <SplitPane dividerPositions="0.8" layoutY="1.0" orientation="VERTICAL" prefHeight="360.0" prefWidth="280.0">
         <items>
-            <AnchorPane fx:id="boardPane" prefHeight="200.0" />
-            <SplitPane dividerPositions="0.4" orientation="VERTICAL" prefHeight="200.0">
-              <items>
-                  <AnchorPane fx:id="availableBoatsPane" prefHeight="200.0" />
-                  <AnchorPane fx:id="chatPane" prefHeight="200.0" />
-              </items>
-            </SplitPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="304.0" prefWidth="669.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="124.0" prefWidth="278.0">
+               <children>
+                  <TextArea layoutX="-2.0" layoutY="-3.0" prefHeight="68.0" prefWidth="278.0" />
+               </children>
+            </AnchorPane>
         </items>
       </SplitPane>
    </children>
