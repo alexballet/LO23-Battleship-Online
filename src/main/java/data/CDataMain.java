@@ -61,6 +61,10 @@ public class CDataMain implements IDataMain {
      
         controller.setLocalUser(newUser);
         controller.addUserToList(newUser);
+        controller.setLocalUser(newUser);
+        controller.setLocalDataUser(newDataUser);
+        controller.setLocalProfile(newProfile);
+        controller.addUserToList(newUser);
     }
 
     @Override
