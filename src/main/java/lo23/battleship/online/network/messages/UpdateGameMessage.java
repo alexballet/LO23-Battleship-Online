@@ -9,11 +9,11 @@ import java.net.InetAddress;
  * @author Lejeune Lola
  */
 
-public class UpdateGame extends Message{
+public class UpdateGameMessage extends Message{
 
     Game gameUpdate;
 
-    public UpdateGame(Game game){
+    public UpdateGameMessage(Game game){
         this.gameUpdate = game;
         this.type = "UpdateGame";
     }

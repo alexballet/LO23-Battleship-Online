@@ -10,12 +10,12 @@ import java.net.InetAddress;
  * @author Lejeune Lola
  */
 
-public class JoinGameRequest extends Message{
+public class JoinGameRequestMessage extends Message{
 
     User sender;
     Game game;
 
-    public JoinGameRequest(User senderGame, Game gameSend){
+    public JoinGameRequestMessage(User senderGame, Game gameSend){
         this.sender = senderGame;
         this.game = gameSend;
         this.type = "JoinGameRequest";}

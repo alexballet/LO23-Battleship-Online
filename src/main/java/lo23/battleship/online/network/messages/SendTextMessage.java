@@ -5,7 +5,7 @@ import structData.ChatMessage;
 import java.net.InetAddress;
 
 /**
- * SendTextMessage, descendant Message, send (and receive message also because it's the same attribute) chat message to (from) away ap. 
+ * SendTextMessage, descendant Message, send (and receive message also because it's the same attribute) chat message to (from) away ap.
  * @author Lejeune Lola
  */
 
