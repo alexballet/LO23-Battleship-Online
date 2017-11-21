@@ -11,6 +11,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -75,9 +76,11 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    public void searchForPlayers(ArrayList<InetAddress> knownUsersAddresses, User user) {
+    public void searchForPlayers(User user) {
 
         ConnectionRequestMessage connectionRequestMessage = new ConnectionRequestMessage(user);
+
+        HashSet<InetAddress> knownUsersAddresses = user.getIPs();
 
         for (InetAddress ipAddress : knownUsersAddresses) {
 
