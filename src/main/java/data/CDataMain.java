@@ -59,7 +59,7 @@ public class CDataMain implements IDataMain {
         
         Profile newProfile = new Profile(newDataUser,avatar,lastname,firstname,birthDate);
      
-        controller.setLocalUser(newUser);
+        //controller.setLocalUser(newUser);
         controller.addUserToList(newUser);
     }
 
