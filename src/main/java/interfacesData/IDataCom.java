@@ -37,9 +37,8 @@ public interface IDataCom {
 
 
      /**
-      * The distant user has accepted the request to join the game and the 
-      * method updateGameData
-will be used to update the game data
+      * The distant user has accepted or not the request to join the game and the 
+      * method updateGameData will be used to update the game data
       * @param ok : Acceptance of the request to join the game
       * @param player1 : Creator of the game
       * @param player2 : The player who joins the game
@@ -55,8 +54,7 @@ will be used to update the game data
 
      /**
       * Sends the profile of a distant user to the local user so that the local 
-      * user can see the profile of
-this distant user
+      * user can see the profile of this distant user
       * @param p The profil to be sent
       */
      public void sendStatistics(Profile p);
@@ -114,8 +112,8 @@ phase can be displayed
      public void coordinates(Shot s, Boat b);
 
      /**
-      * Returns the local userâ€™s profile, containing his statistics
-      * @return the local userâ€™s profile
+      * Returns the local user's profile, containing his statistics
+      * @return the local user's profile
       */
      public Profile getUserProfile();
 
