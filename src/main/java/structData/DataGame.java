@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 package structData;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.ArrayList;
 /**
  *
  * @author Huiling
  */
-public class DataGame extends Game{
+public class DataGame extends Game implements Serializable{
     private HashSet listSpectators;
     private Player player1;
     private Player player2;
