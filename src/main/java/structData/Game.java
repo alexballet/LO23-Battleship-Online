@@ -320,4 +320,11 @@ public class Game implements Serializable{
     public Boolean getPlayer1Start(){
         return this.player1Start;
     }
+     public void setPlayer1(Player p1){
+        player1 = p1;
+    }
+    
+    public void setPlayer2(Player p2){
+        player2 = p2;
+    }
 }
