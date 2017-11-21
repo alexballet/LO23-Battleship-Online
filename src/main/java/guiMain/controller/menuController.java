@@ -68,19 +68,24 @@ public class menuController {
 	}
 	
 	private void initGamesList() {
+		menuController controller = this;
 		ObservableList<Game> playersObservable = FXCollections.observableArrayList(new ArrayList<Game>());
 		gamesView.setItems(playersObservable);
 		gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>() { 
 			  
 		    @Override 
 		    public ListCell<Game> call(ListView<Game> lv) { 
-		        return new GameCell(); 
+		        return new GameCell(controller); 
 		    } 
 		});
 	}
 	
 	public void joinGame(Game game) {
-		
+		System.out.println("JOIN GAME " + game.getName());
+	}
+	
+	public void lookGame(Game game) {
+		System.out.println("LOOK GAME " + game.getName());
 	}
 	
 
@@ -91,9 +96,6 @@ public class menuController {
 	@FXML
 	private void option(){
 		gamesView.getItems().add(new Game(true, "Game test 1", false, 100, true, true));
-		gamesView.getItems().add(new Game(false, "Game test 2", false, 100, true, true));
-		gamesView.getItems().add(new Game(true, "Game test 3", true, 100, true, true));
-		gamesView.getItems().add(new Game(false, "Game test 4", true, 100, true, true));
 	}
 
 

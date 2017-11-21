@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+import guiMain.controller.menuController;
 import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,9 +26,12 @@ public class GameCell extends ListCell<Game> {
     ImageView robot = new ImageView();
     Button joinButton = new Button("");
     Button lookButton = new Button("");
+    menuController controller;
     
-    public GameCell() {
+    public GameCell(menuController c) {
         super();
+        
+        controller = c;
         
         //title.setPadding(new Insets(10, 20, 10, 20));
 		type.setPadding(new Insets(10, 20, 10, 20));
@@ -76,7 +80,7 @@ public class GameCell extends ListCell<Game> {
             joinButton.setOnAction(new EventHandler<ActionEvent>() {
 	        		@Override
 	            public void handle(ActionEvent event) {
-	        			System.out.println("Join " + game.getName());
+	        			controller.joinGame(game);
 	            }
 	        });
             
@@ -88,7 +92,7 @@ public class GameCell extends ListCell<Game> {
             lookButton.setOnAction(new EventHandler<ActionEvent>() {
 	        		@Override
 	            public void handle(ActionEvent event) {
-	        			System.out.println("Look " + game.getName());
+	        			controller.lookGame(game);
 	            }
 	        });
             
