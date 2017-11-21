@@ -65,11 +65,13 @@ public class NetworkController {
     }
 
     public List<InetAddress> getIPTable(){
-        List<InetAddress> ret=new ArrayList<InetAddress>();
-        for(HashMap.Entry<User, InetAddress> entry : networkState.entrySet()){
-            ret.add(entry.getValue());
-        }
-        return ret;
+//        List<InetAddress> ret=new ArrayList<InetAddress>();
+//        for(HashMap.Entry<User, InetAddress> entry : networkState.entrySet()){
+//            ret.add(entry.getValue());
+//        }
+//        return ret;
+        return new ArrayList<InetAddress>(networkState.values());
+
     }
 
     public void setDataInterface(IDataCom IData) {
