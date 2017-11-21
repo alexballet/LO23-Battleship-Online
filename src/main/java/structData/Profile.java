@@ -64,6 +64,28 @@ public class Profile extends DataUser {
     }
     
     /**
+     * Constructor with all paramters
+     * @param dUser a DataUser
+     * @param pathToImage path to the image for avatar
+     * @param newLastname a lastname
+     * @param newName a name
+     * @param newBirthdate a birthdate
+     */
+    public Profile(DataUser dUser, ImageIcon image, String newLastname, 
+            String newName, Date newBirthdate){
+        super(dUser);
+        avatar = image;
+        lastname = new String(newLastname);
+        name = new String(newName);
+        // (Date) newBirthdate.clone() if newbirthdate belongs to an other object
+        birthdate = newBirthdate; 
+        gamesPlayed = 0;
+        gamesWon = 0;
+        gamesLost = 0;
+        gamesAborted = 0;
+    }
+    
+    /**
      * Method to copy a Profile
      * @param p a Profile to copy
      * @return a copied Profile
