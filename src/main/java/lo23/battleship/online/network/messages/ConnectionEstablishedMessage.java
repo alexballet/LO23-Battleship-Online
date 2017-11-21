@@ -15,16 +15,15 @@ import java.util.List;
  * Created by xzirva on 14/11/17.
  */
 public class ConnectionEstablishedMessage extends Message {
-    private User destination;
     private User sender;
     private Inet4Address destinationIPAddress;
     private List<InetAddress> ipAdressesTable;
     private DataGame createdGame;
 
-    public ConnectionEstablishedMessage(User user, List<InetAddress> ipTable, DataGame game) {
-        destination = user;
+    public ConnectionEstablishedMessage(User sender, List<InetAddress> ipTable, DataGame game) {
         ipAdressesTable = ipTable;
         createdGame = game;
+        this.sender = sender;
         type = "ConnectionEstablishedMessage";
 
     }

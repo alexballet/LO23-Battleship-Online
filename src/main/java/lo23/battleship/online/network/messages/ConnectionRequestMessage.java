@@ -11,11 +11,11 @@ import java.net.InetAddress;
  * Created by xzirva on 14/11/17.
  */
 public class ConnectionRequestMessage extends Message {
-    private User destination;
+    private User user;
     private Inet4Address destinationIPAddress;
 
     public ConnectionRequestMessage(User user) {
-        destination = user;
+        this.user = user;
         type = "ConnectionRequestMessage";
     }
     public String getType() {

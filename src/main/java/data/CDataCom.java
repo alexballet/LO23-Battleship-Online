@@ -66,6 +66,7 @@ public class CDataCom implements IDataCom {
     public void addUserToUserList(User user) {
         controller.addUserToList(user);
         interfaceMain.addUser(user);
+        System.out.println(user.getUsername());
     }
 
     @Override

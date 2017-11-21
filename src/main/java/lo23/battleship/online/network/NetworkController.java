@@ -44,6 +44,7 @@ public class NetworkController {
 
     private NetworkController() {
         networkInterface = new NetworkModuleInterface(this);
+        networkState = new HashMap<>();
         networkInterface.setDataInterface(dataInterface);
     }
 
@@ -100,9 +101,15 @@ public class NetworkController {
     }
 
     public void updateNetwork(User sender, InetAddress senderAddress, DataGame game) {
-        networkState.put(sender, senderAddress);
-        dataInterface.addUserToUserList(sender);
-        dataInterface.addNewGameList(game);
+            networkState.put(sender, senderAddress);
+            dataInterface.addUserToUserList(sender);
+        try {
+
+            dataInterface.addNewGameList(game);
+
+        } catch (UnsupportedOperationException e) {
+
+        }
     }
 
 }
