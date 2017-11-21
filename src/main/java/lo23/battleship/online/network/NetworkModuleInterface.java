@@ -82,11 +82,11 @@ public class NetworkModuleInterface implements COMInterface {
 
         List<InetAddress> ipAddresses = controller.getIPTable();
 
-
+        Disconnection disconnection = new Disconnection();
 
         for (InetAddress ipAddress : ipAddresses) {
 
-            controller.sendMessage(null, ipAddress);
+            controller.sendMessage(disconnection, ipAddress);
 
         }
 
