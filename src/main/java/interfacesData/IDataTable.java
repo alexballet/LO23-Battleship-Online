@@ -5,6 +5,7 @@
  */
 package interfacesData;
 import structData.Position;
+import structData.Boat;
 import structData.ChatMessage;
 import java.util.Date;
 import java.util.List;
@@ -44,7 +45,7 @@ public interface IDataTable {
      * place at the beginning of game.
      * @param listposition : List of positions of the boats. 
      */
-    public void coordinateShips(List<Position> listposition);
+    public void coordinateShips(List<Boat> listposition);
 
 }
 

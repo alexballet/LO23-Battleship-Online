@@ -79,7 +79,9 @@ public class CDataMain implements IDataMain {
      */
     @Override
     public void notifGameChosen(Game g) {
-        interfaceCom.joinGame(null, g);    }
+        User u = controller.getLocalUser();
+        interfaceCom.joinGame(u, g);    
+    }
 
     @Override
     public void askDisconnection() {
