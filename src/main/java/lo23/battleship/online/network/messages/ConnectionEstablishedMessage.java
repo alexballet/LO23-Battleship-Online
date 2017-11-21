@@ -38,8 +38,8 @@ public class ConnectionEstablishedMessage extends Message {
         List<InetAddress> filteredAddresses = controller.filterUnknownIPAddresses(ipAdressesTable);
         controller.updateNetwork(sender, senderAddress, createdGame);
         for(InetAddress ipAddress : filteredAddresses) {
-            User user = new User();
-            user.setUsername("TryingToConnect");
+            User user = IData.getLocalUser();
+            user.setUsername("");
             ConnectionEstablishedMessage connectionEstablishedMessage = new ConnectionEstablishedMessage(user, controller.getIPTable(), null);
             controller.sendMessage(connectionEstablishedMessage, ipAddress);
         }

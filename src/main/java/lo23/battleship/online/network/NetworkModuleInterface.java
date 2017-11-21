@@ -1,16 +1,15 @@
 package lo23.battleship.online.network;
 
 import interfacesData.IDataCom;
+import lo23.battleship.online.network.messages.*;
 import structData.User;
-import lo23.battleship.online.network.messages.ConnectionRequestMessage;
 import interfacesData.IDataCom;
-import lo23.battleship.online.network.messages.CustomMessage;
-import lo23.battleship.online.network.messages.Message;
 import structData.*;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -54,14 +53,48 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     public boolean notifyNewGame(DataGame game) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+
+        List<InetAddress> ipAddresses = controller.getIPTable();
+
+        CreatedGameNotification createdGameNotification = new CreatedGameNotification(game);
+
+        for (InetAddress ipAddress : ipAddresses) {
+
+            controller.sendMessage(createdGameNotification, ipAddress);
+
+        }
+
+        return true;
     }
+
     public boolean joinGame(User user, DataGame game) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+
+        List<InetAddress> ipAddresses = controller.getIPTable();
+
+        JoinGameRequest joinGameRequest = new JoinGameRequest(user, game);
+        
+        for (InetAddress ipAddress : ipAddresses) {
+
+            controller.sendMessage(joinGameRequest, ipAddress);
+
+        }
+
+        return true;
     }
 
     public boolean askDisconnection(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+
+        List<InetAddress> ipAddresses = controller.getIPTable();
+
+
+
+        for (InetAddress ipAddress : ipAddresses) {
+
+            controller.sendMessage(null, ipAddress);
+
+        }
+
+        return true;
     }
 
     public boolean sendShot(Player player, DataGame game, Shot shot) {
