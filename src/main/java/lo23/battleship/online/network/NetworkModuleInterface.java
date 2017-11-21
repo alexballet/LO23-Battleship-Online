@@ -41,8 +41,12 @@ public class NetworkModuleInterface implements COMInterface{
     public boolean sendRandomMessage(String host, int port, User u) {
         try {
             System.out.println("TEST");
+            System.out.println("host: "+ host + "/" + port);
             Socket destinationSocket = new Socket(host, port);
-            Thread t = new Thread(new NetworkSender(destinationSocket, newRandomMessage(u)));
+            System.out.println("Before thread");
+            System.out.flush();
+            NetworkSender t = new NetworkSender(destinationSocket, newRandomMessage(u));
+            System.out.println("After thread");
             t.start();
             return true;
         } catch (UnknownHostException e) {
