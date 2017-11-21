@@ -334,6 +334,8 @@ public abstract class PlacementPhaseController {
                        // enable validate button if all boats are well placed
                        valider.setDisable(!allBoatsArePlaced());
                    }
+                   // enable validate button if all boats are well placed
+                   valider.setDisable(!allBoatsArePlaced());
                 }
                 keyEvent.consume();
             }
