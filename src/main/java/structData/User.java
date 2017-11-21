@@ -14,7 +14,9 @@ public class User implements Serializable{
     protected String username;
     protected HashSet iPs;
     
-    /*constructor by default*/
+    /**
+     * Constructor by default
+     */
     public User(){
         idUser = UUID.randomUUID();
         login = new String("");
@@ -22,22 +24,20 @@ public class User implements Serializable{
         iPs = new HashSet();
     }
     
-     /*constructor with parameters*/
     /**
-     * 
-     * @param logindata : the login of the new user
-     * @param usernamedata : the username of the new user
+     * Constructor with parameters
+     * @param loginData : the login of the new user
+     * @param usernameData : the username of the new user
      */
-    public User(String logindata, String usernamedata){
+    public User(String loginData, String usernameData){
         idUser = UUID.randomUUID();
-        login = new String(logindata);
-        username = new String(usernamedata);
+        login = new String(loginData);
+        username = new String(usernameData);
         iPs = new HashSet();
     }
     
-    /*constructor for the class DataUser who is "son" of the class User*/
     /**
-     * 
+     * Constructor for the class DataUser who is "son" of the class User
      * @param u : a new object of the class User
      */
     public User(User u){
@@ -47,80 +47,78 @@ public class User implements Serializable{
         iPs = u.iPs;
     }
     
-    /*accessors*/
     /**
-     * 
+     * Accessors for idUser
      * @return the id of the user
      */
     public UUID getIdUser(){
         return idUser;
     }
     /**
-     * 
+     * Accessors for login
      * @return the login of the user
      */
     public String getLogin(){
         return login;
     } 
     /**
-     * 
+     * Accessors for Username
      * @return the username of the user
      */
     public String getUsername(){
         return username;
     }
     /**
-     * 
+     * Accessors for iPs
      * @return iPs of the user
      */
     public HashSet getIPs(){
         return iPs;
     }
     
-    /*mutator*/
     /**
-     * 
-     * @param idUserdata : the new value of the id of the user
+     * Mutator for idUser
+     * @param idUserData : the new value of the id of the user
      */
-    public void setidUser(UUID idUserdata){
-        this.idUser = idUserdata;
+    public void setIdUser(UUID idUserData){
+        this.idUser = idUserData;
     }
     /**
-     * 
-     * @param logindata : the new value of the login of the user
+     * Mutator for login
+     * @param loginData : the new value of the login of the user
      */
-    public void setLogin(String logindata){
-        this.login = logindata;
+    public void setLogin(String loginData){
+        this.login = loginData;
     }
     /**
-     * 
-     * @param usernamedata : the new value of the username of the user
+     * Mutator for userName
+     * @param usernameData : the new value of the username of the user
      */
-    public void setUsername(String usernamedata){
-        this.username = usernamedata;
+    public void setUsername(String usernameData){
+        this.username = usernameData;
     }
     /**
-     * 
-     * @param iPsdata : the new value of the iPs of the user
+     * Mutator for iPs
+     * @param iPsData : the new value of the iPs of the user
      */
-    public void setIPs(HashSet iPsdata){
-        this.iPs = iPsdata;
+    public void setIPs(HashSet iPsData){
+        this.iPs = iPsData;
     }
     
     
     /*clone a present user*/
     /**
-     * 
-     * @param userclone : the user to be cloned
+     * Clone function to copy a User
+     * @param userClone : the user to be cloned
      * @return the user who has called this method to clone all the 
-     *         information of the userclone
+     *         information of the userClone
      */
     
-   public User cloneUser(User userclone){
-        idUser = userclone.idUser;
-        login = userclone.login;
-        username = userclone.username;
-        iPs = userclone.iPs;
+   public User cloneUser(User userClone){
+        idUser = userClone.idUser;
+        login = userClone.login;
+        username = userClone.username;
+        iPs = userClone.iPs;
         return this;
    }
     
