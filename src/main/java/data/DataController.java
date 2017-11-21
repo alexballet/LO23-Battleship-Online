@@ -13,6 +13,7 @@ import structData.Game;
 import structData.User;
 import structData.DataUser;
 import structData.Profile;
+import structData.StatusGame;
 
 /**
  *
@@ -129,4 +130,22 @@ public class DataController {
     public void removeGameFromList(Game g){
         listGames.remove(g);
     }
+     /**
+     * used by the method setGameJoinResponse of CDataCom
+     * @param ok 
+     * @param player1
+     * @param player2
+     */
+    public void updateGameData(Boolean ok, Player player1, Player player2){
+        if (ok == true){
+            localGame.setStatus(StatusGame.PLAYING);
+            localGame.setPlayer1(player1);
+            localGame.setPlayer1(player1);
+        }
+        else{
+            localGame.setStatus(StatusGame.WAITINGPLAYER);
+        }
+        
+    }
+
 }
