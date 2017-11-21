@@ -6,6 +6,8 @@
 package structData;
 import java.util.HashSet;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Boat is the class which represents a ship of a player.
@@ -13,17 +15,17 @@ import java.io.Serializable;
 public class Boat implements Serializable{
     private BoatType type;
     private Boolean status;
-    private HashSet listCases;
+    private List<Position> listCases;
     
     //constructor by default
     public Boat(){
         type = BoatType.PORTEAVIONS;
         status = false;
-        listCases = new HashSet();
+        this.listCases = new ArrayList();
     }
     
     //constructor with parameters
-    public Boat(BoatType typedata, Boolean statusdata, HashSet listCasesdata){
+    public Boat(BoatType typedata, Boolean statusdata, List<Position> listCasesdata){
         type = typedata;
         status = statusdata;
         listCases = listCasesdata;
@@ -38,7 +40,7 @@ public class Boat implements Serializable{
         return status;
     }
     
-    public HashSet getListcases(){
+    public List<Position> getListcases(){
         return listCases;
     }
     
@@ -51,7 +53,7 @@ public class Boat implements Serializable{
         this.status = statusdata;
     }
     
-    public void setListcases(HashSet listCasesdata){
+    public void setListcases(List<Position> listCasesdata){
         this.listCases = listCasesdata;
     }
     

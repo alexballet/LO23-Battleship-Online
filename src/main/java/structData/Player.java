@@ -33,7 +33,7 @@ public class Player implements Serializable{
      * @param listBoatsData : the list of boats of the new player
      * @param listShotsData : the list of shots of the new player
      */
-    public Player(Profile p, List<Boat> listBoatsdata, HashSet<Shot> listShotsdata){
+    public Player(Profile p, List<Boat> listBoatsData, HashSet<Shot> listShotsData){
         profile = p;
         listBoats = listBoatsData;
         listShots = listShotsData;
