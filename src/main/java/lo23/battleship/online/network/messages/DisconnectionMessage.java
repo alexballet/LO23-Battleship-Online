@@ -1,6 +1,8 @@
 package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
+import structData.User;
+
 import java.net.InetAddress;
 
 /**
@@ -12,9 +14,12 @@ import java.net.InetAddress;
 
 /* ajouter les méthodes une fois qu'elles seront faites*/
 
-public class Disconnection extends Message{
+public class DisconnectionMessage extends Message{
 
-    public Disconnection(){
+    User user;
+
+    public DisconnectionMessage(User userWhoDisconnect){
+        this.user = userWhoDisconnect;
         this.type = "Disconnection";
     }
 

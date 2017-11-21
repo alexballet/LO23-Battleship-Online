@@ -9,11 +9,11 @@ import java.net.InetAddress;
  * @author Lejeune Lola
  */
 
-public class CreatedGameNotification extends Message{
+public class CreatedGameNotificationMessage extends Message{
 
     Game game;
 
-    public CreatedGameNotification(Game gameCreated) {
+    public CreatedGameNotificationMessage(Game gameCreated) {
         this.game = gameCreated;
         this.type = "CreatedGameNotification";}
 
