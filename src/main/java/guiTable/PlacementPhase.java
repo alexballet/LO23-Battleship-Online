@@ -311,7 +311,9 @@ public abstract class PlacementPhase {
                     if(activeBoat!=null){
                         if(positionCorrect(activeBoat)) {
                             activeBoat.setPlaced(true);
-                            desactiveBoat(); 
+                            desactiveBoat();
+                            // enable validate button if all boats are well placed
+                            valider.setDisable(!allBoatsArePlaced());
                         }
                     }
                 }
@@ -331,5 +333,21 @@ public abstract class PlacementPhase {
             activeBoat.getBoatRectangle().setFill(activeBoat.getDisactiveColor());
             activeBoat=null;
         } 
+    }
+    
+    /**
+     * Check if all boats are placed
+     * (ie. every boats are on the gird)
+     * @return boolean true if all boats are placed, false else
+     */
+    protected boolean allBoatsArePlaced() {
+        boolean allBoatsArePlaced = true;
+        for(BoatDrawing boat : boatMap.values()) {
+            if (!boat.isPlaced()) {
+                allBoatsArePlaced = false;
+            }
+        }
+        
+        return allBoatsArePlaced;
     }
 }

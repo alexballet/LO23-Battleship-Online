@@ -224,7 +224,7 @@
             <Rectangle fx:id="sousMarinRectangle2" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="594.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="29.0" />
             <Rectangle fx:id="sousMarinRectangle3" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="628.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="29.0" />
             <Rectangle fx:id="sousMarinRectangle4" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="662.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="29.0" />
-            <Button fx:id="valider" layoutX="450.0" layoutY="505.0" mnemonicParsing="false" onAction="#onValidate" text="Valider" />
+            <Button fx:id="valider" disable="true" layoutX="450.0" layoutY="505.0" mnemonicParsing="false" onAction="#onValidate" text="Valider" />
             <Button layoutX="14.0" layoutY="505.0" mnemonicParsing="false" text="Quitter" />
          </children>
       </Pane>
