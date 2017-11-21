@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import guiMain.GameCell;
+import guiMain.GuiMainController;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,23 +24,19 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import structData.*;
 
+	private GuiMainController mainController;
 public class menuController implements Initializable{
 
-    @FXML 
-    private ListView<User> playersView;
-    
-    @FXML 
-    private ListView<Game> gamesView;
+	@FXML 
+	private ListView<User> playersView;
+	@FXML 
+	private ListView<Game> gamesView;
+	@FXML 
+	private Button optionButton;
 	
-    @FXML 
-    private Button optionButton;
-
-    
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //
-    }
-	
+	public void setMainController (GuiMainController c) {
+		mainController = c;
+	}
     /**
      *  Init listView configuration
      *  UserTest à remplacer par User lorsque les getter/setter seront dispo
@@ -74,24 +73,24 @@ public class menuController implements Initializable{
 	}
 	
 	private void initGamesList() {
-            ObservableList<Game> playersObservable = FXCollections.observableList(new ArrayList<Game>());
-            gamesView.setItems(playersObservable);
-
-            gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>(){
-                @Override
-                public ListCell<Game> call(ListView<Game> p) {
-                    ListCell<Game> cell = new ListCell<Game>(){
-                        @Override
-                        protected void updateItem(Game game, boolean bln) {
-                            super.updateItem(game, bln);
-                            if (game != null) {
-                                setText(game.getName());
-                            }
-                        }
-                    };
-                    return cell;
-                }
-            });
+		final menuController controller = this;
+		ObservableList<Game> playersObservable = FXCollections.observableArrayList(new ArrayList<Game>());
+		gamesView.setItems(playersObservable);
+		gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>() { 
+			  
+		    @Override 
+		    public ListCell<Game> call(ListView<Game> lv) { 
+		        return new GameCell(controller); 
+		    } 
+		});
+	}
+	
+	public void joinGame(Game game) {
+		System.out.println("JOIN GAME " + game.getName());
+	}
+	
+	public void lookGame(Game game) {
+		System.out.println("LOOK GAME " + game.getName());
 	}
 	
 
@@ -101,8 +100,7 @@ public class menuController implements Initializable{
 	 */
 	@FXML
 	private void option(){
-            // playersView.getItems().add(new User());
-            gamesView.getItems().add(new Game());
+		gamesView.getItems().add(new Game(true, "Game test 1", false, 100, true, true));
 	}
 
 
