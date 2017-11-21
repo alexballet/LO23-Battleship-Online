@@ -3,6 +3,7 @@ package lo23.battleship.online.network;
 import data.DataController;
 import lo23.battleship.online.network.messages.ConnectionRequestMessage;
 import lo23.battleship.online.network.messages.Message;
+import structData.DataGame;
 import structData.DataUser;
 import interfacesData.IDataCom;
 import structData.User;
@@ -86,17 +87,22 @@ public class NetworkController {
         return networkInterface;
     }
 
-    public ArrayList<InetAddress> filterUnknownIPAddresses(ArrayList<InetAddress> iPAddressesTable) {
-
+    public List<InetAddress> filterUnknownIPAddresses(List<InetAddress> iPAddressesTable) {
+        List<InetAddress> filteredAddresses = new ArrayList<>();
         for (InetAddress ipAddress : iPAddressesTable) {
 
             if (!networkState.containsValue(ipAddress)) {
-
-                //ConnectionRequestMessage connectionRequestMessage = new ConnectionRequestMessage(user);
+                filteredAddresses.add(ipAddress);
             }
 
         }
-        return new ArrayList<InetAddress>();
+        return filteredAddresses;
+    }
+
+    public void updateNetwork(User sender, InetAddress senderAddress, DataGame game) {
+        networkState.put(sender, senderAddress);
+        dataInterface.addUserToUserList(sender);
+        dataInterface.addNewGameList(game);
     }
 
 }

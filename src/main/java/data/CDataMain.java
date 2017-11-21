@@ -7,7 +7,13 @@ package data;
 
 import guiMain.GuiMainInterface;
 import interfacesData.IDataMain;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+
 import lo23.battleship.online.network.COMInterface;
 import structData.ContactGroup;
 import structData.Game;
@@ -64,8 +70,11 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public void connection() {
+    public void connection() throws UnknownHostException {
         User u = new User("login", "username");
+        HashSet<InetAddress> addresses = new HashSet<InetAddress>();
+        addresses.add(InetAddress.getByName("172.25.21.101"));
+        u.setIPs(addresses);
         controller.setLocalUser(u);
         interfaceCom.searchForPlayers(u);
     }
