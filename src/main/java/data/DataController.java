@@ -40,12 +40,14 @@ public class DataController {
     
     
     public DataController(){
+        User user = new User("truc", "machin"); // for test
+           
         interfaceDataCom = new CDataCom(this);
         interfaceDataMain = new CDataMain(this);
         interfaceDataTable = new CDataTable(this);
         
         listUsers = new HashSet<User>();
-        localDataUser = new DataUser(localUser);
+        localDataUser = new DataUser(user);
         localProfile = new Profile(localDataUser);
     }
     
