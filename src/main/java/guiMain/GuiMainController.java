@@ -3,6 +3,7 @@ package guiMain;
 import java.io.IOException;
 import java.util.List;
 
+import guiMain.controller.ProfilController;
 import guiMain.controller.menuController;
 import interfacesData.IDataMain;
 import javafx.fxml.FXMLLoader;
@@ -66,6 +67,25 @@ public class GuiMainController implements GuiMainInterface {
 
 			menuController = loader.getController();
 			menuController.init();
+
+			Scene scene = new Scene(rootLayout);
+			stage.setTitle("Battleship-Online");
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void displayProfil() {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/fxml/Ihm-main/profil.fxml"));
+		try {
+			rootLayout = (AnchorPane) loader.load();
+
+			ProfilController profilController = loader.getController();
+			//profilController.init();
 
 			Scene scene = new Scene(rootLayout);
 			stage.setTitle("Battleship-Online");

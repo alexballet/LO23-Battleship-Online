@@ -1,5 +1,6 @@
 package guiMain.controller;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -95,6 +96,11 @@ public class menuController {
 		// playersView.getItems().add(new User());
 		gamesView.getItems().add(new Game());
 	}
+	
+	@FXML
+    void displayProfil(ActionEvent event) {
+		
+    }
 
 
 
