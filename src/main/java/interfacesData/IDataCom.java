@@ -26,7 +26,7 @@ public interface IDataCom {
      * @param iPs (returned) : ipadresses known by local user to send to send to a new user
      * @param game (returned) : the game the user is playing
      */
-    // TODO Change void to struct containing a Set and DataGame
+    // TODO Change void to struct containing a Set and Game
     public void getIPTableAdresses(Boolean withGame, Set iPs, Game game);
 
 

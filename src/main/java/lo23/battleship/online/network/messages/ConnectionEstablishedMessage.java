@@ -2,6 +2,7 @@ package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkController;
+import structData.Game;
 import structData.User;
 
 import java.net.Inet4Address;
@@ -15,9 +16,9 @@ public class ConnectionEstablishedMessage extends Message {
     private User sender;
     private Inet4Address destinationIPAddress;
     private List<InetAddress> ipAdressesTable;
-    private DataGame createdGame;
+    private Game createdGame;
 
-    public ConnectionEstablishedMessage(User sender, List<InetAddress> ipTable, DataGame game) {
+    public ConnectionEstablishedMessage(User sender, List<InetAddress> ipTable, Game game) {
         ipAdressesTable = ipTable;
         createdGame = game;
         this.sender = sender;
