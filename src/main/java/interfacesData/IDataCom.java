@@ -11,6 +11,7 @@ import structData.Position;
 import structData.ChatMessage;
 import structData.User;
 import structData.Game;
+import structData.Player;
 import structData.Profile;
 import java.util.Set;
 import java.util.List;
@@ -43,13 +44,8 @@ will be used to update the game data
       * @param player1 : Creator of the game
       * @param player2 : The player who joins the game
       */
-     public void setGameJoinResponse(Boolean ok, User player1, User player2);
+     public void setGameJoinResponse(Boolean ok, Player player1, Player player2);
 
-     /**
-      * The distant user has refused the request to join the game
-      * @param no : Refuse of the request to join the game
-      */
-     public void setGameJoinResponse(Boolean no);
 
      /**
       * After an user has connected, this user will be added to the list of user
