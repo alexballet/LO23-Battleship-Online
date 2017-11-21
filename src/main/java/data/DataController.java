@@ -113,4 +113,20 @@ public class DataController {
     public void addGameToList(Game g){
         listGames.add(g);
     }
+    
+    /**
+     * Update the status of game and add it into the list of Game
+     * @param g : the game which status has been modified
+     */
+    public void updateGameStatus(Game g){
+        localGame = g;
+        listGames.add(localGame);
+    }
+    /**
+     * Remove the game
+     * @param g : game has to be remove
+     */
+    public void removeGameFromList(Game g){
+        listGames.remove(g);
+    }
 }

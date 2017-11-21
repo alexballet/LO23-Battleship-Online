@@ -132,10 +132,17 @@ public class CDataCom implements IDataCom {
         Profile localProfile = controller.getLocalProfile();
         return localProfile;
     }
-
+    
+    /**
+     * Takes a game given as a parameter and updates his status
+     * @param g : the game which status has been modified
+     */
     @Override
     public void changeStatusGame(Game g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Game localGame  = controller.getLocalGame();
+        controller.removeGameFromList(localGame);
+        controller.updateGameStatus(g);
+        interfaceMain.transmitNewStatus(g);
     }
     
 }
