@@ -32,7 +32,14 @@ public interface COMInterface {
      * @param user
      * @return the profile(statistics) of the user
      */
-    public Profile getProfile(User user);
+    public void getProfile(User user);
+
+    /**
+     * update game object
+     * @param game
+     * @return true= message sent, false= message not sent
+     */
+    public boolean changeStatusGame(Game game);
 
     /**
      * notify a new game
@@ -52,7 +59,7 @@ public interface COMInterface {
     /**
      * allow an user to join a game
      * @param isOk access to <code>game</code> true=access granted false= access denied
-     * @param user who created the game and send the response to the join request
+     * @param user who is waiting for the answer
      * @param game Game <code>user</code> joined if isOk
      * @return true= message sent, false= message not sent
      */

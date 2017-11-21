@@ -25,11 +25,11 @@ public class NetworkModuleInterface implements COMInterface {
         controller = cont;
     }
     public boolean notifyReady(User user) {
-        return true;
+        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
     public boolean sendChatMessage(String message, DataGame game) {
-        return true;
+        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -44,19 +44,34 @@ public class NetworkModuleInterface implements COMInterface {
         //InetAddress address = InetAddress.getByAddress(host)
         //controller.sendMessage(newRandomMessage(u), host);
     }
-    public Profile getProfile(User user) {
+    public void getProfile(User user) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean notifyJoinGameResponse(Boolean isOk, User user, DataGame game){
+    public boolean notifyJoinGameResponse(Boolean isOk, User user, DataGame game) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean changeStatusGame(Game game) {
+
+        List<InetAddress> ipAddresses = controller.getIPTable();
+
+        UpdateGameMessage updateGameMessage = new UpdateGameMessage(game);
+
+        for (InetAddress ipAddress : ipAddresses) {
+
+            controller.sendMessage(updateGameMessage, ipAddress);
+
+        }
+
+        return true;
     }
 
     public boolean notifyNewGame(DataGame game) {
 
         List<InetAddress> ipAddresses = controller.getIPTable();
 
-        CreatedGameNotification createdGameNotification = new CreatedGameNotification(game);
+        CreatedGameNotificationMessage createdGameNotification = new CreatedGameNotificationMessage(game);
 
         for (InetAddress ipAddress : ipAddresses) {
 
@@ -71,7 +86,7 @@ public class NetworkModuleInterface implements COMInterface {
 
         InetAddress destinationAddress = controller.getAddressForUser(game.getPlayer1().getprofile());
 
-        JoinGameRequest joinGameRequest = new JoinGameRequest(user, game);
+        JoinGameRequestMessage joinGameRequest = new JoinGameRequestMessage(user, game);
 
         controller.sendMessage(joinGameRequest, destinationAddress);
 
@@ -82,7 +97,7 @@ public class NetworkModuleInterface implements COMInterface {
 
         List<InetAddress> ipAddresses = controller.getIPTable();
 
-        Disconnection disconnection = new Disconnection();
+        DisconnectionMessage disconnection = new DisconnectionMessage(user);
 
         for (InetAddress ipAddress : ipAddresses) {
 
