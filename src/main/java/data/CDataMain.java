@@ -59,7 +59,7 @@ public class CDataMain implements IDataMain {
         
         Profile newProfile = new Profile(newDataUser,avatar,lastname,firstname,birthDate);
      
-        //controller.setLocalUser(newUser);
+        controller.setLocalUser(newUser);
         controller.addUserToList(newUser);
     }
 
@@ -72,11 +72,14 @@ public class CDataMain implements IDataMain {
     public void getStatistics(User u, int nbGamePlayed, int nbGameWon, int nbGameLost, int nbGameAbandoned) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /**
+     * Notifies the away application that an user wants to join the game given as parameter
+     * @param g : the game the user wants to join
+     */
     @Override
     public void notifGameChosen(Game g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        interfaceCom.joinGame(null, g);    }
 
     @Override
     public void askDisconnection() {
@@ -90,9 +93,13 @@ public class CDataMain implements IDataMain {
         //interfaceCom.searchForPlayers()
     }
 
+    /**
+     * Adds a new game to the list of games
+     * @param g game to add
+     */
     @Override
     public void newGame(Game g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.addGameToList(g);
+        interfaceCom.notifyNewGame(g);
     }
-    
 }
