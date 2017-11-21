@@ -5,16 +5,21 @@
  */
 package guiTable;
 
+import java.net.URL;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -22,10 +27,14 @@ import javafx.scene.shape.Rectangle;
  *
  * @author caioz
  */
-public class PlacementPhase {
-    
+public abstract class PlacementPhase {
+       
     @FXML
-    protected Rectangle cuirasseRectangle;
+    private AnchorPane anchorPane;
+    @FXML
+    private GridPane table;
+    @FXML
+    private Button valider;
         
     protected static final int GRID_X = 100;
     protected static final int GRID_Y = 100;
@@ -37,6 +46,49 @@ public class PlacementPhase {
     protected BoatDrawing activeBoat;
     
     protected HashMap<Rectangle, BoatDrawing> boatMap;
+    
+    
+    /**
+     * method to put boat in the boatMap. 
+     * method must be override by subclasses.
+     */
+    protected void initBoatMap() {}; 
+    
+    /**
+     * The method initialize starts the window and assigns values BoatDrawing 
+     * objects and methods to the window's objects.
+     * @param location
+     * @param resources 
+     */
+    public void initialize(URL location, ResourceBundle resources) {
+        
+        boatMap = new HashMap<>();
+        // Initializes the boat set
+        initBoatMap();
+        // Sets the events handles of the grid's squares.
+        for (Rectangle rectangle : boatMap.keySet()) {
+            rectangle.setOnMousePressed(activateBoat());
+        }        
+        activeBoat = null;
+
+        for (int i = 0 ; i < NB_CASES_GRID ; i++) {
+            for (int j = 0; j < NB_CASES_GRID; j++) {
+                Pane pane = new Pane();
+                pane.setOnMouseEntered(drawBoatsNewPosition());
+                table.add(pane, i, j);
+            }
+        }
+        
+        // Sets the events handlers
+        table.setOnMousePressed(placeBoat());
+        table.setOnMouseEntered(enableRotation());
+        table.setOnMouseExited(disableRotation());
+        // This probably will change after the addition of the chat.
+        anchorPane.addEventHandler(KeyEvent.KEY_PRESSED, playKeyEvent());
+        
+        rotationIsValide = false;
+    }
+    
     
      /**
      * Actives the boat when the user clicks on it.
@@ -257,5 +309,4 @@ public class PlacementPhase {
             activeBoat=null;
         } 
     }
-    
 }
