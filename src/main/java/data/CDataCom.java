@@ -9,6 +9,8 @@ import guiMain.GuiMainInterface;
 import interfacesData.IDataCom;
 import java.util.List;
 import java.util.Set;
+import java.util.HashSet;
+import jdk.internal.util.xml.impl.Pair;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.DataGame;
@@ -37,14 +39,14 @@ public class CDataCom implements IDataCom {
         interfaceMain = i;
     }
 
+    /**
+    * Returns the current DataGame
+    * @return the current DataGame
+    */    
     @Override
-    public void getIPTableAdresses(Boolean withGame, Set iPs, DataGame dataGame) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<DataGame> getCreatedGames() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public DataGame getCreatedGame() {
+        DataGame dg = controller.getLocalDataGame();
+        return dg;
     }
 
     @Override
@@ -52,10 +54,7 @@ public class CDataCom implements IDataCom {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void addUser(Set<User> users) {
-        
-    }
+
 
     @Override
     public void setGameJoinResponse(Boolean ok, User player1, User player2) {
@@ -67,15 +66,23 @@ public class CDataCom implements IDataCom {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+    * After an user has connected, this user will be added to the list of user
+    * @param user : The new user
+    */
     @Override
     public void addUserToUserList(User user) {
         controller.addUserToList(user);
         interfaceMain.addUser(user);
     }
 
+    /**
+     * Sends the profile of a distant user to the local user 
+     * @param profile : the profile of distant user
+     */
     @Override
     public void sendStatistics(Profile profile) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        interfaceMain.sendStatistics(profile);
     }
 
     @Override
@@ -112,10 +119,15 @@ public class CDataCom implements IDataCom {
     public void coordinates(Shot shot, Boat boat) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /**
+     * Returns the local user's profile
+     * @return the local user's profile
+     */
     @Override
     public Profile getUserProfile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Profile localProfile = controller.getLocalProfile();
+        return localProfile;
     }
 
     @Override
