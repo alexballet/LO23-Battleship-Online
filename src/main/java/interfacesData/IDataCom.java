@@ -21,29 +21,23 @@ import java.util.List;
  * @author Lucie
  */
 public interface IDataCom {
-    /**
-     * Sends known user's IP table to new user and the current game if the new user is playing a game
-     * @param withGame : if (withGame==true) return the game the user is playing
-     * @param iPs (returned) : ipadresses known by local user to send to send to a new user
-     * @param dataGame (returned) : the game the user is playing
-     */
-     public void getIPTableAdresses(Boolean withGame, Set iPs, DataGame dataGame);
 
      /**
-      * Returns all of the created games
-      * @return the list of  games
+      * Returns the current DataGame
+      * @return the current DataGame
       */
-     public List<DataGame> getCreatedGames();
+     public DataGame getCreatedGame();
 
      /**
-      * If there is a new game, the list of games in the local application should be updated
+      * If there is a new game, the list of games in the local application 
+      * should be updated
       * @param createdGames : New games
       */
      public void addGame(List<DataGame> createdGames);
 
      /**
       * The distant user has accepted the request to join the game and the method updateGameData
-will be used to update the game data
+      * will be used to update the game data
       * @param ok : Acceptance of the request to join the game
       * @param player1 : Creator of the game
       * @param player2 : The player who joins the game
@@ -63,7 +57,8 @@ will be used to update the game data
      public void addUserToUserList(User user);
 
      /**
-      * Sends the profile of a distant user to the local user so that the local user can see the profile of
+      * Sends the profile of a distant user to the local user so that the local 
+      * user can see the profile of
 this distant user
       * @param profile The profil to be sent
       */
@@ -73,7 +68,8 @@ this distant user
       * Add the player to the game if it is available.
       * @param sender : The player who sends this request
       * @param game : The game that the player wants to join
-      * @return 1 if the parameter game is an avaiable game and add the player to this game, 0 if not
+      * @return 1 if the parameter game is an avaiable game and add the player 
+      * to this game, 0 if not
       */
      public Boolean notifToJoinGame(User sender, Game game);
 
@@ -84,26 +80,29 @@ this distant user
      public void addNewGameList(Game game);
 
      /**
-      * Takes the error message given as a parameter in order to transmit it to IHM-Table or IHM-Main
+      * Takes the error message given as a parameter in order to transmit it to 
+      * IHM-Table or IHM-Main
       * @param error : The error message to transmit
       */
      public void errorPrint(String error);
 
      /**
-      * Takes the chat message given as a parameter in order to transmit it to IHM-Table
+      * Takes the chat message given as a parameter in order to transmit it to 
+      * IHM-Table
       * @param message : The chat message to transmit
       */
      public void receiveMessage(ChatMessage message);
 
      /**
-      * Indicates that a player is ready to play (all his boats are placed on his table) so that the shots
+      * Indicates that a player is ready to play (all his boats are placed on 
+      * his table) so that the shots
 phase can be displayed
       */
      public void receiveReady();
 
      /**
-      * Takes a position to transmit it to IHM-Table. Returns a Shot and if a boat was sunk, it returns
-the object Boat
+      * Takes a position to transmit it to IHM-Table. Returns a Shot and if a 
+      * boat was sunk, it returns the object Boat
       * @param position : The position played by the user
       * @param shot (returned) : shot corresponding to the position
       * @param boat (optionnally returned) : The sunk boat
