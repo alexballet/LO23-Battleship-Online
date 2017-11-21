@@ -35,6 +35,17 @@ public class Position {
     }
     
     /**
+     * Position : constructor with a Position
+     */
+    public Position(Position p){
+ 
+        x = p.x;
+        y = p.y;
+        touched = p.touched;
+
+    }
+    
+    /**
      * Method to copy a Position
      * @param p a Position to copy
      * @return a copied Position
