@@ -50,24 +50,26 @@ public class CDataCom implements IDataCom {
         return g;
     }
 
-
-
-
  /**
-    * 
-    * @param ok : true if game is accepted, false if game is refused
-    * @param player1 : local player
-    * @param player2 : distant player
+    * The distant user has accepted the request to join the game and 
+    * the method updateGameData will be used to update the game data
+    * @param ok : Acceptance of the request to join the game
+    * @param player1 : Creator of the game
+    * @param player2 : The player who joins the game
     */
     @Override
     public void setGameJoinResponse(Boolean ok, Player player1, Player player2) {
-        
-       interfaceMain.setGameJoinResponse(ok);
-       
-       if (ok == true){
-           controller.updateGameData(ok, player1, player2); 
-       }
+       interfaceMain.setGameJoinResponse(true);
+       controller.updateGameData(true, player1, player2); 
+    }
 
+    /**
+     * The distance user has refused the request to join the game 
+     * @param no : Refuse of the request to join the game
+     */
+    @Override
+    public void setGameJoinResponse(Boolean no){
+        interfaceMain.setGameJoinResponse(false);
     }
 
     /**

@@ -38,6 +38,12 @@ public interface IDataCom {
       * @param player2 : The player who joins the game
       */
      public void setGameJoinResponse(Boolean ok, Player player1, Player player2);
+     
+     /**
+      * The distance user has refused the request to join the game
+      * @param no : Refuse of the request to join the game
+      */
+     public void setGameJoinResponse(Boolean no);
 
 
      /**
@@ -49,7 +55,7 @@ public interface IDataCom {
      /**
       * Sends the profile of a distant user to the local user so that the local 
       * user can see the profile of this distant user
-      * @param p The profil to be sent
+      * @param p The profile to be sent
       */
      public void sendStatistics(Profile p);
 
