@@ -15,7 +15,7 @@ public class CreatedGameNotificationMessage extends Message{
 
     public CreatedGameNotificationMessage(Game gameCreated) {
         this.game = gameCreated;
-        this.type = "CreatedGameNotification";}
+        this.type = "CreatedGameNotificationMessage";}
 
     public String getType() {
         return type;

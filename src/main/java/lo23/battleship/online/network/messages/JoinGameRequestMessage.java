@@ -6,7 +6,7 @@ import structData.User;
 import java.net.InetAddress;
 
 /**
- * JoinGameRequest,descendant class Message, received a game request and send to data.
+ * JoinGameRequest,descendant class Message, received a game request and send info to data.
  * @author Lejeune Lola
  */
 
@@ -18,17 +18,17 @@ public class JoinGameRequestMessage extends Message{
     public JoinGameRequestMessage(User senderGame, Game gameSend){
         this.sender = senderGame;
         this.game = gameSend;
-        this.type = "JoinGameRequest";}
+        this.type = "JoinGameRequestMessage";}
 
     public String getType() {
         return type;
     }
 
     public void process(IDataCom IData){
-        }
+        IData.notifToJoinGame(sender, game);
+    }
 
     public void process(IDataCom IData, InetAddress senderAddress){
-        IData.notifToJoinGame(sender, game);
     }
 
 

@@ -15,7 +15,7 @@ public class UpdateGameMessage extends Message{
 
     public UpdateGameMessage(Game game){
         this.gameUpdate = game;
-        this.type = "UpdateGame";
+        this.type = "UpdateGameMessage";
     }
 
     public String getType() {

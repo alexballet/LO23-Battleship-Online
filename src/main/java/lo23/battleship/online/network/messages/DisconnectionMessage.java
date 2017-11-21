@@ -20,7 +20,7 @@ public class DisconnectionMessage extends Message{
 
     public DisconnectionMessage(User userWhoDisconnect){
         this.user = userWhoDisconnect;
-        this.type = "Disconnection";
+        this.type = "DisconnectionMessage";
     }
 
     public String getType() {
