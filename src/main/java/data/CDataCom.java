@@ -139,9 +139,9 @@ public class CDataCom implements IDataCom {
      */
     @Override
     public void changeStatusGame(Game g) {
+        Game localGame  = controller.getLocalGame();
+        controller.removeGameFromList(localGame);
         controller.updateGameStatus(g);
-        controller.addGameToList(g);
-        controller.removeGameFromList(g);
         interfaceMain.transmitNewStatus(g);
     }
     

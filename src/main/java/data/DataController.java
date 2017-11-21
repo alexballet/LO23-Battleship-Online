@@ -115,11 +115,12 @@ public class DataController {
     }
     
     /**
-     * Update the status of game
+     * Update the status of game and add it into the list of Game
      * @param g : the game which status has been modified
      */
     public void updateGameStatus(Game g){
         localGame = g;
+        listGames.add(localGame);
     }
     /**
      * Remove the game
