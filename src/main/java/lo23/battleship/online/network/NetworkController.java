@@ -76,6 +76,19 @@ public class NetworkController {
 
     }
 
+    public InetAddress getAddressForUser(User user) {
+
+        for (User u : networkState.keySet()) {
+
+            if (u.getIdUser() == user.getIdUser()) {
+
+                return networkState.get(u);
+            }
+        }
+
+        return null;
+    }
+
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
     }

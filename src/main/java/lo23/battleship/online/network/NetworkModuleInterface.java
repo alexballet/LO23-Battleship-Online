@@ -69,15 +69,11 @@ public class NetworkModuleInterface implements COMInterface {
 
     public boolean joinGame(User user, DataGame game) {
 
-        List<InetAddress> ipAddresses = controller.getIPTable();
+        InetAddress destinationAddress = controller.getAddressForUser(game.getPlayer1().getprofile());
 
         JoinGameRequest joinGameRequest = new JoinGameRequest(user, game);
-        
-        for (InetAddress ipAddress : ipAddresses) {
 
-            controller.sendMessage(joinGameRequest, ipAddress);
-
-        }
+        controller.sendMessage(joinGameRequest, destinationAddress);
 
         return true;
     }
