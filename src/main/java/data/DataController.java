@@ -74,6 +74,7 @@ public class DataController {
         return interfaceDataTable;
     }
     
+    
     public User getLocalUser(){
         return localUser;
     }
