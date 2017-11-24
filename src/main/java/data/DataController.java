@@ -6,6 +6,8 @@
 package data;
 
 import guiMain.GuiMainInterface;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -166,5 +168,22 @@ public class DataController {
      */
     public List<Game> getListGames(){
         return listGames;
+    }
+    
+    /**
+     * Reload local profile previously saved
+     */
+    public void reloadSavedProfile(){
+        try {
+         FileInputStream fis = new FileInputStream("profile.ser");
+         ObjectInputStream ois = new ObjectInputStream(fis);
+         localProfile = (Profile) ois.readObject(); 
+         localUser = new User(localProfile);
+         localDataUser = new DataUser(localProfile);
+         ois.close();
+         
+      } catch (Exception e) { 
+         e.printStackTrace(); 
+      }
     }
 }
