@@ -78,7 +78,10 @@ public class DataController {
     public CDataTable getInterfaceDataTable(){
         return interfaceDataTable;
     }
-    
+    /**
+     * return the local user 
+     * @return local user
+     */
     public User getLocalUser(){
         return localUser;
     }
