@@ -130,8 +130,16 @@ public class NetworkController {
         return filteredAddresses;
     }
 
+    private void addUserToNetwork(User user, InetAddress senderAddress) {
+        for(User u : networkState.keySet()) {
+            if(u.getLogin().equals(user.getLogin())) {
+                return;
+            }
+        }
+        networkState.put(user, senderAddress);
+    }
     public void updateNetwork(User sender, InetAddress senderAddress, Game game) {
-            networkState.put(sender, senderAddress);
+            addUserToNetwork(sender, senderAddress);
             dataInterface.addUserToUserList(sender);
         try {
 
