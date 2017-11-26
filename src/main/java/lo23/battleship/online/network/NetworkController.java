@@ -36,7 +36,7 @@ public class NetworkController {
 
 
     public static NetworkController getInstance() {
-        if(instance == null)
+        if (instance == null)
             instance = new NetworkController();
 
         return instance;
@@ -52,7 +52,7 @@ public class NetworkController {
     }
 
     public void launchServer() {
-        if(networkServer != null) return;
+        if (networkServer != null) return;
         this.networkServer = new NetworkServer(this);
         try {
             this.networkServer.open();
@@ -62,19 +62,12 @@ public class NetworkController {
     }
 
     public void sendMessage(Message message, InetAddress destinationIpAddress) {
-        Socket destinationSocket = null;
         NetworkSender networkSender = new NetworkSender(destinationIpAddress, this.getPort(), message);
         networkSender.start();
     }
 
-    public List<InetAddress> getIPTable(){
-//        List<InetAddress> ret=new ArrayList<InetAddress>();
-//        for(HashMap.Entry<User, InetAddress> entry : networkState.entrySet()){
-//            ret.add(entry.getValue());
-//        }
-//        return ret;
+    public List<InetAddress> getIPTable() {
         return new ArrayList<InetAddress>(networkState.values());
-
     }
 
     public InetAddress getAddressForUser(User user) {
@@ -96,7 +89,7 @@ public class NetworkController {
         networkInterface.setDataInterface(dataInterface);
     }
 
-    public IDataCom getDataInterface(){
+    public IDataCom getDataInterface() {
         return dataInterface;
     }
 
@@ -130,24 +123,26 @@ public class NetworkController {
         return filteredAddresses;
     }
 
-    private void addUserToNetwork(User user, InetAddress senderAddress) {
-        for(User u : networkState.keySet()) {
-            if(u.getLogin().equals(user.getLogin())) {
-                return;
+    private boolean addUserToNetwork(User user, InetAddress senderAddress) {
+        for (User u : networkState.keySet()) {
+            System.out.println(u.getLogin() + "/" + user.getLogin());
+            if (u.getLogin().equals(user.getLogin())) {
+                return false;
             }
         }
+        System.out.println("Add to network " + user.getLogin());
         networkState.put(user, senderAddress);
+        return true;
     }
+
     public void updateNetwork(User sender, InetAddress senderAddress, Game game) {
-        System.out.println("Add to network " + sender.getLogin());
-            addUserToNetwork(sender, senderAddress);
+        if (addUserToNetwork(sender, senderAddress)) {
             dataInterface.addUserToUserList(sender);
-        try {
+            try {
+                dataInterface.addNewGameList(game);
+            } catch (UnsupportedOperationException e) {
 
-            dataInterface.addNewGameList(game);
-
-        } catch (UnsupportedOperationException e) {
-
+            }
         }
     }
 

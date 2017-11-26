@@ -7,6 +7,7 @@ import structData.User;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -51,5 +52,6 @@ public class ConnectionEstablishedMessage extends Message {
                     new ConnectionRequestMessage(user, filteredAddresses);
             controller.sendMessage(connectionRequestMessage, ipAddress);
         }
+        System.out.println(Arrays.toString(controller.getIPTable().toArray()));
     }
 }
