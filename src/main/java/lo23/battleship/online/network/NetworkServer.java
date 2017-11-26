@@ -51,6 +51,7 @@ public class NetworkServer {
 
     public void setDataInterface(IDataCom IData) {
         dataInterface = IData;
+        listener.setDataInterface(dataInterface);
     }
 
     //Open and run server
@@ -58,7 +59,7 @@ public class NetworkServer {
 
         //A different thread to run the server
         System.out.println("-----------Open Server(Listener)---------");
-        listener = new NetworkListener(this, new ServerSocket(port, backlog, address), dataInterface);
+        listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
         System.out.println(listener.getServerSocketIPAddress().toString());
         listener.start();
 
