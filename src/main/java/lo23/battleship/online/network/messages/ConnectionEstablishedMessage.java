@@ -32,6 +32,8 @@ public class ConnectionEstablishedMessage extends Message {
     }
 
     public void process(IDataCom IData, InetAddress senderAddress) {
+        System.out.println("New message received from: " + senderAddress);
+        System.out.println("Message Type: " + type);
         NetworkController controller = NetworkController.getInstance();
         List<InetAddress> filteredAddresses = controller.filterUnknownIPAddresses(ipAdressesTable);
         controller.updateNetwork(sender, senderAddress, createdGame);

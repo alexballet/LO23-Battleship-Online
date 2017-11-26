@@ -95,7 +95,7 @@ public class CDataMain implements IDataMain {
     public void connection() throws UnknownHostException {
         User u = new User("Xzirva", "Xzirva");
         HashSet<InetAddress> IPs = new HashSet<InetAddress>();
-        //IPs.add(InetAddress.getByName("192.168.1.37"));
+        IPs.add(InetAddress.getByName("192.168.1.37"));
         u.setIPs(IPs);
         controller.setLocalUser(u);
         interfaceCom.searchForPlayers(u);

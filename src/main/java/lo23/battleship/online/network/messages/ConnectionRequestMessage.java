@@ -30,7 +30,8 @@ public class ConnectionRequestMessage extends Message {
     public void process(IDataCom IData, InetAddress senderAddress) {
 
         //dataInterface.getIPTableAdresses();
-
+        System.out.println("New message received from: " + senderAddress);
+        System.out.println("Message Type: " + type);
         // TODO getCurrentUserGame
 
         NetworkController controller = NetworkController.getInstance();

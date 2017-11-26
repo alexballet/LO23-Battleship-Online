@@ -107,10 +107,10 @@ public class NetworkController {
     public List<InetAddress> filterUnknownIPAddresses(List<InetAddress> iPAddressesTable) {
         List<InetAddress> filteredAddresses = new ArrayList<>();
         for (InetAddress ipAddress : iPAddressesTable) {
-            for(InetAddress i : networkState.values()) {
-                System.out.println(i.equals(ipAddress));
-            }
-            if (!networkState.containsValue(ipAddress)) {
+//            for(InetAddress i : networkState.values()) {
+//                System.out.println(i.equals(ipAddress));
+//            }
+            if (!ipAddress.equals(networkServer.getIpAddress()) && !networkState.containsValue(ipAddress)) {
                 filteredAddresses.add(ipAddress);
             }
 

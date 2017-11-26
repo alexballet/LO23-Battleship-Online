@@ -13,7 +13,6 @@ public class NetworkServer {
     private int port = 2345;
     private InetAddress address;
     private int backlog = 100;
-    private ServerSocket server = null;
     private NetworkListener listener = null;
     private NetworkController networkController;
     private IDataCom dataInterface;
@@ -63,6 +62,10 @@ public class NetworkServer {
         System.out.println(listener.getServerSocketIPAddress().toString());
         listener.start();
 
+    }
+
+    public InetAddress getIpAddress() {
+        return listener.getServerSocketIPAddress();
     }
 
     /**
