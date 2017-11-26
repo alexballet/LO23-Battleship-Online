@@ -139,6 +139,7 @@ public class NetworkController {
         networkState.put(user, senderAddress);
     }
     public void updateNetwork(User sender, InetAddress senderAddress, Game game) {
+        System.out.println("Add to network " + sender.getLogin());
             addUserToNetwork(sender, senderAddress);
             dataInterface.addUserToUserList(sender);
         try {

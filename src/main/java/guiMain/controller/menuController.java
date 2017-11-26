@@ -55,10 +55,8 @@ public class menuController {
 
 					@Override
 					protected void updateItem(User t, boolean bln) {
-						System.out.println("Updating...");
 						super.updateItem(t, bln);
 						if (t != null) {
-							System.out.println("Really Updating... " + t.getLogin());
 							setText(t.getLogin() + "  :  " +  t.getUsername());
 						}
 					}
