@@ -35,13 +35,19 @@ public class ConnectionEstablishedMessage extends Message {
         System.out.println("New message received from: " + senderAddress);
         System.out.println("Message Type: " + type);
         NetworkController controller = NetworkController.getInstance();
-        List<InetAddress> filteredAddresses = controller.filterUnknownIPAddresses(ipAdressesTable);
         controller.updateNetwork(sender, senderAddress, createdGame);
+        User user = IData.getLocalUser();
+        List<InetAddress> filteredAddresses = controller.filterUnknownIPAddresses(ipAdressesTable);
         for(InetAddress ipAddress : filteredAddresses) {
-            User user = IData.getLocalUser();
-            ConnectionEstablishedMessage connectionEstablishedMessage =
-                    new ConnectionEstablishedMessage(user, controller.getIPTable(), null);
-            controller.sendMessage(connectionEstablishedMessage, ipAddress);
+            ConnectionRequestMessage connectionRequestMessage =
+                    new ConnectionRequestMessage(user, controller.getIPTable());
+            controller.sendMessage(connectionRequestMessage, ipAddress);
+        }
+        List<InetAddress> ipAddressesToNotify = controller.filterKnownIPAddressesToNotify(ipAdressesTable);
+        for(InetAddress ipAddress : ipAddressesToNotify) {
+            ConnectionRequestMessage connectionRequestMessage =
+                    new ConnectionRequestMessage(user, filteredAddresses);
+            controller.sendMessage(connectionRequestMessage, ipAddress);
         }
     }
 }

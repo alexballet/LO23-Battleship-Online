@@ -7,16 +7,18 @@ import structData.User;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.util.List;
 
 /**
  * Created by xzirva on 14/11/17.
  */
 public class ConnectionRequestMessage extends Message {
     private User sender;
-    private Inet4Address destinationIPAddress;
+    private List<InetAddress> ipAdressesTable;
 
-    public ConnectionRequestMessage(User user) {
+    public ConnectionRequestMessage(User user, List<InetAddress> ipAdressesTable) {
         this.sender = user;
+        this.ipAdressesTable = ipAdressesTable;
         type = "ConnectionRequestMessage";
     }
     public String getType() {

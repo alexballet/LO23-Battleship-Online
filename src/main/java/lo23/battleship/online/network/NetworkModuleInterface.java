@@ -6,6 +6,7 @@ import structData.User;
 import structData.*;
 
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -96,7 +97,8 @@ public class NetworkModuleInterface implements COMInterface {
 
     public void searchForPlayers(User user) {
 
-        ConnectionRequestMessage connectionRequestMessage = new ConnectionRequestMessage(user);
+        ConnectionRequestMessage connectionRequestMessage =
+                new ConnectionRequestMessage(user, new ArrayList<InetAddress>());
 
         HashSet<InetAddress> knownUsersAddresses = user.getIPs();
 

@@ -118,6 +118,18 @@ public class NetworkController {
         return filteredAddresses;
     }
 
+    public List<InetAddress> filterKnownIPAddressesToNotify(List<InetAddress> iPAddressesTable) {
+        List<InetAddress> filteredAddresses = new ArrayList<>();
+        for (InetAddress ipAddress : networkState.values()) {
+            if (!ipAddress.equals(networkServer.getIpAddress()) &&
+                    !iPAddressesTable.contains(ipAddress)) {
+                filteredAddresses.add(ipAddress);
+            }
+
+        }
+        return filteredAddresses;
+    }
+
     public void updateNetwork(User sender, InetAddress senderAddress, Game game) {
             networkState.put(sender, senderAddress);
             dataInterface.addUserToUserList(sender);
