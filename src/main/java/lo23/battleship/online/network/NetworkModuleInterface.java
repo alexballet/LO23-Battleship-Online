@@ -3,11 +3,9 @@ package lo23.battleship.online.network;
 import interfacesData.IDataCom;
 import lo23.battleship.online.network.messages.*;
 import structData.User;
-import interfacesData.IDataCom;
 import structData.*;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -28,7 +26,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    public boolean sendChatMessage(String message, DataGame game) {
+    public boolean sendChatMessage(String message, Game g) {
         return true;
     }
 
@@ -48,11 +46,11 @@ public class NetworkModuleInterface implements COMInterface {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean notifyJoinGameResponse(Boolean isOk, User user, DataGame game){
+    public boolean notifyJoinGameResponse(Boolean isOk, User user, Game game){
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean notifyNewGame(DataGame game) {
+    public boolean notifyNewGame(Game game) {
 
         List<InetAddress> ipAddresses = controller.getIPTable();
 
@@ -67,14 +65,13 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    public boolean joinGame(User user, DataGame game) {
+    public boolean joinGame(User user, Game game) {
 
         InetAddress destinationAddress = controller.getAddressForUser(game.getPlayer1().getprofile());
 
         JoinGameRequest joinGameRequest = new JoinGameRequest(user, game);
 
         controller.sendMessage(joinGameRequest, destinationAddress);
-
         return true;
     }
 
@@ -93,7 +90,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    public boolean sendShot(Player player, DataGame game, Shot shot) {
+    public boolean sendShot(Player player, Game game, Shot shot) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
@@ -114,16 +111,6 @@ public class NetworkModuleInterface implements COMInterface {
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
     }
-
-
-    // TODO: Delete this when integration is complete
-    /*
-    public void searchForPlayers(User user) {
-        // Launch server
-        controller.launchServer();
-        sendRandomMessage("172.25.35.108",2345, user);
-    }
-    */
 
     //Random Messages
     private Message newRandomMessage(User u){
