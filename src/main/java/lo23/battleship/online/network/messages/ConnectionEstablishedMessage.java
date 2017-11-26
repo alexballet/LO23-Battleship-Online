@@ -43,6 +43,8 @@ public class ConnectionEstablishedMessage extends Message {
                     new ConnectionRequestMessage(user, controller.getIPTable());
             controller.sendMessage(connectionRequestMessage, ipAddress);
         }
+
+        ipAdressesTable.add(senderAddress);
         List<InetAddress> ipAddressesToNotify = controller.filterKnownIPAddressesToNotify(ipAdressesTable);
         for(InetAddress ipAddress : ipAddressesToNotify) {
             ConnectionRequestMessage connectionRequestMessage =
