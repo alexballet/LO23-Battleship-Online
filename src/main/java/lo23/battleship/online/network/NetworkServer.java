@@ -18,6 +18,7 @@ public class NetworkServer {
     private NetworkController networkController;
     private IDataCom dataInterface;
     public NetworkServer(NetworkController networkController) {
+        System.out.println("-----------Initialize Server(Listener)---------");
         this.networkController = networkController;
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
@@ -56,6 +57,7 @@ public class NetworkServer {
     public void open() throws IOException {
 
         //A different thread to run the server
+        System.out.println("-----------Open Server(Listener)---------");
         listener = new NetworkListener(this, new ServerSocket(port, backlog, address), dataInterface);
         System.out.println(listener.getServerSocketIPAddress().toString());
         listener.start();
@@ -68,6 +70,7 @@ public class NetworkServer {
      * */
     public void close() {
 
+        System.out.println("-----------Close Server(Listener)---------");
         listener.setIsRunning(false);
 
         try {

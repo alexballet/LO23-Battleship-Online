@@ -29,10 +29,10 @@ public class NetworkSender extends Thread{
 
         try {
             sock = new Socket(host, port);
+            this.message = message;
         } catch (IOException e) {
-            System.out.println("Warning: Unable to reach host: " + host + "on port: " + port);
+            System.out.println("Warning: Unable to reach host: " + host + ":" + port);
         }
-        this.message = message;
     }
 
     public NetworkSender(InetAddress host, int port, Message message) {
@@ -40,7 +40,7 @@ public class NetworkSender extends Thread{
         try {
             sock = new Socket(host, port);
         } catch (IOException e) {
-            System.out.println("Warning: Unable to reach host: " + host + "on port: " + port);
+            System.out.println("Warning: Unable to reach host: " + host + ":" + port);
         }
         this.message = message;
     }
@@ -49,6 +49,9 @@ public class NetworkSender extends Thread{
     public void run() {
 
         try {
+            if (sock == null) {
+                System.out.println("");
+            }
             writer = new ObjectOutputStream(sock.getOutputStream());
             String timeStamps = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM).format(new Date());
             System.out.println("Message " + message.getType() + " sent to " + sock.getInetAddress() + " at " + timeStamps);

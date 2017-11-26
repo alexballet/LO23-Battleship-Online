@@ -95,8 +95,6 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     public void searchForPlayers(User user) {
-        // Launch server
-        controller.launchServer();
 
         ConnectionRequestMessage connectionRequestMessage = new ConnectionRequestMessage(user);
 
