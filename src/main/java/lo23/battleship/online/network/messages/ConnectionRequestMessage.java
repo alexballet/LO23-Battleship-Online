@@ -1,5 +1,6 @@
 package lo23.battleship.online.network.messages;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkController;
 import structData.User;
@@ -35,6 +36,8 @@ public class ConnectionRequestMessage extends Message {
         NetworkController controller = NetworkController.getInstance();
 
         controller.updateNetwork(sender, senderAddress, null);
+        System.out.println("1 - " + IData);
+        System.out.println("2 - " + controller);
 
         ConnectionEstablishedMessage connectionEstablishedMessage =
                 new ConnectionEstablishedMessage(IData.getLocalUser(), controller.getIPTable(), null);

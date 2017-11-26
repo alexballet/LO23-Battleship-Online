@@ -45,15 +45,14 @@ public class NetworkController {
     private NetworkController() {
         networkInterface = new NetworkModuleInterface(this);
         networkState = new HashMap<>();
-        networkInterface.setDataInterface(dataInterface);
+        networkInterface = new NetworkModuleInterface(this);
         // Launch server
         this.launchServer();
     }
 
     public void launchServer() {
+        if(networkServer != null) return;
         this.networkServer = new NetworkServer(this);
-        networkServer.setDataInterface(dataInterface);
-
         try {
             this.networkServer.open();
         } catch (IOException e) {
@@ -62,7 +61,6 @@ public class NetworkController {
     }
 
     public void sendMessage(Message message, InetAddress destinationIpAddress) {
-
         Socket destinationSocket = null;
         NetworkSender networkSender = new NetworkSender(destinationIpAddress, this.getPort(), message);
         networkSender.start();
@@ -93,6 +91,8 @@ public class NetworkController {
 
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
+        networkServer.setDataInterface(dataInterface);
+        networkInterface.setDataInterface(dataInterface);
     }
 
     public IDataCom getDataInterface(){
