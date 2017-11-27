@@ -50,6 +50,11 @@ public class ConnectionEstablishedMessage extends Message {
 
 
         ipAdressesTable.add(senderAddress);
+        // sender is now a KNOWN address
+
+        filteredAddresses.add(senderAddress);
+        // sender is part of the unknown addresses for users in my network
+        
         List<InetAddress> ipAddressesToNotify = controller.filterKnownIPAddressesToNotify(ipAdressesTable);
         System.out.println("(Known) Filtered addresses: " + Arrays.toString(ipAddressesToNotify.toArray())
                 + "\n to " + senderAddress);
