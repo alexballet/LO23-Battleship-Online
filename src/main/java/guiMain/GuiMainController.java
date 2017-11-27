@@ -64,9 +64,9 @@ public class GuiMainController implements GuiMainInterface {
 		try {
 			rootLayout = (AnchorPane) loader.load();
 
-			//menuController = loader.getController();
-			//menuController.setMainController(this);
-			//menuController.init();
+			menuController = loader.getController();
+			menuController.setMainController(this);
+			menuController.init();
 
 			Scene scene = new Scene(rootLayout);
 			stage.setTitle("Battleship-Online");
