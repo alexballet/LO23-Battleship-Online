@@ -99,7 +99,7 @@ public class CDataMain implements IDataMain {
         //IPs.add(InetAddress.getByName("192.168.1.37"));
         u.setIPs(IPs);
         controller.setLocalUser(u);
-        interfaceCom.searchForPlayers(u);
+        interfaceCom.searchForPlayers();
     }
 
     /**
