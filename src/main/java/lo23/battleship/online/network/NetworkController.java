@@ -150,7 +150,7 @@ public class NetworkController {
 
     public void removeFromNetwork(User user) {
         for (User u : networkState.keySet()) {
-            if(user.getIdUser().equals(u)) {
+            if(user.getIdUser().equals(u.getIdUser())) {
                 networkState.remove(u);
                 //IData.removeUser(u);
                 return;
