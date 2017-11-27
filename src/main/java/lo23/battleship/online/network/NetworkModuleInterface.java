@@ -99,8 +99,9 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    public boolean askDisconnection(User user) {
+    public boolean askDisconnection() {
 
+        User user = dataInterface.getLocalUser();
         List<InetAddress> ipAddresses = controller.getIPTable();
 
         DisconnectionMessage disconnection = new DisconnectionMessage(user);
@@ -119,8 +120,9 @@ public class NetworkModuleInterface implements COMInterface {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
-    public void searchForPlayers(User user) {
+    public void searchForPlayers() {
 
+        User user = dataInterface.getLocalUser();
         ConnectionRequestMessage connectionRequestMessage =
                 new ConnectionRequestMessage(user, new ArrayList<InetAddress>());
 

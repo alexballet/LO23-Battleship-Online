@@ -9,6 +9,7 @@ import guiMain.GuiMainInterface;
 import interfacesData.IDataMain;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.sql.Time;
 import java.util.Date;
 import lo23.battleship.online.network.COMInterface;
 import structData.ContactGroup;
@@ -87,6 +88,7 @@ public class CDataMain implements IDataMain {
 
     @Override
     public void askDisconnection() {
+        interfaceCom.askDisconnection();
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

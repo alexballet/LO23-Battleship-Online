@@ -72,7 +72,7 @@ public interface COMInterface {
      * @param user who want to be disconnected
      * @return true= message sent, false= message not sent
      */
-    public boolean askDisconnection(User user);
+    public boolean askDisconnection();
 
     /**
      * send a shot from a player on the right game
@@ -88,6 +88,6 @@ public interface COMInterface {
      * @param user User that is connecting
      * @return list of all users who are connected
      */
-    public void searchForPlayers(User user);
+    public void searchForPlayers();
 
 }
