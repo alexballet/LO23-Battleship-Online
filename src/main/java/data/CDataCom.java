@@ -5,15 +5,14 @@
  */
 package data;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import guiMain.GuiMainInterface;
 import interfacesData.IDataCom;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
-import jdk.internal.util.xml.impl.Pair;
 import structData.Boat;
 import structData.ChatMessage;
-import structData.DataGame;
 import structData.Game;
 import structData.Position;
 import structData.Profile;
@@ -40,22 +39,22 @@ public class CDataCom implements IDataCom {
     }
 
     @Override
-    public void getIPTableAdresses(Boolean withGame, Set iPs, DataGame dataGame) {
+    public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
-    * Returns the current DataGame
-    * @return the current DataGame
+    * Returns the current Game
+    * @return the current Game
     */    
     @Override
-    public DataGame getCreatedGame() {
-        DataGame dg = controller.getLocalDataGame();
-        return dg;
+    public Game getCreatedGame() {
+        Game g = controller.getLocalGame();
+        return g;
     }
 
     @Override
-    public void addGame(List<DataGame> createdGames) {
+    public void addGame(List<Game> createdGames) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -71,13 +70,12 @@ public class CDataCom implements IDataCom {
 
     /**
     * After an user has connected, this user will be added to the list of user
-    * @param user : The new user
+    * @param u : The new user
     */
     @Override
-    public void addUserToUserList(User user) {
-        controller.addUserToList(user);
-        interfaceMain.addUser(user);
-        System.out.println(user.getUsername());
+    public void addUserToUserList(User u) {
+        controller.addUserToList(u);
+        interfaceMain.addUser(u);
     }
 
     /**
@@ -90,13 +88,18 @@ public class CDataCom implements IDataCom {
     }
 
     @Override
-    public Boolean notifToJoinGame(User sender, Game game) {
+    public Boolean notifToJoinGame(User sender, Game g) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+    * Adds the game given as a parameter to the list of games.
+    * @param g : The new game
+    */
     @Override
-    public void addNewGameList(Game game) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addNewGameList(Game g) {
+        controller.addGameToList(g);
+        interfaceMain.addGame(g);
     }
 
     @Override
@@ -115,12 +118,12 @@ public class CDataCom implements IDataCom {
     }
 
     @Override
-    public void coordinate(Position position, Shot shot, Boat boat) {
+    public void coordinate(Position p, Shot s, Boat b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void coordinates(Shot shot, Boat boat) {
+    public void coordinates(Shot s, Boat b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -133,10 +136,20 @@ public class CDataCom implements IDataCom {
         Profile localProfile = controller.getLocalProfile();
         return localProfile;
     }
-
+    
+    /**
+     * Takes a game given as a parameter and updates his status
+     * @param g : the game which status has been modified
+     */
     @Override
-    public void changeStatusGame(Game game) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void changeStatusGame(Game g) {
+        Game localGame  = controller.getLocalGame();
+        controller.removeGameFromList(localGame);
+        controller.updateGameStatus(g);
+        interfaceMain.transmitNewStatus(g);
+    }
+    public User getLocalUser(){
+        return controller.getLocalUser();
     }
     
 }

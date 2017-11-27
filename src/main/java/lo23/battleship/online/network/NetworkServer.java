@@ -13,11 +13,11 @@ public class NetworkServer {
     private int port = 2345;
     private InetAddress address;
     private int backlog = 100;
-    private ServerSocket server = null;
     private NetworkListener listener = null;
     private NetworkController networkController;
     private IDataCom dataInterface;
     public NetworkServer(NetworkController networkController) {
+        System.out.println("-----------Initialize Server(Listener)---------");
         this.networkController = networkController;
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
@@ -50,16 +50,22 @@ public class NetworkServer {
 
     public void setDataInterface(IDataCom IData) {
         dataInterface = IData;
+        listener.setDataInterface(dataInterface);
     }
 
     //Open and run server
     public void open() throws IOException {
 
         //A different thread to run the server
-        listener = new NetworkListener(this, new ServerSocket(port, backlog, address), dataInterface);
+        System.out.println("-----------Open Server(Listener)---------");
+        listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
         System.out.println(listener.getServerSocketIPAddress().toString());
         listener.start();
 
+    }
+
+    public InetAddress getIpAddress() {
+        return listener.getServerSocketIPAddress();
     }
 
     /**
@@ -68,6 +74,7 @@ public class NetworkServer {
      * */
     public void close() {
 
+        System.out.println("-----------Close Server(Listener)---------");
         listener.setIsRunning(false);
 
         try {

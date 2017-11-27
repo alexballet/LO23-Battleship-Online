@@ -7,7 +7,6 @@ package interfacesData;
 
 import structData.Boat;
 import structData.Shot;
-import structData.DataGame;
 import structData.Position;
 import structData.ChatMessage;
 import structData.User;
@@ -28,22 +27,22 @@ public interface IDataCom {
      * @param dataGame (returned) : the game the user is playing
      */
     // TODO Change void to struct containing a Set and DataGame
-     public void getIPTableAdresses(Boolean withGame, Set iPs, DataGame dataGame);
+     public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame);
 
 
     // TODO Create method to return current user game if exists : getCurrentUserGame
      /**
-      * Returns the current DataGame
-      * @return the current DataGame
+      * Returns the current Game
+      * @return the current Game
       */
-     public DataGame getCreatedGame();
+     public Game getCreatedGame();
 
      /**
       * If there is a new game, the list of games in the local application 
       * should be updated
       * @param createdGames : New games
       */
-     public void addGame(List<DataGame> createdGames);
+     public void addGame(List<Game> createdGames);
 
 
      /**
@@ -64,32 +63,32 @@ will be used to update the game data
 
      /**
       * After an user has connected, this user will be added to the list of user
-      * @param user : The new user
+      * @param u : The new user
       */
-     public void addUserToUserList(User user);
+     public void addUserToUserList(User u);
 
      /**
       * Sends the profile of a distant user to the local user so that the local 
       * user can see the profile of
 this distant user
-      * @param profile The profil to be sent
+      * @param p The profil to be sent
       */
-     public void sendStatistics(Profile profile);
+     public void sendStatistics(Profile p);
 
      /**
       * Add the player to the game if it is available.
       * @param sender : The player who sends this request
-      * @param game : The game that the player wants to join
+      * @param g : The game that the player wants to join
       * @return 1 if the parameter game is an avaiable game and add the player 
       * to this game, 0 if not
       */
-     public Boolean notifToJoinGame(User sender, Game game);
+     public Boolean notifToJoinGame(User sender, Game g);
 
      /**
       * Adds the game given as a parameter to the list of games.
-      * @param game : The new game
+      * @param g : The new game
       */
-     public void addNewGameList(Game game);
+     public void addNewGameList(Game g);
 
      /**
       * Takes the error message given as a parameter in order to transmit it to 
@@ -115,18 +114,18 @@ phase can be displayed
      /**
       * Takes a position to transmit it to IHM-Table. Returns a Shot and if a 
       * boat was sunk, it returns the object Boat
-      * @param position : The position played by the user
-      * @param shot (returned) : shot corresponding to the position
-      * @param boat (optionnally returned) : The sunk boat
+      * @param p : The position played by the user
+      * @param s (returned) : shot corresponding to the position
+      * @param b (optionnally returned) : The sunk boat
       */
-     public void coordinate(Position position, Shot shot, Boat boat);
+     public void coordinate(Position p, Shot s, Boat b);
 
      /**
       * Takes a Shot and in option a Boat to transmit it to IHM-Table
-      * @param shot : The position played by the user
-      * @param boat : In option, the boat that was sunk
+      * @param s : The position played by the user
+      * @param b : In option, the boat that was sunk
       */
-     public void coordinates(Shot shot, Boat boat);
+     public void coordinates(Shot s, Boat b);
 
      /**
       * Returns the local userâ€™s profile, containing his statistics
@@ -136,9 +135,11 @@ phase can be displayed
 
      /**
       * Takes a game given as a parameter and updates his status
-      * @param game : The game which status has to be modified
+      * @param g : The game which status has to be modified
       */
-     void changeStatusGame(Game game);
+     public void changeStatusGame(Game g);
+
+     public User getLocalUser();
 }
 
 
