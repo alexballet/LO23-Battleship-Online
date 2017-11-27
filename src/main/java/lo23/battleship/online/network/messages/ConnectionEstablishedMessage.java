@@ -48,9 +48,9 @@ public class ConnectionEstablishedMessage extends Message {
         ipAdressesTable.add(senderAddress);
         List<InetAddress> ipAddressesToNotify = controller.filterKnownIPAddressesToNotify(ipAdressesTable);
         for(InetAddress ipAddress : ipAddressesToNotify) {
-            ConnectionRequestMessage connectionRequestMessage =
-                    new ConnectionRequestMessage(user, filteredAddresses);
-            controller.sendMessage(connectionRequestMessage, ipAddress);
+            ConnectionEstablishedMessage connectionEstablishedMessage =
+                    new ConnectionEstablishedMessage(user, filteredAddresses, null);
+            controller.sendMessage(connectionEstablishedMessage, ipAddress);
         }
         System.out.println(Arrays.toString(controller.getIPTable().toArray()));
     }
