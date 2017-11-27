@@ -54,13 +54,13 @@ public class ConnectionEstablishedMessage extends Message {
 
         filteredAddresses.add(senderAddress);
         // sender is part of the unknown addresses for users in my network
-        
+
         List<InetAddress> ipAddressesToNotify = controller.filterKnownIPAddressesToNotify(ipAdressesTable);
         System.out.println("(Known) Filtered addresses: " + Arrays.toString(ipAddressesToNotify.toArray())
                 + "\n to " + senderAddress);
         for(InetAddress ipAddress : ipAddressesToNotify) {
             ConnectionEstablishedMessage connectionEstablishedMessage =
-                    new ConnectionEstablishedMessage(user, filteredAddresses, null);
+                    new ConnectionEstablishedMessage(user, controller.getIPTable(), null);
             controller.sendMessage(connectionEstablishedMessage, ipAddress);
         }
     }
