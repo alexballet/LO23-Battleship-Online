@@ -24,19 +24,22 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import structData.*;
 
-	private GuiMainController mainController;
+
 public class menuController implements Initializable{
 
-	@FXML 
-	private ListView<User> playersView;
-	@FXML 
-	private ListView<Game> gamesView;
-	@FXML 
-	private Button optionButton;
-	
-	public void setMainController (GuiMainController c) {
-		mainController = c;
-	}
+    private GuiMainController mainController;
+        
+    @FXML 
+    private ListView<User> playersView;
+    @FXML 
+    private ListView<Game> gamesView;
+    @FXML 
+    private Button optionButton;
+
+    public void setMainController (GuiMainController c) {
+            mainController = c;
+    }
+        
     /**
      *  Init listView configuration
      *  UserTest à remplacer par User lorsque les getter/setter seront dispo
@@ -130,4 +133,9 @@ public class menuController implements Initializable{
             window.setScene(scene);
             window.show();
         }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //
+    }
 }

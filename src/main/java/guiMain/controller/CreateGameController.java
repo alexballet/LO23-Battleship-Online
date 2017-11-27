@@ -1,6 +1,7 @@
 package guiMain.controller;
 
 import data.DataController;
+import guiMain.GuiMainController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,7 +62,9 @@ public class CreateGameController implements Initializable{
     
     @FXML
     private Button returnButton;
-
+    
+    private GuiMainController mainController;
+    
     /**
      * Initializes the controller class.
      * @param url
@@ -100,8 +103,7 @@ public class CreateGameController implements Initializable{
         Game game = new Game(classicGame, name, oponent, timePerShot, spectators, chat);
         
         // Calls interface with data to create new game
-       // DataController dataController = new DataController(); 
-       // dataController.getInterfaceDataMain().newGame(game);     
+       // mainController.getIdata().newGame(game);     
         
         // Open waiting room window 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Ihm-main/waitingRoom.fxml"));
