@@ -7,6 +7,7 @@ import structData.User;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,14 +33,25 @@ public class ConnectionEstablishedMessage extends Message {
     }
 
     public void process(IDataCom IData, InetAddress senderAddress) {
+        System.out.println("New message received from: " + senderAddress);
+        System.out.println("Message Type: " + type);
         NetworkController controller = NetworkController.getInstance();
-        List<InetAddress> filteredAddresses = controller.filterUnknownIPAddresses(ipAdressesTable);
         controller.updateNetwork(sender, senderAddress, createdGame);
+        User user = IData.getLocalUser();
+        List<InetAddress> filteredAddresses = controller.filterUnknownIPAddresses(ipAdressesTable);
         for(InetAddress ipAddress : filteredAddresses) {
-            User user = new User();
-            user.setUsername("TryingToConnect");
-            ConnectionEstablishedMessage connectionEstablishedMessage = new ConnectionEstablishedMessage(user, controller.getIPTable(), null);
-            controller.sendMessage(connectionEstablishedMessage, ipAddress);
+            ConnectionRequestMessage connectionRequestMessage =
+                    new ConnectionRequestMessage(user, controller.getIPTable());
+            controller.sendMessage(connectionRequestMessage, ipAddress);
         }
+
+        ipAdressesTable.add(senderAddress);
+        List<InetAddress> ipAddressesToNotify = controller.filterKnownIPAddressesToNotify(ipAdressesTable);
+        for(InetAddress ipAddress : ipAddressesToNotify) {
+            ConnectionRequestMessage connectionRequestMessage =
+                    new ConnectionRequestMessage(user, filteredAddresses);
+            controller.sendMessage(connectionRequestMessage, ipAddress);
+        }
+        System.out.println(Arrays.toString(controller.getIPTable().toArray()));
     }
 }
