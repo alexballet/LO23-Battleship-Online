@@ -127,12 +127,12 @@ public class NetworkController {
 
     private boolean addUserToNetwork(User user, InetAddress senderAddress) {
         for (User u : networkState.keySet()) {
-            System.out.println(u.getLogin() + "/" + user.getLogin());
-            if (u.getLogin().equals(user.getLogin())) {
+            System.out.println(u.getIdUser() + "/" + user.getIdUser());
+            if (u.getIdUser().equals(user.getIdUser())) {
                 return false;
             }
         }
-        System.out.println("Add to network " + user.getLogin());
+        System.out.println("Add to network " + user.getIdUser());
         networkState.put(user, senderAddress);
         return true;
     }
