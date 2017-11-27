@@ -38,7 +38,7 @@ public class ConnectionRequestMessage extends Message {
 
         NetworkController controller = NetworkController.getInstance();
 
-        controller.updateNetwork(sender, senderAddress, null);
+        controller.addToNetwork(sender, senderAddress, null);
         System.out.println("1 - " + IData);
         System.out.println("2 - " + controller);
 

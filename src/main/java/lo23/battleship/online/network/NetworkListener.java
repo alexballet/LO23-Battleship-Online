@@ -3,7 +3,6 @@ package lo23.battleship.online.network;
 import com.sun.security.ntlm.Server;
 import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkSender;
-import lo23.battleship.online.network.messages.CustomMessage;
 import lo23.battleship.online.network.messages.Message;
 
 import java.io.IOException;
@@ -97,8 +96,9 @@ public class NetworkListener extends Thread {
             Message message = (Message) reader.readObject();
             return message;
         } catch(ClassNotFoundException e) {
-            return new CustomMessage("UNKNOWN");
+            e.printStackTrace();
         }
+        return null;
     }
 
     public void setDataInterface(IDataCom IData) {

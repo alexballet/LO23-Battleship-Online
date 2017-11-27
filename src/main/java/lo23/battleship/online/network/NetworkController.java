@@ -137,15 +137,29 @@ public class NetworkController {
         return true;
     }
 
-    public void updateNetwork(User sender, InetAddress senderAddress, Game game) {
+    public void addToNetwork(User sender, InetAddress senderAddress, Game game) {
         if (addUserToNetwork(sender, senderAddress)) {
-            dataInterface.addUserToUserList(sender);
             try {
+                dataInterface.addUserToUserList(sender);
                 dataInterface.addNewGameList(game);
             } catch (UnsupportedOperationException e) {
 
             }
         }
+    }
+
+    public void removeFromNetwork(User user) {
+        for (User u : networkState.keySet()) {
+            if(user.getIdUser().equals(u)) {
+                networkState.remove(u);
+                //IData.removeUser(u);
+                return;
+            }
+        }
+    }
+
+    public Set<User> getConnectedUsers() {
+        return networkState.keySet();
     }
 
 }

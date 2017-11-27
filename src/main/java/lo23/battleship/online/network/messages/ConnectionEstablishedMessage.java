@@ -35,7 +35,7 @@ public class ConnectionEstablishedMessage extends Message {
         System.out.println("New message received from: " + senderAddress);
         System.out.println("Message Type: " + type);
         NetworkController controller = NetworkController.getInstance();
-        controller.updateNetwork(sender, senderAddress, createdGame);
+        controller.addToNetwork(sender, senderAddress, createdGame);
         User user = IData.getLocalUser();
         List<InetAddress> filteredAddresses = controller.filterUnknownIPAddresses(ipAdressesTable);
 
