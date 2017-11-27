@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class ConnectionEstablishedMessage extends Message {
     private User sender;
-    private Inet4Address destinationIPAddress;
     private List<InetAddress> ipAdressesTable;
     private Game createdGame;
 
@@ -39,19 +38,25 @@ public class ConnectionEstablishedMessage extends Message {
         controller.updateNetwork(sender, senderAddress, createdGame);
         User user = IData.getLocalUser();
         List<InetAddress> filteredAddresses = controller.filterUnknownIPAddresses(ipAdressesTable);
+
+        System.out.println("Network State: " + Arrays.toString(controller.getIPTable().toArray()));
+        System.out.println("(Unknown) Filtered addresses: " + Arrays.toString(filteredAddresses.toArray())
+         + "\n to " + senderAddress);
         for(InetAddress ipAddress : filteredAddresses) {
             ConnectionRequestMessage connectionRequestMessage =
                     new ConnectionRequestMessage(user, controller.getIPTable());
             controller.sendMessage(connectionRequestMessage, ipAddress);
         }
 
+
         ipAdressesTable.add(senderAddress);
         List<InetAddress> ipAddressesToNotify = controller.filterKnownIPAddressesToNotify(ipAdressesTable);
+        System.out.println("(Known) Filtered addresses: " + Arrays.toString(ipAddressesToNotify.toArray())
+                + "\n to " + senderAddress);
         for(InetAddress ipAddress : ipAddressesToNotify) {
             ConnectionEstablishedMessage connectionEstablishedMessage =
                     new ConnectionEstablishedMessage(user, filteredAddresses, null);
             controller.sendMessage(connectionEstablishedMessage, ipAddress);
         }
-        System.out.println(Arrays.toString(controller.getIPTable().toArray()));
     }
 }
