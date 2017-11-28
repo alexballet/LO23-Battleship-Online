@@ -142,4 +142,12 @@ public class NetworkModuleInterface implements COMInterface {
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
     }
+
+    public boolean coordinates(Player destPlayer, Shot resultShot, Game game) {
+        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat) {
+        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+    }
 }
