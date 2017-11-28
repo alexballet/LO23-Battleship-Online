@@ -6,9 +6,10 @@
 package structData;
 
 import java.util.Date;
-import java.awt.Image;
+import javafx.scene.image.Image;
 import java.util.HashSet;
 import java.util.UUID;
+
 /**
  * Profile is a class for the user's profile
  * @author loulou
@@ -187,4 +188,18 @@ public class Profile extends DataUser {
         return this.gamesAborted;
     }
     
+    /**
+     * Mutator for gamesWon
+     * @param nb the number of games won as an integer
+     */
+    public void setGamesWon(int nb){
+        this.gamesWon = nb;
+    }
+    /**
+     * Accessor for gamesWon
+     * @return the number of games won as an integer
+     */
+    public int getGamesWon(){
+        return this.gamesWon;
+    }    
 }

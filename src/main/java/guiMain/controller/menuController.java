@@ -1,6 +1,5 @@
 package guiMain.controller;
 
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import guiMain.GameCell;
 import guiMain.GuiMainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -18,7 +18,9 @@ import structData.*;
 public class menuController {
 	
 	private GuiMainController mainController;
-
+        @FXML 
+        private Button modifyProfileButton;
+        
 	@FXML 
 	private ListView<User> playersView;
 	@FXML 
@@ -101,9 +103,15 @@ public class menuController {
 	
 	@FXML
     private void displayProfil() {
-		mainController.displayProfil();
+        // Display profile of others users
+        mainController.displayProfil();
     }
 
+    @FXML
+    void openChangeProfileWindow(ActionEvent event) {
+        // Display changeProfile window  
+        mainController.changeProfile();
+    }
 
 
 	/** 

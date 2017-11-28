@@ -8,10 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import structData.Profile;
 
-public class ProfilController implements Initializable {
+public class ChangeProfileController implements Initializable {
     
     private GuiMainController mainController;
 	
@@ -19,16 +20,16 @@ public class ProfilController implements Initializable {
     private Label nameTitle;
 
     @FXML
-    private Label userName;
+    private TextField userName;
 
     @FXML
-    private Label firstName;
+    private TextField firstName;
 
     @FXML
-    private Label lastName;
+    private TextField lastName;
 
     @FXML
-    private Label birthdate;
+    private TextField birthdate;
 
     @FXML
     private Label numberOfGame;
@@ -40,7 +41,13 @@ public class ProfilController implements Initializable {
     private Label numberOfGameLost;
 
     @FXML
+    private Button modifyAvatarButton;
+
+    @FXML
     private Button backButton;
+
+    @FXML
+    private Button saveButton;
 
     @FXML
     private ImageView userAvatar;
@@ -55,11 +62,24 @@ public class ProfilController implements Initializable {
         //mainController.openMenuWindow();
     }
 
-    public void init() {
-        // TODO : Verifier si user est local ou distant et afficher ou non le button #modifyProfilButton       
+    @FXML
+    void modifyAvatar() {
+
+    }
+
+    @FXML
+    void saveProfile() {
+        // TODO : pass the correct parameters into editProfile (ask for changes in IdataMain) 
+       // mainController.getIdata().editProfile();
+    }
+
+    /**
+     * Initialize profile data of the correspondent local user
+     */
+    public void init() {   
+        // TODO : Verifier methode getStatistics with Data
         
-        // TODO : Envoyer un user pour recuperer leur profil (changement interface IdataMain) 
-        Profile profile = mainController.getIdata().getStatistics();
+       /* Profile profile = mainController.getIdata().getStatistics();
         nameTitle.setText(profile.getusername());
         userAvatar.setImage(profile.getAvatar());
         userName.setText(profile.getusername());
@@ -70,11 +90,11 @@ public class ProfilController implements Initializable {
         birthdate.setText(df.format(profile.getBirthdate()));
         numberOfGame.setText(String.valueOf(profile.getGamesPlayed()));
         numberOfGameWon.setText(String.valueOf(profile.getGamesWon()));
-        numberOfGameLost.setText(String.valueOf(profile.getGamesLost()));
+        numberOfGameLost.setText(String.valueOf(profile.getGamesLost()));*/
     }
 
     public void setDataController(GuiMainController c) {
         mainController = c;
     }
-
+    
 }

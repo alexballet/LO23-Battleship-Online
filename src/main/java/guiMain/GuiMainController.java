@@ -1,5 +1,6 @@
 package guiMain;
 
+import guiMain.controller.ChangeProfileController;
 import java.io.IOException;
 import java.util.List;
 
@@ -86,7 +87,7 @@ public class GuiMainController implements GuiMainInterface {
 			rootLayout = (AnchorPane) loader.load();
 
 			ProfilController profilController = loader.getController();
-			profilController.setDataController(idata);
+			profilController.setDataController(this);
 			profilController.init();
 
 			Scene scene = new Scene(rootLayout);
@@ -97,7 +98,25 @@ public class GuiMainController implements GuiMainInterface {
 			e.printStackTrace();
 		}
 	}
+        
+	public void changeProfile() {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/fxml/Ihm-main/changeProfile.fxml"));
+		try {
+			rootLayout = (AnchorPane) loader.load();
 
+			ChangeProfileController changeProfileController = loader.getController();
+			changeProfileController.setDataController(this);
+			changeProfileController.init();
+
+			Scene scene = new Scene(rootLayout);
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 
 	public void setIdata(IDataMain idata) {
