@@ -33,7 +33,7 @@ public class Player implements Serializable{
      */
     public Player(Profile p) {
         profile = p;
-        listBoats = new HashSet();
+        listBoats = new ArrayList();
         listShots = new HashSet();
     }
     
