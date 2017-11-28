@@ -221,6 +221,11 @@
             <Rectangle fx:id="sousMarinRectangle4" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="662.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="29.0" />
             <Button fx:id="valider" disable="true" layoutX="449.0" layoutY="505.0" mnemonicParsing="false" onAction="#onValidate" text="Valider" />
             <Button layoutX="14.0" layoutY="505.0" mnemonicParsing="false" text="Quitter" />
+            <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="245.0" layoutY="14.0" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" text="60" textAlignment="CENTER">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="274.0" prefHeight="327.0" prefWidth="250.0" />

@@ -13,12 +13,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -26,7 +30,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import packageStructDonnées.Boat;
 
 /**
@@ -49,6 +55,12 @@ public abstract class PlacementPhaseController {
     protected static final int SPACE = 3;
     protected static final int GRID_ELEMENT_SIZE = 35;
     protected static final int NB_CASES_GRID = 10;
+    protected static final Integer PLACEMENT_TIME = 60;
+    
+    protected Timeline timeline;
+    @FXML
+    protected Label timerLabel;
+    protected Integer timeSeconds = PLACEMENT_TIME;
     
     protected boolean rotationIsValide;
     protected BoatDrawing activeBoat;
@@ -101,6 +113,33 @@ public abstract class PlacementPhaseController {
         anchorPane.addEventHandler(KeyEvent.KEY_PRESSED, playKeyEvent());
         
         rotationIsValide = false;
+        
+        valider.setDisable(true);
+        
+        //Timer
+        timeSeconds = PLACEMENT_TIME;
+ 
+        // update timerLabel
+        timerLabel.setText(timeSeconds.toString());
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
+                    // KeyFrame event handler                      
+            @Override
+            public void handle(Event event) {
+                timeSeconds--;
+                    // update timerLabel
+                    timerLabel.setText(timeSeconds.toString());
+                if (timeSeconds <= 10) {
+                    timerLabel.setTextFill(Color.RED);
+                }
+                if (timeSeconds <= 0) {
+                    timeline.stop();
+                    timeIsOver();
+                }
+            }
+        }));
+        timeline.playFromStart();
     }
     
         
@@ -110,6 +149,8 @@ public abstract class PlacementPhaseController {
     @FXML
     protected void onValidate() {
         List<Boat> boats = this.getBoats();
+        timeline.stop();
+        timerLabel.setText("");
         // TODO: Call the coordinateShips(boats) function in Data interface, once the arguement is changed by Data team
     }
     
@@ -393,5 +434,12 @@ public abstract class PlacementPhaseController {
             activeBoat.getBoatRectangle().setFill(activeBoat.getDisactiveColor());
             activeBoat=null;
         } 
+    }
+    
+    /**
+     * 
+     */
+    protected void timeIsOver(){
+        //TO DO
     }
 }
