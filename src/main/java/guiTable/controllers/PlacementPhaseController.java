@@ -27,6 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import packageStructDonnées.Boat;
 
 /**
@@ -43,6 +44,9 @@ public abstract class PlacementPhaseController {
     private Button valider;
     @FXML
     private AnchorPane chatPane;
+    
+    @FXML
+    private Text messageContainer;
         
     protected static final int GRID_X = 100;
     protected static final int GRID_Y = 100;
@@ -55,6 +59,36 @@ public abstract class PlacementPhaseController {
     
     protected HashMap<Rectangle, BoatDrawing> boatMap;
     
+    /**
+     * log message into interface.
+     * @param msg message to be displayed
+     * @param param list of optionnal parameter, all strings of param are display in CLI
+     */
+    public void logMsg(String msg, String... param) {
+        messageContainer.setVisible(true);
+        messageContainer.setText(msg);
+        for (String string : param) {
+        System.out.println(string);
+            
+        }
+    }
+    
+    /**
+     * close message when click on it
+     */
+    @FXML
+    protected void closeMsg() {
+        messageContainer.setVisible(false);
+    }
+     
+    /**
+     * TODO ad object to show more information if user move mouse over
+     */
+    @FXML
+    protected void showMsgDescritption() {
+        
+    }
+    
     
     /**
      * method to put boat in the boatMap. 
@@ -66,8 +100,7 @@ public abstract class PlacementPhaseController {
      * The method initialize starts the window and assigns values BoatDrawing 
      * objects and methods to the window's objects.
      * @param location
-     * @param resources 
-     * @throws Exception
+     * @param resources
      */
     public void initialize(URL location, ResourceBundle resources){
         
@@ -133,14 +166,13 @@ public abstract class PlacementPhaseController {
      * @return boolean true if all boats are placed, false else
      */
     protected boolean allBoatsArePlaced() {
-        boolean allBoatsArePlaced = true;
         for(BoatDrawing boat : boatMap.values()) {
             if (!boat.isPlaced()) {
-                allBoatsArePlaced = false;
+                return false;
             }
         }
-        
-        return allBoatsArePlaced;
+        logMsg("click now on 'valider' button to begin game");
+        return true;
     }
     
     
@@ -181,10 +213,11 @@ public abstract class PlacementPhaseController {
                         BoatDrawing myboat  = boatMap.get(myRectangle);
                         activeBoat = myboat.setActiveBoat(boatMap);
                         activeBoat.setPlaced(false);
+                        logMsg("press R to rotate Boat and DEL to reinitialize boat");
                     }
                     
                 }
-            }
+           }
         };
         return mousePressHandler;
     }
@@ -269,7 +302,9 @@ public abstract class PlacementPhaseController {
         boat.setGridRow(rowIndex);
         if(positionCorrect(boat)) {
            boat.getBoatRectangle().setFill(boat.getActiveColor());            
+           logMsg("press R to rotate Boat and DEL to reinitialize boat");
         } else {
+           logMsg("invalid position");
            boat.getBoatRectangle().setFill(boat.getBadPlacementColor());
         }
     }
@@ -384,7 +419,7 @@ public abstract class PlacementPhaseController {
     }
            
     /**
-     * Deactivates the active boat.
+     * Desactivates the active boat.
      */
     protected void desactiveBoat() {
         if (activeBoat!=null) {
@@ -392,6 +427,7 @@ public abstract class PlacementPhaseController {
             activeBoat.getBoatRectangle().setMouseTransparent(false);
             activeBoat.getBoatRectangle().setFill(activeBoat.getDisactiveColor());
             activeBoat=null;
+            closeMsg();
         } 
     }
 }

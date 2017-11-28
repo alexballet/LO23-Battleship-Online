@@ -6,7 +6,6 @@
 package guiTable.controllers;
 
 import guiTable.BoatDrawing;
-import guiTable.controllers.PlacementPhaseController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.shape.Rectangle;
