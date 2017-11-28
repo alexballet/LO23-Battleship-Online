@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -33,7 +34,7 @@ import packageStructDonnées.Boat;
  *
  * @author caioz
  */
-public abstract class PlacementPhaseController {
+public abstract class PlacementPhaseController implements Initializable {
        
     @FXML
     private AnchorPane anchorPane;
@@ -69,6 +70,7 @@ public abstract class PlacementPhaseController {
      * @param resources 
      * @throws Exception
      */
+    @Override
     public void initialize(URL location, ResourceBundle resources){
         
         FXMLLoader loader;

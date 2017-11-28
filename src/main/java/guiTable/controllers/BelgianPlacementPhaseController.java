@@ -8,7 +8,6 @@ package guiTable.controllers;
 import guiTable.BoatDrawing;
 import guiTable.controllers.PlacementPhaseController;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.shape.Rectangle;
 import packageStructDonnées.BoatType;
 
@@ -16,7 +15,7 @@ import packageStructDonnées.BoatType;
  * implementation of placement controller for belgian phase
  * @author caioz
  */
-public class BelgianPlacementPhaseController extends PlacementPhaseController implements Initializable{
+public class BelgianPlacementPhaseController extends PlacementPhaseController {
     
     @FXML
     protected Rectangle cuirasseRectangle;
