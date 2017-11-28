@@ -50,7 +50,7 @@ public class NetworkSender extends Thread{
 
         try {
             if (sock == null) {
-                System.out.println("");
+                throw new UnknownHostException();
             }
             writer = new ObjectOutputStream(sock.getOutputStream());
             String timeStamps = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM).format(new Date());
