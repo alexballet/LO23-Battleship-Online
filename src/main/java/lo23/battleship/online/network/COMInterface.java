@@ -22,11 +22,11 @@ public interface COMInterface {
 
     /**
      * Send a chat message
-     * @param message message send
+     * @param chatMessage message send
      * @param g : game related to the message
      * @return true= message sent, false= message not sent
      */
-    public boolean sendChatMessage(String message, Game g);
+    public boolean sendChatMessage(ChatMessage chatMessage, Game g);
 
     /**
      * allow to view an user profile

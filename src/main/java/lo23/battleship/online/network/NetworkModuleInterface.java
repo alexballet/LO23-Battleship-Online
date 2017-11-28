@@ -28,7 +28,7 @@ public class NetworkModuleInterface implements COMInterface {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
-    public boolean sendChatMessage(String message, Game g) {
+    public boolean sendChatMessage(ChatMessage chatMessage, Game g) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
