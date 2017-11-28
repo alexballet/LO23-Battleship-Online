@@ -6,6 +6,7 @@
 package data;
 
 import guiMain.GuiMainInterface;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
@@ -174,19 +175,37 @@ public class DataController {
     }
     
     /**
-     * Reload local profile previously saved
+     * Reload local profile previously saved given the login and password given
+     * @param login : login written by User 
+     * @param mdp : password written by User
      */
-    public void reloadSavedProfile(){
-        try {
-         FileInputStream fis = new FileInputStream("profile.ser");
-         ObjectInputStream ois = new ObjectInputStream(fis);
-         localProfile = (Profile) ois.readObject(); 
-         localUser = new User(localProfile);
-         localDataUser = new DataUser(localProfile);
-         ois.close();
-         
-      } catch (Exception e) { 
-         e.printStackTrace(); 
-      }
+    public void reloadSavedProfile(String login, String mdp){
+        
+        File dir =new File(".");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+          for (File child : directoryListing) {
+            if (child.getName().contains(".ser")){
+                try {
+                    FileInputStream fis = new FileInputStream(child.getName());
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    Profile p = (Profile) ois.readObject();
+                    ois.close();
+                    if ((p.getLogin().equals(login)) && (p.getPassword().equals(mdp))){
+                        localProfile = p; 
+                        localUser = new User(localProfile);
+                        localDataUser = new DataUser(localProfile);
+                        break;
+                    }              
+                } catch (Exception e) { 
+                    e.printStackTrace(); 
+                 }
+            }
+          }
+          if (localProfile.getName().equals(""))
+              System.out.print("No profile found with this login and password");
+        } else {
+            System.out.print("no file found on this computer");
+        }
     }
 }
