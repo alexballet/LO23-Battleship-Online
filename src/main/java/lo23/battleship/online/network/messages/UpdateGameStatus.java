@@ -12,13 +12,12 @@ import java.net.InetAddress;
  * @author Lejeune Lola
  */
 
-public class CreatedGameNotificationMessage extends Message{
-    User user;
+public class UpdateGameStatus extends Message{
+//    User user;
     Game game;
 
-    public CreatedGameNotificationMessage(User sender, Game gameCreated) {
+    public UpdateGameStatus(User sender, Game gameCreated) {
         this.game = gameCreated;
-        this.user = sender;
         this.type = "CreatedGameNotification";}
 
     public String getType() {
@@ -26,8 +25,8 @@ public class CreatedGameNotificationMessage extends Message{
     }
 
     public void process(IDataCom IData){
-        System.out.println("Game received" + game.getName() + " from " + user.getLogin());
-        IData.addNewGameList(game);
+        System.out.println("Game received" + game.getName() + " from " + game.getPlayer1());
+        IData.changeStatusGame(game);
     }
 
     public void process(IDataCom IData, InetAddress senderAddress){}
