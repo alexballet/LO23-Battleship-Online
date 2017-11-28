@@ -5,7 +5,7 @@ import interfacesData.IDataCom;
 import java.net.InetAddress;
 
 /**
- * NotifyReadyMessage,descendant class Message, the user is ready to play. Send the information to Data.
+ * NotifyReadyMessage,descendant class Message, the away user is ready to play. Send the information to Data.
  * @author Lejeune Lola
  */
 
