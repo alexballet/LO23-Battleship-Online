@@ -1,5 +1,5 @@
 package guiMain;
-import packageStructDonnées.*;
+import structData.*;
 
 /**
  * GUI Main Interface

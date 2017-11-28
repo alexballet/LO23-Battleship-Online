@@ -6,11 +6,12 @@
 package guiTable;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import packageStructDonnées.Boat;
-import packageStructDonnées.BoatType;
+import structData.Boat;
+import structData.BoatType;
 
 /**
  *
@@ -43,7 +44,7 @@ public class BoatDrawing{
     public BoatDrawing(BoatType boatType, Rectangle boatRectangle) {
         this.active = false;
         this.rotation = false;
-        this.boat = new Boat(boatType);
+        this.boat = new Boat(boatType, false, new HashSet()); //Will change when boat will be correct
         this.boatRectangle = boatRectangle;
         this.boatType = boatType;
         

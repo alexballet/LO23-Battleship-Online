@@ -5,18 +5,19 @@
  */
 
 
-package packageStructDonnées;
+package structData;
 import java.util.Date;
+import java.io.Serializable;
 /**
  *
  * @author loulou
  */
-public class Message {
+public class ChatMessage implements Serializable{
     private User profile;
     private String content;
     private Date time;
     
-    public Message() {
+    public ChatMessage() {
         profile = new User();
         content = "";
         time = new Date();

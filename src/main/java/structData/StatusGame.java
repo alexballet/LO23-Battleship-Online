@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package packageStructDonnées;
+package structData;
 
 /**
  * StatusGame is an emumerate of all the status of games.
@@ -11,6 +11,7 @@ package packageStructDonnées;
  */
 public enum StatusGame {
     WAITINGPLAYER,
+    WAITINGBOT,
     PLAYER1READY,
     PLAYER2READY,
     PLAYING,

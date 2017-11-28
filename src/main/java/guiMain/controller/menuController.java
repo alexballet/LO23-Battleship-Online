@@ -9,9 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
-import packageStructDonnées.User;
 import guiTable.controllers.GuiTableController;
 import javafx.stage.Stage;
+import structData.User;
 
 public class menuController {
 
