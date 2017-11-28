@@ -43,6 +43,8 @@ public abstract class PlacementPhaseController {
     private Button valider;
     @FXML
     private AnchorPane chatPane;
+    @FXML
+    private AnchorPane profilePane;
         
     protected static final int GRID_X = 100;
     protected static final int GRID_Y = 100;
@@ -75,6 +77,10 @@ public abstract class PlacementPhaseController {
         loader = fillElement(chatPane, "/fxml/IhmTable/chat.fxml" );
         ChatController chatController = loader.getController();
         chatController.init();
+
+        loader = fillElement(profilePane, "/fxml/IhmTable/profile.fxml" );
+        ProfileController profileController = loader.getController();
+        profileController.init();
         
         boatMap = new HashMap<>();
         // Initializes the boat set
@@ -151,15 +157,17 @@ public abstract class PlacementPhaseController {
      * @return FXMLLoader
      * @throws Exception 
      */
-    private FXMLLoader fillElement(AnchorPane paneToFill, String contentAdress) {
+    private FXMLLoader fillElement(AnchorPane paneToFill, String contentAddress) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(contentAdress));
+        loader.setLocation(getClass().getResource(contentAddress));
         try{
             AnchorPane contentPane = loader.load();
             paneToFill.getChildren().add(contentPane);
+            
+            //System.out.println(contentAddress + " " + paneToFill);
         }
         catch(Exception e){
-            System.err.println(e.getMessage());
+            System.err.println(contentAddress + " " + paneToFill + " " + e.getMessage());
         }
         return loader;
     }

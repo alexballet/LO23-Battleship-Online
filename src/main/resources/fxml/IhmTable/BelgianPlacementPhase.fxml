@@ -223,6 +223,10 @@
             <Button layoutX="14.0" layoutY="505.0" mnemonicParsing="false" text="Quitter" />
          </children>
       </Pane>
-      <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="274.0" prefHeight="327.0" prefWidth="250.0" />
+      
+      
+      <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="369.0" prefHeight="230.0" prefWidth="250.0" style="-fx-background-color: grey;" />
+      <AnchorPane fx:id="profilePane" layoutX="550.0" layoutY="272.0" prefHeight="97.0" prefWidth="250.0" style="-fx-background-color: black;" />
+   
    </children>
 </AnchorPane>
