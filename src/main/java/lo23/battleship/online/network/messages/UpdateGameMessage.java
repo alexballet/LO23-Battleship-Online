@@ -15,7 +15,7 @@ public class UpdateGameMessage extends Message{
 
     public UpdateGameMessage(Game game){
         this.gameUpdate = game;
-        this.type = "UpdateGame";
+        this.type = "UpdateGameMessage";
     }
 
     public String getType() {
@@ -23,6 +23,7 @@ public class UpdateGameMessage extends Message{
     }
 
     public void process(IDataCom IData){
+        System.out.println("game: "+ gameUpdate);;
         IData.changeStatusGame(gameUpdate);
        }
 
