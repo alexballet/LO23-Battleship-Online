@@ -11,6 +11,7 @@ import structData.Position;
 import structData.ChatMessage;
 import structData.User;
 import structData.Game;
+import structData.Player;
 import structData.Profile;
 import java.util.Set;
 import java.util.List;
@@ -37,27 +38,22 @@ public interface IDataCom {
       */
      public Game getCreatedGame();
 
-     /**
-      * If there is a new game, the list of games in the local application 
-      * should be updated
-      * @param createdGames : New games
-      */
-     public void addGame(List<Game> createdGames);
 
      /**
-      * The distant user has accepted the request to join the game and the method updateGameData
-      * will be used to update the game data
+      * The distant user has accepted or not the request to join the game and the 
+      * method updateGameData will be used to update the game data
       * @param ok : Acceptance of the request to join the game
       * @param player1 : Creator of the game
       * @param player2 : The player who joins the game
       */
-     public void setGameJoinResponse(Boolean ok, User player1, User player2);
-
+     public void setGameJoinResponse(Boolean ok, Player player1, Player player2);
+     
      /**
-      * The distant user has refused the request to join the game
+      * The distance user has refused the request to join the game
       * @param no : Refuse of the request to join the game
       */
      public void setGameJoinResponse(Boolean no);
+
 
      /**
       * After an user has connected, this user will be added to the list of user
@@ -67,9 +63,8 @@ public interface IDataCom {
 
      /**
       * Sends the profile of a distant user to the local user so that the local 
-      * user can see the profile of
-this distant user
-      * @param p The profil to be sent
+      * user can see the profile of this distant user
+      * @param p The profile to be sent
       */
      public void sendStatistics(Profile p);
 
@@ -80,7 +75,7 @@ this distant user
       * @return 1 if the parameter game is an avaiable game and add the player 
       * to this game, 0 if not
       */
-     public Boolean notifToJoinGame(User sender, Game g);
+     public void notifToJoinGame(User sender, Game g);
 
      /**
       * Adds the game given as a parameter to the list of games.
@@ -126,8 +121,8 @@ phase can be displayed
      public void coordinates(Shot s, Boat b);
 
      /**
-      * Returns the local userâ€™s profile, containing his statistics
-      * @return the local userâ€™s profile
+      * Returns the local user's profile, containing his statistics
+      * @return the local user's profile
       */
      public Profile getUserProfile();
 
