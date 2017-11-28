@@ -53,6 +53,7 @@ public class DataController {
         listUsers = new ArrayList<User>();
         localDataUser = new DataUser(localUser);
         localProfile = new Profile(localDataUser);
+        listGames = new HashSet<Game>();
     }
     
     public void setInterfaceMain(GuiMainInterface i){
