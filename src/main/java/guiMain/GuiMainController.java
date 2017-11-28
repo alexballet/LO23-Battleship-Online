@@ -1,9 +1,9 @@
 package guiMain;
-
 import java.io.IOException;
 import java.util.List;
 
 import guiMain.controller.IpConfigController;
+import guiMain.controller.LoginController;
 import guiMain.controller.SignupController;
 import guiMain.controller.menuController;
 import interfacesData.IDataMain;
@@ -29,6 +29,7 @@ public class GuiMainController implements GuiMainInterface {
     private menuController menuController;
     private SignupController signUpController;
     private IpConfigController ipConfigController;
+    private LoginController loginController;
 	
 	public IDataMain getIdata() {
 		return idata;
@@ -67,6 +68,25 @@ public class GuiMainController implements GuiMainInterface {
 
 	public void startIHM(){
 		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/fxml/Ihm-main/login.fxml"));
+		try {
+			rootLayout = (AnchorPane) loader.load();
+
+			loginController = loader.getController();
+			loginController.setMainController(this);
+
+			Scene scene = new Scene(rootLayout);
+			stage.setTitle("Battleship-Online");
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void openMenuWindow(){
+		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
 		try {
 			rootLayout = (AnchorPane) loader.load();
@@ -84,7 +104,7 @@ public class GuiMainController implements GuiMainInterface {
 			e.printStackTrace();
 		}
 	}
-	
+        
 	public void openSignupWindow(){
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/signup.fxml"));

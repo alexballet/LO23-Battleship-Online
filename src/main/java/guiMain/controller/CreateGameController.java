@@ -121,14 +121,9 @@ public class CreateGameController implements Initializable{
     /**
      * Change window to menu window 
      * @param event : #returnButton event click
-     * @throws IOException 
      */
     @FXML
-    void returnToMenu(ActionEvent event) throws IOException {
-        Parent layout = FXMLLoader.load(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
-        Scene scene = new Scene(layout);
-        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+    void returnToMenu(ActionEvent event) {
+        mainController.openMenuWindow();
     }
 }
