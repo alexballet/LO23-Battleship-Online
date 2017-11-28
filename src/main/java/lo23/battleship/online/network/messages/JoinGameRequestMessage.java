@@ -20,6 +20,11 @@ public class JoinGameRequestMessage extends Message{
         this.game = gameSend;
         this.type = "JoinGameRequestMessage";}
 
+
+    /**
+     * Message type getter. Implementation of an abstract method.
+     * @return type, this is the message type.
+     */
     public String getType() {
         return type;
     }

@@ -6,6 +6,10 @@ import structData.User;
 
 import java.net.InetAddress;
 
+/**
+ * GetProfileRequestMessage
+ */
+
 public class GetProfileRequestMessage extends Message {
 
     User userRequester;
@@ -14,12 +18,22 @@ public class GetProfileRequestMessage extends Message {
         this.userRequester = requester;
         this.type = "JoinGameRequest";}
 
+    /**
+     * Message type getter. Implementation of an abstract method.
+     * @return type, this is the message type.
+     */
     public String getType() {
         return type;
     }
 
     public void process(IDataCom IData){
     }
+
+    /**
+     *
+     * @param IData interface with Data
+     * @param senderAddress
+     */
 
     public void process(IDataCom IData, InetAddress senderAddress){
 

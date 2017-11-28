@@ -16,6 +16,10 @@ public class ProfileRequestAnswerMessage extends Message {
         this.profile = profile;
         this.type = "ProfileRequestAnswerMessage";}
 
+    /**
+     * Message type getter. Implementation of an abstract method.
+     * @return type, this is the message type.
+     */
     public String getType() {
         return type;
     }
