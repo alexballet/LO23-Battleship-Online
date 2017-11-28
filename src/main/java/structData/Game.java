@@ -5,24 +5,32 @@
  */
 package structData;
 import java.util.UUID;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.io.Serializable;
 /**
  * Game is a class for the user's game
- * @author Huiling
  */
-public class Game {
-    protected UUID idGame;
-    protected StatusGame status;
-    protected Boolean classicType;
-    protected String name;
-    protected Boolean humanOpponent;
-    protected int timePerShot;
-    protected Boolean spectator;
-    protected Boolean spectatorChat;
+public class Game implements Serializable{
+    private UUID idGame;
+    private StatusGame status;
+    private Boolean classicType;
+    private String name;
+    private Boolean humanOpponent;
+    private int timePerShot;
+    private Boolean spectator;
+    private Boolean spectatorChat;
+    private HashSet listSpectators;
+    private Player player1;
+    private Player player2;
+    private Boolean player1Start;
+    private ArrayList listMessages;
     
     /**
      * Default constructor
+     * @param p : Profile of the user creating the Game
      */
-    public Game(){
+    public Game(Profile p){
         idGame = UUID.randomUUID();
         status = StatusGame.WAITINGPLAYER;
         classicType = false;
@@ -31,6 +39,11 @@ public class Game {
         timePerShot = 0;
         spectator = false;
         spectatorChat = false;
+        listSpectators = new HashSet();
+        player1 = new Player(p);
+        player2 = new Player(p);
+        player1Start = false;
+        listMessages = new ArrayList();
     }
     
     /**
@@ -42,10 +55,18 @@ public class Game {
      * @param newTimePerShot time per shot
      * @param newSpectator a boolean equal to 1 if spectators are allowed
      * @param newSpectatorChat  a boolean equal to 1 if chat is allowed
+     * @param p a Profile
+     * @param lS a Hashset
+     * @param p1 a Player
+     * @param p2 a Player
+     * @param p1Start a Boolean
+     * @param lMsg an ArrayList
      */
     public Game(Boolean newClassicType, String newName, 
             Boolean newHumanOpponent, int newTimePerShot, 
-            Boolean newSpectator, Boolean newSpectatorChat){
+            Boolean newSpectator, Boolean newSpectatorChat,
+            Profile p, HashSet lS, Player p1, Player p2,
+            Boolean p1Start, ArrayList lMsg){
         idGame = UUID.randomUUID();
         classicType = newClassicType;
         name = new String(newName);
@@ -58,8 +79,60 @@ public class Game {
         timePerShot = newTimePerShot;
         spectator = newSpectator;
         spectatorChat = newSpectatorChat;
+        if (spectator == true) {
+            listSpectators = lS;
+        }
+        else {
+            listSpectators = new HashSet();
+        }
+            
+        player1 = p1;
+        player2 = p2;
+        player1Start = p1Start;
+        listMessages = lMsg;
     }
 
+    /**
+     * Constructor without list of spectators
+     * @param newClassicType the game type
+     * @param newName the game's name
+     * @param newHumanOpponent a boolean equal to 1 if 
+     * the game is between two players and 0 if it is against a bot
+     * @param newTimePerShot time per shot
+     * @param newSpectator a boolean equal to 1 if spectators are allowed
+     * @param newSpectatorChat  a boolean equal to 1 if chat is allowed
+     * @param p a Profile
+     * @param p1 a Player
+     * @param p2 a Player
+     * @param p1Start a Boolean
+     * @param lMsg an ArrayList
+     */
+    public Game(Boolean newClassicType, String newName, 
+            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newSpectator, Boolean newSpectatorChat,
+            Profile p, Player p1, Player p2,
+            Boolean p1Start, ArrayList lMsg){
+        idGame = UUID.randomUUID();
+        classicType = newClassicType;
+        name = new String(newName);
+        humanOpponent = newHumanOpponent;
+        if (humanOpponent){
+            status = StatusGame.WAITINGPLAYER;
+        }else{
+            status = StatusGame.WAITINGBOT;
+        }
+        timePerShot = newTimePerShot;
+        spectator = newSpectator;
+        spectatorChat = newSpectatorChat;
+        listSpectators = new HashSet(); 
+            
+        player1 = p1;
+        player2 = p2;
+        player1Start = p1Start;
+        listMessages = lMsg;
+    }
+
+    
     /**
      * Constructor with a Game
      * @param g a Game
@@ -73,6 +146,11 @@ public class Game {
         timePerShot = g.timePerShot;
         spectator = g.spectator;
         spectatorChat = g.spectatorChat;
+        listSpectators = g.listSpectators;
+        player1 = g.player1;
+        player2 = g.player2;
+        player1Start = g.player1Start;
+        listMessages = g.listMessages;
     }
     
     /**
@@ -90,6 +168,11 @@ public class Game {
         timePerShot = g.timePerShot;
         spectator = g.spectator;
         spectatorChat = g.spectatorChat;
+        listSpectators = g.listSpectators;
+        player1 = g.player1;
+        player2 = g.player2;
+        player1Start = g.player1Start;
+        listMessages = g.listMessages;
         
         return this;
     }
@@ -164,5 +247,77 @@ public class Game {
     public Boolean getSpectatorChat(){
         return this.spectatorChat;
     }
-
+   /**
+     * Mutator for the list of messages
+     * @param lMsg a HashSet
+     */
+    public void setListMessages(ArrayList lMsg){
+        this.listMessages = lMsg;    
+    }
+    
+    /**
+     * Accessor for the list of messages
+     * @return a list of message as an ArrayList
+     */
+    public ArrayList getListMessages(){
+        return this.listMessages;
+    }
+    
+    /**
+     * Add a message to the list of message
+     * @param msg the message to add
+     */
+    public void addMessage(MessageType msg){
+        listMessages.add(msg);
+    }
+ 
+    /**
+     * Mutator for the list of spectator
+     * @param lS a HashSet
+     */
+    public void setListSpectators(HashSet lS){
+        if (this.spectator == true) {
+            this.listSpectators = lS;
+        }       
+    }
+    
+    /**
+     * Accessor for the list of spectator
+     * @return a list of spectator as an HashSet
+     */
+    public HashSet getListSpectators(){
+        return this.listSpectators;
+    }
+    
+    /**
+     * Add a spectator to the list of spectator
+     * @param spectator the user to add
+     */
+    public void addSpectators(User spectator){
+        listSpectators.add(spectator);
+    }
+    
+     /**
+     * Accessor for the player 1
+     * @return player 1 as a Player
+     */
+    public Player getPlayer1(){
+        return this.player1;
+    }
+    
+    /**
+     * Accessor for the player 2
+     * @return player 2 as a Player
+     */
+    public Player getPlayer2(){
+        return this.player2;
+    }
+    
+     /**
+     * Accessor for player1Start
+     * @return player1Start as a Boolean
+     */
+    public Boolean getPlayer1Start(){
+        return this.player1Start;
+    }
 }

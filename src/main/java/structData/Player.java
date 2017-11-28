@@ -5,11 +5,12 @@
  */
 package structData;
 import java.util.HashSet;
+import java.io.Serializable;
 /**
  *
  * @author loulou
  */
-public class Player {
+public class Player implements Serializable{
     private Profile profile;
     private HashSet listBoats;
     private HashSet listShots;

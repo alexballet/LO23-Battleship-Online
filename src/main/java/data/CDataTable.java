@@ -8,6 +8,7 @@ package data;
 import interfacesData.IDataTable;
 import java.util.Date;
 import java.util.List;
+import structData.Boat;
 import structData.ChatMessage;
 import structData.Position;
 
@@ -45,7 +46,7 @@ public class CDataTable implements IDataTable {
     }
 
     @Override
-    public void coordinateShips(List<Position> listposition) {
+    public void coordinateShips(List<Boat> listBoat) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

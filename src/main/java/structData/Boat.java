@@ -5,11 +5,12 @@
  */
 package structData;
 import java.util.HashSet;
+import java.io.Serializable;
 
 /**
  * Boat is the class which represents a ship of a player.
  */
-public class Boat {
+public class Boat implements Serializable{
     private BoatType type;
     private Boolean status;
     private HashSet listCases;

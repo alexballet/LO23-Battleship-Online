@@ -5,12 +5,14 @@
  */
 package interfacesData;
 
+import java.net.UnknownHostException;
 import java.util.Date;
 import structData.ContactGroup;
 import structData.Game;
 import structData.User;
 import java.awt.Image;
 import java.util.HashSet;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -27,7 +29,7 @@ public interface IDataMain {
      * @param firstName : new firstName
      * @param borthDate : new birthDate
      */
-    void editProfile(String username, String password, Image avatar, String lastName, String firstName, Date borthDate);
+    void editProfile(String username, String password, ImageIcon avatar, String lastName, String firstName, Date borthDate);
     
     /**
      * Create a local account
@@ -42,7 +44,7 @@ public interface IDataMain {
      * @param firstname
      * @param birthDate
      */
-    void createAccount(String login, String username, HashSet ips, String password, String contactList, Image avatar, String lastname, String firstname, Date birthDate);
+    void createAccount(String login, String username, HashSet ips, String password, String contactList, ImageIcon avatar, String lastname, String firstname, Date birthDate);
     
     /**
      * Add a distant user to the local list of user
@@ -74,7 +76,7 @@ public interface IDataMain {
     /**
      * Loads the saved data of the user and researches players.
      */
-    void connection();
+    void connection() throws UnknownHostException;
     
     /**
      * Add a new game to the list of games

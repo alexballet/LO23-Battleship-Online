@@ -23,61 +23,71 @@ public interface COMInterface {
     /**
      * Send a chat message
      * @param message message send
+     * @param g : game related to the message
      * @return true= message sent, false= message not sent
      */
-    public boolean sendChatMessage(String message, DataGame game);
+    public boolean sendChatMessage(String message, Game g);
 
     /**
      * allow to view an user profile
      * @param user
      * @return the profile(statistics) of the user
      */
-    public Profile getProfile(User user);
+    public void getProfile(User user);
+
+    /**
+     * update game object
+     * @param game
+     * @return true= message sent, false= message not sent
+     */
+    public boolean changeStatusGame(Game game);
 
     /**
      * notify a new game
-     * @param game : newly created game with one player
+     * @param g : newly created game with one player
      * @return true= message sent, false= message not sent
      */
-    public boolean notifyNewGame(DataGame game);
+    public boolean notifyNewGame(Game g);
 
     /**
      * allow an user to join a game
      * @param user who want to join the game
-     * @param game Game <code>user</code> wants to join
+     * @param g Game <code>user</code> wants to join
      * @return true= message sent, false= message not sent
      */
-    public boolean joinGame(User user, DataGame game);
+    public boolean joinGame(User user, Game g);
 
     /**
      * allow an user to join a game
      * @param isOk access to <code>game</code> true=access granted false= access denied
+
      * @param user who created the game and send the response to the join request
-     * @param game Game <code>user</code> joined if isOk
+     * @param g Game <code>user</code> joined if isOk
      * @return true= message sent, false= message not sent
      */
-    public boolean notifyJoinGameResponse(Boolean isOk, User user, DataGame game);
+    public boolean notifyJoinGameResponse(Boolean isOk, User user, Game g);
 
     /**
      * allow an user to be disconnected to the network
      * @param user who want to be disconnected
      * @return true= message sent, false= message not sent
      */
-    public boolean askDisconnection(User user);
+    public boolean askDisconnection();
 
     /**
      * send a shot from a player on the right game
      * @param player who send the shot
-     * @param game where the ships are
+     * @param g where the ships are
      * @param shot where the player shot
      * @return true= message sent, false= message not sent
      */
-    public boolean sendShot(Player player, DataGame game, Shot shot);
+    public boolean sendShot(Player player, Game g, Shot shot);
 
     /**
      * search for players who are connected
-     * @param knownUsersIPAddresses Initially known users' IPAddresses
+     * @param user User that is connecting
      * @return list of all users who are connected
      */
-    public void searchForPlayers(User user);
+    public void searchForPlayers();
+
 }
