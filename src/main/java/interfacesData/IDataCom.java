@@ -44,11 +44,9 @@ public interface IDataCom {
       */
      public void addGame(List<Game> createdGames);
 
-
      /**
-      * The distant user has accepted the request to join the game and the 
-      * method updateGameData
-will be used to update the game data
+      * The distant user has accepted the request to join the game and the method updateGameData
+      * will be used to update the game data
       * @param ok : Acceptance of the request to join the game
       * @param player1 : Creator of the game
       * @param player2 : The player who joins the game
