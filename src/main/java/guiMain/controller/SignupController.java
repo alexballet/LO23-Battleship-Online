@@ -3,6 +3,7 @@ package guiMain.controller;
 import java.io.File;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,7 +95,7 @@ public class SignupController {
 		String username = usernameTextField.getText();
 		
 		/* Long ??? */
-		Long[] ips;
+		HashSet<String> ips = new HashSet<>();
 		
 		
 		String password = passwordTextField.getText();
@@ -121,11 +122,12 @@ public class SignupController {
 		if (ipsStrings != null){
 			for (String ip : ipsStrings) {
 				System.out.println(" Ip " + ip);
+				ips.add(ip);
 			}
 		}
 		
 		if (!login.trim().isEmpty() && !password.trim().isEmpty() && !username.trim().isEmpty()){
-			//mainController.getIdata().createAccount(idUser, login, username, ips, password, contactList, avatar, lastname, firstname, birthDate);
+			mainController.getIdata().createAccount(login, username, ips, password, null, null, lastname, firstname, birthDate);
 		}
 		else{
 			messageLabel.setText("Des champs obligatoires ne sont pas remplis");

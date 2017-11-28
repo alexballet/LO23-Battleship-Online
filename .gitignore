@@ -33,3 +33,5 @@ BattleShipLO23/nbproject/private/
 tmp/*
 
 doc/*
+
+*.ser

@@ -62,13 +62,11 @@ public class CDataMain implements IDataMain {
         DataUser newDataUser = new DataUser(newUser,password,contactList);
         
         Profile newProfile = new Profile(newDataUser,avatar,lastname,firstname,birthDate);
-     
-        controller.setLocalUser(newUser);
-        controller.addUserToList(newUser);
-        controller.setLocalUser(newUser);
-        controller.setLocalDataUser(newDataUser);
-        controller.setLocalProfile(newProfile);
-        controller.addUserToList(newUser);
+        newProfile.saveProfile();
+        
+        // controller.setLocalUser(newUser);
+        // controller.setLocalDataUser(newDataUser);
+        // controller.setLocalProfile(newProfile);
     }
 
     @Override
@@ -93,13 +91,14 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public void connection() throws UnknownHostException {
+    public Boolean connection() throws UnknownHostException {
         User u = new User("Xzirva", "Xzirva");
         HashSet<InetAddress> IPs = new HashSet<>();
         //IPs.add(InetAddress.getByName("192.168.1.37"));
         u.setIPs(IPs);
-        controller.setLocalUser(u);
+        controller.reloadSavedProfile();
         interfaceCom.searchForPlayers(); //TODO : choisir entre HASHSET et ARRAYLIST pour le stockage des IP
+        return true;
     }
 
     /**

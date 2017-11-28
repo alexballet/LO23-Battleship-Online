@@ -54,7 +54,9 @@ public class Profile extends DataUser {
     public Profile(DataUser dUser, String pathToImage, String newLastname, 
             String newName, Date newBirthdate){
         super(dUser);
-        avatar = new ImageIcon(pathToImage);
+        if (pathToImage != null && !pathToImage.trim().isEmpty()) {
+            avatar = new ImageIcon(pathToImage);
+        }
         lastname = new String(newLastname);
         name = new String(newName);
         // (Date) newBirthdate.clone() if newbirthdate belongs to an other object
