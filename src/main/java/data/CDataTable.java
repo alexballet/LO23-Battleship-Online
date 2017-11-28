@@ -11,6 +11,9 @@ import java.util.List;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.Position;
+import structData.Game;
+import lo23.battleship.online.network.COMInterface;
+import guiMain.GuiMainInterface;
 
 /**
  *
@@ -19,6 +22,9 @@ import structData.Position;
 public class CDataTable implements IDataTable {
     
     private DataController controller;
+    
+    private GuiMainInterface interfaceMain;
+    private COMInterface interfaceCom;
     
     public CDataTable(DataController dc){
         super();
@@ -32,12 +38,9 @@ public class CDataTable implements IDataTable {
 
     @Override
     public void textMessage(ChatMessage message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void textMessage(String content, Date time) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String s = message.getContent();
+        Game g = controller.getLocalGame();
+        interfaceCom.sendChatMessage(s, g);
     }
 
     @Override
