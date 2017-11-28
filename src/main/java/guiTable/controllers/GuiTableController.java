@@ -6,6 +6,7 @@
 package guiTable.controllers;
 
 import guiTable.GuiTableInterface;
+import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -20,9 +21,14 @@ import packageStructDonnées.Shot;
  */
 public class GuiTableController implements GuiTableInterface {
 
-    
     private AnchorPane rootLayout;
     private static GuiTableController INSTANCE = null;
+    
+    private Stage mainStage;
+    
+    private Boolean classic;
+    
+    private GamePhaseController controller;
 
     /**
      * Private constructor for GuiTableController.
@@ -51,22 +57,38 @@ public class GuiTableController implements GuiTableInterface {
      */
     @Override
     public void displayPlacementPhase(Stage currentStage, Boolean classic) throws Exception {
+        this.mainStage = currentStage;
+        this.classic = classic;
+        
         FXMLLoader loader = new FXMLLoader();
         if(classic) {
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
         } else {
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
         }
         rootLayout = (AnchorPane) loader.load();
         Scene scene = new Scene(rootLayout);
-        currentStage.setTitle("Battleship-Online");
-        currentStage.setScene(scene);
-        currentStage.show();
+        mainStage.setTitle("Battleship-Online");
+        mainStage.setScene(scene);
+        mainStage.show();
     }
 
     @Override
     public void opponentReady(Boolean myTurn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/IhmTable/GamePhase.fxml"));
+
+        try {
+            rootLayout = (AnchorPane) loader.load();
+            controller = loader.<GamePhaseController>getController();
+            controller.setMyTurn(myTurn);
+        
+            Scene scene = new Scene(rootLayout);
+            mainStage.setScene(scene);
+            mainStage.show();
+        } catch(IOException e) {
+            System.err.println("ERROR : "+e.getMessage());
+        }
     }
 
     @Override
@@ -91,7 +113,10 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void displayMyShotResult(Shot myShotResult, Boat boat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.addShot(myShotResult);
+        if (boat != null){
+            controller.sunckBoat(boat);
+        }
     }
 
     @Override
