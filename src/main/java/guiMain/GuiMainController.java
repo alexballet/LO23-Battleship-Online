@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
+import guiMain.controller.CreateGameController;
 import guiMain.controller.IpConfigController;
 import guiMain.controller.LoginController;
 import guiMain.controller.SignupController;
@@ -34,6 +35,7 @@ public class GuiMainController implements GuiMainInterface {
     private SignupController signUpController;
     private IpConfigController ipConfigController;
     private LoginController loginController;
+    private CreateGameController createGameController;
 	
 	public IDataMain getIdata() {
 		return idata;
@@ -57,7 +59,7 @@ public class GuiMainController implements GuiMainInterface {
 	@Override
 	public void addGame(Game createdGame) {
 		// TODO Auto-generated method stub
-
+		menuController.addGame(createdGame);
 	}
 
 	@Override
@@ -123,6 +125,25 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
         
+	public void openCreateGameWindow(){
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/fxml/Ihm-main/createGame.fxml"));
+		try {
+			rootLayout = (AnchorPane) loader.load();
+
+			createGameController = loader.getController();
+			createGameController.setMainController(this);
+
+			Scene scene = new Scene(rootLayout);
+			stage.setTitle("Battleship-Online");
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void openSignupWindow(){
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/signup.fxml"));

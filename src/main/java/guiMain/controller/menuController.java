@@ -125,6 +125,11 @@ public class menuController implements Initializable{
 		playersView.getItems().add(user);
 	}
 	
+	
+	public void addGame(Game game){
+		gamesView.getItems().add(game);
+	}
+	
 
         /**
          * Open window to create new game 
@@ -133,11 +138,7 @@ public class menuController implements Initializable{
          */
         @FXML
         private void openCreateGameWindow(ActionEvent event) throws IOException {
-            Parent layout = FXMLLoader.load(getClass().getResource("/fxml/Ihm-main/createGame.fxml"));
-            Scene scene = new Scene(layout);
-            Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            mainController.openCreateGameWindow();
         }
 
     @Override

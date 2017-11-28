@@ -149,7 +149,7 @@ public class SignupController {
 	
 	@FXML
 	private void backToConnectionWindow(){
-		// mainController. --- method to open connection window ----
+		mainController.startIHM();
 	}
 	
 	private void openFile(File file) {
