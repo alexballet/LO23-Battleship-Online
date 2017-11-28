@@ -71,9 +71,8 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public Profile getStatistics() {
-        Profile p = controller.getLocalProfile();
-        return p;
+    public void getStatistics(Profile p) {
+        //demander à l'interface de la com
     }
     
     /**
@@ -98,7 +97,7 @@ public class CDataMain implements IDataMain {
         //IPs.add(InetAddress.getByName("192.168.1.37"));
         //u.setIPs(IPs);
         controller.setLocalUser(u);
-        interfaceCom.searchForPlayers(IPs); //TODO : choisir entre HASHSET et ARRAYLIST pour le stockage des IP
+        interfaceCom.searchForPlayers(); //TODO : choisir entre HASHSET et ARRAYLIST pour le stockage des IP
     }
 
     /**

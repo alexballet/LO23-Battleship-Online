@@ -7,9 +7,6 @@ package structData;
 
 import java.util.Date;
 import java.awt.Image;
-import java.util.HashSet;
-import java.util.UUID;
-import java.awt.Image;
 import javax.swing.ImageIcon;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;

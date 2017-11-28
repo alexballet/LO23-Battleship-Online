@@ -107,11 +107,9 @@ phase can be displayed
      /**
       * Takes a position to transmit it to IHM-Table. Returns a Shot and if a 
       * boat was sunk, it returns the object Boat
-      * @param p : The position played by the user
-      * @param s (returned) : shot corresponding to the position
-      * @param b (optionnally returned) : The sunk boat
+      * @param s : shot corresponding to the position
       */
-     public void coordinate(Position p, Shot s, Boat b);
+     public void coordinate(Shot s);
 
      /**
       * Takes a Shot and in option a Boat to transmit it to IHM-Table
