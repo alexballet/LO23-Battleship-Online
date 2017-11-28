@@ -7,8 +7,10 @@ package structData;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.UUID;
+import java.io.Serializable;
 
 public class User implements Serializable {
+
     protected UUID idUser;
     protected String login;
     protected String username;
