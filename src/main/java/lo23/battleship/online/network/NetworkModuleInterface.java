@@ -54,7 +54,12 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     public boolean notifyJoinGameResponse(Boolean isOk, User user, Game game) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+
+        JoinGameResponseMessage joinGameResponseMessage = new JoinGameResponseMessage(isOk, dataInterface.getLocalUser(), game);
+
+        controller.sendMessage(joinGameResponseMessage, controller.getAddressForUser(user));
+
+        return true;
     }
 
     public boolean changeStatusGame(Game game) {
