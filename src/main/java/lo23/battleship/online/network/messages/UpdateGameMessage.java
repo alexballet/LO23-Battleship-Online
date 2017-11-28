@@ -23,6 +23,7 @@ public class UpdateGameMessage extends Message{
     }
 
     public void process(IDataCom IData){
+        System.out.println("game: "+ gameUpdate);;
         IData.changeStatusGame(gameUpdate);
        }
 

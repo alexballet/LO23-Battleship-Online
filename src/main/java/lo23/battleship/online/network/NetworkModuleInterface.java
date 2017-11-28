@@ -78,10 +78,10 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     public boolean notifyNewGame(Game g) {
-
+        User user = dataInterface.getLocalUser();
         List<InetAddress> ipAddresses = controller.getIPTable();
 
-        CreatedGameNotificationMessage createdGameNotification = new CreatedGameNotificationMessage(g);
+        CreatedGameNotificationMessage createdGameNotification = new CreatedGameNotificationMessage(user, g);
 
         for (InetAddress ipAddress : ipAddresses) {
 
