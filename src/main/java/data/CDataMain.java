@@ -95,16 +95,15 @@ public class CDataMain implements IDataMain {
     @Override
     public void connection() throws UnknownHostException {
         User u = new User("Xzirva", "Xzirva");
-        ArrayList<InetAddress> IPs = new ArrayList<InetAddress>();
+        HashSet<InetAddress> IPs = new HashSet<>();
         //IPs.add(InetAddress.getByName("192.168.1.37"));
-        //u.setIPs(IPs);
+        u.setIPs(IPs);
         controller.setLocalUser(u);
-        interfaceCom.searchForPlayers(IPs); //TODO : choisir entre HASHSET et ARRAYLIST pour le stockage des IP
+        interfaceCom.searchForPlayers(); //TODO : choisir entre HASHSET et ARRAYLIST pour le stockage des IP
     }
 
     /**
      * Adds a new game to the list of games
-     * @param g game to add
      */
     @Override
     public Game newGame(Boolean newClassicType, String newName, 
