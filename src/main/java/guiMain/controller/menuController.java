@@ -24,6 +24,8 @@ public class menuController {
 	private ListView<Game> gamesView;
 	@FXML 
 	private Button optionButton;
+	@FXML
+	private Button disconnectionButton;
 	
 	public void setMainController (GuiMainController c) {
 		mainController = c;
@@ -97,7 +99,12 @@ public class menuController {
 	}
 
 
+	@FXML
+	private void disconnection(){
+		mainController.getIdata().askDisconnection();
+	}
 
+	
 	/** 
 	 * Adds the user passed as a parameter to the list of users.
 	 * @param user : user to add to the list.
