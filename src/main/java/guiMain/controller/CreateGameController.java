@@ -100,10 +100,10 @@ public class CreateGameController implements Initializable{
         int timePerShot = Integer.parseInt(reflectionTime.getText());
 
         // Create new game object
-        Game game = new Game(classicGame, name, oponent, timePerShot, spectators, chat);
-        
+        // Game game = new Game(classicGame, name, oponent, timePerShot, spectators, chat);
+                
         // Calls interface with data to create new game
-       // mainController.getIdata().newGame(game);     
+        Game game = mainController.getIdata().newGame(classicGame, name, oponent, timePerShot, spectators, chat);     
         
         // Open waiting room window 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Ihm-main/waitingRoom.fxml"));

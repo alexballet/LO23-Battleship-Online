@@ -67,7 +67,7 @@ public class menuController implements Initializable{
                     protected void updateItem(User t, boolean bln) {
                         super.updateItem(t, bln);
                             if (t != null) {
-                                setText(t.getlogin() + "  :  " +  t.getusername());
+                                setText(t.getLogin() + "  :  " +  t.getUsername());
                             }
                         }
                     };
@@ -105,13 +105,12 @@ public class menuController implements Initializable{
 	 */
 	@FXML
 	private void option(){
-		gamesView.getItems().add(new Game(true, "Game test 1", false, 100, true, true));
+		// gamesView.getItems().add(new Game(true, "Game test 1", false, 100, true, true));
 	}
 
 	@FXML
 	private void disconnection(){
-		idata.askDisconnection();
- 
+		mainController.getIdata().askDisconnection();
 	}
 
 

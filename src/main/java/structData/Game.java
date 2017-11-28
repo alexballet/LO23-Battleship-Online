@@ -65,6 +65,45 @@ public class Game implements Serializable{
     public Game(Boolean newClassicType, String newName, 
             Boolean newHumanOpponent, int newTimePerShot, 
             Boolean newSpectator, Boolean newSpectatorChat,
+            Profile p){
+        idGame = UUID.randomUUID();
+        classicType = newClassicType;
+        name = new String(newName);
+        humanOpponent = newHumanOpponent;
+        if (humanOpponent){
+            status = StatusGame.WAITINGPLAYER;
+        }else{
+            status = StatusGame.WAITINGBOT;
+        }
+        timePerShot = newTimePerShot;
+        spectator = newSpectator;
+        spectatorChat = newSpectatorChat;
+        listSpectators = new HashSet();
+            
+        player1 = new Player(p);
+        player1Start = true;
+        listMessages = new ArrayList<>();
+    }
+    
+    /**
+     * Constructor with all parameters
+     * @param newClassicType the game type
+     * @param newName the game's name
+     * @param newHumanOpponent a boolean equal to 1 if 
+     * the game is between two players and 0 if it is against a bot
+     * @param newTimePerShot time per shot
+     * @param newSpectator a boolean equal to 1 if spectators are allowed
+     * @param newSpectatorChat  a boolean equal to 1 if chat is allowed
+     * @param p a Profile
+     * @param lS a Hashset
+     * @param p1 a Player
+     * @param p2 a Player
+     * @param p1Start a Boolean
+     * @param lMsg an ArrayList
+     */
+    public Game(Boolean newClassicType, String newName, 
+            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newSpectator, Boolean newSpectatorChat,
             Profile p, HashSet lS, Player p1, Player p2,
             Boolean p1Start, ArrayList lMsg){
         idGame = UUID.randomUUID();

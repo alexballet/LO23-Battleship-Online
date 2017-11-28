@@ -82,5 +82,7 @@ public interface IDataMain {
      * Add a new game to the list of games
      * @param g : game to add
      */
-    void newGame(Game g);
+    Game newGame(Boolean newClassicType, String newName, 
+            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newSpectator, Boolean newSpectatorChat);
 }

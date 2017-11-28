@@ -14,6 +14,7 @@ import java.util.Date;
 import lo23.battleship.online.network.COMInterface;
 import structData.ContactGroup;
 import structData.Game;
+import structData.Player;
 import structData.User;
 import structData.DataUser;
 import structData.Profile;
@@ -107,8 +108,13 @@ public class CDataMain implements IDataMain {
      * @param g game to add
      */
     @Override
-    public void newGame(Game g) {
+    public Game newGame(Boolean newClassicType, String newName, 
+            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newSpectator, Boolean newSpectatorChat) {
+    		Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newSpectator, newSpectatorChat, controller.getLocalProfile());
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
+        
+        return g;
     }
 }
