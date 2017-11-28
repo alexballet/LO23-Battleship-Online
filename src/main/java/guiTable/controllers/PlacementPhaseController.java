@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -56,6 +57,7 @@ public abstract class PlacementPhaseController {
     protected static final int GRID_ELEMENT_SIZE = 35;
     protected static final int NB_CASES_GRID = 10;
     protected static final Integer PLACEMENT_TIME = 60;
+    protected static final int RANDOM_ROTATION = 2;
     
     protected Timeline timeline;
     @FXML
@@ -437,9 +439,26 @@ public abstract class PlacementPhaseController {
     }
     
     /**
-     * 
+     * Places the boats randomly if time's over and there are boats to place
      */
     protected void timeIsOver(){
-        //TO DO
+        for(BoatDrawing myBoat : boatMap.values()){
+            while(!myBoat.isPlaced()){
+                activeBoat=myBoat;
+                Random rn = new Random(); 
+                if(rn.nextInt(RANDOM_ROTATION)==1){
+                    activeBoat.setRotation(true);
+                    Rectangle rectangleBoat = myBoat.getBoatRectangle();
+                    rectangleBoat.setRotate(rectangleBoat.getRotate()+90);
+                }
+                draw(myBoat, rn.nextInt(NB_CASES_GRID), rn.nextInt(NB_CASES_GRID));
+                if(positionCorrect(myBoat)){
+                    activeBoat.setPlaced(true);
+                    desactiveBoat(); 
+                    break;
+                }
+           }
+        }
+        onValidate();
     }
 }
