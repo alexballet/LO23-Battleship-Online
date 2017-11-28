@@ -28,6 +28,17 @@ public class Player implements Serializable{
     }
     
     /**
+     * 
+     * @param dUser : the parent class DataUser of the profil of the new player
+     */
+    public Player(Profile p) {
+        profile = p;
+        listBoats = new HashSet();
+        listShots = new HashSet();
+    }
+    
+    /*constructor with parameters*/
+    /**
      * Constructor with parameters
      * @param p : the profile of the new player
      * @param listBoatsData : the list of boats of the new player
