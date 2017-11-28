@@ -1,12 +1,16 @@
 package guiMain;
+
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
 import guiMain.controller.IpConfigController;
 import guiMain.controller.LoginController;
 import guiMain.controller.SignupController;
+import guiMain.controller.connectionController;
 import guiMain.controller.menuController;
 import interfacesData.IDataMain;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -37,9 +41,17 @@ public class GuiMainController implements GuiMainInterface {
 
 
 	@Override
-	public void addUser(User user) {
-		// TODO Auto-generated method stub
+	public void addUser(final User user) {
 
+		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("GUIMain");
+				menuController.addUser(user);
+				System.out.println("After GUIMain");
+			}
+		};
+		Platform.runLater(command);
 	}
 
 	@Override
@@ -67,6 +79,7 @@ public class GuiMainController implements GuiMainInterface {
 	}
 
 	public void startIHM(){
+				
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/login.fxml"));
 		try {
@@ -99,6 +112,11 @@ public class GuiMainController implements GuiMainInterface {
 			stage.setTitle("Battleship-Online");
 			stage.setScene(scene);
 			stage.show();
+			
+			System.out.println("start connection");
+			idata.connection();
+			System.out.println("Connection etablished");
+			
 
 		} catch (IOException e) {
 			e.printStackTrace();

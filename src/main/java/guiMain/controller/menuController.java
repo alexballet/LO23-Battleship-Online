@@ -8,6 +8,7 @@ import java.util.List;
 import guiMain.GameCell;
 import guiMain.GuiMainController;
 import java.util.ResourceBundle;
+import interfacesData.IDataMain;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -107,6 +108,12 @@ public class menuController implements Initializable{
 		gamesView.getItems().add(new Game(true, "Game test 1", false, 100, true, true));
 	}
 
+	@FXML
+	private void disconnection(){
+		idata.askDisconnection();
+ 
+	}
+
 
 
 	/** 
@@ -115,11 +122,10 @@ public class menuController implements Initializable{
 	 * 
 	 *  A décommenter pour l'intégration
 	 */
-	/*
 	public void addUser(User user){
 		playersView.getItems().add(user);
 	}
-	 */
+	
 
         /**
          * Open window to create new game 
