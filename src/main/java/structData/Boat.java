@@ -20,10 +20,11 @@ public class Boat implements Serializable{
     
     /**
      * constructor by default
+     * staus = false means that the boat isn't sunk
      */
     public Boat(){
         type = BoatType.PORTEAVIONS;
-        status = false;//staus = false means that the boat isn't sunk
+        status = false;
         this.listCases = new ArrayList();
     }
     
