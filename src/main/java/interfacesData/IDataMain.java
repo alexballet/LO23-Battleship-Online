@@ -5,6 +5,7 @@
  */
 package interfacesData;
 
+import java.net.UnknownHostException;
 import java.util.Date;
 import structData.ContactGroup;
 import structData.Game;
@@ -66,7 +67,7 @@ public interface IDataMain {
     /**
      * Loads the saved data of the user and researches players.
      */
-    void connection();
+    void connection() throws UnknownHostException;
     
     /**
      * Add a new game to the list of games

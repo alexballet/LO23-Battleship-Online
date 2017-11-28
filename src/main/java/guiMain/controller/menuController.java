@@ -2,6 +2,8 @@ package guiMain.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import interfacesData.IDataMain;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +16,8 @@ import structData.User;
 public class menuController {
 
 
+	private IDataMain idata;
+	
 	List<User> playersList;
 
 	ObservableList<User> playersObservable;
@@ -25,13 +29,18 @@ public class menuController {
 	private Button optionButton;
 
 
+	@FXML 
+	private Button disconnectionButton;
+
 	/**
 	 *  	Init listView configuration
 	 *  	UserTest à remplacer par User lorsque les getter/setter seront dispo
 	 */
 
 
-	public void init() {
+	public void init(IDataMain i) {
+		idata = i;
+		
 		//randomListUser();
 		playersList = new ArrayList<>();
 		playersObservable = FXCollections.observableList(playersList);
@@ -75,6 +84,12 @@ public class menuController {
  
 	}
 
+	@FXML
+	private void disconnection(){
+		idata.askDisconnection();
+ 
+	}
+
 
 
 	/** 
@@ -84,11 +99,11 @@ public class menuController {
 	 *  A décommenter pour l'intégration
 	 */
 
-	/*
+	
 	public void addUser(User user){
 		playersView.getItems().add(user);
 	}
-	 */
+	
 
 
 

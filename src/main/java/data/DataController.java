@@ -12,7 +12,6 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import lo23.battleship.online.network.COMInterface;
 import structData.Game;
 import structData.User;
@@ -79,6 +78,7 @@ public class DataController {
     public CDataTable getInterfaceDataTable(){
         return interfaceDataTable;
     }
+    
     /**
      * return the local user 
      * @return local user
@@ -129,7 +129,8 @@ public class DataController {
      * @param g : game to add to the local list
      */
     public void addGameToList(Game g){
-        listGames.add(g);
+        if(g != null)
+            listGames.add(g);
     }
     
     /**
@@ -147,6 +148,7 @@ public class DataController {
     public void removeGameFromList(Game g){
         listGames.remove(g);
     }
+    
      /**
      * used by the method setGameJoinResponse of CDataCom
      * @param ok 

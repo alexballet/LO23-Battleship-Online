@@ -40,6 +40,11 @@ public class CDataCom implements IDataCom {
         interfaceMain = i;
     }
 
+    //@Override
+    public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
     * Returns the current Game
     * @return the current Game
@@ -50,17 +55,11 @@ public class CDataCom implements IDataCom {
         return g;
     }
 
- /**
-    * The distant user has accepted the request to join the game and 
-    * the method updateGameData will be used to update the game data
-    * @param ok : Acceptance of the request to join the game
-    * @param player1 : Creator of the game
-    * @param player2 : The player who joins the game
-    */
+ 
     @Override
     public void setGameJoinResponse(Boolean ok, Player player1, Player player2) {
        interfaceMain.setGameJoinResponse(true);
-       controller.updateGameData(true, player1, player2); 
+       controller.updateGameData(true, player1, player2);
     }
 
     /**
@@ -168,6 +167,9 @@ public class CDataCom implements IDataCom {
         controller.removeGameFromList(localGame);
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);
+    }
+    public User getLocalUser(){
+        return controller.getLocalUser();
     }
     
 }
