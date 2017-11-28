@@ -7,7 +7,6 @@ package guiTable.controllers;
 
 import guiTable.BoatDrawing;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.shape.Rectangle;
 import structData.BoatType;
 
@@ -15,7 +14,7 @@ import structData.BoatType;
  * implementation of placement controller for classic phase
  * @author caioz
  */
-public class ClassicPlacementPhaseController extends PlacementPhaseController implements Initializable{
+public class ClassicPlacementPhaseController extends PlacementPhaseController {
     
     @FXML
     private Rectangle porteAvionsRectangle;
