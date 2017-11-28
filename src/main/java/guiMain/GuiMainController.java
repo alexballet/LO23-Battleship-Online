@@ -90,7 +90,9 @@ public class GuiMainController implements GuiMainInterface {
 		this.stage = s;
 	}
 
-	
+	public void askJoinGame(Game game) {
+		idata.notifGameChosen(game);
+	}
 	
 	
 }

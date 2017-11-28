@@ -90,6 +90,7 @@ public class menuController implements Initializable{
 	
 	public void joinGame(Game game) {
 		System.out.println("JOIN GAME " + game.getName());
+		mainController.askJoinGame(game);
 	}
 	
 	public void lookGame(Game game) {
