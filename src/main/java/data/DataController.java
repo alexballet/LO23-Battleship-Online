@@ -49,6 +49,7 @@ public class DataController {
         listUsers = new HashSet<User>();
         localDataUser = new DataUser(user);
         localProfile = new Profile(localDataUser);
+        listGames = new HashSet<>();
     }
     
     public void setInterfaceMain(GuiMainInterface i){
@@ -113,7 +114,8 @@ public class DataController {
      * @param g : game to add to the local list
      */
     public void addGameToList(Game g){
-        listGames.add(g);
+        if(g != null)
+            listGames.add(g);
     }
     
     /**

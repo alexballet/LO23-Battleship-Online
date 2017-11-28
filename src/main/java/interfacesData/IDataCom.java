@@ -20,7 +20,17 @@ import java.util.List;
  * @author Lucie
  */
 public interface IDataCom {
+    /**
+     * Sends known user's IP table to new user and the current game if the new user is playing a game
+     * @param withGame : if (withGame==true) return the game the user is playing
+     * @param iPs (returned) : ipadresses known by local user to send to send to a new user
+     * @param dataGame (returned) : the game the user is playing
+     */
+    // TODO Change void to struct containing a Set and DataGame
+     public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame);
 
+
+    // TODO Create method to return current user game if exists : getCurrentUserGame
      /**
       * Returns the current Game
       * @return the current Game
@@ -127,7 +137,9 @@ phase can be displayed
       * Takes a game given as a parameter and updates his status
       * @param g : The game which status has to be modified
       */
-     void changeStatusGame(Game g);
+     public void changeStatusGame(Game g);
+
+     public User getLocalUser();
 }
 
 

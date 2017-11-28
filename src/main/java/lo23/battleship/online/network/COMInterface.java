@@ -33,7 +33,14 @@ public interface COMInterface {
      * @param user
      * @return the profile(statistics) of the user
      */
-    public Profile getProfile(User user);
+    public void getProfile(User user);
+
+    /**
+     * update game object
+     * @param game
+     * @return true= message sent, false= message not sent
+     */
+    public boolean changeStatusGame(Game game);
 
     /**
      * notify a new game
@@ -53,6 +60,7 @@ public interface COMInterface {
     /**
      * allow an user to join a game
      * @param isOk access to <code>game</code> true=access granted false= access denied
+
      * @param user who created the game and send the response to the join request
      * @param g Game <code>user</code> joined if isOk
      * @return true= message sent, false= message not sent
@@ -64,7 +72,7 @@ public interface COMInterface {
      * @param user who want to be disconnected
      * @return true= message sent, false= message not sent
      */
-    public boolean askDisconnection(User user);
+    public boolean askDisconnection();
 
     /**
      * send a shot from a player on the right game
@@ -77,8 +85,9 @@ public interface COMInterface {
 
     /**
      * search for players who are connected
-     * @param knownUsersIPAddresses Initially known users' IPAddresses
+     * @param user User that is connecting
      * @return list of all users who are connected
      */
-    public ArrayList<User> searchForPlayers(ArrayList<InetAddress> knownUsersIPAddresses);
+    public void searchForPlayers();
+
 }

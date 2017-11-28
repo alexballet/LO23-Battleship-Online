@@ -5,6 +5,7 @@
  */
 package data;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import guiMain.GuiMainInterface;
 import interfacesData.IDataCom;
 import java.util.List;
@@ -37,6 +38,11 @@ public class CDataCom implements IDataCom {
         interfaceMain = i;
     }
 
+    @Override
+    public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
     * Returns the current Game
     * @return the current Game
@@ -51,8 +57,6 @@ public class CDataCom implements IDataCom {
     public void addGame(List<Game> createdGames) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-
 
     @Override
     public void setGameJoinResponse(Boolean ok, User player1, User player2) {
@@ -143,6 +147,9 @@ public class CDataCom implements IDataCom {
         controller.removeGameFromList(localGame);
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);
+    }
+    public User getLocalUser(){
+        return controller.getLocalUser();
     }
     
 }

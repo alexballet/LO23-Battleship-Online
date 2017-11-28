@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package structData;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.UUID;
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User implements Serializable {
+
     protected UUID idUser;
     protected String login;
     protected String username;
@@ -22,9 +24,8 @@ public class User implements Serializable{
         iPs = new HashSet();
     }
     
-     /*constructor with parameters*/
     /**
-     * 
+     * constructor with parameters
      * @param logindata : the login of the new user
      * @param usernamedata : the username of the new user
      */
