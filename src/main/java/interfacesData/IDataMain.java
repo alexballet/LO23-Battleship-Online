@@ -8,6 +8,7 @@ package interfacesData;
 import java.util.Date;
 import structData.ContactGroup;
 import structData.Game;
+import structData.Profile;
 import structData.User;
 
 /**
@@ -56,7 +57,7 @@ public interface IDataMain {
      * @param nbGameLost
      * @param nbGameAbandoned 
      */
-    void getStatistics(User u, int nbGamePlayed, int nbGameWon, int nbGameLost, int nbGameAbandoned);
+    Profile getStatistics();
     
     /**
      * Notifies the away application that an user wants to join a game

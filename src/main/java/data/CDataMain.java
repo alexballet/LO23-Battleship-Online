@@ -9,6 +9,7 @@ import interfacesData.IDataMain;
 import java.util.Date;
 import structData.ContactGroup;
 import structData.Game;
+import structData.Profile;
 import structData.User;
 
 /**
@@ -40,7 +41,7 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public void getStatistics(User u, int nbGamePlayed, int nbGameWon, int nbGameLost, int nbGameAbandoned) {
+    public Profile getStatistics() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

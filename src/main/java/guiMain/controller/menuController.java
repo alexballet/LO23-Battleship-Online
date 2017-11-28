@@ -100,8 +100,8 @@ public class menuController {
 	}
 	
 	@FXML
-    void displayProfil(ActionEvent event) {
-		
+    private void displayProfil() {
+		mainController.displayProfil();
     }
 
 

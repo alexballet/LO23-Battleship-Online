@@ -86,10 +86,10 @@ public class GuiMainController implements GuiMainInterface {
 			rootLayout = (AnchorPane) loader.load();
 
 			ProfilController profilController = loader.getController();
-			//profilController.init();
+			profilController.setDataController(idata);
+			profilController.init();
 
 			Scene scene = new Scene(rootLayout);
-			stage.setTitle("Battleship-Online");
 			stage.setScene(scene);
 			stage.show();
 
