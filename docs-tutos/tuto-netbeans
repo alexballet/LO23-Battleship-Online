@@ -1,3 +1,6 @@
 #### maven et netbeans
 
 pour compiler le projet maven sur les pc de l'utc, ajouter le fichier .m2 dézipé dans votre Z
+
+	/!\ le fichier commence par point, il est par défaut caché sous un système UNIX : 
+	faire ls -a pour le voir

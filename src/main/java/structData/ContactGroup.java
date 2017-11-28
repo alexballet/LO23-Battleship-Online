@@ -5,11 +5,12 @@
  */
 package structData;
 import java.util.HashSet;
+import java.io.Serializable;
 /**
  *
  * @author loulou
  */
-public class ContactGroup {
+public class ContactGroup implements Serializable{
     private HashSet listUsers;
     private int rights;
     private String name;

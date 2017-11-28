@@ -9,9 +9,9 @@ import guiMain.GuiMainInterface;
 import interfacesData.IDataCom;
 import java.util.List;
 import java.util.Set;
+import java.util.HashSet;
 import structData.Boat;
 import structData.ChatMessage;
-import structData.DataGame;
 import structData.Game;
 import structData.Position;
 import structData.Profile;
@@ -37,25 +37,22 @@ public class CDataCom implements IDataCom {
         interfaceMain = i;
     }
 
+    /**
+    * Returns the current Game
+    * @return the current Game
+    */    
     @Override
-    public void getIPTableAdresses(Boolean withGame, Set iPs, DataGame dataGame) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Game getCreatedGame() {
+        Game g = controller.getLocalGame();
+        return g;
     }
 
     @Override
-    public List<DataGame> getCreatedGames() {
+    public void addGame(List<Game> createdGames) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void addGame(List<DataGame> createdGames) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void addUser(Set<User> users) {
-        
-    }
 
     @Override
     public void setGameJoinResponse(Boolean ok, User player1, User player2) {
@@ -67,25 +64,38 @@ public class CDataCom implements IDataCom {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+    * After an user has connected, this user will be added to the list of user
+    * @param u : The new user
+    */
     @Override
-    public void addUserToUserList(User user) {
-        controller.addUserToList(user);
-        interfaceMain.addUser(user);
+    public void addUserToUserList(User u) {
+        controller.addUserToList(u);
+        interfaceMain.addUser(u);
     }
 
+    /**
+     * Sends the profile of a distant user to the local user 
+     * @param profile : the profile of distant user
+     */
     @Override
     public void sendStatistics(Profile profile) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        interfaceMain.sendStatistics(profile);
     }
 
     @Override
-    public Boolean notifToJoinGame(User sender, Game game) {
+    public Boolean notifToJoinGame(User sender, Game g) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+    * Adds the game given as a parameter to the list of games.
+    * @param g : The new game
+    */
     @Override
-    public void addNewGameList(Game game) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addNewGameList(Game g) {
+        controller.addGameToList(g);
+        interfaceMain.addGame(g);
     }
 
     @Override
@@ -104,23 +114,35 @@ public class CDataCom implements IDataCom {
     }
 
     @Override
-    public void coordinate(Position position, Shot shot, Boat boat) {
+    public void coordinate(Position p, Shot s, Boat b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void coordinates(Shot shot, Boat boat) {
+    public void coordinates(Shot s, Boat b) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    /**
+     * Returns the local user's profile
+     * @return the local user's profile
+     */
     @Override
     public Profile getUserProfile() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Profile localProfile = controller.getLocalProfile();
+        return localProfile;
     }
-
+    
+    /**
+     * Takes a game given as a parameter and updates his status
+     * @param g : the game which status has been modified
+     */
     @Override
-    public void changeStatusGame(Game game) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void changeStatusGame(Game g) {
+        Game localGame  = controller.getLocalGame();
+        controller.removeGameFromList(localGame);
+        controller.updateGameStatus(g);
+        interfaceMain.transmitNewStatus(g);
     }
     
 }

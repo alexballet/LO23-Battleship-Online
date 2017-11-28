@@ -5,10 +5,11 @@
  */
 package structData;
 
+import java.io.Serializable;
 /**
  * Position is a class of a position in a table.
  */
-public class Position {
+public class Position implements Serializable{
     protected Byte x;
     protected Byte y;
     protected Boolean touched;
@@ -32,6 +33,17 @@ public class Position {
         x = newX;
         y = newY;
         touched = newTouched;
+    }
+    
+    /**
+     * Position : constructor with a Position
+     */
+    public Position(Position p){
+ 
+        x = p.x;
+        y = p.y;
+        touched = p.touched;
+
     }
     
     /**
