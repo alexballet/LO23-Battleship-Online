@@ -13,7 +13,6 @@ import java.util.Random;
 
 /**
  * Created by xzirva on 17/10/17.
- * TODO: To be completed with the methods' implementation
  */
 
 public class NetworkModuleInterface implements COMInterface {

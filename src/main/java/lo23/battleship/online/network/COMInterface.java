@@ -61,7 +61,7 @@ public interface COMInterface {
      * allow an user to join a game
      * @param isOk access to <code>game</code> true=access granted false= access denied
 
-     * @param user who created the game and send the response to the join request
+     * @param user who asked to join the game
      * @param g Game <code>user</code> joined if isOk
      * @return true= message sent, false= message not sent
      */

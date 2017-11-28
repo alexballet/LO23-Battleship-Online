@@ -30,7 +30,6 @@ public class NetworkController {
 
     private NetworkModuleInterface networkInterface;
     private static NetworkController instance;
-    // TODO: uncomment when User class is defined
     private HashMap<User, InetAddress> networkState;
     IDataCom dataInterface;
     private NetworkServer networkServer;
