@@ -1,6 +1,8 @@
 package guiMain.controller;
 
 import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashSet;
@@ -95,7 +97,7 @@ public class SignupController {
 		String username = usernameTextField.getText();
 		
 		/* Long ??? */
-		HashSet<String> ips = new HashSet<>();
+		HashSet<InetAddress> ips = new HashSet<>();
 		
 		
 		String password = passwordTextField.getText();
@@ -122,7 +124,12 @@ public class SignupController {
 		if (ipsStrings != null){
 			for (String ip : ipsStrings) {
 				System.out.println(" Ip " + ip);
-				ips.add(ip);
+				try {
+					ips.add(InetAddress.getByName(ip));
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		
