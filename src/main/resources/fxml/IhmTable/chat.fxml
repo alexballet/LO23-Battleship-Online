@@ -6,30 +6,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<!--<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="282.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controllers.ChatController">
-   <children>
-      <SplitPane dividerPositions="0.8" layoutY="1.0" orientation="VERTICAL" prefHeight="360.0" prefWidth="280.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="304.0" prefWidth="669.0" />
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="124.0" prefWidth="278.0">
-               <children>
-                  <TextArea layoutX="-2.0" layoutY="-3.0" prefHeight="68.0" prefWidth="278.0" />
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
-   </children>
-</AnchorPane>-->
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controllers.ChatController">
    <children>
-      <Button layoutX="166.0" layoutY="214.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="84.0" text="Envoyer" />
-      <TextField layoutY="214.0" prefHeight="35.0" prefWidth="165.0" promptText="Votre message...">
+      <Button layoutX="166.0" layoutY="214.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="84.0" text="Envoyer" onAction="#sendMyMessage"/>
+      <TextField fx:id="field" layoutY="214.0" prefHeight="35.0" prefWidth="165.0" promptText="Votre message...">
          <font>
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextArea editable="false" prefHeight="214.0" prefWidth="250.0" promptText="Conversation...">
+      <TextArea fx:id="conversation" prefHeight="214.0" prefWidth="250.0" promptText="Conversation...">
          <font>
             <Font size="14.0" />
          </font>
