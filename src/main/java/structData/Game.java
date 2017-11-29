@@ -267,7 +267,7 @@ public class Game implements Serializable{
      * Add a message to the list of message
      * @param msg the message to add
      */
-    public void addMessage(MessageType msg){
+    public void addMessage(ChatMessage msg){
         listMessages.add(msg);
     }
  

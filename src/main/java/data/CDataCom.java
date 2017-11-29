@@ -139,12 +139,31 @@ public class CDataCom implements IDataCom {
 
     @Override
     public void receiveMessage(ChatMessage message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.getLocalGame().addMessage(message);
+        interfaceTable.addChatMessage(message);
     }
 
     @Override
     public void receiveReady() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                Boolean myTurn;
+        Boolean p1Start = controller.getLocalGame().getPlayer1Start();
+        Player localPlayer = controller.getLocalPlayer();
+        Player p1 = controller.getLocalGame().getPlayer1();
+        
+        if ( p1Start == true && p1 == localPlayer ){
+            myTurn = true;
+        }
+        else if ( p1Start == true && p1 != localPlayer ){
+            myTurn = false;
+        }
+        else if ( p1Start == false && p1 != localPlayer ){
+            myTurn = true;
+        }
+        else /*if ( p1Start == false && p1 == localPlayer )*/{
+            myTurn = false;
+        }
+        
+        interfaceTable.opponentReady(myTurn);
     }
 
     @Override
