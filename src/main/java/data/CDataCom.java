@@ -156,7 +156,7 @@ public class CDataCom implements IDataCom {
 
     @Override
     public void coordinates(Shot s, Boat b) {
-            interfaceTable.displayMyShotResult(s, b);
+        interfaceTable.displayMyShotResult(s, b);
     }
     
     /**

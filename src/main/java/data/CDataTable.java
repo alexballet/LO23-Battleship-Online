@@ -58,7 +58,8 @@ public class CDataTable implements IDataTable {
 
     @Override
     public void coordinateShips(List<Boat> listBoat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.getLocalPlayer().setlistBoats(listBoat);
+        interfaceCom.notifyReady(controller.getLocalUser());
     }
     
 }

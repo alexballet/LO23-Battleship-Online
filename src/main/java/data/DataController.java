@@ -240,10 +240,9 @@ public class DataController {
         int i, j;
         boolean boatSunk = true;
         Boat b = null;
-        for (i=1;i<=localPlayer.getlistBoats().size();i++) { // each boats
-            for (j=1;j<localPlayer.getlistBoats().get(i).getListcases().size();j++) { // each positions of the boat
-                if (localPlayer.getlistBoats().get(i).getListcases().get(j).getX() == s.getX() &&
-                        localPlayer.getlistBoats().get(i).getListcases().get(j).getY() == s.getY()) {
+        for (i=0;i<localPlayer.getlistBoats().size();i++) { // each boats
+            for (j=0;j<localPlayer.getlistBoats().get(i).getListcases().size();j++) { // each positions of the boat
+                if (localPlayer.getlistBoats().get(i).verifyPosition(s) == true) {
                     localPlayer.getlistBoats().get(i).getListcases().get(j).setTouched(true);
                     s.setTouched(true);
                     b = localPlayer.getlistBoats().get(i);
@@ -252,6 +251,7 @@ public class DataController {
                     boatSunk = false;
             }
         }
+        // if a boat has been sunk return this boat
         if (boatSunk == true)
             return b;
         else
