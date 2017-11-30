@@ -180,6 +180,10 @@ public class CDataCom implements IDataCom {
         return controller.getLocalUser();
     }
     
+    public void setLocalGame(Game g){
+        controller.setLocalGame(g);
+    }
+    
     public void removeUser(User u){
         controller.removeUserFromList(u);
         interfaceMain.removeUser(u);
