@@ -33,20 +33,6 @@ public class NetworkModuleInterface implements COMInterface {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * NOTE: this method is only use in test environment
-     *
-     * @param host
-     * @param port
-     * @return true= message sent, false= message not sent
-     */
-    public void sendRandomMessage(String host, int port, User u) {
-        System.out.println("TEST");
-        System.out.println("host: " + host + "/" + port);
-        //InetAddress address = InetAddress.getByAddress(host)
-        //controller.sendMessage(newRandomMessage(u), host);
-    }
-
     public void getProfile(User userRequested) {
 
         GetProfileRequestMessage getProfileRequestMessage = new GetProfileRequestMessage(dataInterface.getUserProfile());
@@ -55,6 +41,7 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     public boolean notifyJoinGameResponse(Boolean isOk, User user, Game game) {
+
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
@@ -74,10 +61,9 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     public boolean notifyNewGame(Game g) {
-        User user = dataInterface.getLocalUser();
         List<InetAddress> ipAddresses = controller.getIPTable();
 
-        CreatedGameNotificationMessage createdGameNotification = new CreatedGameNotificationMessage(user, g);
+        CreatedGameNotificationMessage createdGameNotification = new CreatedGameNotificationMessage(g);
 
         for (InetAddress ipAddress : ipAddresses) {
 
@@ -89,7 +75,6 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     public boolean joinGame(User user, Game g) {
-
         InetAddress destinationAddress = controller.getAddressForUser(g.getPlayer1().getProfile());
 
         JoinGameRequestMessage joinGameRequest = new JoinGameRequestMessage(user, g);

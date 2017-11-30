@@ -13,12 +13,10 @@ import java.net.InetAddress;
  */
 
 public class CreatedGameNotificationMessage extends Message{
-    User user;
     Game game;
 
-    public CreatedGameNotificationMessage(User sender, Game gameCreated) {
+    public CreatedGameNotificationMessage(Game gameCreated) {
         this.game = gameCreated;
-        this.user = sender;
         this.type = "CreatedGameNotification";}
 
     public String getType() {
@@ -26,7 +24,7 @@ public class CreatedGameNotificationMessage extends Message{
     }
 
     public void process(IDataCom IData){
-        System.out.println("Game received" + game.getName() + " from " + user.getLogin());
+        System.out.println("Game received" + game.getName() + " from " + game.getPlayer1().getProfile().getLogin());
         IData.addNewGameList(game);
     }
 

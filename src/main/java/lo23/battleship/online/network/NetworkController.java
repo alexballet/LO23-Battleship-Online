@@ -152,7 +152,7 @@ public class NetworkController {
         for (User u : networkState.keySet()) {
             if(user.getIdUser().equals(u.getIdUser())) {
                 networkState.remove(u);
-                //IData.removeUser(u);
+                //dataInterface.removeUser(u);
                 return;
             }
         }

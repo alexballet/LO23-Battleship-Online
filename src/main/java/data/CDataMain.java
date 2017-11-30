@@ -82,7 +82,7 @@ public class CDataMain implements IDataMain {
     @Override
     public void notifGameChosen(Game g) {
         User u = controller.getLocalUser();
-        interfaceCom.joinGame(u, g);    
+        interfaceCom.joinGame(u, g);
     }
 
     @Override
