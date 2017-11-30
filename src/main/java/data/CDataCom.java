@@ -108,10 +108,11 @@ public class CDataCom implements IDataCom {
             if (ga.getIdGame().equals(g.getIdGame())) {
                 if (ga.getStatus() == StatusGame.WAITINGPLAYER){
                     isOk = true;
-                    g.setStatus(StatusGame.BOATPHASE);
+                    ga.setStatus(StatusGame.BOATPHASE);
                     Player p = new Player(sender);
-                    g.setPlayer2(p);
-                    interfaceCom.changeStatusGame(g);
+                    ga.setPlayer2(p);
+                    interfaceCom.changeStatusGame(ga);
+                    g = ga;
                 }else{
                     isOk = false;           
                 }

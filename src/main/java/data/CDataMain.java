@@ -92,13 +92,14 @@ public class CDataMain implements IDataMain {
 
     @Override
     public Boolean connection() throws UnknownHostException {
-        User u = new User("Xzirva", "Xzirva");
+        Boolean result = false;
         HashSet<InetAddress> IPs = new HashSet<>();
-        //IPs.add(InetAddress.getByName("192.168.1.37"));
-        u.setIPs(IPs);
         controller.reloadSavedProfile();
-        interfaceCom.searchForPlayers(); //TODO : choisir entre HASHSET et ARRAYLIST pour le stockage des IP
-        return true;
+        if(controller.getLocalProfile() != null){
+            result = true;
+        }
+        interfaceCom.searchForPlayers();
+        return result;
     }
 
     /**
