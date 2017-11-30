@@ -75,7 +75,7 @@ public class NetworkController {
 
         for (User u : networkState.keySet()) {
 
-            if (u.getIdUser() == user.getIdUser()) {
+            if (u.getIdUser().equals(user.getIdUser())) {
 
                 return networkState.get(u);
             }
