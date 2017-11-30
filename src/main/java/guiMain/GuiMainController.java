@@ -58,7 +58,6 @@ public class GuiMainController implements GuiMainInterface {
 	
 	@Override
 	public void removeUser(final User user) {
-
 		Runnable command = new Runnable() {
 			@Override
 			public void run() {

@@ -174,6 +174,6 @@ public class CDataCom implements IDataCom {
     
     public void removeUser(User u){
         controller.removeUserFromList(u);
-        // interfaceMain.removeUser(u);
+        interfaceMain.removeUser(u);
     }
 }
