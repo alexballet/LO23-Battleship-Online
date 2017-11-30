@@ -144,6 +144,7 @@ phase can be displayed
      */
     public void removeUser(User u);
 
+    public void setLocalGame(Game g);
 }
 
 
