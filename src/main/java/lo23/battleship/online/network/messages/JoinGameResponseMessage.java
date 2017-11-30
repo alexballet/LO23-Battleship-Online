@@ -2,6 +2,7 @@ package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
 import structData.Game;
+import structData.Profile;
 import structData.User;
 
 import java.net.InetAddress;
@@ -13,26 +14,26 @@ import java.net.InetAddress;
 
 public class JoinGameResponseMessage extends Message{
 
-    User sender;
     Game game;
+    Profile sender;
+    Boolean isOk;
 
-    public JoinGameResponseMessage(User senderGame, Game gameSend){
-        this.sender = senderGame;
-        this.game = gameSend;
-        this.type = "JoinGameRequest";}
+    public JoinGameResponseMessage(Boolean isOk, Profile sender, Game game){
+        this.game = game;
+        this.isOk = isOk;
+        this.sender = sender;
+        this.type = "JoinGameResponseMessage";
+    }
 
     public String getType() {
         return type;
     }
 
-    public void process(IDataCom IData, InetAddress senderAddress){
+    public void process(IDataCom IData, InetAddress senderAddress) {
         System.out.println("Response received for game " + game.getName() + " from " + senderAddress.toString());
-        IData.notifToJoinGame(sender, game);
+
+        if (isOk) {
+            IData.setLocalGame(g);
+        }
     }
-
-
-
 }
-
-
-
