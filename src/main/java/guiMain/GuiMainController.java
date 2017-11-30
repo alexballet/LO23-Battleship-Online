@@ -71,8 +71,15 @@ public class GuiMainController implements GuiMainInterface {
 
 	@Override
 	public void addGame(Game createdGame) {
-		// TODO Auto-generated method stub
-		menuController.addGame(createdGame);
+		if (createdGame != null) {
+			Runnable command = new Runnable() {
+				@Override
+				public void run() {
+					menuController.addGame(createdGame);
+				}
+			};
+			Platform.runLater(command);
+		}
 	}
 
 	@Override

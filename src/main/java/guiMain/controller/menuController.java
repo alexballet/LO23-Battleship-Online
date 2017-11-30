@@ -105,7 +105,7 @@ public class menuController implements Initializable{
 	 */
 	@FXML
 	private void option(){
-		// gamesView.getItems().add(new Game(true, "Game test 1", false, 100, true, true));
+		mainController.openConfigWindow();
 	}
 
 	@FXML
