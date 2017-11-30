@@ -75,7 +75,7 @@ public interface IDataCom {
      * @return 1 if the parameter game is an avaiable game and add the player 
      * to this game, 0 if not
      */
-    public void notifToJoinGame(User sender, Game g);
+    public void notifToJoinGame(Profile sender, Game g);
 
     /**
      * Adds the game given as a parameter to the list of games.

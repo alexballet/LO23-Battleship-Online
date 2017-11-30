@@ -123,7 +123,7 @@ public class Boat implements Serializable{
      * @param pos : position to modify
      */
     public void setTouchedposition (Position pos){
-        
+
     }
     
 }
