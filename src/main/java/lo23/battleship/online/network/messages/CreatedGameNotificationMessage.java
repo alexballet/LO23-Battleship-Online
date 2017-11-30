@@ -23,12 +23,11 @@ public class CreatedGameNotificationMessage extends Message{
         return type;
     }
 
-    public void process(IDataCom IData){
+    public void process(IDataCom IData, InetAddress senderAddress){
         System.out.println("Game received" + game.getName() + " from " + game.getPlayer1().getProfile().getLogin());
         IData.addNewGameList(game);
     }
 
-    public void process(IDataCom IData, InetAddress senderAddress){}
 
 }
 

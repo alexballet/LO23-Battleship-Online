@@ -30,8 +30,6 @@ public class DisconnectionMessage extends Message{
         return type;
     }
 
-    public void process(IDataCom IData){}
-
     public void process(IDataCom IData, InetAddress senderAddress){
         System.out.println("User: " + user + " has disconnected");
         NetworkController controller = NetworkController.getInstance();

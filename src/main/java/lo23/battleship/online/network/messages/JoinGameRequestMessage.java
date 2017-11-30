@@ -24,9 +24,6 @@ public class JoinGameRequestMessage extends Message{
         return type;
     }
 
-    public void process(IDataCom IData){
-        }
-
     public void process(IDataCom IData, InetAddress senderAddress){
         IData.notifToJoinGame(sender, game);
     }

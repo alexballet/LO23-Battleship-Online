@@ -14,7 +14,6 @@ public abstract class Message implements Serializable {
 
     String type;
     public abstract String getType();
-    public abstract void process(IDataCom IData);
     public abstract void process(IDataCom IData, InetAddress senderAddress);
 }
 

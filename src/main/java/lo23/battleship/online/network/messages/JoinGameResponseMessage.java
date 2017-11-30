@@ -25,10 +25,8 @@ public class JoinGameResponseMessage extends Message{
         return type;
     }
 
-    public void process(IDataCom IData){
-        }
-
     public void process(IDataCom IData, InetAddress senderAddress){
+        System.out.println("Response received for game " + game.getName() + " from " + senderAddress.toString());
         IData.notifToJoinGame(sender, game);
     }
 
