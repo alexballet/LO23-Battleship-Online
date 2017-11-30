@@ -51,7 +51,7 @@ public class Player implements Serializable{
      * Accessors for listBoats
      * @return the list of boats of the player
      */
-    public List<Boat> getlistBoats(){
+    public List<Boat> getListBoats(){
         return listBoats;
     }
     
@@ -59,7 +59,7 @@ public class Player implements Serializable{
      * Accessors for listShots
      * @return the list of shots of the player
      */
-    public HashSet<Shot> getlistShots(){
+    public HashSet<Shot> getListShots(){
         return listShots;
     }
     
@@ -75,7 +75,7 @@ public class Player implements Serializable{
      * Mutator for listBoats
      * @param listBoatsData : the new value of the list of boats of the player
      */
-    public void setlistBoats(List<Boat> listBoatsdata){
+    public void setListBoats(List<Boat> listBoatsdata){
         this.listBoats = listBoatsdata;
     }
     
@@ -83,7 +83,7 @@ public class Player implements Serializable{
      * Mutator for listShots
      * @param listShotsData : the new value of the list of shots of the player
      */
-    public void setlistShots(HashSet<Shot> listShotsdata){
+    public void setListShots(HashSet<Shot> listShotsdata){
         this.listShots = listShotsdata;
     }
     

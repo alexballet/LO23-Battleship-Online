@@ -320,10 +320,18 @@ public class Game implements Serializable{
     public Boolean getPlayer1Start(){
         return this.player1Start;
     }
+    /**
+     * Mutator for player 1
+     * @param p1 : the new player 1
+     */
      public void setPlayer1(Player p1){
         player1 = p1;
     }
-    
+     
+    /**
+     * Mutator for player 2
+     * @param p2 : the new player 2
+     */    
     public void setPlayer2(Player p2){
         player2 = p2;
     }

@@ -62,7 +62,7 @@ public class Boat implements Serializable{
      * 
      * @return the list of positions of the current boat
      */
-    public List<Position> getListcases(){
+    public List<Position> getListCases(){
         return listCases;
     }
     
@@ -87,7 +87,7 @@ public class Boat implements Serializable{
      * 
      * @param listCasesdata : the new value of the list of the positions of the boat
      */
-    public void setListcases(List<Position> listCasesdata){
+    public void setListCases(List<Position> listCasesdata){
         this.listCases = listCasesdata;
     }
     
@@ -143,7 +143,7 @@ public class Boat implements Serializable{
      * if the position belongs to the boat, set this positon touched
      * @param pos : the position to be verified
      */
-    public void setTouchedposition (Position pos){
+    public void setTouchedPosition (Position pos){
         if (this.verifyPosition(pos) == true){
             pos.touched = true;
         }
@@ -154,7 +154,7 @@ public class Boat implements Serializable{
      * verify is the boat has been sunk
      * @return the new status of the current boat
      */
-    public Boolean verifyBoatstatus(){
+    public Boolean verifyBoatStatus(){
         ListIterator<Position> it = this.listCases.listIterator();
         
         this.status = true;
