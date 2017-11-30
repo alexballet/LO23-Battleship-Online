@@ -13,6 +13,12 @@ public interface GuiMainInterface {
 	public void addUser(User user);
 	
 	/**
+	  * Remove the user passed as a parameter to the list of users.
+	  * @param user : user to remove to the list.
+	  */
+	public void removeUser(User user);
+	
+	/**
 	 * Adds the game passed as a parameter in the list of games displayed.
 	 * @param createdGame : game to be added to the list of games.
 	 */

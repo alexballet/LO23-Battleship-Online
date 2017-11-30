@@ -118,11 +118,17 @@ public class menuController implements Initializable{
 	/** 
 	 * Adds the user passed as a parameter to the list of users.
 	 * @param user : user to add to the list.
-	 * 
-	 *  A décommenter pour l'intégration
 	 */
 	public void addUser(User user){
 		playersView.getItems().add(user);
+	}
+	
+	/** 
+	 * Remove the user passed as a parameter to the list of users.
+	 * @param user : user to remove to the list.
+	 */
+	public void removeUser(User user){
+		playersView.getItems().remove(user);
 	}
 	
 	

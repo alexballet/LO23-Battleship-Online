@@ -55,6 +55,20 @@ public class GuiMainController implements GuiMainInterface {
 		};
 		Platform.runLater(command);
 	}
+	
+	@Override
+	public void removeUser(final User user) {
+
+		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("GUIMain");
+				menuController.removeUser(user);
+				System.out.println("After GUIMain");
+			}
+		};
+		Platform.runLater(command);
+	}
 
 	@Override
 	public void addGame(Game createdGame) {
