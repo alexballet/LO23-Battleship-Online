@@ -51,6 +51,7 @@ public class DataController {
         interfaceDataTable = new CDataTable(this);
         
         listUsers = new ArrayList<User>();
+        listGames = new ArrayList<Game>();
         localDataUser = new DataUser(localUser);
         localProfile = new Profile(localDataUser);
     }
