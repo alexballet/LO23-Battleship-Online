@@ -87,7 +87,7 @@ public class CDataMain implements IDataMain {
 
     @Override
     public void askDisconnection() {
-        //interfaceCom.askDisconnection();
+        interfaceCom.askDisconnection();
     }
 
     @Override
