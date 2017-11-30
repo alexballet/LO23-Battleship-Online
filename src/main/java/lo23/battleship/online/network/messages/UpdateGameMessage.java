@@ -22,10 +22,10 @@ public class UpdateGameMessage extends Message{
         return type;
     }
 
-    public void process(IDataCom IData){
-        System.out.println("game: "+ gameUpdate);;
+    public void process(IDataCom IData, InetAddress senderAddress) {
+        System.out.println("game: "+ gameUpdate);
         IData.changeStatusGame(gameUpdate);
        }
 
-    public void process(IDataCom IData, InetAddress senderAddress){}
+    {}
 }

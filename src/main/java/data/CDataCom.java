@@ -106,7 +106,9 @@ public class CDataCom implements IDataCom {
         Boolean isOk = false;
         for (Game ga: controller.getListGames()) {
             if (ga.getIdGame().equals(g.getIdGame())) {
-                if (ga.getStatus() == StatusGame.WAITINGPLAYER){
+                System.out.println(ga.getStatus());
+                if (ga.getStatus().equals(StatusGame.WAITINGPLAYER)){
+                    System.out.println("Waiting for player");
                     isOk = true;
                     ga.setStatus(StatusGame.BOATPHASE);
                     Player p = new Player(sender);
@@ -118,6 +120,7 @@ public class CDataCom implements IDataCom {
                 }
             }
         }
+        System.out.println("CDataCom isok " + isOk);
         interfaceCom.notifyJoinGameResponse(isOk, sender, g);
     }
 

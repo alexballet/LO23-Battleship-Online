@@ -40,7 +40,7 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     public boolean notifyJoinGameResponse(Boolean isOk, Profile user, Game game) {
-
+        System.out.println("NMI isok " + isOk);
         JoinGameResponseMessage joinGameResponseMessage = new JoinGameResponseMessage(isOk, dataInterface.getUserProfile(), game);
 
         controller.sendMessage(joinGameResponseMessage, controller.getAddressForUser(user));
