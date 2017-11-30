@@ -63,6 +63,7 @@ public class DataController {
     
     public void setInterfaceCom(COMInterface i){
         interfaceCom = i;
+        interfaceDataCom.setInterfaceCom(i);
         interfaceDataMain.setInterfaceCom(i);
     }
     

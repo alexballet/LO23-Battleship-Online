@@ -36,6 +36,10 @@ public class CDataCom implements IDataCom {
         controller = dc;
     }
     
+    public void setInterfaceCom(COMInterface i){
+        interfaceCom = i;
+    }
+    
     public void setInterfaceMain(GuiMainInterface i){
         interfaceMain = i;
     }
@@ -104,6 +108,7 @@ public class CDataCom implements IDataCom {
             if (ga.getIdGame() == g.getIdGame()) {
                 if (ga.getStatus() == StatusGame.WAITINGPLAYER){
                     isOk = true;
+                    g.setStatus(StatusGame.BOATPHASE);
                 }else{
                     isOk = false;           
                 }
