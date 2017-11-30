@@ -118,11 +118,22 @@ public class menuController implements Initializable{
 	/** 
 	 * Adds the user passed as a parameter to the list of users.
 	 * @param user : user to add to the list.
-	 * 
-	 *  A décommenter pour l'intégration
 	 */
 	public void addUser(User user){
 		playersView.getItems().add(user);
+	}
+	
+	/** 
+	 * Remove the user passed as a parameter to the list of users.
+	 * @param user : user to remove to the list.
+	 */
+	public void removeUser(User user){
+		playersView.getItems().remove(user);
+	}
+	
+	
+	public void addGame(Game game){
+		gamesView.getItems().add(game);
 	}
 	
 
@@ -133,11 +144,7 @@ public class menuController implements Initializable{
          */
         @FXML
         private void openCreateGameWindow(ActionEvent event) throws IOException {
-            Parent layout = FXMLLoader.load(getClass().getResource("/fxml/Ihm-main/createGame.fxml"));
-            Scene scene = new Scene(layout);
-            Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            mainController.openCreateGameWindow();
         }
 
     @Override

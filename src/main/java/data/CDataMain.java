@@ -108,6 +108,7 @@ public class CDataMain implements IDataMain {
     public Game newGame(Boolean newClassicType, String newName, 
             Boolean newHumanOpponent, int newTimePerShot, 
             Boolean newSpectator, Boolean newSpectatorChat) {
+    		
     		Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newSpectator, newSpectatorChat, controller.getLocalProfile());
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);

@@ -172,4 +172,8 @@ public class CDataCom implements IDataCom {
         return controller.getLocalUser();
     }
     
+    public void removeUser(User u){
+        controller.removeUserFromList(u);
+        // interfaceMain.removeUser(u);
+    }
 }

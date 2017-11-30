@@ -126,4 +126,8 @@ public class CreateGameController implements Initializable{
     void returnToMenu(ActionEvent event) {
         mainController.openMenuWindow();
     }
+    
+	public void setMainController (GuiMainController c) {
+		mainController = c;
+	}
 }
