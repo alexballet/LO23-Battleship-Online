@@ -105,7 +105,7 @@ public class CDataCom implements IDataCom {
     public void notifToJoinGame(Profile sender, Game g) {
         Boolean isOk = false;
         for (Game ga: controller.getListGames()) {
-            if (ga.getIdGame() == g.getIdGame()) {
+            if (ga.getIdGame().equals(g.getIdGame())) {
                 if (ga.getStatus() == StatusGame.WAITINGPLAYER){
                     isOk = true;
                     g.setStatus(StatusGame.BOATPHASE);
