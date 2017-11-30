@@ -102,13 +102,16 @@ public class CDataCom implements IDataCom {
     * to this game, 0 if not
     */
     @Override
-    public void notifToJoinGame(User sender, Game g) {
+    public void notifToJoinGame(Profile sender, Game g) {
         Boolean isOk = false;
         for (Game ga: controller.getListGames()) {
             if (ga.getIdGame() == g.getIdGame()) {
                 if (ga.getStatus() == StatusGame.WAITINGPLAYER){
                     isOk = true;
                     g.setStatus(StatusGame.BOATPHASE);
+                    Player p = new Player(sender);
+                    g.setPlayer2(p);
+                    interfaceCom.changeStatusGame(g);
                 }else{
                     isOk = false;           
                 }
