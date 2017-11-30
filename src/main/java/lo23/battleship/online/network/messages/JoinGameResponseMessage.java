@@ -33,7 +33,7 @@ public class JoinGameResponseMessage extends Message{
         System.out.println("Response received for game " + game.getName() + " from " + senderAddress.toString());
 
         if (isOk) {
-            IData.setLocalGame(g);
+            IData.setLocalGame(game);
         }
     }
 }
