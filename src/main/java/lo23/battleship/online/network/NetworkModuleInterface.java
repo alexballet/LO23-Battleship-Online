@@ -13,7 +13,6 @@ import java.util.Random;
 
 /**
  * Created by xzirva on 17/10/17.
- * TODO: To be completed with the methods' implementation
  */
 
 public class NetworkModuleInterface implements COMInterface {
@@ -40,9 +39,13 @@ public class NetworkModuleInterface implements COMInterface {
         controller.sendMessage(getProfileRequestMessage, controller.getAddressForUser(userRequested));
     }
 
-    public boolean notifyJoinGameResponse(Boolean isOk, User user, Game game) {
+    public boolean notifyJoinGameResponse(Boolean isOk, Profile user, Game game) {
+        System.out.println("NMI isok " + isOk);
+        JoinGameResponseMessage joinGameResponseMessage = new JoinGameResponseMessage(isOk, dataInterface.getUserProfile(), game);
 
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+        controller.sendMessage(joinGameResponseMessage, controller.getAddressForUser(user));
+
+        return true;
     }
 
     public boolean changeStatusGame(Game game) {
@@ -74,10 +77,11 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    public boolean joinGame(User user, Game g) {
+    public boolean joinGame(Game g) {
         InetAddress destinationAddress = controller.getAddressForUser(g.getPlayer1().getProfile());
 
-        JoinGameRequestMessage joinGameRequest = new JoinGameRequestMessage(user, g);
+        Profile profile = dataInterface.getUserProfile();
+        JoinGameRequestMessage joinGameRequest = new JoinGameRequestMessage(profile, g);
 
         controller.sendMessage(joinGameRequest, destinationAddress);
 

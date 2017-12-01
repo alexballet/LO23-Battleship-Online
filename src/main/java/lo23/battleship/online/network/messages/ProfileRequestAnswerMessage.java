@@ -6,15 +6,15 @@ import structData.User;
 
 import java.net.InetAddress;
 
-public class ProfileRequestAnswer extends Message {
+public class ProfileRequestAnswerMessage extends Message {
 
     User user;
     Profile profile;
 
-    public ProfileRequestAnswer(Profile profile) {
+    public ProfileRequestAnswerMessage(Profile profile) {
 
         this.profile = profile;
-        this.type = "ProfileRequestAnswer";}
+        this.type = "ProfileRequestAnswerMessage";}
 
     public String getType() {
         return type;

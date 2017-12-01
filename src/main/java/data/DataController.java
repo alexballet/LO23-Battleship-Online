@@ -63,6 +63,7 @@ public class DataController {
     
     public void setInterfaceCom(COMInterface i){
         interfaceCom = i;
+        interfaceDataCom.setInterfaceCom(i);
         interfaceDataMain.setInterfaceCom(i);
     }
     
@@ -125,6 +126,13 @@ public class DataController {
     }
     
     /**
+    * Mutator local Game
+    */
+    public void setLocalGame(Game g){
+        localGame = g;
+    }
+    
+    /**
      * Add a Game to the local list
      * @param g : game to add to the local list
      */
@@ -157,9 +165,9 @@ public class DataController {
      */
     public void updateGameData(Boolean ok, Player player1, Player player2){
         if (ok == true){
-            localGame.setStatus(StatusGame.PLAYING);
+            localGame.setStatus(StatusGame.BOATPHASE);
             localGame.setPlayer1(player1);
-            localGame.setPlayer1(player1);
+            localGame.setPlayer2(player2);
         }
         else{
             localGame.setStatus(StatusGame.WAITINGPLAYER);

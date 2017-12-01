@@ -36,6 +36,10 @@ public class CDataCom implements IDataCom {
         controller = dc;
     }
     
+    public void setInterfaceCom(COMInterface i){
+        interfaceCom = i;
+    }
+    
     public void setInterfaceMain(GuiMainInterface i){
         interfaceMain = i;
     }
@@ -98,17 +102,23 @@ public class CDataCom implements IDataCom {
     * to this game, 0 if not
     */
     @Override
-    public void notifToJoinGame(User sender, Game g) {
+    public void notifToJoinGame(Profile sender, Game g) {
         Boolean isOk = false;
         for (Game ga: controller.getListGames()) {
-            if (ga.getIdGame() == g.getIdGame()) {
-                if (ga.getStatus() == StatusGame.WAITINGPLAYER){
+            if (ga.getIdGame().equals(g.getIdGame())) {
+                if (ga.getStatus().equals(StatusGame.WAITINGPLAYER)){
                     isOk = true;
+                    ga.setStatus(StatusGame.BOATPHASE);
+                    Player p = new Player(sender);
+                    ga.setPlayer2(p);
+                    interfaceCom.changeStatusGame(ga);
+                    g = ga;
                 }else{
                     isOk = false;           
                 }
             }
         }
+        System.out.println("CDataCom isok " + isOk);
         interfaceCom.notifyJoinGameResponse(isOk, sender, g);
     }
 
@@ -170,6 +180,10 @@ public class CDataCom implements IDataCom {
     }
     public User getLocalUser(){
         return controller.getLocalUser();
+    }
+    
+    public void setLocalGame(Game g){
+        controller.setLocalGame(g);
     }
     
     public void removeUser(User u){

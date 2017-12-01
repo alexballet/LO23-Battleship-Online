@@ -3,6 +3,7 @@ package lo23.battleship.online.network.messages;
 import com.sun.org.apache.xpath.internal.SourceTree;
 import structData.Game;
 import interfacesData.IDataCom;
+import structData.Profile;
 import structData.User;
 
 import java.net.InetAddress;
@@ -17,13 +18,14 @@ public class CreatedGameNotificationMessage extends Message{
 
     public CreatedGameNotificationMessage(Game gameCreated) {
         this.game = gameCreated;
-        this.type = "CreatedGameNotification";}
+        this.type = "CreatedGameNotificationMessage";}
 
     public String getType() {
         return type;
     }
 
     public void process(IDataCom IData, InetAddress senderAddress){
+
         System.out.println("Game received" + game.getName() + " from " + game.getPlayer1().getProfile().getLogin());
         IData.addNewGameList(game);
     }

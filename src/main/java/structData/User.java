@@ -8,13 +8,14 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.UUID;
 import java.io.Serializable;
+import java.net.InetAddress;
 
 public class User implements Serializable {
 
     protected UUID idUser;
     protected String login;
     protected String username;
-    protected HashSet<Long> iPs;
+    protected HashSet<InetAddress> iPs;
     
     /**
      * Constructor by default

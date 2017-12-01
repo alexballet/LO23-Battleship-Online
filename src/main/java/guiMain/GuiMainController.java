@@ -78,7 +78,7 @@ public class GuiMainController implements GuiMainInterface {
 	}
 
 	@Override
-	public void addGame(Game createdGame) {
+	public void addGame(final Game createdGame) {
 		if (createdGame != null) {
 			Runnable command = new Runnable() {
 				@Override
