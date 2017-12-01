@@ -20,7 +20,7 @@ public class Game implements Serializable{
     private int timePerShot;
     private Boolean spectator;
     private Boolean spectatorChat;
-    private HashSet listSpectators;
+    private HashSet<User> listSpectators;
     private Player player1;
     private Player player2;
     private Boolean player1Start;
@@ -44,6 +44,45 @@ public class Game implements Serializable{
         player2 = new Player(p);
         player1Start = false;
         listMessages = new ArrayList();
+    }
+    
+    /**
+     * Constructor with all parameters
+     * @param newClassicType the game type
+     * @param newName the game's name
+     * @param newHumanOpponent a boolean equal to 1 if 
+     * the game is between two players and 0 if it is against a bot
+     * @param newTimePerShot time per shot
+     * @param newSpectator a boolean equal to 1 if spectators are allowed
+     * @param newSpectatorChat  a boolean equal to 1 if chat is allowed
+     * @param p a Profile
+     * @param lS a Hashset
+     * @param p1 a Player
+     * @param p2 a Player
+     * @param p1Start a Boolean
+     * @param lMsg an ArrayList
+     */
+    public Game(Boolean newClassicType, String newName, 
+            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newSpectator, Boolean newSpectatorChat,
+            Profile p){
+        idGame = UUID.randomUUID();
+        classicType = newClassicType;
+        name = new String(newName);
+        humanOpponent = newHumanOpponent;
+        if (humanOpponent){
+            status = StatusGame.WAITINGPLAYER;
+        }else{
+            status = StatusGame.WAITINGBOT;
+        }
+        timePerShot = newTimePerShot;
+        spectator = newSpectator;
+        spectatorChat = newSpectatorChat;
+        listSpectators = new HashSet();
+            
+        player1 = new Player(p);
+        player1Start = true;
+        listMessages = new ArrayList<>();
     }
     
     /**
@@ -181,7 +220,7 @@ public class Game implements Serializable{
      * Accessor for idGame
      * @return the Game's id
      */
-    public UUID getidGame(){
+    public UUID getIdGame(){
         return this.idGame;
     }
     
@@ -275,7 +314,7 @@ public class Game implements Serializable{
      * Mutator for the list of spectator
      * @param lS a HashSet
      */
-    public void setListSpectators(HashSet lS){
+    public void setListSpectators(HashSet<User> lS){
         if (this.spectator == true) {
             this.listSpectators = lS;
         }       
@@ -319,5 +358,12 @@ public class Game implements Serializable{
      */
     public Boolean getPlayer1Start(){
         return this.player1Start;
+    }
+     public void setPlayer1(Player p1){
+        player1 = p1;
+    }
+    
+    public void setPlayer2(Player p2){
+        player2 = p2;
     }
 }

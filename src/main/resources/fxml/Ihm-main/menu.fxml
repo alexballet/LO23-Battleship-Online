@@ -20,7 +20,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.menuController">
+=======
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.menuController">
+>>>>>>> integV2
    <children>
       <GridPane prefHeight="617.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -86,7 +90,11 @@
                                     </HBox>
                                     <HBox alignment="CENTER" GridPane.rowIndex="1">
                                        <children>
+<<<<<<< HEAD
                                           <Button fx:id="createGameButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#createGame" prefHeight="44.0" prefWidth="300.0" text="Créer une nouvelle partie">
+=======
+                                          <Button fx:id="createGame" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openCreateGameWindow" prefHeight="44.0" prefWidth="300.0" text="Créer une nouvelle partie">
+>>>>>>> integV2
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
@@ -113,11 +121,12 @@
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <HBox GridPane.columnIndex="2">
+                              <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                                  <children>
-                                    <Button fx:id="optionButton" mnemonicParsing="false" onAction="#option" prefHeight="46.0" prefWidth="81.0" text="Option" />
+                                    <Button fx:id="optionButton" mnemonicParsing="false" onAction="#option" prefHeight="46.0" prefWidth="66.0" text="Option" />
+                                    <Button fx:id="disconnectionButton" mnemonicParsing="false" onAction="#disconnection" prefHeight="49.0" prefWidth="79.0" text="Déco" />
                                  </children>
-                              </HBox>
+                              </VBox>
                            </children>
                         </GridPane>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
@@ -127,7 +136,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <ListView prefHeight="340.0" prefWidth="582.0">
+                              <ListView fx:id="gamesView" prefHeight="340.0" prefWidth="582.0">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>

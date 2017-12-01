@@ -1,8 +1,8 @@
 package lo23.battleship.online.network;
 
 import com.sun.security.ntlm.Server;
+import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkSender;
-import lo23.battleship.online.network.messages.CustomMessage;
 import lo23.battleship.online.network.messages.Message;
 
 import java.io.IOException;
@@ -25,6 +25,7 @@ public class NetworkListener extends Thread {
 
     private ServerSocket serverSocket = null;
     boolean isRunning ;
+    private IDataCom dataInterface;
     private ObjectInputStream reader;
     private NetworkServer server;
     private NetworkController networkController;
@@ -66,10 +67,10 @@ public class NetworkListener extends Thread {
                 debug += "\n Request Received at " + timeStamps;
                 System.err.println("\n" + debug);
 
-                Message responseToSend = request.process();
+                request.process(dataInterface, remote.getAddress());
 
-                Thread t = new Thread(new NetworkSender(client, responseToSend));
-                t.start();//Run the client request process thread
+//                Thread t = new Thread(new NetworkSender(client, responseToSend));
+//                t.start();//Run the client request process thread
                 //Waiting for server response
 //                Message responseFromServer = read();
 //                System.out.println("\t * " + name + " : Server response: " + responseFromServer);
@@ -95,7 +96,12 @@ public class NetworkListener extends Thread {
             Message message = (Message) reader.readObject();
             return message;
         } catch(ClassNotFoundException e) {
-            return new CustomMessage("UNKNOWN");
+            e.printStackTrace();
         }
+        return null;
+    }
+
+    public void setDataInterface(IDataCom IData) {
+        dataInterface = IData;
     }
 }
