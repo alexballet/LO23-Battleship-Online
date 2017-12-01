@@ -135,6 +135,7 @@ public class SignupController {
 		
 		if (!login.trim().isEmpty() && !password.trim().isEmpty() && !username.trim().isEmpty()){
 			mainController.getIdata().createAccount(login, username, ips, password, null, null, lastname, firstname, birthDate);
+			mainController.startIHM();
 		}
 		else{
 			messageLabel.setText("Des champs obligatoires ne sont pas remplis");

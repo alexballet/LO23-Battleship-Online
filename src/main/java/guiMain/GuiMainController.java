@@ -2,17 +2,24 @@ package guiMain;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+
+import javax.print.attribute.HashPrintJobAttributeSet;
 
 import guiMain.controller.CreateGameController;
 import guiMain.controller.IpConfigController;
 import guiMain.controller.LoginController;
 import guiMain.controller.SignupController;
+import guiMain.controller.WaitingRoomController;
 import guiMain.controller.connectionController;
 import guiMain.controller.menuController;
 import interfacesData.IDataMain;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -26,7 +33,7 @@ public class GuiMainController implements GuiMainInterface {
 	
 	List<User> playersList;
 	List<Game> gamesList;
-	List<String> ipsList;
+	List<String> ipsList = new ArrayList<String>();
 
 	private Stage stage;
 	private AnchorPane rootLayout;
@@ -36,6 +43,7 @@ public class GuiMainController implements GuiMainInterface {
     private IpConfigController ipConfigController;
     private LoginController loginController;
     private CreateGameController createGameController;
+    private WaitingRoomController waitingRoomController;
 	
 	public IDataMain getIdata() {
 		return idata;
@@ -203,13 +211,45 @@ public class GuiMainController implements GuiMainInterface {
             e.printStackTrace();
            }
 	}
+	
+	public void openWaitingRoomWindow(Game game){
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/fxml/Ihm-main/waitingRoom.fxml"));
+	        Parent root = (Parent) loader.load();
+	        
+	        waitingRoomController = loader.getController();
+	        waitingRoomController.initData(game);
+	        
+	        Stage stage = new Stage();
+	        stage.initModality(Modality.APPLICATION_MODAL);
+	        stage.setTitle("Salle d'attente");
+	        stage.setScene(new Scene(root));  
+	        stage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+	} 
 
 	public List<String> getIps(){
+		Profile p = idata.getStatistics();
+		if ( p != null) {
+			ipsList = new ArrayList<>();
+			HashSet<InetAddress> ips = p.getIPs();
+			for (InetAddress ip : ips) {
+				this.ipsList.add(ip.getHostAddress());
+			}
+		}
 		return this.ipsList;
 	}
 
 	public void setIps(List<String> ips){
+		Profile p = idata.getStatistics();
+		if ( p != null) {
+			// DATA : function for update IP
+		}
 		this.ipsList = ips;
+		
 	}
 
 	public void setIdata(IDataMain idata) {

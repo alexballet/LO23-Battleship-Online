@@ -106,16 +106,7 @@ public class CreateGameController implements Initializable{
         Game game = mainController.getIdata().newGame(classicGame, name, oponent, timePerShot, spectators, chat);     
         
         // Open waiting room window 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Ihm-main/waitingRoom.fxml"));
-        Parent layout = loader.load();
-        Scene scene = new Scene(layout);
-        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        // Set game data in new window
-        WaitingRoomController controller = loader.<WaitingRoomController>getController();
-        controller.initData(game);
-        // Show window
-        window.show();
+        mainController.openWaitingRoomWindow(game);
     }
     
     /**
