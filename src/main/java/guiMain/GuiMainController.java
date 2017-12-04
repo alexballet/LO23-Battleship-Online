@@ -266,8 +266,16 @@ public class GuiMainController implements GuiMainInterface {
 		this.stage = s;
 	}
 
-	public void askJoinGame(Game game) {
-		idata.notifGameChosen(game);
+	public void askJoinGame(final Game game) {
+		Runnable command = new Runnable() {
+			
+			@Override
+			public void run() {
+				idata.notifGameChosen(game);
+				
+			}
+		};
+		Platform.runLater(command);
 	}
 	
 	
