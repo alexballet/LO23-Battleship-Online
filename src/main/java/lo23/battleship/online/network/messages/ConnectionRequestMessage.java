@@ -31,6 +31,8 @@ public class ConnectionRequestMessage extends Message {
 
     public void process(IDataCom IData, InetAddress senderAddress) {
 
+        if(IData.getLocalUser() == null) // if user's machine is connected but user is not!
+            return;
         //dataInterface.getIPTableAdresses();
         System.out.println("New message received from: " + senderAddress);
         System.out.println("Message Type: " + type);

@@ -45,15 +45,15 @@ public class DataController {
     
     
     public DataController(){
-        localUser = new User(); //test
+        //localUser = new User(); //test
         interfaceDataCom = new CDataCom(this);
         interfaceDataMain = new CDataMain(this);
         interfaceDataTable = new CDataTable(this);
         
         listUsers = new ArrayList<User>();
         listGames = new ArrayList<Game>();
-        localDataUser = new DataUser(localUser);
-        localProfile = new Profile(localDataUser);
+        //localDataUser = new DataUser(localUser);
+        //localProfile = new Profile(localDataUser);
     }
     
     public void setInterfaceMain(GuiMainInterface i){
