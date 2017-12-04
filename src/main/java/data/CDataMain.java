@@ -115,4 +115,8 @@ public class CDataMain implements IDataMain {
         
         return g;
     }
+    
+    public void removeGame(Game g){
+        interfaceCom.removeGame(g);
+    }
 }

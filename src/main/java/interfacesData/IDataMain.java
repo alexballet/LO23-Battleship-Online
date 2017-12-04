@@ -76,4 +76,10 @@ public interface IDataMain {
     Game newGame(Boolean newClassicType, String newName, 
             Boolean newHumanOpponent, int newTimePerShot, 
             Boolean newSpectator, Boolean newSpectatorChat);
+    
+    /**
+     * Remove a Game from local list
+     * @param g 
+     */
+    public void removeGame(Game g);
 }
