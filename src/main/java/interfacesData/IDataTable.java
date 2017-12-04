@@ -24,7 +24,7 @@ public interface IDataTable {
     * Add the message to the chat in the current game.
     * @param message : The main part of message that the player wants to send.
     */
-    public void textMessage(ChatMessage message);
+    public void textMessage(String message);
 
 
 
