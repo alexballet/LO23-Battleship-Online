@@ -98,7 +98,13 @@ public class GuiMainController implements GuiMainInterface {
 
 	@Override
 	public void transmitNewStatus(Game game) {
-		menuController.updateGameStatus(game);
+		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+				menuController.updateGameStatus(game);
+			}
+		};
+		Platform.runLater(command);
 	}
 
 	@Override
