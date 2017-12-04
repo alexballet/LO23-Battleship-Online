@@ -17,6 +17,7 @@ import guiMain.controller.SignupController;
 import guiMain.controller.WaitingRoomController;
 import guiMain.controller.connectionController;
 import guiMain.controller.menuController;
+import guiTable.controllers.GuiTableController;
 import interfacesData.IDataMain;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -219,6 +220,20 @@ public class GuiMainController implements GuiMainInterface {
             e.printStackTrace();
            }
 	}
+        
+        public void openPlacementPhase(Game game) {
+            try {
+		GuiTableController.getInstance().displayPlacementPhase( this.stage, false ); // use boolean to specifie classic type or not	
+
+	        stage.setOnCloseRequest((WindowEvent event1) -> {
+	            	idata.removeGame(game);
+	            	System.out.println("Exit waiting room");
+	        });
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        }
 
 	public void openWaitingRoomWindow(Game game){
 		try {
