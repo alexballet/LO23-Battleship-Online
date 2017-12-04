@@ -6,6 +6,7 @@
 package data;
 
 import guiMain.GuiMainInterface;
+import guiTable.GuiTableInterface;
 import interfacesData.IDataCom;
 import java.util.List;
 import java.util.Set;
@@ -29,6 +30,7 @@ public class CDataCom implements IDataCom {
     private DataController controller;
     
     private GuiMainInterface interfaceMain;
+    private GuiTableInterface interfaceTable;
     private COMInterface interfaceCom;
     
     public CDataCom(DataController dc){
@@ -38,6 +40,14 @@ public class CDataCom implements IDataCom {
     
     public void setInterfaceMain(GuiMainInterface i){
         interfaceMain = i;
+    }
+    
+    public void setInterfaceTable(GuiTableInterface i){
+        interfaceTable = i;
+    }
+    
+    public void setInterfaceCom(COMInterface c){
+        interfaceCom = c;
     }
 
     //@Override
@@ -129,22 +139,43 @@ public class CDataCom implements IDataCom {
 
     @Override
     public void receiveMessage(ChatMessage message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.getLocalGame().addMessage(message);
+        interfaceTable.addChatMessage(message);
     }
 
     @Override
     public void receiveReady() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                Boolean myTurn;
+        Boolean p1Start = controller.getLocalGame().getPlayer1Start();
+        Player localPlayer = controller.getLocalPlayer();
+        Player p1 = controller.getLocalGame().getPlayer1();
+        
+        if ( p1Start == true && p1 == localPlayer ){
+            myTurn = true;
+        }
+        else if ( p1Start == true && p1 != localPlayer ){
+            myTurn = false;
+        }
+        else if ( p1Start == false && p1 != localPlayer ){
+            myTurn = true;
+        }
+        else /*if ( p1Start == false && p1 == localPlayer )*/{
+            myTurn = false;
+        }
+        
+        interfaceTable.opponentReady(myTurn);
     }
 
     @Override
-    public void coordinate(Position p, Shot s, Boat b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void coordinate(Shot s) {
+        Boat b = controller.testShot(s);
+        interfaceTable.displayOpponentShot(s, b);
+        //interfaceCom.coordinates(s,b); TODO : décommenter quand la fonction sera crée chez COM
     }
 
     @Override
     public void coordinates(Shot s, Boat b) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        interfaceTable.displayMyShotResult(s, b);
     }
     
     /**

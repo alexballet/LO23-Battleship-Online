@@ -34,7 +34,6 @@ public interface IDataMain {
     
     /**
      * Create a local account
-     * @param idUser : unique ID of the user
      * @param login
      * @param username
      * @param ips : list of the IP adresses known by the user
@@ -51,7 +50,7 @@ public interface IDataMain {
      * Returns the statistics of an user
      * @return a profile
      */
-    Profile getStatistics();
+    public void getStatistics(Profile p);
     
     /**
      * Notifies the away application that an user wants to join a game

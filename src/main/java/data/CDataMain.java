@@ -72,9 +72,8 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public Profile getStatistics() {
-        Profile p = controller.getLocalProfile();
-        return p;
+    public void getStatistics(Profile p) {
+        //demander à l'interface de la com
     }
     
     /**

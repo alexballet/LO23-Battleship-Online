@@ -7,9 +7,6 @@ package structData;
 
 import java.util.Date;
 import java.awt.Image;
-import java.util.HashSet;
-import java.util.UUID;
-import java.awt.Image;
 import javax.swing.ImageIcon;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -233,7 +230,9 @@ public class Profile extends DataUser {
      * Save profile in a local file
      */
     public void saveProfile(){
-        String FILE_NAME = "profile.ser";
+        String filename = idUser.toString();
+        filename.concat(".ser");
+        String FILE_NAME = filename;
         try {
          FileOutputStream fs = new FileOutputStream(FILE_NAME);
          ObjectOutputStream os = new ObjectOutputStream(fs);
