@@ -1,6 +1,7 @@
 package guiMain;
 
 import java.awt.event.ActionEvent;
+import java.beans.EventHandler;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import structData.Game;
 import structData.Profile;
 import structData.User;
@@ -231,6 +233,12 @@ public class GuiMainController implements GuiMainInterface {
 	        stage.setTitle("Salle d'attente");
 	        stage.setScene(new Scene(root));  
 	        stage.show();
+	        
+	        stage.setOnCloseRequest((WindowEvent event1) -> {
+	            	//idata.removeGame(game);
+	            	System.out.println("Exit waiting room");
+	        });
+	        
         } catch(Exception e) {
             e.printStackTrace();
         }
