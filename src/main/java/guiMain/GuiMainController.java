@@ -235,7 +235,7 @@ public class GuiMainController implements GuiMainInterface {
 	        stage.show();
 	        
 	        stage.setOnCloseRequest((WindowEvent event1) -> {
-	            	//idata.removeGame(game);
+	            	idata.removeGame(game);
 	            	System.out.println("Exit waiting room");
 	        });
 	        
