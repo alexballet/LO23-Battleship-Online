@@ -41,5 +41,7 @@ public interface GuiMainInterface {
 	 * @param isOk : true : the request is accepted, false : the request is reject.
 	 */
 	public void setGameJoinResponse(boolean isOk);
+        
+        public void openPlacementPhase(Game game);
 	
 }

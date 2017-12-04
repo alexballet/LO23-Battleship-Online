@@ -120,6 +120,7 @@ public class CDataCom implements IDataCom {
         }
         System.out.println("CDataCom isok " + isOk);
         interfaceCom.notifyJoinGameResponse(isOk, sender, g);
+        interfaceMain.openPlacementPhase(g);
     }
 
     /**
