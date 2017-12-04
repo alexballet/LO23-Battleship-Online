@@ -152,4 +152,16 @@ public class menuController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         //
     }
+
+	public void updateGameStatus(Game game) {
+		ObservableList<Game> list =  gamesView.getItems();
+		int i = 0;
+		for (Game g : list){
+			if (game.getIdGame().equals(g.getIdGame())) {
+				gamesView.getItems().set(i, game);
+			}
+			i++;
+		}
+	}
+    
 }

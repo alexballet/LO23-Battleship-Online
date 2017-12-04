@@ -98,8 +98,7 @@ public class GuiMainController implements GuiMainInterface {
 
 	@Override
 	public void transmitNewStatus(Game game) {
-		// TODO Auto-generated method stub
-
+		menuController.updateGameStatus(game);
 	}
 
 	@Override
