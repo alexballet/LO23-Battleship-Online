@@ -30,7 +30,7 @@ import javafx.scene.shape.Rectangle;
  *
  * @author caioz
  */
-public abstract class PlacementPhaseController {
+public abstract class PlacementPhaseController extends BaseController{
        
     @FXML
     private AnchorPane anchorPane;
@@ -100,28 +100,16 @@ public abstract class PlacementPhaseController {
         rotationIsValide = false;
     }
     
-    
-     /**
-     * Allows to replace pane by another one
-     * @param paneToFill
-     * @param contentAdress
-     * @return FXMLLoader
-     * @throws Exception 
-     */
-    private FXMLLoader fillElement(AnchorPane paneToFill, String contentAdress) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(contentAdress));
-        try{
-            AnchorPane contentPane = loader.load();
-            paneToFill.getChildren().add(contentPane);
-        }
-        catch(Exception e){
-            System.err.println(e.getMessage());
-        }
-        return loader;
-    }
-    
-    
+        /**
+         * quitPlacementPhase Button shows a popUp asking the user to confirm to leave the placement phase or not. 
+         */        
+	@FXML
+	private void quitPlacementPhase(){
+            FXMLLoader loader;
+            loader = fillElement(anchorPane, "/fxml/IhmTable/popUp.fxml" );
+            PopUpController popUpController = loader.getController();
+            popUpController.init();
+	}
     
      /**
      * Actives the boat when the user clicks on it.
