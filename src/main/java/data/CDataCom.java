@@ -187,6 +187,7 @@ public class CDataCom implements IDataCom {
     
     public void setLocalGame(Game g){
         controller.setLocalGame(g);
+        interfaceMain.openPlacementPhase(g);
     }
     
     public void removeUser(User u){
