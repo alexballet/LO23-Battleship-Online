@@ -16,7 +16,7 @@ public class User implements Serializable {
     protected String login;
     protected String username;
     protected HashSet<InetAddress> iPs;
-    
+    // TODO delete this constructor
     /**
      * Constructor by default
      */

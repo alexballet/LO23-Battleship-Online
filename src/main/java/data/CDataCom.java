@@ -190,4 +190,9 @@ public class CDataCom implements IDataCom {
         controller.removeUserFromList(u);
         interfaceMain.removeUser(u);
     }
+    
+    public void removeGame(Game g){
+        controller.removeGameFromList(g);
+        interfaceMain.transmitNewStatus(g);
+    }
 }

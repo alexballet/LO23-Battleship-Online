@@ -144,7 +144,17 @@ phase can be displayed
      */
     public void removeUser(User u);
 
+    /**
+     * Set the local Game with the game given as a parameter
+     * @param g 
+     */
     public void setLocalGame(Game g);
+    
+    /**
+     * Remove a Game from local list
+     * @param g 
+     */
+    public void removeGame(Game g);
 }
 
 

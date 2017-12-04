@@ -99,6 +99,7 @@ public class DataController {
     public void setLocalUser(User u){
         localUser = u;
     }
+    
     public void setLocalDataUser (DataUser du){
         localDataUser = du;
     }
