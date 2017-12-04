@@ -155,7 +155,13 @@ public class DataController {
      * @param g : game has to be remove
      */
     public void removeGameFromList(Game g){
-        listGames.remove(g);
+    	for (Game game : listGames) {
+			if (game.getIdGame().equals(g.getIdGame())) {
+				listGames.remove(game); 
+				return;
+			}
+		}
+        
     }
     
      /**
