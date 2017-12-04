@@ -78,7 +78,8 @@ public class menuController implements Initializable{
 	
 	private void initGamesList() {
 		final menuController controller = this;
-		ObservableList<Game> playersObservable = FXCollections.observableArrayList(new ArrayList<Game>());
+		ObservableList<Game> playersObservable =
+				FXCollections.observableArrayList(mainController.getIdata().getGames());
 		gamesView.setItems(playersObservable);
 		gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>() { 
 			  

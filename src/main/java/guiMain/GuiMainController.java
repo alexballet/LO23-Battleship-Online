@@ -32,7 +32,7 @@ import structData.Profile;
 import structData.User;
 
 public class GuiMainController implements GuiMainInterface {
-	
+
 	List<User> playersList;
 	List<Game> gamesList;
 	List<String> ipsList = new ArrayList<String>();
@@ -46,7 +46,7 @@ public class GuiMainController implements GuiMainInterface {
     private LoginController loginController;
     private CreateGameController createGameController;
     private WaitingRoomController waitingRoomController;
-	
+
 	public IDataMain getIdata() {
 		return idata;
 	}
@@ -65,7 +65,7 @@ public class GuiMainController implements GuiMainInterface {
 		};
 		Platform.runLater(command);
 	}
-	
+
 	@Override
 	public void removeUser(final User user) {
 		Runnable command = new Runnable() {
@@ -116,7 +116,7 @@ public class GuiMainController implements GuiMainInterface {
 	}
 
 	public void startIHM(){
-				
+
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/login.fxml"));
 		try {
@@ -149,17 +149,17 @@ public class GuiMainController implements GuiMainInterface {
 			stage.setTitle("Battleship-Online");
 			stage.setScene(scene);
 			stage.show();
-			
+
 			System.out.println("start connection");
 			idata.connection();
 			System.out.println("Connection etablished");
-			
+
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-        
+
 	public void openCreateGameWindow(){
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/createGame.fxml"));
@@ -178,7 +178,7 @@ public class GuiMainController implements GuiMainInterface {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void openSignupWindow(){
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/signup.fxml"));
@@ -204,41 +204,41 @@ public class GuiMainController implements GuiMainInterface {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/fxml/Ihm-main/ip_config.fxml"));
 	        Parent root = (Parent) loader.load();
-	        
+
 	        ipConfigController = loader.getController();
 			ipConfigController.setMainController(this);
 			ipConfigController.init();
-	        
+
 	        Stage stage = new Stage();
 	        stage.initModality(Modality.APPLICATION_MODAL);
 	        stage.setTitle("Configurations des IPs");
-	        stage.setScene(new Scene(root));  
+	        stage.setScene(new Scene(root));
 	        stage.show();
         } catch(Exception e) {
             e.printStackTrace();
            }
 	}
-	
+
 	public void openWaitingRoomWindow(Game game){
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/fxml/Ihm-main/waitingRoom.fxml"));
 	        Parent root = (Parent) loader.load();
-	        
+
 	        waitingRoomController = loader.getController();
 	        waitingRoomController.initData(game);
-	        
+
 	        Stage stage = new Stage();
 	        stage.initModality(Modality.APPLICATION_MODAL);
 	        stage.setTitle("Salle d'attente");
-	        stage.setScene(new Scene(root));  
+	        stage.setScene(new Scene(root));
 	        stage.show();
-	        
+
 	        stage.setOnCloseRequest((WindowEvent event1) -> {
 	            	idata.removeGame(game);
 	            	System.out.println("Exit waiting room");
 	        });
-	        
+
         } catch(Exception e) {
             e.printStackTrace();
         }

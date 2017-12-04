@@ -82,4 +82,5 @@ public interface IDataMain {
      * @param g 
      */
     public void removeGame(Game g);
+    public List<Game> getGames();
 }
