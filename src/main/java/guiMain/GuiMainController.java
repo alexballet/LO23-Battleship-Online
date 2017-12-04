@@ -97,7 +97,7 @@ public class GuiMainController implements GuiMainInterface {
 	}
 
 	@Override
-	public void transmitNewStatus(Game game) {
+	public void transmitNewStatus(final Game game) {
 		Runnable command = new Runnable() {
 			@Override
 			public void run() {
