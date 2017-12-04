@@ -14,12 +14,12 @@ import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.Game;
-import structData.Position;
 import structData.Profile;
 import structData.Shot;
 import structData.StatusGame;
 import structData.User;
 import structData.Player;
+import java.util.Iterator;
 
 /**
  *
@@ -171,6 +171,25 @@ public class CDataCom implements IDataCom {
         Boat b = controller.testShot(s);
         interfaceTable.displayOpponentShot(s, b);
         //interfaceCom.coordinates(s,b); TODO : décommenter quand la fonction sera crée chez COM
+        if (b != null){
+            boolean gameOver = true;            
+            for(int i=0;i<controller.getLocalPlayer().getListBoats().size();i++) {
+                if (!controller.getLocalPlayer().getListBoats().get(i).getStatus()){
+                    gameOver = false;
+                    break;
+                }
+                i++;
+            }
+            if (gameOver){
+                //arreter la partie localPlayer a perdu
+                interfaceTable.displayDefeat();
+                //interfaceCom.notifyGameWon(); COM doit notifier à l'autre joueur qu'il a gagné
+                controller.getLocalProfile().setGamesLost(controller.getLocalProfile().getGamesLost()+1);
+                controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
+                controller.removeGameFromList(controller.getLocalGame()); // Verifier comment est géré la notification que la partie n'existe plus
+            }              
+            
+        }
     }
 
     @Override
@@ -202,5 +221,15 @@ public class CDataCom implements IDataCom {
     public User getLocalUser(){
         return controller.getLocalUser();
     }
+    
+    /**
+      * Notification that you won, update stats and display win
+      */
+    @Override
+     public void notifiedGameWon(){
+         controller.getLocalProfile().setGamesWon(controller.getLocalProfile().getGamesWon()+1);
+         controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
+         interfaceTable.displayVictory();
+     }
     
 }

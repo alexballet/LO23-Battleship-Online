@@ -131,6 +131,11 @@ phase can be displayed
      public void changeStatusGame(Game g);
 
      public User getLocalUser();
+     
+     /**
+      * Notification that you won, update stats and display win
+      */
+     public void notifiedGameWon();
 }
 
 
