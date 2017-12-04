@@ -90,4 +90,8 @@ public interface COMInterface {
      */
     public void searchForPlayers();
 
+
+    /**
+     * */
+    public void removeGame(Game game);
 }

@@ -127,4 +127,14 @@ public class NetworkModuleInterface implements COMInterface {
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
     }
+    public void removeGame(Game game) {
+        List<InetAddress> ipAddresses = controller.getIPTable();
+        GameQuitMessage gameQuitMessage = new GameQuitMessage(game);
+
+        for (InetAddress ipAddress : ipAddresses) {
+
+            controller.sendMessage(gameQuitMessage, ipAddress);
+
+        }
+    }
 }
