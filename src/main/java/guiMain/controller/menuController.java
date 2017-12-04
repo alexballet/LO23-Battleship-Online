@@ -3,26 +3,20 @@ package guiMain.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import guiMain.GameCell;
 import guiMain.GuiMainController;
 import java.util.ResourceBundle;
-import interfacesData.IDataMain;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 import javafx.util.Callback;
+
 import structData.*;
 
 
@@ -106,6 +100,7 @@ public class menuController implements Initializable{
 	 */
 	@FXML
 	private void option(){
+
 		mainController.openConfigWindow();
 	}
 
@@ -114,6 +109,24 @@ public class menuController implements Initializable{
 		mainController.getIdata().askDisconnection();
 		mainController.startIHM();
 	}
+        
+        
+        /**
+         * Use the createGame Button as a way to start the displayPlacementPhase method from a guiTableController. 
+         * To be removed for integration.
+         */        
+	@FXML
+	private void createGame(){
+            
+         /*   try{
+                GuiTableController.getInstance().displayPlacementPhase( this.currentStage, false ); // use boolean to specifie classic type or not
+            }
+            catch(Exception e){
+                System.err.println(e.getMessage());
+            }*/
+	}
+        
+        
 
 
 

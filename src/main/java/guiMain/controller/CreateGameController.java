@@ -96,8 +96,15 @@ public class CreateGameController implements Initializable{
         Boolean spectators = spectatorsAutorise.isSelected();
         Boolean chat = chatAutorise.isSelected();
         Boolean classicGame = classicGameType.isSelected();
-        Boolean oponent = humanGameAdversaire.isSelected();          
-        int timePerShot = Integer.parseInt(reflectionTime.getText());
+        Boolean oponent = humanGameAdversaire.isSelected();   
+        int timePerShot;
+        //add try catch exception for default value time per shot
+        try {
+        timePerShot = Integer.parseInt(reflectionTime.getText());
+        } catch (NumberFormatException e) {
+            System.out.println("le champ temps est vide initialisation à 30s");
+            timePerShot = 30;
+        }
 
         // Create new game object
         // Game game = new Game(classicGame, name, oponent, timePerShot, spectators, chat);
