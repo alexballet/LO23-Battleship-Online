@@ -121,9 +121,8 @@ public class SignupController {
 		System.out.println("Nom " + lastname);
 		System.out.println("Date de Naissance " + birthDate);
 		List<String> ipsStrings = mainController.getIps();
-		if (ipsStrings != null){
+		if (ipsStrings != null && ipsStrings.size() > 0){
 			for (String ip : ipsStrings) {
-				System.out.println(" Ip " + ip);
 				try {
 					ips.add(InetAddress.getByName(ip));
 				} catch (UnknownHostException e) {
@@ -135,6 +134,7 @@ public class SignupController {
 		
 		if (!login.trim().isEmpty() && !password.trim().isEmpty() && !username.trim().isEmpty()){
 			mainController.getIdata().createAccount(login, username, ips, password, null, null, lastname, firstname, birthDate);
+			mainController.startIHM();
 		}
 		else{
 			messageLabel.setText("Des champs obligatoires ne sont pas remplis");

@@ -93,7 +93,6 @@ public class CDataMain implements IDataMain {
     @Override
     public Boolean connection() throws UnknownHostException {
         Boolean result = false;
-        HashSet<InetAddress> IPs = new HashSet<>();
         controller.reloadSavedProfile();
         if(controller.getLocalProfile() != null){
             result = true;

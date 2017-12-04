@@ -106,6 +106,7 @@ public class menuController implements Initializable{
 	@FXML
 	private void disconnection(){
 		mainController.getIdata().askDisconnection();
+		mainController.startIHM();
 	}
         
         
@@ -150,18 +151,30 @@ public class menuController implements Initializable{
 	}
 	
 
-        /**
-         * Open window to create new game 
-         * @param event : button #createGame event click
-         * @throws IOException 
-         */
-        @FXML
-        private void openCreateGameWindow(ActionEvent event) throws IOException {
-            mainController.openCreateGameWindow();
-        }
+    /**
+     * Open window to create new game 
+     * @param event : button #createGame event click
+     * @throws IOException 
+     */
+    @FXML
+    private void openCreateGameWindow(ActionEvent event) throws IOException {
+        mainController.openCreateGameWindow();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //
     }
+
+	public void updateGameStatus(Game game) {
+		ObservableList<Game> list =  gamesView.getItems();
+		int i = 0;
+		for (Game g : list){
+			if (game.getIdGame().equals(g.getIdGame())) {
+				gamesView.getItems().set(i, game);
+			}
+			i++;
+		}
+	}
+    
 }

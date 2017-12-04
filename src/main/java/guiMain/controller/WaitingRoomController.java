@@ -33,7 +33,7 @@ public class WaitingRoomController implements Initializable{
      * Initialize window elements with game data 
      * @param game 
      */
-    void initData(Game game){
+    public void initData(Game game){
         // Set game name
         gameName.setText(game.getName());
         // Set time of reflection
