@@ -232,8 +232,8 @@ public class GuiMainController implements GuiMainInterface {
 
 	public List<String> getIps(){
 		Profile p = idata.getStatistics();
-		if ( p != null) {
-			ipsList = new ArrayList<>();
+		if (p != null && p.getIdUser() != null) {
+			// ipsList = new ArrayList<>();
 			HashSet<InetAddress> ips = p.getIPs();
 			for (InetAddress ip : ips) {
 				this.ipsList.add(ip.getHostAddress());
@@ -244,11 +244,10 @@ public class GuiMainController implements GuiMainInterface {
 
 	public void setIps(List<String> ips){
 		Profile p = idata.getStatistics();
-		if ( p != null) {
+		if ( p != null && p.getIdUser() != null) {
 			// DATA : function for update IP
 		}
 		this.ipsList = ips;
-		
 	}
 
 	public void setIdata(IDataMain idata) {

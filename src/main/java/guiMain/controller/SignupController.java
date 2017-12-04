@@ -121,9 +121,8 @@ public class SignupController {
 		System.out.println("Nom " + lastname);
 		System.out.println("Date de Naissance " + birthDate);
 		List<String> ipsStrings = mainController.getIps();
-		if (ipsStrings != null){
+		if (ipsStrings != null && ipsStrings.size() > 0){
 			for (String ip : ipsStrings) {
-				System.out.println(" Ip " + ip);
 				try {
 					ips.add(InetAddress.getByName(ip));
 				} catch (UnknownHostException e) {
