@@ -5,9 +5,14 @@
  */
 package data;
 
-import java.util.ArrayList;
+import guiMain.GuiMainInterface;
+import java.util.HashSet;
+import java.util.Set;
+import lo23.battleship.online.network.COMInterface;
 import structData.Game;
 import structData.User;
+import structData.DataUser;
+import structData.Profile;
 
 /**
  *
@@ -15,31 +20,117 @@ import structData.User;
  */
 public class DataController {
     
-    private CDataCom InterfaceDataCom;
-    private CDataMain InterfaceDataMain;
-    private CDataTable InterfaceDataTable;
+    private CDataCom interfaceDataCom;
+    private CDataMain interfaceDataMain;
+    private CDataTable interfaceDataTable;
+    
+    private GuiMainInterface interfaceMain;
+    private COMInterface interfaceCom;
+    
+    
+    
+    //private
         
     private User localUser;
+    private DataUser localDataUser;
     private Game localGame;
-    private ArrayList<User> listUsers;
-    private ArrayList<Game> listGames;
+    private HashSet<User> listUsers;
+    private Profile localProfile;
+    private HashSet<Game> listGames;
     
     
+    public DataController(){
+        User user = new User("truc", "machin"); // for test
+           
+        interfaceDataCom = new CDataCom(this);
+        interfaceDataMain = new CDataMain(this);
+        interfaceDataTable = new CDataTable(this);
+        
+        listUsers = new HashSet<User>();
+        localDataUser = new DataUser(user);
+        localProfile = new Profile(localDataUser);
+        listGames = new HashSet<>();
+    }
+    
+    public void setInterfaceMain(GuiMainInterface i){
+        interfaceMain = i;
+        interfaceDataCom.setInterfaceMain(i);
+    }
+    
+    public void setInterfaceCom(COMInterface i){
+        interfaceCom = i;
+        interfaceDataMain.setInterfaceCom(i);
+    }
     
     
     public CDataCom getInterfaceDataCom(){
-        return InterfaceDataCom;
+        return interfaceDataCom;
     }
     
     public CDataMain getInterfaceDataMain(){
-        return InterfaceDataMain;
+        return interfaceDataMain;
     }
     
     public CDataTable getInterfaceDataTable(){
-        return InterfaceDataTable;
+        return interfaceDataTable;
     }
     
-    public User getUser(){
+    public User getLocalUser(){
         return localUser;
+    }
+    
+    public DataUser getLocalDataUser(){
+        return localDataUser;
+    }
+    
+    public Profile getLocalProfile(){
+        return localProfile;
+    }
+
+    public void setLocalUser(User u){
+        localUser = u;
+    }
+    
+    public void addUserToList(User u){
+        listUsers.add(u);
+    }
+    
+    public void removeUserFromList(User u){
+        //comparer les UUID de u et des objets de listUser et enlever l'user si présent
+        listUsers.remove(u);
+    }
+    
+
+    /**
+    * Accessor local Game
+    * @return the local Game
+    */
+    public Game getLocalGame(){
+        return localGame;
+    }
+    
+    /**
+     * Add a Game to the local list
+     * @param g : game to add to the local list
+     */
+    public void addGameToList(Game g){
+        if(g != null)
+            listGames.add(g);
+    }
+    
+    /**
+     * Update the status of game and add it into the list of Game
+     * @param g : the game which status has been modified
+     */
+    public void updateGameStatus(Game g){
+        localGame = g;
+        listGames.add(localGame);
+    }
+    /**
+     * Remove the game
+     * @param g : game has to be remove
+     */
+    public void removeGameFromList(Game g){
+        listGames.remove(g);
     }
 }
