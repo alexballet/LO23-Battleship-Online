@@ -1,9 +1,9 @@
 package guiTable;
 
 import javafx.stage.Stage;
-import packageStructDonnées.Boat;
-import packageStructDonnées.Message;
-import packageStructDonnées.Shot;
+import structData.Boat;
+import structData.ChatMessage;
+import structData.Shot;
 
 
 /**
@@ -60,7 +60,7 @@ public interface GuiTableInterface {
      * Displays a new incoming message on chat window.
      * @param message : New incoming message to display.
      */
-    public void addChatMessage(Message message);
+    public void addChatMessage(ChatMessage message);
 
     /**
      * Displays an error or notification message in main window.

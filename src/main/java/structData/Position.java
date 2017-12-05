@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package packageStructDonnées;
+package structData;
 
+import java.io.Serializable;
 /**
  * Position is a class of a position in a table.
  */
-public class Position {
+public class Position implements Serializable{
     protected Byte x;
     protected Byte y;
     protected Boolean touched;

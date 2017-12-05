@@ -10,9 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import packageStructDonnées.Boat;
-import packageStructDonnées.Message;
-import packageStructDonnées.Shot;
+import structData.Boat;
+import structData.ChatMessage;
+import structData.Shot;
 
 /**
  *
@@ -87,22 +87,22 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void displayOpponentShot(Shot opponentShot, Boat boat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void displayMyShotResult(Shot myShotResult, Boat boat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void addChatMessage(Message message) {
+    public void addChatMessage(ChatMessage message) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void displayMessage(String message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void displayOpponentShot(Shot opponentShot, structData.Boat boat) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void displayMyShotResult(Shot myShotResult, structData.Boat boat) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
