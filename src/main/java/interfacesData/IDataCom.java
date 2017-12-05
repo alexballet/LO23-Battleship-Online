@@ -116,7 +116,7 @@ phase can be displayed
       * @param s (returned) : shot corresponding to the position
       * @param b (optionnally returned) : The sunk boat
       */
-     public void coordinate(Position p, Shot s, Boat b);
+     public void coordinate(Shot s);
 
      /**
       * Takes a Shot and in option a Boat to transmit it to IHM-Table

@@ -18,7 +18,7 @@ public interface COMInterface {
      * @param user player who is notify
      * @return true= message sent, false= message not sent
      * */
-    public boolean notifyReady(User user);
+    public boolean notifyReady(User user, Player playerToNotify);
 
     /**
      * Send a chat message
