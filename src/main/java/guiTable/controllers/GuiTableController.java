@@ -7,6 +7,7 @@ package guiTable.controllers;
 
 import data.DataController;
 import guiTable.GuiTableInterface;
+import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -37,8 +38,8 @@ public class GuiTableController implements GuiTableInterface {
      * Entry point for a unique instance of singleton GuiTableController;
      * @return GuiTableController : the singleton GuiTableController.
      */
-    public static GuiTableInterface getInstance()
-    {			
+    public static GuiTableController getInstance()
+    {
         if (INSTANCE == null)
         { 
             INSTANCE = new GuiTableController();	
@@ -111,4 +112,7 @@ public class GuiTableController implements GuiTableInterface {
         this.dataController = data;
     }
     
+    public void validateBoats(List<Boat> boats) {
+        dataController.getInterfaceDataTable().coordinateShips(boats);
+    }
 }

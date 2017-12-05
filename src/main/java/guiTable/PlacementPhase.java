@@ -5,6 +5,7 @@
  */
 package guiTable;
 
+import guiTable.controllers.GuiTableController;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +56,7 @@ public abstract class PlacementPhase {
     @FXML
     protected void onValidate() {
         List<Boat> boats = this.getBoats();
-        // TODO: Call the coordinateShips(boats) function in Data interface, once the arguement is changed by Data team
+        GuiTableController.getInstance().validateBoats(boats);
     }
     
     /**
