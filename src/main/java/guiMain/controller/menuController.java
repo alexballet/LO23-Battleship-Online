@@ -78,9 +78,19 @@ public class menuController implements Initializable{
 	
 	private void initGamesList() {
 		final menuController controller = this;
-		ObservableList<Game> playersObservable =
-				FXCollections.observableArrayList(mainController.getIdata().getGames());
-		gamesView.setItems(playersObservable);
+		
+		List<Game> games = mainController.getIdata().getGames();
+		Game game = null;
+		Profile local = mainController.getIdata().getStatistics();
+		for(int i=0; i < games.size(); i++) {
+			game = games.get(i);
+			if (game.doesProfileBelongToGame(local)) games.remove(i);
+			else i++;
+		}
+		
+		ObservableList<Game> gamesObservable =
+				FXCollections.observableArrayList();
+		gamesView.setItems(gamesObservable);
 		gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>() { 
 			  
 		    @Override 
@@ -135,6 +145,7 @@ public class menuController implements Initializable{
 	
 	
 	public void addGame(Game game){
+		if (game.doesProfileBelongToGame(mainController.getIdata().getStatistics())) return;
 		gamesView.getItems().add(game);
 	}
 	
