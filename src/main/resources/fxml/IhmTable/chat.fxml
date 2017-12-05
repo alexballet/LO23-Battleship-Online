@@ -14,7 +14,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <TextArea fx:id="conversation" mouseTransparent="true" prefHeight="214.0" prefWidth="250.0" promptText="Conversation...">
+      <TextArea fx:id="conversation" prefHeight="214.0" prefWidth="250.0" promptText="Conversation..." wrapText="true">
          <font>
             <Font size="14.0" />
          </font>
