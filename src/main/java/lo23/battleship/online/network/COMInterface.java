@@ -55,17 +55,17 @@ public interface COMInterface {
      * @param g Game <code>user</code> wants to join
      * @return true= message sent, false= message not sent
      */
-    public boolean joinGame(User user, Game g);
+    public boolean joinGame(Game g);
 
     /**
      * allow an user to join a game
      * @param isOk access to <code>game</code> true=access granted false= access denied
 
-     * @param user who created the game and send the response to the join request
+     * @param user who asked to join the game
      * @param g Game <code>user</code> joined if isOk
      * @return true= message sent, false= message not sent
      */
-    public boolean notifyJoinGameResponse(Boolean isOk, User user, Game g);
+    public boolean notifyJoinGameResponse(Boolean isOk, Profile user, Game g);
 
     /**
      * allow an user to be disconnected to the network
@@ -90,4 +90,8 @@ public interface COMInterface {
      */
     public void searchForPlayers();
 
+
+    /**
+     * */
+    public void removeGame(Game game);
 }

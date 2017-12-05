@@ -2,7 +2,6 @@ package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkController;
-import structData.Game;
 import structData.User;
 
 import java.net.InetAddress;
@@ -24,7 +23,7 @@ public class GetProfileRequestMessage extends Message {
 
     public void process(IDataCom IData, InetAddress senderAddress){
 
-        ProfileRequestAnswer profileRequestAnswer = new ProfileRequestAnswer(IData.getUserProfile());
+        ProfileRequestAnswerMessage profileRequestAnswer = new ProfileRequestAnswerMessage(IData.getUserProfile());
 
         NetworkController.getInstance().sendMessage(profileRequestAnswer, senderAddress);
     }
