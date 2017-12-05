@@ -5,6 +5,7 @@
  */
 package guiTable.controllers;
 
+import data.CDataTable;
 import data.DataController;
 import guiTable.GuiTableInterface;
 import javafx.scene.Scene;
@@ -26,7 +27,7 @@ public class GuiTableController implements GuiTableInterface {
     private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
     private ChatController chatController;
     private static GuiTableController INSTANCE = null;
-    private DataController dataController;
+    private CDataTable dataController;
 
     /**
      * Private constructor for GuiTableController.
@@ -49,26 +50,6 @@ public class GuiTableController implements GuiTableInterface {
     }
     
     /**
-     * this function call an other fxml context and refresh page
-     * @param currentStage
-     * @throws Exception 
-     */
-//    @Override
-//    public void displayPlacementPhase(Stage currentStage, Boolean classic) throws Exception {
-//        FXMLLoader loader = new FXMLLoader();
-//        if(classic) {
-//        loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
-//        } else {
-//        loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
-//        }
-//        rootLayout = (AnchorPane) loader.load();
-//        Scene scene = new Scene(rootLayout);
-//        currentStage.setTitle("Battleship-Online");
-//        currentStage.setScene(scene);
-//        currentStage.show();
-//    }
-    
-    /**
     * this function call an other fxml context and refresh page
     * @param currentStage
     * @throws Exception 
@@ -84,6 +65,7 @@ public class GuiTableController implements GuiTableInterface {
         rootLayout = (AnchorPane) displayPlacementPhaseLoader.load();
         PlacementPhaseController placementPhaseController = displayPlacementPhaseLoader.getController();
         chatController = placementPhaseController.fillChatSlot(chatFxmlURL);
+        chatController.setDataController(dataController);
 
         Scene scene = new Scene(rootLayout);
         currentStage.setTitle("Battleship-Online");
@@ -134,7 +116,7 @@ public class GuiTableController implements GuiTableInterface {
     }
     
     @Override
-    public void setDataController(DataController data) {
+    public void setDataController(CDataTable data) {
         this.dataController = data;
     }
     

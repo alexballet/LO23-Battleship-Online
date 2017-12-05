@@ -1,9 +1,8 @@
 package guiTable.controllers;
-import guiTable.GuiTableInterface;
+import data.CDataTable;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-//import interfacesData.IDataTable;
 import structData.ChatMessage;
 
 public class ChatController {
@@ -15,6 +14,8 @@ public class ChatController {
     @FXML
     //text that we want to send
     private TextField field;
+    
+    private CDataTable dataController;
     
     public void init() {
         //initialisation of the chat controller
@@ -36,9 +37,9 @@ public class ChatController {
         {
             
             //send the message to other users
+            dataController.textMessage(message);
             
-            
-            //System.out.println("message : "+message);
+            //add this to the conversation
             currentConversation = conversation.getText();
             conversation.setText("Moi: " + message + "\n" + currentConversation);
         }
@@ -55,6 +56,10 @@ public class ChatController {
         //add this to the conversation
         currentConversation = conversation.getText();
         conversation.setText(message.getProfile().getIdUser() + ": " + message.getContent() + "\n" + currentConversation);
+    }
+    
+    public void setDataController(CDataTable d) {
+        this.dataController = d;
     }
     
 }

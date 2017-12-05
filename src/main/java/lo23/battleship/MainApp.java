@@ -20,12 +20,16 @@ public class MainApp extends Application {
 		NetworkController networkController = NetworkController.getInstance();
 		DataController dataController = new DataController();
 		GuiMainController guiMainController = new GuiMainController(stage);
+                
                 GuiTableInterface guiTableController = GuiTableController.getInstance();
+                
                 networkController.setDataInterface(dataController.getInterfaceDataCom());
 		guiMainController.setIdata(dataController.getInterfaceDataMain());
 		dataController.setInterfaceCom(networkController.getCOMInterface());
 		dataController.setInterfaceMain(guiMainController);
-                guiTableController.setDataController(dataController);
+                guiTableController.setDataController(dataController.getInterfaceDataTable());
+                
+                
 
 		guiMainController.startIHM();
 
