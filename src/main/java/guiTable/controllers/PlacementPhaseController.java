@@ -56,7 +56,7 @@ public abstract class PlacementPhaseController {
     protected static final int SPACE = 3;
     protected static final int GRID_ELEMENT_SIZE = 35;
     protected static final int NB_CASES_GRID = 10;
-    protected static final Integer PLACEMENT_TIME = 15;
+    protected static final Integer PLACEMENT_TIME = 60;
     protected static final int RANDOM_ROTATION = 2;
     
     protected Timeline timeline;
