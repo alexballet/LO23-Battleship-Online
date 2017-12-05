@@ -74,9 +74,9 @@ public abstract class PlacementPhaseController {
     public void initialize(URL location, ResourceBundle resources){
         
         FXMLLoader loader;
-        loader = fillElement(chatPane, "/fxml/IhmTable/chat.fxml" );
-        ChatController chatController = loader.getController();
-        chatController.init();
+//        loader = fillElement(chatPane, "/fxml/IhmTable/chat.fxml" );
+//        ChatController chatController = loader.getController();
+//        chatController.init();
 
         loader = fillElement(profilePane, "/fxml/IhmTable/profile.fxml" );
         ProfileController profileController = loader.getController();
@@ -109,6 +109,19 @@ public abstract class PlacementPhaseController {
         rotationIsValide = false;
     }
     
+    
+    /**
+    * fillChatSlot() allows external class to fill the chatPane and get the ChatController
+    * @param chatFxmlUrl
+    * @return chatController
+    */        
+    public ChatController fillChatSlot(String chatFxmlUrl){
+        FXMLLoader loader;
+        loader = fillElement(chatPane, chatFxmlUrl );
+        ChatController chatController = loader.getController();
+        chatController.init();
+        return chatController;
+    }
         
     /**
      * Trigger validation of placement phase

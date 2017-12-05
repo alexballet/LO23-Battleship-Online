@@ -37,7 +37,7 @@ public class ChatController {
         {
             
             //send the message to other users
-            //comment faire
+            
             
             //System.out.println("message : "+message);
             currentConversation = conversation.getText();
@@ -47,7 +47,7 @@ public class ChatController {
         //erase the textfield
         field.setText("");
     }
-    
+    //public void receiveAMessage(ChatMessage message) {
     public void receiveAMessage(Message message) {
         //receive a message
         
@@ -56,7 +56,7 @@ public class ChatController {
         
         //add this to the conversation
         currentConversation = conversation.getText();
-        //conversation.setText(message.getUserID() + ": " + message.getContent() + "\n" + currentConversation);
+        //conversation.setText(message.getProfile().getIdUser() + ": " + message.getContent() + "\n" + currentConversation);
     }
     
 }
