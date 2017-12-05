@@ -5,8 +5,8 @@ import interfacesData.IDataCom;
 import java.net.InetAddress;
 
 /**
- * UpdateGame,descendant class Message, send a update game to Data in order to register the modification
- * @author Lejeune Lola ==DESCRIPTION NEEDED==
+ * Network message class, extends Message class.
+ * Message sent to Data when an game is updated.
  */
 
 public class UpdateGameMessage extends Message{
@@ -15,7 +15,7 @@ public class UpdateGameMessage extends Message{
 
     /**
      * Class constructor.
-     * @param game is the game which has been updated. //
+     * @param game is the Game which has been updated.
      */
     public UpdateGameMessage(Game game){
         this.gameUpdate = game;
@@ -31,7 +31,7 @@ public class UpdateGameMessage extends Message{
     }
 
     /**
-     * ==DESCRIPTION NEEDED==
+     * Method providing the updated game to Data.
      * @param IData interface with Data.
      */
     public void process(IDataCom IData){

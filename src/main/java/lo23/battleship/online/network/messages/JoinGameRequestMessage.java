@@ -6,19 +6,18 @@ import structData.User;
 import java.net.InetAddress;
 
 /**
- * JoinGameRequest,descendant class Message, received a game request and send info to data.
- * @author Lejeune Lola ==DESCRIPTION NEEDED==
+ * Network message class, extends Message class.
+ * Message sent when the local player wants to join a distant game displayed in the HMI games list.
  */
-
 public class JoinGameRequestMessage extends Message{
 
     User sender;
     Game game;
 
     /**
-     * Class construtor.
-     * @param senderGame ==DESCRIPTION NEEDED==
-     * @param gameSend ==DESCRIPTION NEEDED==
+     * Class constructor.
+     * @param senderGame is the User class of the local player who wants to join the game.
+     * @param gameSend is the Game class that the local player wants to join.
      */
     public JoinGameRequestMessage(User senderGame, Game gameSend){
         this.sender = senderGame;
@@ -34,7 +33,7 @@ public class JoinGameRequestMessage extends Message{
     }
 
     /**
-     * ==DESCRIPTION NEEDED==
+     * Method notifying Data the local player wants to join the game.
      * @param IData interface with Data.
      */
     public void process(IDataCom IData){

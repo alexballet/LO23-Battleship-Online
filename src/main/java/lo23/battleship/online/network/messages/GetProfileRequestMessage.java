@@ -7,16 +7,16 @@ import structData.User;
 import java.net.InetAddress;
 
 /**
- * ==DESCRIPTION NEEDED==
+ * Network message class, extends Message class.
+ * Message sent when the local player wants to see the profile page of another player.
  */
-
 public class GetProfileRequestMessage extends Message {
 
     User userRequester;
 
     /**
      * Class constructor.
-     * @param requester ==DESCRIPTION NEEDED==
+     * @param requester is the User class who requested the profile which need to be seen.
      */
     public GetProfileRequestMessage(User requester){
         this.userRequester = requester;
@@ -37,7 +37,7 @@ public class GetProfileRequestMessage extends Message {
     public void process(IDataCom IData){ }
 
     /**
-     * ==DESCRIPTION NEEDED==
+     * Method requesting the profile from Data.
      * @param IData interface with Data.
      * @param senderAddress sender IP address.
      */

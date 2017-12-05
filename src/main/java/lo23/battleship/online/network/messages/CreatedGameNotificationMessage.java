@@ -7,12 +7,10 @@ import structData.User;
 
 import java.net.InetAddress;
 
-/** !Doc OK
+/**
  * Network message class, extends Message class.
  * Message notifying Data a new game has been created by the sender.
- * @author Lejeune Lola
  */
-
 public class CreatedGameNotificationMessage extends Message{
     User user;
     Game game;
@@ -37,7 +35,7 @@ public class CreatedGameNotificationMessage extends Message{
     }
 
     /**
-     * Method updating the interface with Data with the new created game.
+     * Method updating Data with the new created game.
      * @param IData interface with Data.
      */
     public void process(IDataCom IData){

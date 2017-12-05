@@ -9,10 +9,10 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.List;
 
-/** !Doc OK
+/**
  * Network message class, extends Message class.
- * Message notifying the sender wants to join a network of P2P users on the application.
- * The sender let the other users know he wants to join the network.
+ * Message sent when the local user wants to join a network of P2P users on the application.
+ * The local user (the sender) let the other users know he wants to join the network.
  */
 public class ConnectionRequestMessage extends Message {
     private User sender;

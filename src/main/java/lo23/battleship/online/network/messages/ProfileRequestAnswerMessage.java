@@ -7,21 +7,22 @@ import structData.User;
 import java.net.InetAddress;
 
 /**
- * ==DESCRIPTION NEEDED==
+ * Network message class, extends Message class.
+ * Message sent to provide the Profile requested by the network.
  */
 public class ProfileRequestAnswerMessage extends Message {
 
-    User user;
+    User user; //! whut?
     Profile profile;
 
     /**
      * Class constructor.
-     * @param profile ==DESCRIPTION NEEDED==
+     * @param profile the Profile class which needs to be sent.
      */
     public ProfileRequestAnswerMessage(Profile profile) {
-
         this.profile = profile;
-        this.type = "ProfileRequestAnswerMessage";}
+        this.type = "ProfileRequestAnswerMessage";
+    }
 
     /**
      * Message type getter. Implementation of an abstract method.
@@ -32,7 +33,7 @@ public class ProfileRequestAnswerMessage extends Message {
     }
 
     /**
-     * ==DESCRIPTION NEEDED==
+     * Method requesting the needed profile from Data.
      * @param IData interface with Data.
      */
     public void process(IDataCom IData){

@@ -69,7 +69,7 @@ public interface IDataCom {
       * Sends the profile of a distant user to the local user so that the local 
       * user can see the profile of
 this distant user
-      * @param p The profil to be sent
+      * @param p The profile to be sent
       */
      public void sendStatistics(Profile p);
 
@@ -77,7 +77,7 @@ this distant user
       * Add the player to the game if it is available.
       * @param sender : The player who sends this request
       * @param g : The game that the player wants to join
-      * @return 1 if the parameter game is an avaiable game and add the player 
+      * @return 1 if the parameter game is an available game and add the player
       * to this game, 0 if not
       */
      public Boolean notifToJoinGame(User sender, Game g);

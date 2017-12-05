@@ -7,7 +7,7 @@ import java.net.InetAddress;
 import interfacesData.IDataCom;
 
 
-/**
+/** /!Doc NON-OK
  * ==DESCRIPTION NEEDED==
  */
 public abstract class Message implements Serializable {

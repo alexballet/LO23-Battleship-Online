@@ -8,14 +8,12 @@ import structData.User;
 import java.net.InetAddress;
 import java.util.Arrays;
 
-/**
+/** /!Doc Non-OK
  * Network message class, extends from Message class.
- * Disconnection message.
- * Sent when the user click on one of the disconnection buttons or HMI elements.
+ * Message sent when the local user click on one of the disconnection buttons or HMI elements.
  */
 
-
-/* ajouter les méthodes une fois qu'elles seront faites*/
+                            /* ajouter les méthodes une fois qu'elles seront faites*/
 
 public class DisconnectionMessage extends Message{
 
@@ -45,7 +43,7 @@ public class DisconnectionMessage extends Message{
     public void process(IDataCom IData){ }
 
     /**
-     *
+     * ==DESCRIPTION NEEDED==
      * @param IData interface with Data.
      * @param senderAddress sender IP address.
      */
