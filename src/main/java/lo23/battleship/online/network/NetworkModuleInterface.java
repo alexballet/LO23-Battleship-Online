@@ -143,7 +143,20 @@ public class NetworkModuleInterface implements COMInterface {
 
 
     public boolean sendShot(Player player, Game game, Shot shot) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+
+        ShotNotificationMessage shotNotificationMessage = new ShotNotificationMessage(shot);
+
+        InetAddress destAddress;
+
+        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
+            destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
+        } else {
+            destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
+        }
+
+        controller.sendMessage(shotNotificationMessage, destAddress);
+
+        return true;
     }
 
     public void searchForPlayers() {
@@ -189,10 +202,36 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     public boolean coordinates(Player destPlayer, Shot resultShot, Game game) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+
+        ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, null);
+
+        InetAddress destAddress;
+
+        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
+            destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
+        } else {
+            destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
+        }
+
+        controller.sendMessage(shotNotificationResultMessage, destAddress);
+
+        return true;
     }
 
     public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+
+        ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, boat);
+
+        InetAddress destAddress;
+
+        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
+            destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
+        } else {
+            destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
+        }
+
+        controller.sendMessage(shotNotificationResultMessage, destAddress);
+
+        return true;
     }
 }
