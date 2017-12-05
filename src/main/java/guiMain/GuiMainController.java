@@ -243,7 +243,9 @@ public class GuiMainController implements GuiMainInterface {
 			@Override
 			public void run() {
                             try {
+                                waitingRoomController.closeWindow();
                                 GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType() ); // use boolean to specifie classic type or not	
+                                
                             } catch (Exception ex) {
                                 Logger.getLogger(GuiMainController.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -271,12 +273,15 @@ public class GuiMainController implements GuiMainInterface {
 	        waitingRoomController = loader.getController();
 	        waitingRoomController.initData(game);
 
+                    System.out.println("open waiting room");
+                
 	        Stage stage = new Stage();
 	        stage.initModality(Modality.APPLICATION_MODAL);
 	        stage.setTitle("Salle d'attente");
 	        stage.setScene(new Scene(root));
+                waitingRoomController.setStage(stage);
 	        stage.show();
-
+                
 	        stage.setOnCloseRequest((WindowEvent event1) -> {
 	            	idata.removeGame(game);
 	            	System.out.println("Exit waiting room");
