@@ -192,13 +192,15 @@ public class menuController implements Initializable{
 
 	public void removeGame(Game removedGame) {
 		ObservableList<Game> list =  gamesView.getItems();
-		int i = 0;
+		Game toBeRemoved = null;
 		for (Game g : list){
 			if (removedGame.getIdGame().equals(g.getIdGame())) {
-				gamesView.getItems().remove(g);
+				toBeRemoved = g;
+				break;
 			}
-			i++;
-		}		
+		}
+		if(toBeRemoved != null) {
+			gamesView.getItems().remove(toBeRemoved);
+		}
 	}
-    
 }
