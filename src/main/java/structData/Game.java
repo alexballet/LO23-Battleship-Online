@@ -382,12 +382,6 @@ public class Game implements Serializable{
      * @return a boolean if the profile belongs to one of the Game's Players
      */
     public Boolean doesProfileBelongToGame(Profile p){
-        Boolean result = false;
-        Boolean belongs1 = this.player1.compareProfileToPlayer(p);
-        Boolean belongs2 = this.player2.compareProfileToPlayer(p);
-        if (belongs1 == true || belongs2 == true){
-            result = true;
-        }
-        return result;
+        return this.player1.compareProfileToPlayer(p) || this.player2.compareProfileToPlayer(p);
     }
 }
