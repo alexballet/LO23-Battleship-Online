@@ -153,6 +153,10 @@ public class NetworkController {
         }
     }
 
+    public void closeListener() {
+        networkServer.close();
+    }
+
     public Set<User> getConnectedUsers() {
         return networkState.keySet();
     }

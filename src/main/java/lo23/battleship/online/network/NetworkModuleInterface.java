@@ -107,7 +107,7 @@ public class NetworkModuleInterface implements COMInterface {
             controller.sendMessage(disconnection, ipAddress);
 
         }
-
+        controller.closeListener();
         return true;
     }
 

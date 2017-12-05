@@ -89,4 +89,7 @@ public interface IDataMain {
     public List<Game> getGames();
 
 	Profile getLocalProfile();
+
+    public void setLocalGame(Game g);
+
 }
