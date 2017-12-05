@@ -81,6 +81,8 @@ public class GuiMainController implements GuiMainInterface {
 
 	@Override
 	public void addGame(final Game createdGame) {
+		if (!createdGame.doesProfileBelongToGame(idata.getStatistics())) return;
+
 		if (createdGame != null) {
 			Runnable command = new Runnable() {
 				@Override
