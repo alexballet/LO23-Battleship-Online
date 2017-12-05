@@ -19,6 +19,8 @@ import guiMain.controller.connectionController;
 import guiMain.controller.menuController;
 import guiTable.controllers.GuiTableController;
 import interfacesData.IDataMain;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -235,9 +237,20 @@ public class GuiMainController implements GuiMainInterface {
            }
 	}
         
-        public void openPlacementPhase(Game game) {
+        public void openPlacementPhase(final Game game) {
             try {
-		GuiTableController.getInstance().displayPlacementPhase( this.stage, false ); // use boolean to specifie classic type or not	
+                Runnable command = new Runnable() {
+			@Override
+			public void run() {
+                            try {
+                                GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType() ); // use boolean to specifie classic type or not	
+                            } catch (Exception ex) {
+                                Logger.getLogger(GuiMainController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+			}
+		};
+		Platform.runLater(command);
+                
 
 	        stage.setOnCloseRequest((WindowEvent event1) -> {
 	            	idata.removeGame(game);
