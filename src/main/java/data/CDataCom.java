@@ -40,10 +40,6 @@ public class CDataCom implements IDataCom {
         controller = dc;
     }
     
-    public void setInterfaceCom(COMInterface i){
-        interfaceCom = i;
-    }
-    
     public void setInterfaceMain(GuiMainInterface i){
         interfaceMain = i;
     }
@@ -180,7 +176,7 @@ public class CDataCom implements IDataCom {
     }
 
     @Override
-    public void coordinate(Shot s) {
+    public void coordinates(Shot s) {
         Boat b = controller.testShot(s);
         interfaceTable.displayOpponentShot(s, b);
         //interfaceCom.coordinates(s,b); TODO : décommenter quand la fonction sera crée chez COM
@@ -234,4 +230,10 @@ public class CDataCom implements IDataCom {
         controller.removeGameFromList(g);
         interfaceMain.removeGame(g);
     }
+
+	@Override
+	public void coordinate(Position p, Shot s, Boat b) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -71,7 +71,7 @@ public interface IDataMain {
     /**
      * Loads the saved data of the user and researches players.
      */
-    Boolean connection() throws UnknownHostException;
+    Boolean connection(String login, String password) throws UnknownHostException;
     
     /**
      * Add a new game to the list of games
@@ -87,4 +87,6 @@ public interface IDataMain {
      */
     public void removeGame(Game g);
     public List<Game> getGames();
+
+	Profile getLocalProfile();
 }

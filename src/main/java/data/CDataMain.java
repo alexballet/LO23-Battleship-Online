@@ -70,6 +70,14 @@ public class CDataMain implements IDataMain {
         //demander à l'interface de la com
     }
     
+    /*
+     * 
+     */
+    @Override
+    public Profile getLocalProfile() {
+    		return controller.getLocalProfile();
+    }
+    
     /**
      * Notifies the away application that an user wants to join the game given as parameter
      * @param g : the game the user wants to join
@@ -86,9 +94,9 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public Boolean connection() throws UnknownHostException {
+    public Boolean connection(String login, String password) throws UnknownHostException {
         Boolean result = false;
-        controller.reloadSavedProfile();
+        controller.reloadSavedProfile(login, password);
         if(controller.getLocalProfile() != null){
             result = true;
         }

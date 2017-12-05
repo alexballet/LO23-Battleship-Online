@@ -284,13 +284,13 @@ public class DataController {
                         localUser = new User(localProfile);
                         localDataUser = new DataUser(localProfile);
                         break;
-                    }              
+                    }            
                 } catch (Exception e) { 
                     e.printStackTrace(); 
-                 }
+                }
             }
           }
-          if (localProfile.getName().equals(""))
+          if (localProfile != null && localProfile.getName().equals(""))
               System.out.print("No profile found with this login and password");
         } else {
             System.out.print("no file found on this computer");

@@ -84,7 +84,7 @@ public class GuiMainController implements GuiMainInterface {
 
 	@Override
 	public void addGame(final Game createdGame) {
-		if (createdGame.doesProfileBelongToGame(idata.getStatistics())) return;
+		if (createdGame.doesProfileBelongToGame(idata.getLocalProfile())) return;
 
 		if (createdGame != null) {
 			Runnable command = new Runnable() {
@@ -169,7 +169,7 @@ public class GuiMainController implements GuiMainInterface {
 			stage.show();
 
 			System.out.println("start connection");
-			idata.connection();
+			// idata.connection(loginController.);
 			System.out.println("Connection etablished");
 
 
@@ -293,7 +293,7 @@ public class GuiMainController implements GuiMainInterface {
 	} 
 
 	public List<String> getIps(){
-		Profile p = idata.getStatistics();
+		Profile p = idata.getLocalProfile();
 		if (p != null && p.getIdUser() != null) {
 			// ipsList = new ArrayList<>();
 			HashSet<InetAddress> ips = p.getIPs();
@@ -305,7 +305,7 @@ public class GuiMainController implements GuiMainInterface {
 	}
 
 	public void setIps(List<String> ips){
-		Profile p = idata.getStatistics();
+		Profile p = idata.getLocalProfile();
 		if ( p != null && p.getIdUser() != null) {
 			// DATA : function for update IP
 		}

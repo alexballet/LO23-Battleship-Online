@@ -115,6 +115,12 @@ public interface IDataCom {
      * @param b : In option, the boat that was sunk
      */
     public void coordinates(Shot s, Boat b);
+    
+    /**
+     * Takes a Shot to transmit it to IHM-Table
+     * @param s : The position played by the user
+     */
+    public void coordinates(Shot s);
 
     /**
      * Returns the local user's profile, containing his statistics

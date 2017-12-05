@@ -232,8 +232,8 @@ public class Profile extends DataUser {
      * Save profile in a local file
      */
     public void saveProfile(){
-        String filename = idUser.toString();
-        filename.concat(".ser");
+        String filename = Integer.toString(idUser.hashCode());
+        filename = filename.concat(".ser");
         String FILE_NAME = filename;
         try {
          FileOutputStream fs = new FileOutputStream(FILE_NAME);

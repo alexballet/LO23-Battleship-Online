@@ -76,7 +76,7 @@ public class menuController implements Initializable{
 		
 		List<Game> games = mainController.getIdata().getGames();
 		Game game = null;
-		Profile local = mainController.getIdata().getStatistics();
+		Profile local = mainController.getIdata().getLocalProfile();
 		for(int i=0; i < games.size(); i++) {
 			game = games.get(i);
 			if (game.doesProfileBelongToGame(local)) games.remove(i);
@@ -159,7 +159,7 @@ public class menuController implements Initializable{
 	
 	
 	public void addGame(Game game){
-		if (game.doesProfileBelongToGame(mainController.getIdata().getStatistics())) return;
+		if (game.doesProfileBelongToGame(mainController.getIdata().getLocalProfile())) return;
 		gamesView.getItems().add(game);
 	}
 	

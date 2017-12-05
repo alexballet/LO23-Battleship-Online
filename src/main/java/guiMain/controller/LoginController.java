@@ -56,7 +56,7 @@ public class LoginController implements Initializable{
         String password = userPassword.getText();
 
         try {
-			if (mainController.getIdata().connection()){
+			if (mainController.getIdata().connection(login, password)){
 			    mainController.openMenuWindow();
 			} else{
 			   // User can not login. Show error message
