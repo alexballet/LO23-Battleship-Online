@@ -54,7 +54,6 @@ public class GuiMainController implements GuiMainInterface {
 		return idata;
 	}
 
-
 	@Override
 	public void addUser(final User user) {
 
@@ -165,9 +164,13 @@ public class GuiMainController implements GuiMainInterface {
 
 			Scene scene = new Scene(rootLayout);
 			stage.setTitle("Battleship-Online");
+			stage.setOnCloseRequest((WindowEvent event1) -> {
+	            	idata.askDisconnection();
+	        });
+
 			stage.setScene(scene);
 			stage.show();
-
+			
 			System.out.println("start connection");
 			// idata.connection(loginController.);
 			System.out.println("Connection etablished");
@@ -237,32 +240,29 @@ public class GuiMainController implements GuiMainInterface {
            }
 	}
         
-        public void openPlacementPhase(final Game game) {
-            try {
-                Runnable command = new Runnable() {
-			@Override
-			public void run() {
-                            try {
-                                if (waitingRoomController != null) waitingRoomController.closeWindow();
-                                GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType() ); // use boolean to specifie classic type or not	
-                                
-                            } catch (Exception ex) {
-                                Logger.getLogger(GuiMainController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-			}
-		};
-		Platform.runLater(command);
-                
-
+    public void openPlacementPhase(final Game game) {
+        try {
+            Runnable command = new Runnable() {
+            		@Override
+				public void run() {
+                        try {
+                            if (waitingRoomController != null) waitingRoomController.closeWindow();
+                            GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType() ); // use boolean to specifie classic type or not	
+                            
+                        } catch (Exception ex) {
+                            Logger.getLogger(GuiMainController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+				}
+            };
+            Platform.runLater(command);
 	        stage.setOnCloseRequest((WindowEvent event1) -> {
 	            	idata.removeGame(game);
 	            	System.out.println("Exit waiting room");
 	        });
-
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        }
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+    }
 
 	public void openWaitingRoomWindow(Game game){
 		try {
@@ -273,7 +273,7 @@ public class GuiMainController implements GuiMainInterface {
 	        waitingRoomController = loader.getController();
 	        waitingRoomController.initData(game);
 
-                    System.out.println("open waiting room");
+            System.out.println("open waiting room");
                 
 	        Stage stage = new Stage();
 	        stage.initModality(Modality.APPLICATION_MODAL);
@@ -332,7 +332,6 @@ public class GuiMainController implements GuiMainInterface {
 		};
 		Platform.runLater(command);
 	}
-	
 	
 }
 
