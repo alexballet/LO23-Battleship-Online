@@ -28,7 +28,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import packageStructDonnées.Boat;
+import structData.Boat;
 
 /**
  *

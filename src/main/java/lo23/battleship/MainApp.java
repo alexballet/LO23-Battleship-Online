@@ -3,45 +3,41 @@ package lo23.battleship;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 
-import guiMain.controller.menuController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import data.DataController;
+import guiMain.GuiMainController;
 import javafx.stage.Stage;
+import lo23.battleship.online.network.NetworkController;
 
 
 public class MainApp extends Application {
 
-	private AnchorPane rootLayout;
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        	
-    	FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));
+	@Override
+	public void start(Stage stage) throws Exception {
 
-        rootLayout = (AnchorPane) loader.load();
-        menuController controller = loader.getController();
-        controller.init(stage);   
+		NetworkController networkController = NetworkController.getInstance();
+		DataController dataController = new DataController();
+		GuiMainController guiMainController = new GuiMainController(stage);
+		networkController.setDataInterface(dataController.getInterfaceDataCom());
+		guiMainController.setIdata(dataController.getInterfaceDataMain());
+		dataController.setInterfaceCom(networkController.getCOMInterface());
+		dataController.setInterfaceMain(guiMainController);
 
 
-        Scene scene = new Scene(rootLayout);
-        stage.setTitle("Battleship-Online");
-        stage.setScene(scene);
-        stage.show();
+		guiMainController.startIHM();
 
-    }
+	}
 
-    /**
-     * The main() method is ignored in correctly deployed JavaFX application.
-     * main() serves only as fallback in case the application can not be
-     * launched through deployment artifacts, e.g., in IDEs with limited FX
-     * support. NetBeans ignores main().
-     *
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
+	/**
+	 * The main() method is ignored in correctly deployed JavaFX application.
+	 * main() serves only as fallback in case the application can not be
+	 * launched through deployment artifacts, e.g., in IDEs with limited FX
+	 * support. NetBeans ignores main().
+	 *
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 }
