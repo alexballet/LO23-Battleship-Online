@@ -6,6 +6,7 @@
 package guiTable.controllers;
 
 import guiTable.GuiTableInterface;
+import guiTable.controllers.PlacementPhaseController;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -22,6 +23,8 @@ public class GuiTableController implements GuiTableInterface {
 
     
     private AnchorPane rootLayout;
+    private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
+    private ChatController chatController;
     private static GuiTableController INSTANCE = null;
 
     /**
@@ -51,13 +54,16 @@ public class GuiTableController implements GuiTableInterface {
      */
     @Override
     public void displayPlacementPhase(Stage currentStage, Boolean classic) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
+        FXMLLoader displayPlacementPhaseLoader = new FXMLLoader();
         if(classic) {
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
+            displayPlacementPhaseLoader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
         } else {
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
+            displayPlacementPhaseLoader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
         }
-        rootLayout = (AnchorPane) loader.load();
+        rootLayout = (AnchorPane) displayPlacementPhaseLoader.load();
+        PlacementPhaseController placementPhaseController = displayPlacementPhaseLoader.getController();
+        chatController = placementPhaseController.fillChatSlot(chatFxmlURL);
+        
         Scene scene = new Scene(rootLayout);
         currentStage.setTitle("Battleship-Online");
         currentStage.setScene(scene);

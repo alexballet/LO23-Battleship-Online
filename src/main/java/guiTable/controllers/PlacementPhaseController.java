@@ -17,6 +17,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -25,6 +28,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+
 
 /**
  *
@@ -68,11 +72,6 @@ public abstract class PlacementPhaseController extends BaseController{
      */
     public void initialize(URL location, ResourceBundle resources){
         
-        FXMLLoader loader;
-        loader = fillElement(chatPane, "/fxml/IhmTable/chat.fxml" );
-        ChatController chatController = loader.getController();
-        chatController.init();
-        
         boatMap = new HashMap<>();
         // Initializes the boat set
         initBoatMap();
@@ -100,16 +99,42 @@ public abstract class PlacementPhaseController extends BaseController{
         rotationIsValide = false;
     }
     
-        /**
-         * quitPlacementPhase Button shows a popUp asking the user to confirm to leave the placement phase or not. 
-         */        
-	@FXML
-	private void quitPlacementPhase(){
-            FXMLLoader loader;
-            loader = fillElement(anchorPane, "/fxml/IhmTable/popUp.fxml" );
-            PopUpController popUpController = loader.getController();
-            popUpController.init();
-	}
+    /**
+     * fillChatSlot() allows external class to fill the chatPane and get the ChatController
+     * @param chatFxmlUrl
+     * @return chatController
+     */        
+    public ChatController fillChatSlot(String chatFxmlUrl){
+        FXMLLoader loader;
+        loader = fillElement(chatPane, chatFxmlUrl );
+        ChatController chatController = loader.getController();
+        chatController.init();
+        return chatController;
+    }
+    
+    
+    /**
+     * quitPlacementPhase Button shows a popUp asking the user to confirm to leave the placement phase or not. 
+     */        
+    @FXML
+    private void quitPlacementPhase(){
+        /*FXMLLoader loader;
+        loader = fillElement(anchorPane, "/fxml/IhmTable/popUp.fxml" );
+        PopUpController popUpController = loader.getController();
+        popUpController.init();*/
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+        System.out.println("Quit clicked");
+
+        /*Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // ... user chose OK
+        } else {
+            // ... user chose CANCEL or closed the dialog
+        }*/
+    }
     
      /**
      * Actives the boat when the user clicks on it.
