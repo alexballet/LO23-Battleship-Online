@@ -41,6 +41,8 @@ public class NetworkController {
         networkInterface = new NetworkModuleInterface(this);
         networkState = new HashMap<>();
         networkInterface = new NetworkModuleInterface(this);
+        // Launch server
+        this.launchServer();
     }
 
     public void launchServer() {
