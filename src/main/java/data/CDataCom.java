@@ -131,6 +131,12 @@ public class CDataCom implements IDataCom {
         controller.addGameToList(g);
         interfaceMain.addGame(g);
     }
+    
+    @Override
+    public void removeGameFromList(Game g){
+        controller.removeGameFromList(g);
+        
+    }
 
     @Override
     public void errorPrint(String error) {
@@ -187,6 +193,8 @@ public class CDataCom implements IDataCom {
                 controller.getLocalProfile().setGamesLost(controller.getLocalProfile().getGamesLost()+1);
                 controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
                 controller.removeGameFromList(controller.getLocalGame()); // Verifier comment est géré la notification que la partie n'existe plus
+                //interfaceMain.removeGame(controller.getLocalGame());
+                //interfaceCom.removeGame(controller.getLocalGame());
             }              
             
         }

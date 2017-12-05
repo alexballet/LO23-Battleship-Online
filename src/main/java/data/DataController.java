@@ -153,6 +153,7 @@ public class DataController {
             listGames.add(g);
     }
     
+    
     /**
      * Update the status of game and add it into the list of Game
      * @param g : the game which status has been modified
