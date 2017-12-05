@@ -131,10 +131,12 @@ public class DataController {
         localUser = u;
     }
     
+
     /**
      * Mutator for local DataUser
      * @param du : new DataUser
      */
+
     public void setLocalDataUser (DataUser du){
         localDataUser = du;
     }
