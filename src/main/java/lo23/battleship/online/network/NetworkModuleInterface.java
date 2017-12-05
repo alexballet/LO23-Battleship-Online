@@ -122,7 +122,7 @@ public class NetworkModuleInterface implements COMInterface {
 
         User user = dataInterface.getLocalUser();
         ConnectionRequestMessage connectionRequestMessage =
-                new ConnectionRequestMessage(user, new ArrayList<InetAddress>());
+                new ConnectionRequestMessage(user, new ArrayList<InetAddress>(), null);
 
         HashSet<InetAddress> knownUsersAddresses = user.getIPs();
 
