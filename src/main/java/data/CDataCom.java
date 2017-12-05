@@ -140,7 +140,9 @@ public class CDataCom implements IDataCom {
 
     @Override
     public void errorPrint(String error) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //wait the method errorPrint in GuiTableInterface.java and GuiMainInterface.java
+        //Interfacetable.errorPrint(error);
+        //InterfaceMain.errorPrint(error);
     }
 
     @Override
