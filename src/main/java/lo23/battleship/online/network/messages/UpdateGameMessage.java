@@ -35,7 +35,7 @@ public class UpdateGameMessage extends Message{
      * @param IData interface with Data.
      */
     public void process(IDataCom IData){
-        System.out.println("game: "+ gameUpdate);;
+        System.out.println("game: "+ gameUpdate);
         IData.changeStatusGame(gameUpdate);
        }
 

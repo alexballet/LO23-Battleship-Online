@@ -6,122 +6,127 @@
 package structData;
 import java.util.HashSet;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author loulou
  */
 public class Player implements Serializable{
     private Profile profile;
-    private HashSet listBoats;
-    private HashSet listShots;
+    private List<Boat> listBoats;
+    private HashSet<Shot> listShots;
     
-    /*constructor by default*/
+    /**
+     * Constructor by default 
+     * @param dUser : the parent class DataUser of the profile of the new player
+     */
+    public Player(DataUser dUser) {
+        profile = new Profile(dUser);
+        listBoats = new ArrayList();
+        listShots = new HashSet();
+    }
+    
     /**
      * 
      * @param dUser : the parent class DataUser of the profil of the new player
      */
-    public Player(DataUser dUser) {
-        profile = new Profile(dUser);
-        listBoats = new HashSet();
+    public Player(Profile p) {
+        profile = p;
+        listBoats = new ArrayList();
         listShots = new HashSet();
     }
     
     /*constructor with parameters*/
     /**
-     * 
-     * @param p : the profil of the new player
-     * @param listBoatsdata : the list of boats of the new player
-     * @param listShotsdata : the list of shots of the new player
+     * Constructor with parameters
+     * @param p : the profile of the new player
+     * @param listBoatsData : the list of boats of the new player
+     * @param listShotsData : the list of shots of the new player
      */
-    public Player(Profile p, HashSet listBoatsdata, HashSet listShotsdata){
+    public Player(Profile p, List<Boat> listBoatsData, HashSet<Shot> listShotsData){
         profile = p;
-        listBoats = listBoatsdata;
-        listShots = listShotsdata;
+        listBoats = listBoatsData;
+        listShots = listShotsData;
     }
     
-    /*accessors*/
     /**
-     * 
-     * @return the profil of the player
+     * Accessors for Profile
+     * @return the profile of the player
      */
-    public Profile getprofile(){
+    public Profile getProfile(){
         return profile;
     }
     
     /**
-     * 
+     * Accessors for listBoats
      * @return the list of boats of the player
      */
-    public HashSet getlistBoats(){
+    public List<Boat> getListBoats(){
         return listBoats;
     }
     
     /**
-     * 
+     * Accessors for listShots
      * @return the list of shots of the player
      */
-    public HashSet getlistShots(){
+    public HashSet<Shot> getListShots(){
         return listShots;
     }
     
-    /*mutator*/
     /**
-     * 
-     * @param p : the new value of the profil of the player
+     * Mutator for profile
+     * @param p : the new value of the profile of the player
      */
-    public void setprofile(Profile p){
+    public void setProfile(Profile p){
         this.profile = p;
     }
     
     /**
-     * 
-     * @param listBoatsdata : the new value of the list of boats of the player
+     * Mutator for listBoats
+     * @param listBoatsData : the new value of the list of boats of the player
      */
-    public void setlistBoats(HashSet listBoatsdata){
+    public void setListBoats(List<Boat> listBoatsdata){
         this.listBoats = listBoatsdata;
     }
     
     /**
-     * 
-     * @param listShotsdata : the new value of the list of shots of the player
+     * Mutator for listShots
+     * @param listShotsData : the new value of the list of shots of the player
      */
-    public void setlistShots(HashSet listShotsdata){
+    public void setListShots(HashSet<Shot> listShotsdata){
         this.listShots = listShotsdata;
     }
     
-    /*clone*/
     /**
-     * 
-     * @param playerclone : the player to be cloned
+     * Clone function to copy a Player
+     * @param playerClone : the player to be cloned
      * @return the player who has called this method to clone all the 
-     *         information of the playerclone
+     *         information of the playerClone
      */
-    public Player cloneplayer(Player playerclone){
-        profile = playerclone.profile;
-        listBoats = playerclone.listBoats;
-        listShots = playerclone.listShots;
+    public Player clonePlayer(Player playerClone){
+        profile = playerClone.profile;
+        listBoats = playerClone.listBoats;
+        listShots = playerClone.listShots;
         return this;
    }
     
-   /*add*/
     
     /**
-     * 
-     * @param newboat : the new boat to be added into the list of boats
+     * Add a new boat to the list of boats
+     * @param newBoat : the new boat to be added into the list of boats
      */
-    public void addboat (Boat newboat){
-        listBoats.add(newboat);
+    public void addBoat (Boat newBoat){
+        listBoats.add(newBoat);
     }
     
     /**
-     * 
-     * @param newshot : the new shot to be added into the list of boats
+     * Add a new shot to the list of shots
+     * @param newShot : the new shot to be added into the list of boats
      */
-    public void addshot (Shot newshot){
-        listShots.add(newshot);
+    public void addShot (Shot newShot){
+        listShots.add(newShot);
     }
-    
-    
-    
+   
 }
 

@@ -47,7 +47,8 @@ public class JoinGameResponseMessage extends Message{
 
         if (isOk) {
 
-            IData.setGameJoinResponse(true, sender, IData.getLocalUser());
+            //TODO : uncomment when integV3 done
+            //IData.setGameJoinResponse(true, sender, IData.getLocalUser());
 
         } else {
 

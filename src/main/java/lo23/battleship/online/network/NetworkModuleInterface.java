@@ -24,12 +24,34 @@ public class NetworkModuleInterface implements COMInterface {
         controller = cont;
     }
 
-    public boolean notifyReady(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+    public boolean notifyReady(User user, Player playerToNotify) {
+
+        NotifyReadyMessage notifyReadyMessage = new NotifyReadyMessage(user, playerToNotify.getProfile());
+
+        controller.sendMessage(notifyReadyMessage, controller.getAddressForUser(playerToNotify.getProfile()));
+
+        return true;
     }
 
-    public boolean sendChatMessage(String message, Game g) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+    public boolean sendChatMessage(ChatMessage chatMessage, Game g) {
+
+        SendTextMessage sendTextMessage = new SendTextMessage(chatMessage);
+
+        HashSet<User> listUsers = g.getListSpectators();
+
+        if (dataInterface.getLocalUser().getIdUser() == g.getPlayer1().getProfile().getIdUser()) {
+            listUsers.add(g.getPlayer2().getProfile());
+        } else {
+            listUsers.add(g.getPlayer1().getProfile());
+        }
+
+        for (User user : listUsers) {
+
+            controller.sendMessage(sendTextMessage, controller.getAddressForUser(user));
+
+        }
+
+        return true;
     }
 
     /**
@@ -94,7 +116,7 @@ public class NetworkModuleInterface implements COMInterface {
 
     public boolean joinGame(User user, Game g) {
 
-        InetAddress destinationAddress = controller.getAddressForUser(g.getPlayer1().getprofile());
+        InetAddress destinationAddress = controller.getAddressForUser(g.getPlayer1().getProfile());
 
         JoinGameRequestMessage joinGameRequest = new JoinGameRequestMessage(user, g);
 
@@ -121,7 +143,20 @@ public class NetworkModuleInterface implements COMInterface {
 
 
     public boolean sendShot(Player player, Game game, Shot shot) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+
+        ShotNotificationMessage shotNotificationMessage = new ShotNotificationMessage(shot);
+
+        InetAddress destAddress;
+
+        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
+            destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
+        } else {
+            destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
+        }
+
+        controller.sendMessage(shotNotificationMessage, destAddress);
+
+        return true;
     }
 
     public void searchForPlayers() {
@@ -141,5 +176,62 @@ public class NetworkModuleInterface implements COMInterface {
 
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
+    }
+
+    public void removeGame(Game game) {
+
+        User user = dataInterface.getLocalUser();
+        RemoveGameMessage removeGameMessage =
+                new RemoveGameMessage(game);
+
+        HashSet<InetAddress> knownUsersAddresses = user.getIPs();
+
+        for (InetAddress ipAddress : knownUsersAddresses) {
+
+            controller.sendMessage(removeGameMessage, ipAddress);
+
+        }
+    }
+
+    public void notifyGameWon(Player player) {
+
+        GameWonMessage gameWonMessage = new GameWonMessage(player);
+
+        controller.sendMessage(gameWonMessage, controller.getAddressForUser(player.getProfile()));
+
+    }
+
+    public boolean coordinates(Player destPlayer, Shot resultShot, Game game) {
+
+        ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, null);
+
+        InetAddress destAddress;
+
+        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
+            destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
+        } else {
+            destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
+        }
+
+        controller.sendMessage(shotNotificationResultMessage, destAddress);
+
+        return true;
+    }
+
+    public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat) {
+
+        ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, boat);
+
+        InetAddress destAddress;
+
+        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
+            destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
+        } else {
+            destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
+        }
+
+        controller.sendMessage(shotNotificationResultMessage, destAddress);
+
+        return true;
     }
 }
