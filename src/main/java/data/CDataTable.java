@@ -58,7 +58,7 @@ public class CDataTable implements IDataTable {
 
     @Override
     public void coordinateShips(List<Boat> listBoat) {
-        controller.getLocalPlayer().setlistBoats(listBoat);
+        controller.getLocalPlayer().setListBoats(listBoat);
         interfaceCom.notifyReady(controller.getLocalUser());
     }
     
