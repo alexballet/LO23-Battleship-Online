@@ -7,9 +7,9 @@ import structData.User;
 
 import java.net.InetAddress;
 
-/**
+/** !Doc OK
  * Network message class, extends Message class.
- * Create a game notification and send the new game to data
+ * Message notifying Data a new game has been created by the sender.
  * @author Lejeune Lola
  */
 
@@ -18,7 +18,7 @@ public class CreatedGameNotificationMessage extends Message{
     Game game;
 
     /**
-     * Class constructor.
+     * Class constructor. ==MANQUE this.user ?==
      * @param sender is the User class of the network message sender.
      * @param gameCreated game created by the sender. The receiver will be able to fill its displayed game list.
      */

@@ -21,6 +21,10 @@ public class DisconnectionMessage extends Message{
 
     User user;
 
+    /**
+     * Class constructor.
+     * @param userWhoDisconnect ==DESCRIPTION NEEDED==
+     */
     public DisconnectionMessage(User userWhoDisconnect){
         this.user = userWhoDisconnect;
         this.type = "DisconnectionMessage";
@@ -34,8 +38,17 @@ public class DisconnectionMessage extends Message{
         return type;
     }
 
-    public void process(IDataCom IData){}
+    /**
+     * Unused method for this class.
+     * @param IData interface with Data.
+     */
+    public void process(IDataCom IData){ }
 
+    /**
+     * ==DESCRIPTION NEEDED==
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
+     */
     public void process(IDataCom IData, InetAddress senderAddress){
         System.out.println("User: " + user + " has disconnected");
         NetworkController controller = NetworkController.getInstance();

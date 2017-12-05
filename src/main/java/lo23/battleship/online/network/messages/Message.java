@@ -8,13 +8,29 @@ import interfacesData.IDataCom;
 
 
 /**
- * Created by xzirva on 31/10/17.
+ * ==DESCRIPTION NEEDED==
  */
 public abstract class Message implements Serializable {
 
     String type;
+
+    /**
+     * ==DESCRIPTION NEEDED==
+     * @return ==DESCRIPTION NEEDED==
+     */
     public abstract String getType();
+
+    /**
+     * ==DESCRIPTION NEEDED==
+     * @param IData ==DESCRIPTION NEEDED==
+     */
     public abstract void process(IDataCom IData);
+
+    /**
+     * Abstract method.
+     * @param IData ==DESCRIPTION NEEDED==
+     * @param senderAddress ==DESCRIPTION NEEDED==
+     */
     public abstract void process(IDataCom IData, InetAddress senderAddress);
 }
 

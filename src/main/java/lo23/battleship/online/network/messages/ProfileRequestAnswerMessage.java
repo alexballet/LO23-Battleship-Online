@@ -6,11 +6,18 @@ import structData.User;
 
 import java.net.InetAddress;
 
+/**
+ * ==DESCRIPTION NEEDED==
+ */
 public class ProfileRequestAnswerMessage extends Message {
 
     User user;
     Profile profile;
 
+    /**
+     * Class constructor.
+     * @param profile ==DESCRIPTION NEEDED==
+     */
     public ProfileRequestAnswerMessage(Profile profile) {
 
         this.profile = profile;
@@ -24,11 +31,20 @@ public class ProfileRequestAnswerMessage extends Message {
         return type;
     }
 
+    /**
+     * ==DESCRIPTION NEEDED==
+     * @param IData interface with Data.
+     */
     public void process(IDataCom IData){
 
         IData.sendStatistics(profile);
     }
 
+    /**
+     * Unused method for this class.
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
+     */
     public void process(IDataCom IData, InetAddress senderAddress){
     }
 

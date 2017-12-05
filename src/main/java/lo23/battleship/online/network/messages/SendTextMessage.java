@@ -6,13 +6,17 @@ import java.net.InetAddress;
 
 /**
  * SendTextMessage, descendant Message, send (and receive message also because it's the same attribute) chat message to (from) away ap.
- * @author Lejeune Lola
+ * @author Lejeune Lola ==DESCRIPTION NEEDED==
  */
 
 public class SendTextMessage extends Message{
 
     ChatMessage message;
 
+    /**
+     * Class constructor.
+     * @param m ==DESCRIPTION NEEDED==
+     */
     public SendTextMessage(ChatMessage m){
         this.type = "SendTextMessage";
         this.message = m;
@@ -27,8 +31,17 @@ public class SendTextMessage extends Message{
         return type;
     }
 
+    /**
+     * Unused method for this class.
+     * @param IData interface with Data.
+     */
     public void process(IDataCom IData){}
 
+    /**
+     * ==DESCRIPTION NEEDED==
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
+     */
     public void process(IDataCom IData, InetAddress senderAddress){
         IData.receiveMessage(message);
 

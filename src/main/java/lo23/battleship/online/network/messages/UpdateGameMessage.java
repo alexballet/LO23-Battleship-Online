@@ -6,13 +6,17 @@ import java.net.InetAddress;
 
 /**
  * UpdateGame,descendant class Message, send a update game to Data in order to register the modification
- * @author Lejeune Lola
+ * @author Lejeune Lola ==DESCRIPTION NEEDED==
  */
 
 public class UpdateGameMessage extends Message{
 
     Game gameUpdate;
 
+    /**
+     * Class constructor.
+     * @param game ==DESCRIPTION NEEDED==
+     */
     public UpdateGameMessage(Game game){
         this.gameUpdate = game;
         this.type = "UpdateGameMessage";
@@ -26,10 +30,19 @@ public class UpdateGameMessage extends Message{
         return type;
     }
 
+    /**
+     * ==DESCRIPTION NEEDED==
+     * @param IData interface with Data.
+     */
     public void process(IDataCom IData){
         System.out.println("game: "+ gameUpdate);;
         IData.changeStatusGame(gameUpdate);
        }
 
+    /**
+     * Unused method for this class.
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
+     */
     public void process(IDataCom IData, InetAddress senderAddress){}
 }

@@ -6,12 +6,22 @@ import structData.User;
 
 import java.net.InetAddress;
 
+
+/**
+ * ==DESCRIPTION NEEDED==
+ */
 public class JoinGameResponseMessage extends Message{
 
     Game game;
     User sender;
     Boolean isOk;
 
+    /**
+     * Class constructor.
+     * @param isOk ==DESCRIPTION NEEDED==
+     * @param sender ==DESCRIPTION NEEDED==
+     * @param game ==DESCRIPTION NEEDED==
+     */
     public JoinGameResponseMessage(Boolean isOk, User sender, Game game){
         this.game = game;
         this.isOk = isOk;
@@ -26,6 +36,10 @@ public class JoinGameResponseMessage extends Message{
         return type;
     }
 
+    /**
+     * ==DESCRIPTION NEEDED==
+     * @param IData interface with Data.
+     */
     public void process(IDataCom IData){
 
         if (isOk) {
@@ -38,8 +52,12 @@ public class JoinGameResponseMessage extends Message{
         }
     }
 
-    public void process(IDataCom IData, InetAddress senderAddress){
-    }
+    /**
+     * Unused method for this class.
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
+     */
+    public void process(IDataCom IData, InetAddress senderAddress){ }
 
 
 

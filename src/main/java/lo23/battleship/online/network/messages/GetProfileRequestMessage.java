@@ -7,13 +7,17 @@ import structData.User;
 import java.net.InetAddress;
 
 /**
- * GetProfileRequestMessage
+ * ==DESCRIPTION NEEDED==
  */
 
 public class GetProfileRequestMessage extends Message {
 
     User userRequester;
 
+    /**
+     * Class constructor.
+     * @param requester ==DESCRIPTION NEEDED==
+     */
     public GetProfileRequestMessage(User requester){
         this.userRequester = requester;
         this.type = "JoinGameRequest";}
@@ -26,15 +30,17 @@ public class GetProfileRequestMessage extends Message {
         return type;
     }
 
-    public void process(IDataCom IData){
-    }
+    /**
+     * Unused method for this class.
+     * @param IData interface with Data.
+     */
+    public void process(IDataCom IData){ }
 
     /**
-     *
-     * @param IData interface with Data
-     * @param senderAddress
+     * ==DESCRIPTION NEEDED==
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
      */
-
     public void process(IDataCom IData, InetAddress senderAddress){
 
         ProfileRequestAnswerMessage profileRequestAnswer = new ProfileRequestAnswerMessage(IData.getUserProfile());

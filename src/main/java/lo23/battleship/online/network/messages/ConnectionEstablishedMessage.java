@@ -10,7 +10,7 @@ import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
 
-/**
+/** !Doc OK
  * Network message class, extends from Message class.
  * Allows to give the list of known IP addresses after receiving a ConnectionRequestMessage from a user.
  */
