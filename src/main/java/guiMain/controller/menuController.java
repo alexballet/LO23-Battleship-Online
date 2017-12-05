@@ -7,6 +7,8 @@ import java.util.List;
 
 import guiMain.GameCell;
 import guiMain.GuiMainController;
+import guiMain.PlayerCell;
+
 import java.util.ResourceBundle;
 import interfacesData.IDataMain;
 import javafx.collections.FXCollections;
@@ -57,6 +59,7 @@ public class menuController implements Initializable{
      * Initialise the user list in the main GUI
      */
     private void initUserList() {
+    	/*
         ObservableList<User> playersObservable = FXCollections.observableList(new ArrayList<User>());
         playersView.setItems(playersObservable);
 
@@ -76,6 +79,17 @@ public class menuController implements Initializable{
                     return cell;
                 }
             });
+            */
+    	final menuController controller = this;
+		ObservableList<User> playersObservable = FXCollections.observableArrayList(new ArrayList<User>());
+		playersView.setItems(playersObservable);
+		playersView.setCellFactory(new Callback<ListView<User>, ListCell<User>>() { 
+			  
+		    @Override 
+		    public ListCell<User> call(ListView<User> lv) { 
+		        return new PlayerCell(controller); 
+		    } 
+		});
 	}
 	
 	private void initGamesList() {
@@ -100,6 +114,10 @@ public class menuController implements Initializable{
 		System.out.println("LOOK GAME " + game.getName());
 	}
 	
+	public void lookUser(User user) {
+		System.out.println("LOOK USER " + user.getUsername());
+	}
+	
 
 	/**
 	 *  	Access to option windows
@@ -107,7 +125,8 @@ public class menuController implements Initializable{
 	 */
 	@FXML
 	private void option(){
-		// gamesView.getItems().add(new Game(true, "Game test 1", false, 100, true, true));
+		//gamesView.getItems().add(new Game(true, "Game test 1", false, 100, true, true));
+		playersView.getItems().add(new User("login", "name of user"));
 	}
 	
 	@FXML
