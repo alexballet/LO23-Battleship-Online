@@ -306,7 +306,7 @@ public class Game implements Serializable{
      * Add a message to the list of message
      * @param msg the message to add
      */
-    public void addMessage(MessageType msg){
+    public void addMessage(ChatMessage msg){
         listMessages.add(msg);
     }
  
@@ -367,11 +367,11 @@ public class Game implements Serializable{
      public void setPlayer1(Player p1){
         player1 = p1;
     }
-    
-     /**
-      * Mutator for player 2
-      * @param p2 the new player 2
-      */
+
+    /**
+     * Mutator for player 2
+     * @param p2 : the new player 2
+     */    
     public void setPlayer2(Player p2){
         player2 = p2;
     }

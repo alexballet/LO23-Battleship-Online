@@ -7,6 +7,7 @@ package structData;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Boat is the class which represents a ship of a player.
@@ -18,7 +19,8 @@ public class Boat implements Serializable{
     
     
     /**
-     * Constructor by default
+     * constructor by default
+     * status = false means that the boat isn't sunk
      */
     public Boat(){
         type = BoatType.PORTEAVIONS;
@@ -26,11 +28,13 @@ public class Boat implements Serializable{
         this.listCases = new ArrayList();
     }
     
+
+
     /**
-     * Constructor with parameters
-     * @param typedata : type of boat
-     * @param statusdata : status of the boat
-     * @param listCasesdata : list of positions
+     * constructor with parameters
+     * @param typedata : the type of the new boat
+     * @param statusdata : the status of the new boat
+     * @param listCasesdata  : the list of positions of the new boat
      */
     public Boat(BoatType typedata, Boolean statusdata, List<Position> listCasesdata){
         type = typedata;
@@ -58,13 +62,14 @@ public class Boat implements Serializable{
      * Accessor for the List of cases
      * @return the boat's list of cases
      */
-    public List<Position> getListcases(){
+    public List<Position> getListCases(){
         return listCases;
     }
     
+    //mutator
     /**
-     * Mutator for the boat's type
-     * @param typedata : the new boat's type
+     * 
+     * @param typedata : the new value of the type of the boat
      */
     public void setType(BoatType typedata){
         this.type = typedata;
@@ -113,17 +118,51 @@ public class Boat implements Serializable{
      * @return a boolean set to true if the position belongs to a boat
      */
     public Boolean verifyPosition (Position pos){
-        //fonction not yet finished
-        return true;
+        Boolean isbelonged;
+        isbelonged = false;
+        
+       ListIterator<Position> it = this.listCases.listIterator();
+       while(it.hasNext()){
+            Position posboat = it.next();
+            Byte posboatx = posboat.x;
+            Byte posboaty = posboat.y;
+            if ((posboatx.equals(pos.x)) && (posboaty.equals(pos.y))){
+                isbelonged = true;
+                break;
+            }
+       }
+        return isbelonged;
         
     }
     
+    
     /**
-     * Set the position's touched attribute to true
-     * @param pos : position to modify
+     * If the position belongs to the boat, set this positon touched
+     * @param pos : the position to be verified
      */
-    public void setTouchedposition (Position pos){
-
+    public void setTouchedPosition (Position pos){
+        if (this.verifyPosition(pos) == true){
+            pos.touched = true;
+        }
+    }
+    
+    
+    /**
+     * verify is the boat has been sunk
+     * @return the new status of the current boat
+     */
+    public Boolean verifyBoatStatus(){
+        ListIterator<Position> it = this.listCases.listIterator();
+        
+        this.status = true;
+        while(it.hasNext()){
+            Position posboat = it.next();
+            if (posboat.touched == false){
+                this.status = false;
+                break;
+            }
+        }
+        return this.status;
     }
     
 }

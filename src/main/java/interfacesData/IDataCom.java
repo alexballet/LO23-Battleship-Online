@@ -54,7 +54,6 @@ public interface IDataCom {
      */
     public void setGameJoinResponse(Boolean no);
 
-
     /**
      * After an user has connected, this user will be added to the list of user
      * @param u : The new user

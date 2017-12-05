@@ -6,18 +6,21 @@
 package data;
 
 import guiMain.GuiMainInterface;
+import java.io.File;
+import guiTable.GuiTableInterface;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import lo23.battleship.online.network.COMInterface;
+import structData.Boat;
 import structData.Game;
 import structData.User;
 import structData.DataUser;
 import structData.Profile;
 import structData.StatusGame;
 import structData.Player;
+import structData.Shot;
 
 /**
  *
@@ -30,6 +33,7 @@ public class DataController {
     private CDataTable interfaceDataTable;
     
     private GuiMainInterface interfaceMain;
+    private GuiTableInterface interfaceTable;
     private COMInterface interfaceCom;
    
     //private
@@ -40,6 +44,7 @@ public class DataController {
     private List<User> listUsers;
     private Profile localProfile;
     private List<Game> listGames;
+    private Player localPlayer;
     
     /**
      * DataController
@@ -64,6 +69,11 @@ public class DataController {
         interfaceMain = i;
         interfaceDataCom.setInterfaceMain(i);
     }
+        
+    public void setInterfaceTable(GuiTableInterface i){
+        interfaceTable = i;
+        interfaceDataCom.setInterfaceTable(i);
+    }
     
     /**
      * Mutator for interfaceCom
@@ -73,6 +83,8 @@ public class DataController {
         interfaceCom = i;
         interfaceDataCom.setInterfaceCom(i);
         interfaceDataMain.setInterfaceCom(i);
+        interfaceDataCom.setInterfaceCom(i);
+        interfaceDataTable.setInterfaceCom(i);
     }
     
     /**
@@ -148,6 +160,15 @@ public class DataController {
     public void setLocalProfile (Profile p){
         localProfile = p;
     }
+    
+    public void setLocalPlayer(Player p){
+        localPlayer = p;
+    }
+    
+    public Player getLocalPlayer(){
+        return localPlayer;
+    }
+    
 
     /**
      * Add User to local list
@@ -242,19 +263,64 @@ public class DataController {
     }
     
     /**
-     * Reload local profile previously saved
+     * Reload local profile previously saved given the login and password given
+     * @param login : login written by User 
+     * @param mdp : password written by User
      */
-    public void reloadSavedProfile(){
-        try {
-         FileInputStream fis = new FileInputStream("profile.ser");
-         ObjectInputStream ois = new ObjectInputStream(fis);
-         localProfile = (Profile) ois.readObject(); 
-         localUser = new User(localProfile);
-         localDataUser = new DataUser(localProfile);
-         ois.close();
-         
-      } catch (Exception e) { 
-         e.printStackTrace(); 
-      }
+    public void reloadSavedProfile(String login, String mdp){
+        
+        File dir =new File(".");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+          for (File child : directoryListing) {
+            if (child.getName().contains(".ser")){
+                try {
+                    FileInputStream fis = new FileInputStream(child.getName());
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    Profile p = (Profile) ois.readObject();
+                    ois.close();
+                    if ((p.getLogin().equals(login)) && (p.getPassword().equals(mdp))){
+                        localProfile = p; 
+                        localUser = new User(localProfile);
+                        localDataUser = new DataUser(localProfile);
+                        break;
+                    }              
+                } catch (Exception e) { 
+                    e.printStackTrace(); 
+                 }
+            }
+          }
+          if (localProfile.getName().equals(""))
+              System.out.print("No profile found with this login and password");
+        } else {
+            System.out.print("no file found on this computer");
+        }
+    }
+    
+    /**
+     * Test if a boat is touched or sunk by a shot
+     * @param s : shot of the opponent to test
+     * @return a boat if a boat has been sunk
+     */
+    public Boat testShot(Shot s){
+        int i, j;
+        boolean boatSunk = true;
+        Boat b = null;
+        for (i=0;i<localPlayer.getListBoats().size();i++) { // each boats
+            for (j=0;j<localPlayer.getListBoats().get(i).getListCases().size();j++) { // each positions of the boat
+                if (localPlayer.getListBoats().get(i).verifyPosition(s) == true) {
+                    localPlayer.getListBoats().get(i).getListCases().get(j).setTouched(true);
+                    s.setTouched(true);
+                    b = localPlayer.getListBoats().get(i);
+                }
+                if (localPlayer.getListBoats().get(i).getListCases().get(j).getTouched() == false) // if atmost 1 position is not touched then the boat is not sunk
+                    boatSunk = false;
+            }
+        }
+        // if a boat has been sunk return this boat
+        if (boatSunk == true)
+            return b;
+        else
+            return null;
     }
 }

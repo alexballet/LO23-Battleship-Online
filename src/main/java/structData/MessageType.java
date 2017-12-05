@@ -5,8 +5,8 @@
  */
 package structData;
 
-/**
- *
+/** 
+ * Enumerate for the types of messages (Class Message)
  * @author Irvin
  */
 public enum MessageType {

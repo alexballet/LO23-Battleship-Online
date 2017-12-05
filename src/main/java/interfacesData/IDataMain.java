@@ -54,7 +54,7 @@ public interface IDataMain {
      * Returns the statistics of an user
      * @return a profile
      */
-    Profile getStatistics();
+    public void getStatistics(Profile p);
     
     /**
      * Notifies the away application that an user wants to join a game
