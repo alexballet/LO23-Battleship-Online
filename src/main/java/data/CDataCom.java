@@ -118,7 +118,7 @@ public class CDataCom implements IDataCom {
     }
 
     @Override
-    public void coordinate(Position p, Shot s, Boat b) {
+    public void coordinate(Shot s) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

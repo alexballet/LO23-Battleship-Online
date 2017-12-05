@@ -25,7 +25,7 @@ public class GameWonMessage extends Message{
     }
 
     public void process(IDataCom IData){
-        // TO DO decommenter quand méthode sera ajoutée par data
+        // TODO decommenter quand méthode sera ajoutée par data
         //IData.notifiedGameWon(player);
     }
 
