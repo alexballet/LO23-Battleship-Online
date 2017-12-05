@@ -2,6 +2,7 @@ package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
 import structData.Game;
+import structData.Player;
 import structData.User;
 import java.net.InetAddress;
 
@@ -12,8 +13,12 @@ import java.net.InetAddress;
 
 public class GameWonMessage extends Message{
 
-    public GameWonMessage(User senderGame, Game gameSend){
-        this.type = "GameWonMessage";}
+    Player player;
+
+    public GameWonMessage(Player p){
+        this.type = "GameWonMessage";
+        this.player = p;
+    }
 
     public String getType() {
         return type;
@@ -21,7 +26,7 @@ public class GameWonMessage extends Message{
 
     public void process(IDataCom IData){
         // TO DO decommenter quand méthode sera ajoutée par data
-        //IData.notifiedGameWon()
+        //IData.notifiedGameWon(player);
     }
 
     public void process(IDataCom IData, InetAddress senderAddress){
