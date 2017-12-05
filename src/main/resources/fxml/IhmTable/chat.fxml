@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controllers.ChatController">
    <children>
-      <Button layoutX="166.0" layoutY="214.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="84.0" text="Envoyer" onAction="#sendMyMessage"/>
+      <Button layoutX="166.0" layoutY="214.0" mnemonicParsing="false" onAction="#sendMyMessage" prefHeight="35.0" prefWidth="84.0" text="Envoyer" />
       <TextField fx:id="field" layoutY="214.0" prefHeight="35.0" prefWidth="165.0" promptText="Votre message...">
          <font>
             <Font size="14.0" />

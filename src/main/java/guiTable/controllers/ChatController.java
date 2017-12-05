@@ -1,7 +1,11 @@
 package guiTable.controllers;
+import guiTable.GuiTableInterface;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+//import interfacesData.IDataTable;
+import packageStructDonnées.Message;
+import packageStructDonnées.User;
 
 public class ChatController {
 
@@ -15,6 +19,7 @@ public class ChatController {
     
     public void init() {
         //initialisation of the chat controller
+        conversation.setEditable(false);
     }
 
     public void sendMyMessage() {
@@ -27,14 +32,31 @@ public class ChatController {
         //get the message to send
         message = field.getText();
         
-        //send the message to other users
-        // TO DO
+        //add this to the conversation
+        if(!message.isEmpty())
+        {
+            
+            //send the message to other users
+            //comment faire
+            
+            //System.out.println("message : "+message);
+            currentConversation = conversation.getText();
+            conversation.setText("Moi: " + message + "\n" + currentConversation);
+        }
+        
+        //erase the textfield
+        field.setText("");
+    }
+    
+    public void receiveAMessage(Message message) {
+        //receive a message
+        
+        //variables
+        String currentConversation;
         
         //add this to the conversation
         currentConversation = conversation.getText();
-        conversation.setText("Moi: " + message + "\n" + currentConversation);
-        
-        //System.out.println(temp);
-        
-    } 
+        //conversation.setText(message.getUserID() + ": " + message.getContent() + "\n" + currentConversation);
+    }
+    
 }
