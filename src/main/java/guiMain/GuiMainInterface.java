@@ -42,4 +42,10 @@ public interface GuiMainInterface {
 	 */
 	public void setGameJoinResponse(boolean isOk);
 	
+	/**
+	  * Remove the game passed as a parameter to the list of users.
+	  * @param game : game to remove to the list.
+	  */
+	public void removeGame(Game game);
+	
 }
