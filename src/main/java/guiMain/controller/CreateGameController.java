@@ -103,7 +103,7 @@ public class CreateGameController implements Initializable{
         // Game game = new Game(classicGame, name, oponent, timePerShot, spectators, chat);
                 
         // Calls interface with data to create new game
-        Game game = mainController.getIdata().newGame(classicGame, name, oponent, timePerShot, spectators, chat);     
+        Game game = mainController.getIdata().newGame(classicGame, name, oponent, timePerShot, spectators, chat);   
         
         // Open waiting room window 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Ihm-main/waitingRoom.fxml"));
@@ -113,7 +113,7 @@ public class CreateGameController implements Initializable{
         window.setScene(scene);
         // Set game data in new window
         WaitingRoomController controller = loader.<WaitingRoomController>getController();
-        controller.initData(game);
+      //  controller.initData(game); *********TMP : SUITE AU CHANGEMENT DU CONSTRUCTEUR
         // Show window
         window.show();
     }

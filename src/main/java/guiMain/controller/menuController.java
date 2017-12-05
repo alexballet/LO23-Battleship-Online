@@ -108,13 +108,13 @@ public class menuController implements Initializable{
 		// gamesView.getItems().add(new Game(true, "Game test 1", false, 100, true, true));
 	}
 
+
 	@FXML
 	private void disconnection(){
 		mainController.getIdata().askDisconnection();
 	}
 
-
-
+	
 	/** 
 	 * Adds the user passed as a parameter to the list of users.
 	 * @param user : user to add to the list.

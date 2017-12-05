@@ -11,12 +11,14 @@ import guiMain.controller.connectionController;
 import guiMain.controller.menuController;
 import interfacesData.IDataMain;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import structData.Game;
 import structData.Profile;
 import structData.User;
@@ -112,10 +114,17 @@ public class GuiMainController implements GuiMainInterface {
 			stage.setTitle("Battleship-Online");
 			stage.setScene(scene);
 			stage.show();
-			
+
 			System.out.println("start connection");
 			idata.connection();
 			System.out.println("Connection etablished");
+
+			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		          public void handle(WindowEvent we) {
+		        	  idata.askDisconnection();
+		              System.out.println("Stage is closing");
+		          }
+		      });  
 			
 
 		} catch (IOException e) {
