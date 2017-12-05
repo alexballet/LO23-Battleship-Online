@@ -3,6 +3,7 @@ package lo23.battleship.online.network.messages;
 import com.sun.xml.internal.bind.v2.model.core.ID;
 import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkController;
+import structData.Game;
 import structData.User;
 
 import java.net.Inet4Address;
@@ -15,10 +16,11 @@ import java.util.List;
 public class ConnectionRequestMessage extends Message {
     private User sender;
     private List<InetAddress> ipAdressesTable;
-
-    public ConnectionRequestMessage(User user, List<InetAddress> ipAdressesTable) {
+    private Game game;
+    public ConnectionRequestMessage(User user, List<InetAddress> ipAdressesTable, Game game) {
         this.sender = user;
         this.ipAdressesTable = ipAdressesTable;
+        this.game = game;
         type = "ConnectionRequestMessage";
     }
     public String getType() {
@@ -40,12 +42,12 @@ public class ConnectionRequestMessage extends Message {
 
         NetworkController controller = NetworkController.getInstance();
 
-        controller.addToNetwork(sender, senderAddress, null);
+        controller.addToNetwork(sender, senderAddress, game);
         System.out.println("1 - " + IData);
         System.out.println("2 - " + controller);
 
         ConnectionEstablishedMessage connectionEstablishedMessage =
-                new ConnectionEstablishedMessage(IData.getLocalUser(), controller.getIPTable(), null);
+                new ConnectionEstablishedMessage(IData.getLocalUser(), controller.getIPTable(), IData.getCreatedGame());
 
         controller.sendMessage(connectionEstablishedMessage, senderAddress);
     }

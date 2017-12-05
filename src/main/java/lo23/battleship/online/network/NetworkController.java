@@ -134,8 +134,8 @@ public class NetworkController {
         if (addUserToNetwork(sender, senderAddress)) {
             try {
                 dataInterface.addUserToUserList(sender);
-                if(game != null) {
-                dataInterface.addNewGameList(game);
+                if(game != null && game.getPlayer1().getProfile().getIdUser().equals(sender.getIdUser())) {
+                    dataInterface.addNewGameList(game);
                 }
             } catch (UnsupportedOperationException e) {
 
