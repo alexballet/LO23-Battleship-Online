@@ -6,7 +6,7 @@ import structData.User;
 import java.net.InetAddress;
 
 /**
- * JoinGameRequest,descendant class Message, received a game request and send info to data.
+ * GameWonMessage,descendant class Message, notify the player if he win.
  * @author Lejeune Lola
  */
 
