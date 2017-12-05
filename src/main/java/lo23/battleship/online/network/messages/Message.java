@@ -7,29 +7,28 @@ import java.net.InetAddress;
 import interfacesData.IDataCom;
 
 
-/** /!Doc NON-OK
- * ==DESCRIPTION NEEDED==
+/**
+ * Abstract network class, implements Serializable.
  */
 public abstract class Message implements Serializable {
 
     String type;
 
     /**
-     * ==DESCRIPTION NEEDED==
-     * @return ==DESCRIPTION NEEDED==
+     * Abstract getter method, once implemented it returns the message type.
      */
     public abstract String getType();
 
     /**
-     * ==DESCRIPTION NEEDED==
-     * @param IData ==DESCRIPTION NEEDED==
+     * Abstract method, interacts with Data once implemented.
+     * @param IData interface with Data.
      */
     public abstract void process(IDataCom IData);
 
     /**
-     * Abstract method.
-     * @param IData ==DESCRIPTION NEEDED==
-     * @param senderAddress ==DESCRIPTION NEEDED==
+     * Abstract method, interacts with Data once implemented.
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
      */
     public abstract void process(IDataCom IData, InetAddress senderAddress);
 }
