@@ -136,6 +136,8 @@ phase can be displayed
       * Notification that you won, update stats and display win
       */
      public void notifiedGameWon();
+     
+     public void notifyToSpecGame(Game g, User spec);
 }
 
 

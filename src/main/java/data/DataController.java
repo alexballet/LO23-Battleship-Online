@@ -186,6 +186,9 @@ public class DataController {
         }
         
     }
+    public void updateSpecList(Game g, User spec){
+        g.addSpectators(spec);
+    }
 
     
     /**

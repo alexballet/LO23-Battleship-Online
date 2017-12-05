@@ -231,5 +231,10 @@ public class CDataCom implements IDataCom {
          controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
          interfaceTable.displayVictory();
      }
+     
+     @Override
+     public void notifyToSpecGame(Game g, User spec){
+         controller.updateSpecList(g,spec);
+     }
     
 }
