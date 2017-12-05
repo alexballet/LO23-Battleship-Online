@@ -56,13 +56,12 @@ public abstract class PlacementPhaseController {
     protected static final int SPACE = 3;
     protected static final int GRID_ELEMENT_SIZE = 35;
     protected static final int NB_CASES_GRID = 10;
-    protected static final Integer PLACEMENT_TIME = 60;
     protected static final int RANDOM_ROTATION = 2;
     
     protected Timeline timeline;
     @FXML
     protected Label timerLabel;
-    protected Integer timeSeconds = PLACEMENT_TIME;
+    protected Integer timeSeconds;
     
     protected boolean rotationIsValide;
     protected BoatDrawing activeBoat;
@@ -116,32 +115,7 @@ public abstract class PlacementPhaseController {
         
         rotationIsValide = false;
         
-        valider.setDisable(true);
-        
-        //Timer
-        timeSeconds = PLACEMENT_TIME;
- 
-        // update timerLabel
-        timerLabel.setText(timeSeconds.toString());
-        timeline = new Timeline();
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
-                    // KeyFrame event handler                      
-            @Override
-            public void handle(Event event) {
-                timeSeconds--;
-                    // update timerLabel
-                    timerLabel.setText(timeSeconds.toString());
-                if (timeSeconds <= 10) {
-                    timerLabel.setTextFill(Color.RED);
-                }
-                if (timeSeconds <= 0) {
-                    timeline.stop();
-                    timeIsOver();
-                }
-            }
-        }));
-        timeline.playFromStart();
+        valider.setDisable(true);                        
     }
     
         
@@ -436,6 +410,31 @@ public abstract class PlacementPhaseController {
             activeBoat.getBoatRectangle().setFill(activeBoat.getDisactiveColor());
             activeBoat=null;
         } 
+    }
+    
+    public void setPlacementTime(Integer placementTime){
+        this.timeSeconds = placementTime;
+        // update timerLabel
+        timerLabel.setText(timeSeconds.toString());
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
+                    // KeyFrame event handler                      
+            @Override
+            public void handle(Event event) {
+                timeSeconds--;
+                    // update timerLabel
+                    timerLabel.setText(timeSeconds.toString());
+                if (timeSeconds <= 10) {
+                    timerLabel.setTextFill(Color.RED);
+                }
+                if (timeSeconds <= 0) {
+                    timeline.stop();
+                    timeIsOver();
+                }
+            }
+        }));
+        timeline.playFromStart();
     }
     
     /**

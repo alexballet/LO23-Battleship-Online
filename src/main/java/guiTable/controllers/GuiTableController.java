@@ -50,18 +50,20 @@ public class GuiTableController implements GuiTableInterface {
      * @throws Exception 
      */
     @Override
-    public void displayPlacementPhase(Stage currentStage, Boolean classic) throws Exception {
+    public void displayPlacementPhase(Stage currentStage, Boolean classic, Integer placementTime) throws Exception {
         FXMLLoader loader = new FXMLLoader();
         if(classic) {
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
         } else {
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
-        }
-        rootLayout = (AnchorPane) loader.load();
+            loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
+        }        
+        rootLayout = (AnchorPane) loader.load(); 
+        PlacementPhaseController controller = loader.getController();
+        controller.setPlacementTime(placementTime);
         Scene scene = new Scene(rootLayout);
         currentStage.setTitle("Battleship-Online");
         currentStage.setScene(scene);
-        currentStage.show();
+        currentStage.show();        
     }
 
     @Override

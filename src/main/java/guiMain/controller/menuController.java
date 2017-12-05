@@ -89,7 +89,7 @@ public class menuController {
 	private void createGame(){
             
             try{
-                GuiTableController.getInstance().displayPlacementPhase( this.currentStage, false ); // use boolean to specifie classic type or not
+                GuiTableController.getInstance().displayPlacementPhase( this.currentStage, false, 100 ); // use boolean to specifie classic type or not
             }
             catch(Exception e){
                 System.err.println(e.getMessage());
