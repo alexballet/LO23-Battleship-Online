@@ -164,4 +164,19 @@ public class NetworkModuleInterface implements COMInterface {
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
     }
+
+    public void removeGame(Game game) {
+
+        User user = dataInterface.getLocalUser();
+        RemoveGameMessage removeGameMessage =
+                new RemoveGameMessage(game);
+
+        HashSet<InetAddress> knownUsersAddresses = user.getIPs();
+
+        for (InetAddress ipAddress : knownUsersAddresses) {
+
+            controller.sendMessage(removeGameMessage, ipAddress);
+
+        }
+    }
 }

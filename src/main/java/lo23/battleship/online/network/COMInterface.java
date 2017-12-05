@@ -86,8 +86,13 @@ public interface COMInterface {
     /**
      * search for players who are connected
      * @param user User that is connecting
-     * @return list of all users who are connected
+     * @return void
      */
     public void searchForPlayers();
 
+    /**
+     * notifies every user to remove the game from their list
+     * @param game Game to delete
+     */
+    public void removeGame(Game game);
 }
