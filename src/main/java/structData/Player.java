@@ -127,6 +127,16 @@ public class Player implements Serializable{
     public void addShot (Shot newShot){
         listShots.add(newShot);
     }
+    
+    /**
+     * Function to compare a player with the current player
+     * @param p player to compare with the current player
+     * @return a boolean wich is true if players are equals
+     */
+    public Boolean comparePlayer(Player p){
+        Boolean isEqual = this.profile.idUser.equals(p.profile.idUser); 
+        return isEqual;
+    }
    
 }
 

@@ -359,11 +359,40 @@ public class Game implements Serializable{
     public Boolean getPlayer1Start(){
         return this.player1Start;
     }
+    
+    /**
+     * Mutator for player 1
+     * @param p1 the new player 1
+     */
      public void setPlayer1(Player p1){
         player1 = p1;
     }
     
+     /**
+      * Mutator for player 2
+      * @param p2 the new player 2
+      */
     public void setPlayer2(Player p2){
         player2 = p2;
+    }
+    
+    /**
+     * Function to compare a player with the player 1
+     * @param p player to compare with player 1
+     * @return a boolean wich is true if players are equals
+     */
+    public Boolean comparePlayer1(Player p){
+        Boolean isEqual = this.player1.comparePlayer(p);
+        return isEqual;
+    }
+    
+    /**
+     * Function to compare a player with the player 2
+     * @param p player to compare with player 2
+     * @return a boolean wich is true if players are equals
+     */
+    public Boolean comparePlayer2(Player p){
+        Boolean isEqual = this.player2.comparePlayer(p);
+        return isEqual;
     }
 }
