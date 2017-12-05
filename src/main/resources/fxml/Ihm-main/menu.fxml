@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -17,9 +18,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.menuController">
    <children>
@@ -114,12 +112,30 @@
                                     </ImageView>
                                  </children>
                               </HBox>
-                              <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
-                                 <children>
-                                    <Button fx:id="optionButton" mnemonicParsing="false" onAction="#option" prefHeight="46.0" prefWidth="66.0" text="Option" />
-                                    <Button fx:id="disconnectionButton" mnemonicParsing="false" onAction="#disconnection" prefHeight="49.0" prefWidth="79.0" text="Déco" />
-                                 </children>
-                              </VBox>
+                              <VBox GridPane.columnIndex="2">
+											<children>
+												<fx:define>
+													<Image fx:id="btnOption" url="@../../img/option.png" />
+												</fx:define>
+												<Button fx:id="optionButton" mnemonicParsing="false"
+													onAction="#option" prefHeight="46.0" prefWidth="81.0">
+													<graphic>
+														<ImageView image="$btnOption" fitHeight="45.0"
+															fitWidth="40.0" pickOnBounds="true" preserveRatio="false" />
+													</graphic>
+												</Button>
+												<fx:define>
+													<Image fx:id="btnDisconnect" url="@../../img/logout.png" />
+												</fx:define>
+												<Button fx:id="disconnectionButton" mnemonicParsing="false"
+													onAction="#disconnection" prefHeight="46.0" prefWidth="81.0">
+													<graphic>
+														<ImageView image="$btnDisconnect" fitHeight="45.0"
+															fitWidth="40.0" pickOnBounds="true" preserveRatio="false" />
+													</graphic>
+												</Button>
+											</children>
+										</VBox>
                            </children>
                         </GridPane>
                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">

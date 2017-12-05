@@ -137,6 +137,7 @@ public class Profile extends DataUser {
     
     /**
      * Accessor for the image from avatar
+     * @return 
      * @return an avatar as an image
      */
     public Image getImage(){
@@ -245,4 +246,18 @@ public class Profile extends DataUser {
       }
     }
     
+    /**
+     * Mutator for gamesWon
+     * @param nb the number of games won as an integer
+     */
+    public void setGamesWon(int nb){
+        this.gamesWon = nb;
+    }
+    /**
+     * Accessor for gamesWon
+     * @return the number of games won as an integer
+     */
+    public int getGamesWon(){
+        return this.gamesWon;
+    }    
 }
