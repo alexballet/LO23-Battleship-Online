@@ -1,6 +1,9 @@
 package guiTable;
 
+import data.DataController;
 import javafx.stage.Stage;
+import guiTable.controllers.ChatController;
+import guiTable.controllers.PlacementPhaseController;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.Shot;
@@ -59,6 +62,7 @@ public interface GuiTableInterface {
      * Displays a new incoming message on chat window.
      * @param message : New incoming message to display.
      */
+    
     public void addChatMessage(ChatMessage message);
 
     /**
@@ -68,5 +72,7 @@ public interface GuiTableInterface {
      */
     //public void displayMessage(MessageType messageType, String message);
     public void displayMessage(String message);
+    
+    public void setDataController(DataController d);
 
 }
