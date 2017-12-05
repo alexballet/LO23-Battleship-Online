@@ -24,12 +24,34 @@ public class NetworkModuleInterface implements COMInterface {
         controller = cont;
     }
 
-    public boolean notifyReady(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+    public boolean notifyReady(User user, Player playerToNotify) {
+
+        NotifyReadyMessage notifyReadyMessage = new NotifyReadyMessage(user, playerToNotify.getprofile());
+
+        controller.sendMessage(notifyReadyMessage, controller.getAddressForUser(playerToNotify.getprofile()));
+
+        return true;
     }
 
-    public boolean sendChatMessage(String message, Game g) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+    public boolean sendChatMessage(ChatMessage message, Game g) {
+
+        SendTextMessage sendTextMessage = new SendTextMessage(message);
+
+        HashSet<User> listUsers = g.getListSpectators();
+
+        if (dataInterface.getLocalUser().getIdUser() == g.getPlayer1().getprofile().getIdUser()) {
+            listUsers.add(g.getPlayer2().getprofile());
+        } else {
+            listUsers.add(g.getPlayer1().getprofile());
+        }
+
+        for (User user : listUsers) {
+
+            controller.sendMessage(sendTextMessage, controller.getAddressForUser(user));
+
+        }
+
+        return true;
     }
 
     /**
