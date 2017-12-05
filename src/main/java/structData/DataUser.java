@@ -5,43 +5,43 @@
  */
 package structData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author loulou
  */
 public class DataUser extends User {
     protected String password;
-    protected String listContacts;
+    protected List<ContactGroup> listContacts;
     
-    /*constructor by default*/
     /**
-     * 
+     * Constructor by default
      * @param u : the user of the parent class User. This user has the heritage
      *            relationship with the object of the class DataUser
      */
     public DataUser(User u){
         super(u);
         password = new String("");
-        listContacts = new String("");
+        listContacts = new ArrayList();
     }
     
-     /*constructor with parameters*/
     /**
-     * 
+     * Constructor with parameters
      * @param u : the parent user of the new object of class DataUser
      * @param passworddata : the password of the new object of class DataUser
      * @param listContactsdata : the list of contacts of the new object of class
      *                           DataUser
      */
-    public DataUser(User u, String passworddata, String listContactsdata){
+    public DataUser(User u, String passworddata, List<ContactGroup> listContactsdata){
         super(u);
         password = passworddata;
         listContacts = listContactsdata;
     }
     
-    /*constructor for the class Profile who is "son" of the class User*/
     /**
-     * 
+     * Constructor for the class Profile who is "son" of the class User
      * @param du : a new object of the class DataUser
      */
     public DataUser (DataUser du){
@@ -56,43 +56,41 @@ public class DataUser extends User {
         listContacts = du.listContacts;
     }
     
-     /*accessors*/
+
     /**
-     * 
+     * Accessor for Password
      * @return the password of the object of the class DataUser
      */
-    public String getpassword(){
-        return password;
+    public String getPassword(){
+        return this.password;
     }
     /**
-     * 
+     * Accessor for List of contacts
      * @return the list of contacts of the object of the class DataUser
      */
-    public String getlistContacts(){
-        return listContacts;
+    public List<ContactGroup> getListContacts(){
+        return this.listContacts;
     } 
     
-        /*mutator*/
     /**
-     * 
+     * Mutator for password
      * @param passworddata : the new value of password of the object of the
      *                       class DataUser
      */
-    public void setpassword(String passworddata){
+    public void setPassword(String passworddata){
         this.password = passworddata;
     }
     /**
-     * 
+     * Mutator for List of contacts
      * @param listContactsdata : the new value of list of contacts of the object
      *                           of the class DataUser
      */
-    public void setlistContacts(String listContactsdata){
+    public void setListContacts(List<ContactGroup> listContactsdata){
         this.listContacts = listContactsdata;
     }
     
-    /*clone*/
     /**
-     *
+     * Clone function to copy a DataUser
      * @param duserclone : the object of the datauser to be cloned
      * @return the datauser who has called this method to clone all the 
      *         information of the duserclone

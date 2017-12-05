@@ -5,11 +5,16 @@
  */
 package interfacesData;
 
+import java.net.UnknownHostException;
 import java.util.Date;
 import structData.ContactGroup;
 import structData.Game;
 import structData.Profile;
 import structData.User;
+import java.awt.Image;
+import java.util.HashSet;
+import java.util.List;
+import structData.Profile;
 
 /**
  *
@@ -26,7 +31,7 @@ public interface IDataMain {
      * @param firstName : new firstName
      * @param borthDate : new birthDate
      */
-    void editProfile(String username, String password, int avatar, String lastName, String firstName, Date borthDate);
+    void editProfile(String username, String password, String avatar, String lastName, String firstName, Date borthDate);
     
     /**
      * Create a local account
@@ -41,21 +46,11 @@ public interface IDataMain {
      * @param firstname
      * @param birthDate
      */
-    void createAccount(String idUser, String login, String username, Long[] ips, String password, ContactGroup[] contactList, int avatar, String lastname, String firstname, Date birthDate);
-    
-    /**
-     * Add a distant user to the local list of user
-     * @param u : user to add
-     */
-    void addUser(User u);
+    void createAccount(String login, String username, HashSet ips, String password, List<ContactGroup> contactList, String avatar, String lastname, String firstname, Date birthDate);
     
     /**
      * Returns the statistics of an user
-     * @param u : user whose statistics are asked
-     * @param nbGamePlayed
-     * @param nbGameWon
-     * @param nbGameLost
-     * @param nbGameAbandoned 
+     * @return a profile
      */
     Profile getStatistics();
     
@@ -73,11 +68,13 @@ public interface IDataMain {
     /**
      * Loads the saved data of the user and researches players.
      */
-    void connection();
+    void connection() throws UnknownHostException;
     
     /**
      * Add a new game to the list of games
      * @param g : game to add
      */
-    void newGame(Game g);
+    Game newGame(Boolean newClassicType, String newName, 
+            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newSpectator, Boolean newSpectatorChat);
 }

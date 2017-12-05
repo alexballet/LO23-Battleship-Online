@@ -9,13 +9,16 @@ import java.util.Date;
 import javafx.scene.image.Image;
 import java.util.HashSet;
 import java.util.UUID;
-
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 /**
  * Profile is a class for the user's profile
  * @author loulou
  */
 public class Profile extends DataUser {
-    private Image avatar;
+    private ImageIcon avatar;
     private String lastname;
     private String name;
     private Date birthdate;
@@ -30,7 +33,7 @@ public class Profile extends DataUser {
      */
     public Profile(DataUser dUser){
         super(dUser);
-        avatar = null;
+        avatar = new ImageIcon("");;
         lastname = new String("");
         name = new String("");
         birthdate = new Date();
@@ -43,15 +46,37 @@ public class Profile extends DataUser {
     /**
      * Constructor with all paramters
      * @param dUser a DataUser
-     * @param newAvatar an avatar
+     * @param pathToImage path to the image for avatar
      * @param newLastname a lastname
      * @param newName a name
      * @param newBirthdate a birthdate
      */
-    public Profile(DataUser dUser, Image newAvatar, String newLastname, 
+    public Profile(DataUser dUser, String pathToImage, String newLastname, 
             String newName, Date newBirthdate){
         super(dUser);
-        avatar = null;
+        avatar = new ImageIcon(pathToImage);
+        lastname = new String(newLastname);
+        name = new String(newName);
+        // (Date) newBirthdate.clone() if newbirthdate belongs to an other object
+        birthdate = newBirthdate; 
+        gamesPlayed = 0;
+        gamesWon = 0;
+        gamesLost = 0;
+        gamesAborted = 0;
+    }
+    
+    /**
+     * Constructor with all paramters
+     * @param dUser a DataUser
+     * @param pathToImage path to the image for avatar
+     * @param newLastname a lastname
+     * @param newName a name
+     * @param newBirthdate a birthdate
+     */
+    public Profile(DataUser dUser, ImageIcon image, String newLastname, 
+            String newName, Date newBirthdate){
+        super(dUser);
+        avatar = image;
         lastname = new String(newLastname);
         name = new String(newName);
         // (Date) newBirthdate.clone() if newbirthdate belongs to an other object
@@ -91,16 +116,32 @@ public class Profile extends DataUser {
      * Mutator for the avatar
      * @param i an image
      */
-    public void setAvatar(Image i){
+    public void setAvatar(ImageIcon i){
         this.avatar = i;
+    }
+    
+    /**
+     * Mutator for the avatar
+     * @param path path to image
+     */
+    public void setAvatar(String path){
+        this.avatar = new ImageIcon(path);
     }
     
     /**
      * Accessor for the avatar
      * @return an avatar as an image
      */
-    public Image getAvatar(){
+    public ImageIcon getAvatar(){
         return this.avatar;
+    }
+    
+    /**
+     * Accessor for the image from avatar
+     * @return an avatar as an image
+     */
+    public Image getImage(){
+        return avatar.getImage();
     }
     
     /**
@@ -186,6 +227,21 @@ public class Profile extends DataUser {
      */
     public int getGamesAborted(){
         return this.gamesAborted;
+    }
+    
+    /**
+     * Save profile in a local file
+     */
+    public void saveProfile(){
+        String FILE_NAME = "profile.ser";
+        try {
+         FileOutputStream fs = new FileOutputStream(FILE_NAME);
+         ObjectOutputStream os = new ObjectOutputStream(fs);
+         os.writeObject(this); 
+         os.close();
+      } catch (Exception e) { 
+         e.printStackTrace(); 
+      }
     }
     
     /**
