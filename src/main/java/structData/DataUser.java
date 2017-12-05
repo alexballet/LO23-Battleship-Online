@@ -5,13 +5,16 @@
  */
 package structData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author loulou
  */
 public class DataUser extends User {
     protected String password;
-    protected String listContacts;
+    protected List<ContactGroup> listContacts;
     
     /**
      * Constructor by default
@@ -21,7 +24,7 @@ public class DataUser extends User {
     public DataUser(User u){
         super(u);
         password = new String("");
-        listContacts = new String("");
+        listContacts = new ArrayList();
     }
     
     /**
@@ -31,7 +34,7 @@ public class DataUser extends User {
      * @param listContactsdata : the list of contacts of the new object of class
      *                           DataUser
      */
-    public DataUser(User u, String passworddata, String listContactsdata){
+    public DataUser(User u, String passworddata, List<ContactGroup> listContactsdata){
         super(u);
         password = passworddata;
         listContacts = listContactsdata;
@@ -65,7 +68,7 @@ public class DataUser extends User {
      * Accessor for List of contacts
      * @return the list of contacts of the object of the class DataUser
      */
-    public String getListContacts(){
+    public List<ContactGroup> getListContacts(){
         return this.listContacts;
     } 
     
@@ -82,7 +85,7 @@ public class DataUser extends User {
      * @param listContactsdata : the new value of list of contacts of the object
      *                           of the class DataUser
      */
-    public void setListContacts(String listContactsdata){
+    public void setListContacts(List<ContactGroup> listContactsdata){
         this.listContacts = listContactsdata;
     }
     

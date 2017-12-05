@@ -5,20 +5,21 @@
  */
 package data;
 
-import guiMain.GuiMainInterface;
 import interfacesData.IDataMain;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import lo23.battleship.online.network.COMInterface;
 import structData.ContactGroup;
 import structData.Game;
+import structData.Player;
 import structData.User;
 import structData.DataUser;
 import structData.Profile;
 import javax.swing.ImageIcon;
 import java.util.HashSet;
+import java.util.List;
 
 
 /**
@@ -42,7 +43,7 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public void editProfile(String username, String password, ImageIcon avatar, String lastName, String firstName, Date birthDate) {
+    public void editProfile(String username, String password, String avatar, String lastName, String firstName, Date birthDate) {
   
         controller.getLocalUser().setUsername(username);
         controller.getLocalDataUser().setPassword(password);
@@ -54,7 +55,7 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public void createAccount(String login, String username, HashSet ips, String password, String contactList, ImageIcon avatar, String lastname, String firstname, Date birthDate) {
+    public void createAccount(String login, String username, HashSet ips, String password, List<ContactGroup> contactList, String avatar, String lastname, String firstname, Date birthDate) {
         User newUser = new User(login,username);
         newUser.setIPs(ips);
         
@@ -64,16 +65,15 @@ public class CDataMain implements IDataMain {
      
         controller.setLocalUser(newUser);
         controller.addUserToList(newUser);
+        controller.setLocalUser(newUser);
+        controller.setLocalDataUser(newDataUser);
+        controller.setLocalProfile(newProfile);
+        controller.addUserToList(newUser);
     }
 
     @Override
-    public void addUser(User u) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void getStatistics(User u, int nbGamePlayed, int nbGameWon, int nbGameLost, int nbGameAbandoned) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void getStatistics(Profile p) {
+        //demander à l'interface de la com
     }
     
     /**
@@ -88,27 +88,31 @@ public class CDataMain implements IDataMain {
 
     @Override
     public void askDisconnection() {
-        interfaceCom.askDisconnection();
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //interfaceCom.askDisconnection();
     }
 
     @Override
     public void connection() throws UnknownHostException {
-        User u = new User("lola", "lola");
-        HashSet<InetAddress> IPs = new HashSet<InetAddress>();
-        IPs.add(InetAddress.getByName("172.25.21.101"));
+
+        User u = new User("Xzirva", "Xzirva");
+        HashSet<InetAddress> IPs = new HashSet<>();
+        //IPs.add(InetAddress.getByName("192.168.1.37"));
         u.setIPs(IPs);
         controller.setLocalUser(u);
-        interfaceCom.searchForPlayers();
+        interfaceCom.searchForPlayers(); //TODO : choisir entre HASHSET et ARRAYLIST pour le stockage des IP
     }
 
     /**
      * Adds a new game to the list of games
-     * @param g game to add
      */
     @Override
-    public void newGame(Game g) {
+    public Game newGame(Boolean newClassicType, String newName, 
+            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newSpectator, Boolean newSpectatorChat) {
+    		Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newSpectator, newSpectatorChat, controller.getLocalProfile());
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
+        
+        return g;
     }
 }

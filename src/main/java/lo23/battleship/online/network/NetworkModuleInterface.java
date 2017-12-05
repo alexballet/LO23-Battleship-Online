@@ -116,7 +116,7 @@ public class NetworkModuleInterface implements COMInterface {
 
     public boolean joinGame(User user, Game g) {
 
-        InetAddress destinationAddress = controller.getAddressForUser(g.getPlayer1().getprofile());
+        InetAddress destinationAddress = controller.getAddressForUser(g.getPlayer1().getProfile());
 
         JoinGameRequestMessage joinGameRequest = new JoinGameRequestMessage(user, g);
 
