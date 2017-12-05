@@ -6,9 +6,6 @@
 package structData;
 
 import java.util.Date;
-import javafx.scene.image.Image;
-import java.util.HashSet;
-import java.util.UUID;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import java.io.FileOutputStream;
@@ -138,6 +135,7 @@ public class Profile extends DataUser {
     
     /**
      * Accessor for the image from avatar
+     * @return 
      * @return an avatar as an image
      */
     public Image getImage(){
