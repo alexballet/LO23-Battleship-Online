@@ -109,4 +109,14 @@ public class CDataMain implements IDataMain {
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
     }
+    
+    /**
+     * Add a spectator in the game
+     * @param g : game that the spectator wants to join
+     * @param spec : spectator
+     */
+    @Override
+    public void gameToSpec(Game g, User spec){
+        controller.updateSpecList(g, spec);
+    }
 }
