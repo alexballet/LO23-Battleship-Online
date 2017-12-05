@@ -1,11 +1,13 @@
 package guiMain;
 
+import guiMain.controller.ChangeProfileController;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
 
 import guiMain.controller.IpConfigController;
 import guiMain.controller.LoginController;
+import guiMain.controller.ProfilController;
 import guiMain.controller.SignupController;
 import guiMain.controller.connectionController;
 import guiMain.controller.menuController;
@@ -32,10 +34,12 @@ public class GuiMainController implements GuiMainInterface {
 	private Stage stage;
 	private AnchorPane rootLayout;
 	private IDataMain idata;
-    private menuController menuController;
-    private SignupController signUpController;
-    private IpConfigController ipConfigController;
-    private LoginController loginController;
+        private menuController menuController;
+        private SignupController signUpController;
+        private IpConfigController ipConfigController;
+        private LoginController loginController;
+        private ProfilController profilController;
+        private ChangeProfileController changeProfileController;
 	
 	public IDataMain getIdata() {
 		return idata;
@@ -194,6 +198,43 @@ public class GuiMainController implements GuiMainInterface {
 		idata.notifGameChosen(game);
 	}
 	
+        public void openProfileWindow(User user){
+                try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/fxml/Ihm-main/profil.fxml"));
+                        Parent root = (Parent) loader.load();
+	        
+                        profilController = loader.getController();
+			profilController.setMainController(this);
+			profilController.init(user);
+	        
+                        Stage stage = new Stage();
+                        stage.setTitle("Profil");
+                        stage.setScene(new Scene(root));  
+                        stage.show();
+                } catch(Exception e) {
+                        e.printStackTrace();
+                }
+	}
+        
+        public void openChangeProfileWindow(User user){
+                try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/fxml/Ihm-main/changeProfile.fxml"));
+                        Parent root = (Parent) loader.load();
+	        
+                        changeProfileController = loader.getController();
+			changeProfileController.setMainController(this);
+			changeProfileController.init(user);
+	        
+                        Stage stage = new Stage();
+                        stage.setTitle("Modification de profil");
+                        stage.setScene(new Scene(root));  
+                        stage.show();
+                } catch(Exception e) {
+                        e.printStackTrace();
+                }
+	}
 	
 }
 
