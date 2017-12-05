@@ -6,6 +6,11 @@ import structData.Shot;
 
 import java.net.InetAddress;
 
+/**
+ * ShotNotificationMessage,descendant class Message, send shot.
+ * @author Lejeune Lola
+ */
+
 public class ShotNotificationMessage extends Message{
         Shot shot;
 

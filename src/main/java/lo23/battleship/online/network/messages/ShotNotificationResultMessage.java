@@ -7,6 +7,12 @@ import structData.Shot;
 
 import java.net.InetAddress;
 
+/**
+ * ShotNotificationMessage,descendant class Message, receive shot with result on boat.
+ * @author Lejeune Lola
+ */
+
+
 public class ShotNotificationResultMessage extends Message{
     Shot shot;
     Boat boat;
