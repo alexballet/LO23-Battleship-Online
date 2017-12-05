@@ -16,32 +16,16 @@ import java.util.Date;
 
 public class NetworkSender extends Thread{
 
+    private InetAddress host;
+    private int port;
     private Socket sock;
     private ObjectOutputStream writer = null;
     private Message message;
 
-    public NetworkSender(Socket socket, Message message) {
-
-        sock = socket;
-        this.message = message;
-    }
-    public NetworkSender(String host, int port, Message message) {
-
-        try {
-            sock = new Socket(host, port);
-            this.message = message;
-        } catch (IOException e) {
-            System.out.println("Warning: Unable to reach host: " + host + ":" + port);
-        }
-    }
-
     public NetworkSender(InetAddress host, int port, Message message) {
 
-        try {
-            sock = new Socket(host, port);
-        } catch (IOException e) {
-            System.out.println("Warning: Unable to reach host: " + host + ":" + port);
-        }
+        this.host = host;
+        this.port = port;
         this.message = message;
     }
 
@@ -49,25 +33,14 @@ public class NetworkSender extends Thread{
     public void run() {
 
         try {
-            if (sock == null) {
-                throw new UnknownHostException();
-            }
+            sock = new Socket(host, port);
             writer = new ObjectOutputStream(sock.getOutputStream());
             String timeStamps = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM).format(new Date());
             System.out.println("Message " + message.getType() + " sent to " + sock.getInetAddress() + " at " + timeStamps);
             writer.writeObject(message);
             sock.close();
-
-        }catch(SocketException e){
-            System.err.println(" / ! \\ Interrupted: Something went wrong / ! \\");
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            Thread.currentThread().sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Warning: Unable to reach host: " + host + ":" + port);
         }
     }
 }
