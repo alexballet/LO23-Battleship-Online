@@ -1,18 +1,12 @@
 package lo23.battleship.online.network;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-import data.DataController;
-import lo23.battleship.online.network.messages.ConnectionRequestMessage;
 import lo23.battleship.online.network.messages.Message;
-import structData.Game;
-import structData.DataUser;
 import interfacesData.IDataCom;
 import structData.Game;
 import structData.User;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.util.*;
 
 /**

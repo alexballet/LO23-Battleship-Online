@@ -8,13 +8,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import structData.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.net.URLClassLoader;
 
 import guiMain.controller.menuController;
-import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 

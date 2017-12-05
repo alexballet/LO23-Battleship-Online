@@ -9,7 +9,6 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by xzirva on 17/10/17.
@@ -17,21 +16,24 @@ import java.util.Random;
 
 public class NetworkModuleInterface implements COMInterface {
     private IDataCom dataInterface;
-    private String[] listMessages = {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
+    private final String[] listMessages = {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
     private NetworkController controller;
 
     public NetworkModuleInterface(NetworkController cont) {
         controller = cont;
     }
 
+    @Override
     public boolean notifyReady(User user) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public boolean sendChatMessage(String message, Game g) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public void getProfile(User userRequested) {
 
         GetProfileRequestMessage getProfileRequestMessage = new GetProfileRequestMessage(dataInterface.getUserProfile());
@@ -39,6 +41,7 @@ public class NetworkModuleInterface implements COMInterface {
         controller.sendMessage(getProfileRequestMessage, controller.getAddressForUser(userRequested));
     }
 
+    @Override
     public boolean notifyJoinGameResponse(Boolean isOk, Profile user, Game game) {
         System.out.println("NMI isok " + isOk);
         JoinGameResponseMessage joinGameResponseMessage = new JoinGameResponseMessage(isOk, dataInterface.getUserProfile(), game);
@@ -48,6 +51,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
+    @Override
     public boolean changeStatusGame(Game game) {
 
         List<InetAddress> ipAddresses = controller.getIPTable();
@@ -63,6 +67,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
+    @Override
     public boolean notifyNewGame(Game g) {
         List<InetAddress> ipAddresses = controller.getIPTable();
 
@@ -77,6 +82,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
+    @Override
     public boolean joinGame(Game g) {
         InetAddress destinationAddress = controller.getAddressForUser(g.getPlayer1().getProfile());
 
@@ -88,6 +94,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
+    @Override
     public boolean askDisconnection() {
 
         User user = dataInterface.getLocalUser();
@@ -105,10 +112,12 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
 
+    @Override
     public boolean sendShot(Player player, Game game, Shot shot) {
         throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public void searchForPlayers() {
 
         User user = dataInterface.getLocalUser();
@@ -127,6 +136,7 @@ public class NetworkModuleInterface implements COMInterface {
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
     }
+    @Override
     public void removeGame(Game game) {
         List<InetAddress> ipAddresses = controller.getIPTable();
         GameQuitMessage gameQuitMessage = new GameQuitMessage(game);

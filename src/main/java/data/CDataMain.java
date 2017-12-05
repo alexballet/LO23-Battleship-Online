@@ -6,18 +6,14 @@
 package data;
 
 import interfacesData.IDataMain;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Date;
 import lo23.battleship.online.network.COMInterface;
 import structData.ContactGroup;
 import structData.Game;
-import structData.Player;
 import structData.User;
 import structData.DataUser;
 import structData.Profile;
-import javax.swing.ImageIcon;
 import java.util.HashSet;
 import java.util.List;
 

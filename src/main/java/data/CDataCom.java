@@ -28,7 +28,7 @@ import structData.Player;
  */
 public class CDataCom implements IDataCom {
     
-    private DataController controller;
+    private final DataController controller;
     
     private GuiMainInterface interfaceMain;
     private COMInterface interfaceCom;
@@ -46,7 +46,7 @@ public class CDataCom implements IDataCom {
         interfaceMain = i;
     }
 
-    //@Override
+    @Override
     public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -181,20 +181,24 @@ public class CDataCom implements IDataCom {
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);
     }
+    @Override
     public User getLocalUser(){
         return controller.getLocalUser();
     }
     
+    @Override
     public void setLocalGame(Game g){
         controller.setLocalGame(g);
         interfaceMain.openPlacementPhase(g);
     }
     
+    @Override
     public void removeUser(User u){
         controller.removeUserFromList(u);
         interfaceMain.removeUser(u);
     }
     
+    @Override
     public void removeGame(Game g){
         controller.removeGameFromList(g);
         interfaceMain.transmitNewStatus(g);
