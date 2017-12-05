@@ -140,7 +140,9 @@ public class NetworkController {
         if (addUserToNetwork(sender, senderAddress)) {
             try {
                 dataInterface.addUserToUserList(sender);
+                if(game != null) {
                 dataInterface.addNewGameList(game);
+                }
             } catch (UnsupportedOperationException e) {
 
             }
