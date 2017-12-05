@@ -31,9 +31,7 @@ public class DataController {
     
     private GuiMainInterface interfaceMain;
     private COMInterface interfaceCom;
-    
-    
-    
+   
     //private
         
     private User localUser;
@@ -43,7 +41,9 @@ public class DataController {
     private Profile localProfile;
     private List<Game> listGames;
     
-    
+    /**
+     * DataController
+     */
     public DataController(){
         //localUser = new User(); //test
         interfaceDataCom = new CDataCom(this);
@@ -56,62 +56,109 @@ public class DataController {
         //localProfile = new Profile(localDataUser);
     }
     
+    /**
+     * Mutator for interfaceMain
+     * @param i : new interfaceMain
+     */
     public void setInterfaceMain(GuiMainInterface i){
         interfaceMain = i;
         interfaceDataCom.setInterfaceMain(i);
     }
     
+    /**
+     * Mutator for interfaceCom
+     * @param i : new interfaceCom
+     */
     public void setInterfaceCom(COMInterface i){
         interfaceCom = i;
         interfaceDataCom.setInterfaceCom(i);
         interfaceDataMain.setInterfaceCom(i);
     }
     
-    
+    /**
+     * Accessor for interfaceDataCom
+     * @return interfaceDataCom
+     */
     public CDataCom getInterfaceDataCom(){
         return interfaceDataCom;
     }
     
+    /**
+     * Accessor for interfaceDataMain
+     * @return interfaceDataMain
+     */
     public CDataMain getInterfaceDataMain(){
         return interfaceDataMain;
     }
     
+    /**
+     * Accessor for interfaceDataTable
+     * @return interfaceDataTable
+     */
     public CDataTable getInterfaceDataTable(){
         return interfaceDataTable;
     }
     
     /**
-     * return the local user 
+     * Accessor for the local user 
      * @return local user
      */
     public User getLocalUser(){
         return localUser;
     }
     
+    /**
+     * Accessor for local DataUser
+     * @return the local DataUser
+     */
     public DataUser getLocalDataUser(){
         return localDataUser;
     }
     
+    /**
+     * Accessor for local Profile
+     * @return the local Profile
+     */
     public Profile getLocalProfile(){
         return localProfile;
     }
 
+    /**
+     * Mutator for User
+     * @param u : new User
+     */
     public void setLocalUser(User u){
         localUser = u;
     }
     
+    /**
+     * Mutator for local DataUser
+     * @param du : new DataUser
+     */
     public void setLocalDataUser (DataUser du){
         localDataUser = du;
     }
     
+    /**
+     * Mutator for local Profile
+     * @param p : new local Profile
+     */
     public void setLocalProfile (Profile p){
         localProfile = p;
     }
 
+    /**
+     * Add User to local list
+     * @param u : User to add
+     */
     public void addUserToList(User u){
         listUsers.add(u);
     }
     
+    /**
+     * Remove a user form local list
+     * @param u : User to remove
+     */
     public void removeUserFromList(User u){
         //comparer les UUID de u et des objets de listUser et enlever l'user si présent
         listUsers.remove(u);
@@ -125,10 +172,11 @@ public class DataController {
     public Game getLocalGame(){
         return localGame;
     }
-    
+
     /**
-    * Mutator local Game
-    */
+     * Mutator local Game
+     * @param g : new local Game
+     */
     public void setLocalGame(Game g){
         localGame = g;
     }

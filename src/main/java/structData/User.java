@@ -108,8 +108,6 @@ public class User implements Serializable {
         this.iPs = iPsData;
     }
     
-    
-    /*clone a present user*/
     /**
      * Clone function to copy a User
      * @param userClone : the user to be cloned
