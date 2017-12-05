@@ -88,7 +88,9 @@ public class GuiMainController implements GuiMainInterface {
 
 			ProfilController profilController = loader.getController();
 			profilController.setDataController(this);
-			profilController.init();
+                        //  TODO : change user to selected user in list view
+                        User user = new User();
+			profilController.init(user);
 
 			Scene scene = new Scene(rootLayout);
 			stage.setScene(scene);

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import structData.Profile;
+import structData.User;
 
 public class ProfilController implements Initializable {
     
@@ -55,11 +56,9 @@ public class ProfilController implements Initializable {
         //mainController.openMenuWindow();
     }
 
-    public void init() {
-        // TODO : Verifier si user est local ou distant et afficher ou non le button #modifyProfilButton       
-        
+    public void init(User user) {
         // TODO : Envoyer un user pour recuperer leur profil (changement interface IdataMain) 
-        Profile profile = mainController.getIdata().getStatistics();
+       /* Profile profile = mainController.getIdata().getStatistics(user);
         nameTitle.setText(profile.getusername());
         userAvatar.setImage(profile.getAvatar());
         userName.setText(profile.getusername());
@@ -70,7 +69,7 @@ public class ProfilController implements Initializable {
         birthdate.setText(df.format(profile.getBirthdate()));
         numberOfGame.setText(String.valueOf(profile.getGamesPlayed()));
         numberOfGameWon.setText(String.valueOf(profile.getGamesWon()));
-        numberOfGameLost.setText(String.valueOf(profile.getGamesLost()));
+        numberOfGameLost.setText(String.valueOf(profile.getGamesLost()));*/
     }
 
     public void setDataController(GuiMainController c) {
