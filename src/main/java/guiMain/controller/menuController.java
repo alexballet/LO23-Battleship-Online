@@ -36,6 +36,8 @@ public class menuController implements Initializable{
     private ListView<Game> gamesView;
     @FXML 
     private Button optionButton;
+    @FXML 
+    private Button modifyProfileButton;
 
     public void setMainController (GuiMainController c) {
             mainController = c;
@@ -109,20 +111,26 @@ public class menuController implements Initializable{
 	}
 	
 	@FXML
-    private void displayProfil() {
-        // Display profile of others users
-        mainController.displayProfil();
-    }
+        private void displayProfil(User user) {
+                // Display profile of others users
+                mainController.openProfileWindow(user);
+        }
 
 	@FXML
 	private void disconnection(){
 		mainController.getIdata().askDisconnection();
 	}
-    @FXML
-    void openChangeProfileWindow(ActionEvent event) {
-        // Display changeProfile window  
-        mainController.changeProfile();
-    }
+    
+        /**
+         * Display changeProfile window
+         * @param event : #modifyProfileButton event
+         */
+        @FXML
+        void openChangeProfileWindow(ActionEvent event) {
+                // TODO : get local user (ask Data to create methode ) 
+                User user = new User();// change to correct methode
+                mainController.openChangeProfileWindow(user);
+        }
 
 
 
@@ -151,8 +159,8 @@ public class menuController implements Initializable{
             window.show();
         }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //
-    }
+        @Override
+        public void initialize(URL location, ResourceBundle resources) {
+            //
+        }
 }

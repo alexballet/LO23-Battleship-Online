@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,8 +25,8 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="198.0" minHeight="10.0" prefHeight="189.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="520.0" minHeight="10.0" prefHeight="215.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="239.0" minHeight="10.0" prefHeight="213.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="520.0" minHeight="10.0" prefHeight="238.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="239.0" minHeight="10.0" prefHeight="190.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <TilePane alignment="TOP_CENTER" GridPane.columnSpan="3">
@@ -58,6 +60,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label text="Date de naissance :" GridPane.rowIndex="4" />
@@ -76,7 +79,9 @@
                   <TextField fx:id="userName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="lastName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="firstName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="birthdate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="birthdate" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label text="Password" GridPane.rowIndex="5" />
+                  <PasswordField fx:id="userPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
             <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -88,6 +93,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
@@ -115,16 +121,17 @@
                   </Button>
                </children>
             </VBox>
-            <Button fx:id="backButton" alignment="CENTER" mnemonicParsing="false" onAction="#backToTheMenu" prefHeight="27.0" prefWidth="84.0" text="Retour" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+            <Button fx:id="backButton" alignment="CENTER" mnemonicParsing="false" onAction="#backToMenu" prefHeight="27.0" prefWidth="84.0" text="Retour" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveProfile" text="Sauvegarder" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </GridPane.margin>
-            </Button>
+            <TilePane alignment="TOP_CENTER" orientation="VERTICAL" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Label fx:id="errorMessage" prefHeight="17.0" prefWidth="136.0" text="Message error" textFill="RED" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveProfile" text="Sauvegarder" />
+               </children>
+            </TilePane>
          </children>
       </GridPane>
    </children>

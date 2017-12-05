@@ -106,7 +106,10 @@
             </GridPane>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                <children>
-                  <ImageView fx:id="userAvatar" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="userAvatar" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></ImageView>
                </children>
             </VBox>
             <Button fx:id="backButton" alignment="CENTER" mnemonicParsing="false" onAction="#backToTheMenu" prefHeight="27.0" prefWidth="84.0" text="Retour" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
