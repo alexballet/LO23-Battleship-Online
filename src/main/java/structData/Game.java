@@ -359,19 +359,29 @@ public class Game implements Serializable{
     public Boolean getPlayer1Start(){
         return this.player1Start;
     }
+    
     /**
      * Mutator for player 1
-     * @param p1 : the new player 1
+     * @param p1 the new player 1
      */
      public void setPlayer1(Player p1){
         player1 = p1;
     }
-     
+
     /**
      * Mutator for player 2
      * @param p2 : the new player 2
      */    
     public void setPlayer2(Player p2){
         player2 = p2;
+    }
+    
+    /**
+     * Check if a profile belongs to a Game
+     * @param p : a profile
+     * @return a boolean if the profile belongs to one of the Game's Players
+     */
+    public Boolean doesProfileBelongToGame(Profile p){
+        return ((this.player1 != null && this.player1.compareProfileToPlayer(p)) || (this.player2 != null && this.player2.compareProfileToPlayer(p)));
     }
 }

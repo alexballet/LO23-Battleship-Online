@@ -23,14 +23,12 @@ public class DisconnectionMessage extends Message{
 
     public DisconnectionMessage(User userWhoDisconnect){
         this.user = userWhoDisconnect;
-        this.type = "Disconnection";
+        this.type = "DisconnectionMessage";
     }
 
     public String getType() {
         return type;
     }
-
-    public void process(IDataCom IData){}
 
     public void process(IDataCom IData, InetAddress senderAddress){
         System.out.println("User: " + user + " has disconnected");

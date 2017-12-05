@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import structData.Game;
 
 public class WaitingRoomController implements Initializable{
@@ -23,6 +24,9 @@ public class WaitingRoomController implements Initializable{
 
     @FXML
     private Label reflectionTime;
+    
+    // object to close window
+    private Stage stage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -33,7 +37,7 @@ public class WaitingRoomController implements Initializable{
      * Initialize window elements with game data 
      * @param game 
      */
-    void initData(Game game){
+    public void initData(Game game){
         // Set game name
         gameName.setText(game.getName());
         // Set time of reflection
@@ -56,6 +60,15 @@ public class WaitingRoomController implements Initializable{
         }else{
             chatAutorisation.setText("chat non autorisé");
         }       
+    }
+    
+    public void closeWindow() {
+        this.stage.close();
+    }
+
+    public void setStage(Stage s) {
+        this.stage = s;
+        System.out.println("stage : " + this.stage);
     }
     
     

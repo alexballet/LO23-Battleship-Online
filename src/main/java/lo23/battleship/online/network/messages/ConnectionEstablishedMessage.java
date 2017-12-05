@@ -44,7 +44,7 @@ public class ConnectionEstablishedMessage extends Message {
          + "\n to " + senderAddress);
         for(InetAddress ipAddress : filteredAddresses) {
             ConnectionRequestMessage connectionRequestMessage =
-                    new ConnectionRequestMessage(user, controller.getIPTable());
+                    new ConnectionRequestMessage(user, controller.getIPTable(), IData.getCreatedGame());
             controller.sendMessage(connectionRequestMessage, ipAddress);
         }
 

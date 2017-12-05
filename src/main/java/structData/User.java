@@ -8,14 +8,15 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.UUID;
 import java.io.Serializable;
+import java.net.InetAddress;
 
 public class User implements Serializable {
 
     protected UUID idUser;
     protected String login;
     protected String username;
-    protected HashSet<Long> iPs;
-    
+    protected HashSet<InetAddress> iPs;
+    // TODO delete this constructor
     /**
      * Constructor by default
      */
@@ -107,8 +108,6 @@ public class User implements Serializable {
         this.iPs = iPsData;
     }
     
-    
-    /*clone a present user*/
     /**
      * Clone function to copy a User
      * @param userClone : the user to be cloned

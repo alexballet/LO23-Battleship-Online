@@ -8,6 +8,8 @@ package data;
 import guiMain.GuiMainInterface;
 import guiTable.GuiTableInterface;
 import interfacesData.IDataCom;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import lo23.battleship.online.network.COMInterface;
@@ -27,7 +29,7 @@ import structData.Player;
  */
 public class CDataCom implements IDataCom {
     
-    private DataController controller;
+    private final DataController controller;
     
     private GuiMainInterface interfaceMain;
     private GuiTableInterface interfaceTable;
@@ -50,7 +52,7 @@ public class CDataCom implements IDataCom {
         interfaceCom = c;
     }
 
-    //@Override
+    @Override
     public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -108,18 +110,25 @@ public class CDataCom implements IDataCom {
     * to this game, 0 if not
     */
     @Override
-    public void notifToJoinGame(User sender, Game g) {
+    public void notifToJoinGame(Profile sender, Game g) {
         Boolean isOk = false;
         for (Game ga: controller.getListGames()) {
-            if (ga.getIdGame() == g.getIdGame()) {
-                if (ga.getStatus() == StatusGame.WAITINGPLAYER){
+            if (ga.getIdGame().equals(g.getIdGame())) {
+                if (ga.getStatus().equals(StatusGame.WAITINGPLAYER)){
                     isOk = true;
+                    ga.setStatus(StatusGame.BOATPHASE);
+                    Player p = new Player(sender);
+                    ga.setPlayer2(p);
+                    interfaceCom.changeStatusGame(ga);
+                    g = ga;
                 }else{
                     isOk = false;           
                 }
             }
         }
+        System.out.println("CDataCom isok " + isOk);
         interfaceCom.notifyJoinGameResponse(isOk, sender, g);
+        interfaceMain.openPlacementPhase(g);
     }
 
     /**
@@ -167,7 +176,7 @@ public class CDataCom implements IDataCom {
     }
 
     @Override
-    public void coordinate(Shot s) {
+    public void coordinates(Shot s) {
         Boat b = controller.testShot(s);
         interfaceTable.displayOpponentShot(s, b);
         //interfaceCom.coordinates(s,b); TODO : décommenter quand la fonction sera crée chez COM
@@ -195,12 +204,36 @@ public class CDataCom implements IDataCom {
     @Override
     public void changeStatusGame(Game g) {
         Game localGame  = controller.getLocalGame();
-        controller.removeGameFromList(localGame);
+        if (localGame != null) controller.removeGameFromList(localGame);
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);
     }
+    @Override
     public User getLocalUser(){
         return controller.getLocalUser();
     }
     
+    @Override
+    public void setLocalGame(Game g){
+        controller.setLocalGame(g);
+        interfaceMain.openPlacementPhase(g);
+    }
+    
+    @Override
+    public void removeUser(User u){
+        controller.removeUserFromList(u);
+        interfaceMain.removeUser(u);
+    }
+    
+    @Override
+    public void removeGame(Game g){
+        controller.removeGameFromList(g);
+        interfaceMain.removeGame(g);
+    }
+
+	@Override
+	public void coordinate(Position p, Shot s, Boat b) {
+		// TODO Auto-generated method stub
+		
+	}
 }
