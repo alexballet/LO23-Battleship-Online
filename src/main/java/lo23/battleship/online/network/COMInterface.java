@@ -95,4 +95,10 @@ public interface COMInterface {
      * @param game Game to delete
      */
     public void removeGame(Game game);
+
+    /**
+     * notifies every user to remove the game from their list
+     * @param game Game to delete
+     */
+    public void notifyGameWon(Player player);
 }

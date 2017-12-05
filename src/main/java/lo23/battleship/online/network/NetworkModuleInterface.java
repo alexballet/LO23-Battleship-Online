@@ -179,4 +179,11 @@ public class NetworkModuleInterface implements COMInterface {
 
         }
     }
+
+    public void notifyGameWon(Player player) {
+
+        GameWonMessage gameWonMessage = new GameWonMessage(player);
+
+        controller.sendMessage(gameWonMessage, controller.getAddressForUser(player.getprofile()));
+    }
 }
