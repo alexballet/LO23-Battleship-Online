@@ -34,7 +34,7 @@ import structData.Boat;
  *
  * @author caioz
  */
-public abstract class PlacementPhaseController {
+public abstract class PlacementPhaseController extends BaseController{
        
     @FXML
     private AnchorPane anchorPane;
@@ -44,7 +44,8 @@ public abstract class PlacementPhaseController {
     private Button valider;
     @FXML
     private AnchorPane chatPane;
-    
+    @FXML
+    private AnchorPane profilePane;    
     @FXML
     private Text messageContainer;
         
@@ -105,9 +106,13 @@ public abstract class PlacementPhaseController {
     public void initialize(URL location, ResourceBundle resources){
         
         FXMLLoader loader;
-        loader = fillElement(chatPane, "/fxml/IhmTable/chat.fxml" );
-        ChatController chatController = loader.getController();
-        chatController.init();
+//        loader = fillElement(chatPane, "/fxml/IhmTable/chat.fxml" );
+//        ChatController chatController = loader.getController();
+//        chatController.init();
+
+        loader = fillElement(profilePane, "/fxml/IhmTable/profile.fxml" );
+        ProfileController profileController = loader.getController();
+        profileController.init();
         
         boatMap = new HashMap<>();
         // Initializes the boat set
@@ -136,6 +141,19 @@ public abstract class PlacementPhaseController {
         rotationIsValide = false;
     }
     
+    
+    /**
+    * fillChatSlot() allows external class to fill the chatPane and get the ChatController
+    * @param chatFxmlUrl
+    * @return chatController
+    */        
+    public ChatController fillChatSlot(String chatFxmlUrl){
+        FXMLLoader loader;
+        loader = fillElement(chatPane, chatFxmlUrl );
+        ChatController chatController = loader.getController();
+        chatController.init();
+        return chatController;
+    }
         
     /**
      * Trigger validation of placement phase
@@ -175,27 +193,7 @@ public abstract class PlacementPhaseController {
         return true;
     }
     
-    
-     /**
-     * Allows to replace pane by another one
-     * @param paneToFill
-     * @param contentAdress
-     * @return FXMLLoader
-     * @throws Exception 
-     */
-    private FXMLLoader fillElement(AnchorPane paneToFill, String contentAdress) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(contentAdress));
-        try{
-            AnchorPane contentPane = loader.load();
-            paneToFill.getChildren().add(contentPane);
-        }
-        catch(Exception e){
-            System.err.println(e.getMessage());
-        }
-        return loader;
-    }
-    
+     
     
     
      /**

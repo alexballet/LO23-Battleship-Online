@@ -225,6 +225,10 @@
             <Text fx:id="messageContainer" layoutX="25.0" layoutY="557.0" lineSpacing="2.0" onMouseClicked="#closeMsg" onMouseEntered="#showMsgDescritption" strokeType="OUTSIDE" strokeWidth="0.0" text="tdjr-ktyi" textAlignment="CENTER" visible="false" wrappingWidth="500.0" />
          </children>
       </Pane>
-      <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="274.0" prefHeight="327.0" prefWidth="250.0" />
+      
+      
+      <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="369.0" prefHeight="230.0" prefWidth="250.0" style="-fx-background-color: grey;" />
+      <AnchorPane fx:id="profilePane" layoutX="550.0" layoutY="272.0" prefHeight="97.0" prefWidth="250.0" style="-fx-background-color: black;" />
+   
    </children>
 </AnchorPane>

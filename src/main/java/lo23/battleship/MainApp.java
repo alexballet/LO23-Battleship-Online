@@ -25,8 +25,8 @@ public class MainApp extends Application {
 		guiMainController.setIdata(dataController.getInterfaceDataMain());
 		dataController.setInterfaceCom(networkController.getCOMInterface());
 		dataController.setInterfaceMain(guiMainController);
-                guiTableController.setDataController(dataController);
-
+                guiTableController.setDataController(dataController.getInterfaceDataTable());
+                
 		guiMainController.startIHM();
 
 	}
