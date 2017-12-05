@@ -5,6 +5,7 @@
  */
 package guiTable.controllers;
 
+import data.DataController;
 import guiTable.GuiTableInterface;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +26,7 @@ public class GuiTableController implements GuiTableInterface {
     private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
     private ChatController chatController;
     private static GuiTableController INSTANCE = null;
+    private DataController dataController;
 
     /**
      * Private constructor for GuiTableController.
@@ -129,6 +131,11 @@ public class GuiTableController implements GuiTableInterface {
     @Override
     public void displayMyShotResult(Shot myShotResult, structData.Boat boat) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void setDataController(DataController data) {
+        this.dataController = data;
     }
     
 }

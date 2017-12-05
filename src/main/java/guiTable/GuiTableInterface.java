@@ -1,5 +1,6 @@
 package guiTable;
 
+import data.DataController;
 import javafx.stage.Stage;
 import guiTable.controllers.ChatController;
 import guiTable.controllers.PlacementPhaseController;
@@ -71,5 +72,7 @@ public interface GuiTableInterface {
      */
     //public void displayMessage(MessageType messageType, String message);
     public void displayMessage(String message);
+    
+    public void setDataController(DataController d);
 
 }
