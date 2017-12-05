@@ -243,7 +243,7 @@ public class GuiMainController implements GuiMainInterface {
 			@Override
 			public void run() {
                             try {
-                                waitingRoomController.closeWindow();
+                                if (waitingRoomController != null) waitingRoomController.closeWindow();
                                 GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType() ); // use boolean to specifie classic type or not	
                                 
                             } catch (Exception ex) {
