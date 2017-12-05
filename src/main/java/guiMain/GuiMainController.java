@@ -93,6 +93,18 @@ public class GuiMainController implements GuiMainInterface {
 			Platform.runLater(command);
 		}
 	}
+	
+	public void removeGame(final Game removedGame) {
+		if (removedGame != null) {
+			Runnable command = new Runnable() {
+				@Override
+				public void run() {
+					menuController.removeGame(removedGame);
+				}
+			};
+			Platform.runLater(command);
+		}
+	}
 
 	@Override
 	public void sendStatistics(Profile profil) {
@@ -269,7 +281,6 @@ public class GuiMainController implements GuiMainInterface {
 	public void setIdata(IDataMain idata) {
 		this.idata = idata;
 	}
-
 
 	public GuiMainController(Stage s) {
 		super();
