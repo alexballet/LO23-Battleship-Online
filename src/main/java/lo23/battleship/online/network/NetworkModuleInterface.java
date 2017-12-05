@@ -119,7 +119,7 @@ public class NetworkModuleInterface implements COMInterface {
 
     @Override
     public void searchForPlayers() {
-
+        controller.launchServer();
         User user = dataInterface.getLocalUser();
         ConnectionRequestMessage connectionRequestMessage =
                 new ConnectionRequestMessage(user, new ArrayList<InetAddress>(), null);
