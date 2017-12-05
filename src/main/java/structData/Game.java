@@ -385,7 +385,7 @@ public class Game implements Serializable{
         Boolean result = false;
         Boolean belongs1 = this.player1.compareProfileToPlayer(p);
         Boolean belongs2 = this.player2.compareProfileToPlayer(p);
-        if (belongs1 || belongs2){
+        if (belongs1 == true || belongs2 == true){
             result = true;
         }
         return result;
