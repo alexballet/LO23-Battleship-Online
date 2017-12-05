@@ -202,6 +202,5 @@ public class CDataCom implements IDataCom {
     public void removeGame(Game g){
         controller.removeGameFromList(g);
         interfaceMain.removeGame(g);
-        // interfaceMain.transmitNewStatus(g);
     }
 }
