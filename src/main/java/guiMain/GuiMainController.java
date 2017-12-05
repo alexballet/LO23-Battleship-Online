@@ -82,11 +82,25 @@ public class GuiMainController implements GuiMainInterface {
 
 	@Override
 	public void addGame(final Game createdGame) {
+		if (createdGame.doesProfileBelongToGame(idata.getStatistics())) return;
+
 		if (createdGame != null) {
 			Runnable command = new Runnable() {
 				@Override
 				public void run() {
 					menuController.addGame(createdGame);
+				}
+			};
+			Platform.runLater(command);
+		}
+	}
+	
+	public void removeGame(final Game removedGame) {
+		if (removedGame != null) {
+			Runnable command = new Runnable() {
+				@Override
+				public void run() {
+					menuController.removeGame(removedGame);
 				}
 			};
 			Platform.runLater(command);
@@ -283,7 +297,6 @@ public class GuiMainController implements GuiMainInterface {
 	public void setIdata(IDataMain idata) {
 		this.idata = idata;
 	}
-
 
 	public GuiMainController(Stage s) {
 		super();

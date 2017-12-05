@@ -72,8 +72,6 @@ public interface IDataCom {
      * Add the player to the game if it is available.
      * @param sender : The player who sends this request
      * @param g : The game that the player wants to join
-     * @return 1 if the parameter game is an avaiable game and add the player 
-     * to this game, 0 if not
      */
     public void notifToJoinGame(Profile sender, Game g);
 
@@ -99,8 +97,7 @@ public interface IDataCom {
 
     /**
      * Indicates that a player is ready to play (all his boats are placed on 
-     * his table) so that the shots
-phase can be displayed
+     * his table) so that the shots phase can be displayed
      */
     public void receiveReady();
 
@@ -146,13 +143,13 @@ phase can be displayed
 
     /**
      * Set the local Game with the game given as a parameter
-     * @param g 
+     * @param g : new value for the local Game
      */
     public void setLocalGame(Game g);
     
     /**
      * Remove a Game from local list
-     * @param g 
+     * @param g : Game to remove
      */
     public void removeGame(Game g);
 }
