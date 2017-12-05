@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import guiMain.GameCell;
 import guiMain.GuiMainController;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
