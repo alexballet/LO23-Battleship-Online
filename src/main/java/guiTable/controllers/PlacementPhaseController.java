@@ -33,7 +33,7 @@ import packageStructDonnées.Boat;
  *
  * @author caioz
  */
-public abstract class PlacementPhaseController {
+public abstract class PlacementPhaseController extends BaseController{
        
     @FXML
     private AnchorPane anchorPane;
@@ -162,29 +162,7 @@ public abstract class PlacementPhaseController {
         return allBoatsArePlaced;
     }
     
-    
-     /**
-     * Allows to replace pane by another one
-     * @param paneToFill
-     * @param contentAdress
-     * @return FXMLLoader
-     * @throws Exception 
-     */
-    private FXMLLoader fillElement(AnchorPane paneToFill, String contentAddress) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(contentAddress));
-        try{
-            AnchorPane contentPane = loader.load();
-            paneToFill.getChildren().add(contentPane);
-            
-            //System.out.println(contentAddress + " " + paneToFill);
-        }
-        catch(Exception e){
-            System.err.println(contentAddress + " " + paneToFill + " " + e.getMessage());
-        }
-        return loader;
-    }
-    
+     
     
     
      /**
