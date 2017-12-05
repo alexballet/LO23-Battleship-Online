@@ -377,22 +377,17 @@ public class Game implements Serializable{
     }
     
     /**
-     * Function to compare a player with the player 1
-     * @param p player to compare with player 1
-     * @return a boolean wich is true if players are equals
+     * Check if a profile belongs to a Game
+     * @param p : a profile
+     * @return a boolean if the profile belongs to one of the Game's Players
      */
-    public Boolean comparePlayer1(Player p){
-        Boolean isEqual = this.player1.comparePlayer(p);
-        return isEqual;
-    }
-    
-    /**
-     * Function to compare a player with the player 2
-     * @param p player to compare with player 2
-     * @return a boolean wich is true if players are equals
-     */
-    public Boolean comparePlayer2(Player p){
-        Boolean isEqual = this.player2.comparePlayer(p);
-        return isEqual;
+    public Boolean doesProfileBelongToGame(Profile p){
+        Boolean result = false;
+        Boolean belongs1 = this.player1.compareProfileToPlayer(p);
+        Boolean belongs2 = this.player2.compareProfileToPlayer(p);
+        if (belongs1 || belongs2){
+            result = true;
+        }
+        return result;
     }
 }

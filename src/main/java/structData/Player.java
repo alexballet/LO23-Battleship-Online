@@ -129,12 +129,12 @@ public class Player implements Serializable{
     }
     
     /**
-     * Function to compare a player with the current player
-     * @param p player to compare with the current player
-     * @return a boolean wich is true if players are equals
+     * Function to compare a profile with the current player's profile
+     * @param p profile to compare with the current player's profile
+     * @return a boolean wich is true if profiles are equals
      */
-    public Boolean comparePlayer(Player p){
-        Boolean isEqual = this.profile.idUser.equals(p.profile.idUser); 
+    public Boolean compareProfileToPlayer(Profile p){
+        Boolean isEqual = this.profile.idUser.equals(p.idUser); 
         return isEqual;
     }
    
