@@ -15,7 +15,7 @@ public class UpdateGameMessage extends Message{
 
     /**
      * Class constructor.
-     * @param game ==DESCRIPTION NEEDED==
+     * @param game is the game which has been updated. //
      */
     public UpdateGameMessage(Game game){
         this.gameUpdate = game;

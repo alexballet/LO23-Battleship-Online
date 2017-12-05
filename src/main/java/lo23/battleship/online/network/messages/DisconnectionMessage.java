@@ -9,9 +9,9 @@ import java.net.InetAddress;
 import java.util.Arrays;
 
 /**
- * Disconnection, descendant class Message, disconnection message.
- * When the user click on the disconnection button or on the cross
- * @author Lejeune Lola
+ * Network message class, extends from Message class.
+ * Disconnection message.
+ * Sent when the user click on one of the disconnection buttons or HMI elements.
  */
 
 
@@ -23,7 +23,7 @@ public class DisconnectionMessage extends Message{
 
     /**
      * Class constructor.
-     * @param userWhoDisconnect ==DESCRIPTION NEEDED==
+     * @param userWhoDisconnect is the User class of the player who is disconnecting from the app.
      */
     public DisconnectionMessage(User userWhoDisconnect){
         this.user = userWhoDisconnect;
@@ -45,7 +45,7 @@ public class DisconnectionMessage extends Message{
     public void process(IDataCom IData){ }
 
     /**
-     * ==DESCRIPTION NEEDED==
+     *
      * @param IData interface with Data.
      * @param senderAddress sender IP address.
      */

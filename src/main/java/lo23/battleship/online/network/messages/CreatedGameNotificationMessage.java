@@ -18,11 +18,12 @@ public class CreatedGameNotificationMessage extends Message{
     Game game;
 
     /**
-     * Class constructor. ==MANQUE this.user ?==
+     * Class constructor.
      * @param sender is the User class of the network message sender.
      * @param gameCreated game created by the sender. The receiver will be able to fill its displayed game list.
      */
     public CreatedGameNotificationMessage(User sender, Game gameCreated) {
+        this.user = sender;
         this.game = gameCreated;
         this.type = "CreatedGameNotificationMessage";
     }
