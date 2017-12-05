@@ -53,7 +53,6 @@ public class GuiMainController implements GuiMainInterface {
 		return idata;
 	}
 
-
 	@Override
 	public void addUser(final User user) {
 
@@ -164,9 +163,13 @@ public class GuiMainController implements GuiMainInterface {
 
 			Scene scene = new Scene(rootLayout);
 			stage.setTitle("Battleship-Online");
+			stage.setOnCloseRequest((WindowEvent event1) -> {
+	            	idata.askDisconnection();
+	        });
+
 			stage.setScene(scene);
 			stage.show();
-
+			
 			System.out.println("start connection");
 			// idata.connection(loginController.);
 			System.out.println("Connection etablished");
@@ -271,6 +274,7 @@ public class GuiMainController implements GuiMainInterface {
 			e.printStackTrace();
 		}
 	}
+
 
 	public void openWaitingRoomWindow(Game game){
 		try {
@@ -378,7 +382,6 @@ public class GuiMainController implements GuiMainInterface {
 			e.printStackTrace();
 		}
 	}
-
 }
 
 

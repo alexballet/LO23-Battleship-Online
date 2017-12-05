@@ -115,7 +115,7 @@ public class CDataMain implements IDataMain {
         Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newSpectator, newSpectatorChat, controller.getLocalProfile());
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
-        
+        controller.setLocalGame(g);
         return g;
     }
     
@@ -126,4 +126,9 @@ public class CDataMain implements IDataMain {
     public List<Game> getGames() {
         return controller.getListGames();
     }
+
+    public void setLocalGame(Game g){
+        controller.setLocalGame(g);
+    }
+
 }

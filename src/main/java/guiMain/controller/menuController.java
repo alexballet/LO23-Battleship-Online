@@ -195,8 +195,10 @@ public class menuController implements Initializable{
 
 
 	public void addGame(Game game){
-		if (game.doesProfileBelongToGame(mainController.getIdata().getLocalProfile())) return;
-		gamesView.getItems().add(game);
+		if (!game.doesProfileBelongToGame(mainController.getIdata().getLocalProfile())) {
+			gamesView.getItems().add(game);
+		}
+
 	}
 
 
