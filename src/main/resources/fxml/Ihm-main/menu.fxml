@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.menuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.menuController">
    <children>
       <GridPane prefHeight="617.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -80,7 +80,7 @@
                                     </HBox>
                                     <HBox alignment="CENTER" GridPane.rowIndex="1">
                                        <children>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="44.0" prefWidth="300.0" text="Créer une nouvelle partie">
+                                          <Button fx:id="createGame" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#openCreateGameWindow" prefHeight="44.0" prefWidth="300.0" text="Créer une nouvelle partie">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
@@ -122,7 +122,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <ListView prefHeight="340.0" prefWidth="582.0">
+                              <ListView fx:id="gamesView" prefHeight="340.0" prefWidth="582.0">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>

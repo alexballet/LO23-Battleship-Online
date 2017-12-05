@@ -22,11 +22,11 @@ public interface COMInterface {
 
     /**
      * Send a chat message
-     * @param message message send
+     * @param chatMessage message send
      * @param g : game related to the message
      * @return true= message sent, false= message not sent
      */
-    public boolean sendChatMessage(ChatMessage message, Game g);
+    public boolean sendChatMessage(ChatMessage chatMessage, Game g);
 
     /**
      * allow to view an user profile
@@ -83,6 +83,24 @@ public interface COMInterface {
      */
     public boolean sendShot(Player player, Game g, Shot shot);
 
+
+    /**
+     * send a shot result to a player on the right game
+     * @param game where the ships are
+     * @param resultShot result of the shot
+     * @return true= message sent, false= message not sent
+     */
+    public boolean coordinates(Player destPlayer, Shot resultShot, Game game);
+
+    /**
+     * send a shot result to a player on the right game
+     * @param game where the ships are
+     * @param resultShot result of the shot
+     * @param boat optional
+     * @return true= message sent, false= message not sent
+     */
+    public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat);
+
     /**
      * search for players who are connected
      * @param user User that is connecting
@@ -95,4 +113,10 @@ public interface COMInterface {
      * @param game Game to delete
      */
     public void removeGame(Game game);
+
+    /**
+     * notifies every user to remove the game from their list
+     * @param game Game to delete
+     */
+    public void notifyGameWon(Player player);
 }

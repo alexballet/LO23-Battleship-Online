@@ -6,13 +6,21 @@
 package data;
 
 import guiMain.GuiMainInterface;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.File;
+import guiTable.GuiTableInterface;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import lo23.battleship.online.network.COMInterface;
+import structData.Boat;
 import structData.Game;
 import structData.User;
 import structData.DataUser;
 import structData.Profile;
+import structData.StatusGame;
+import structData.Player;
+import structData.Shot;
 
 /**
  *
@@ -25,6 +33,7 @@ public class DataController {
     private CDataTable interfaceDataTable;
     
     private GuiMainInterface interfaceMain;
+    private GuiTableInterface interfaceTable;
     private COMInterface interfaceCom;
     
     
@@ -34,32 +43,38 @@ public class DataController {
     private User localUser;
     private DataUser localDataUser;
     private Game localGame;
-    private HashSet<User> listUsers;
+    private List<User> listUsers;
     private Profile localProfile;
-    private HashSet<Game> listGames;
+    private List<Game> listGames;
+    private Player localPlayer;
     
     
     public DataController(){
-        User user = new User("truc", "machin"); // for test
-           
+        localUser = new User(); //test
         interfaceDataCom = new CDataCom(this);
         interfaceDataMain = new CDataMain(this);
         interfaceDataTable = new CDataTable(this);
         
-        listUsers = new HashSet<User>();
-        localDataUser = new DataUser(user);
+        listUsers = new ArrayList<User>();
+        localDataUser = new DataUser(localUser);
         localProfile = new Profile(localDataUser);
-        listGames = new HashSet<>();
     }
     
     public void setInterfaceMain(GuiMainInterface i){
         interfaceMain = i;
         interfaceDataCom.setInterfaceMain(i);
     }
+        
+    public void setInterfaceTable(GuiTableInterface i){
+        interfaceTable = i;
+        interfaceDataCom.setInterfaceTable(i);
+    }
     
     public void setInterfaceCom(COMInterface i){
         interfaceCom = i;
         interfaceDataMain.setInterfaceCom(i);
+        interfaceDataCom.setInterfaceCom(i);
+        interfaceDataTable.setInterfaceCom(i);
     }
     
     
@@ -75,6 +90,10 @@ public class DataController {
         return interfaceDataTable;
     }
     
+    /**
+     * return the local user 
+     * @return local user
+     */
     public User getLocalUser(){
         return localUser;
     }
@@ -90,7 +109,23 @@ public class DataController {
     public void setLocalUser(User u){
         localUser = u;
     }
+    public void setLocalDataUser (DataUser du){
+        localDataUser = du;
+    }
     
+    public void setLocalProfile (Profile p){
+        localProfile = p;
+    }
+    
+    public void setLocalPlayer(Player p){
+        localPlayer = p;
+    }
+    
+    public Player getLocalPlayer(){
+        return localPlayer;
+    }
+    
+
     public void addUserToList(User u){
         listUsers.add(u);
     }
@@ -132,5 +167,94 @@ public class DataController {
      */
     public void removeGameFromList(Game g){
         listGames.remove(g);
+    }
+    
+     /**
+     * used by the method setGameJoinResponse of CDataCom
+     * @param ok 
+     * @param player1
+     * @param player2
+     */
+    public void updateGameData(Boolean ok, Player player1, Player player2){
+        if (ok == true){
+            localGame.setStatus(StatusGame.PLAYING);
+            localGame.setPlayer1(player1);
+            localGame.setPlayer2(player2);
+        }
+        else{
+            localGame.setStatus(StatusGame.WAITINGPLAYER);
+        }
+        
+    }
+
+    
+    /**
+     * Get list of Games
+     * @return the list of games
+     */
+    public List<Game> getListGames(){
+        return listGames;
+    }
+    
+    /**
+     * Reload local profile previously saved given the login and password given
+     * @param login : login written by User 
+     * @param mdp : password written by User
+     */
+    public void reloadSavedProfile(String login, String mdp){
+        
+        File dir =new File(".");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+          for (File child : directoryListing) {
+            if (child.getName().contains(".ser")){
+                try {
+                    FileInputStream fis = new FileInputStream(child.getName());
+                    ObjectInputStream ois = new ObjectInputStream(fis);
+                    Profile p = (Profile) ois.readObject();
+                    ois.close();
+                    if ((p.getLogin().equals(login)) && (p.getPassword().equals(mdp))){
+                        localProfile = p; 
+                        localUser = new User(localProfile);
+                        localDataUser = new DataUser(localProfile);
+                        break;
+                    }              
+                } catch (Exception e) { 
+                    e.printStackTrace(); 
+                 }
+            }
+          }
+          if (localProfile.getName().equals(""))
+              System.out.print("No profile found with this login and password");
+        } else {
+            System.out.print("no file found on this computer");
+        }
+    }
+    
+    /**
+     * Test if a boat is touched or sunk by a shot
+     * @param s : shot of the opponent to test
+     * @return a boat if a boat has been sunk
+     */
+    public Boat testShot(Shot s){
+        int i, j;
+        boolean boatSunk = true;
+        Boat b = null;
+        for (i=0;i<localPlayer.getListBoats().size();i++) { // each boats
+            for (j=0;j<localPlayer.getListBoats().get(i).getListCases().size();j++) { // each positions of the boat
+                if (localPlayer.getListBoats().get(i).verifyPosition(s) == true) {
+                    localPlayer.getListBoats().get(i).getListCases().get(j).setTouched(true);
+                    s.setTouched(true);
+                    b = localPlayer.getListBoats().get(i);
+                }
+                if (localPlayer.getListBoats().get(i).getListCases().get(j).getTouched() == false) // if atmost 1 position is not touched then the boat is not sunk
+                    boatSunk = false;
+            }
+        }
+        // if a boat has been sunk return this boat
+        if (boatSunk == true)
+            return b;
+        else
+            return null;
     }
 }
