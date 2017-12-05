@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package packageStructDonnées;
+package structData;
 
 /**
  * BoatType is an emumerate of all the types of boats and numbur of cases associated.
@@ -26,7 +26,6 @@ public enum BoatType {
         this.name = name;
         this.nbCases = nbCases;
     }
-
     /**
      * @return the name
      */
@@ -41,5 +40,5 @@ public enum BoatType {
         return nbCases;
     }
     
-    
 }
+

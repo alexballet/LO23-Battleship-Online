@@ -4,8 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 //import interfacesData.IDataTable;
-import packageStructDonnées.Message;
-import packageStructDonnées.User;
+import structData.ChatMessage;
 
 public class ChatController {
 
@@ -47,8 +46,7 @@ public class ChatController {
         //erase the textfield
         field.setText("");
     }
-    //public void receiveAMessage(ChatMessage message) {
-    public void receiveAMessage(Message message) {
+    public void receiveAMessage(ChatMessage message) {
         //receive a message
         
         //variables
@@ -56,7 +54,7 @@ public class ChatController {
         
         //add this to the conversation
         currentConversation = conversation.getText();
-        //conversation.setText(message.getProfile().getIdUser() + ": " + message.getContent() + "\n" + currentConversation);
+        conversation.setText(message.getProfile().getIdUser() + ": " + message.getContent() + "\n" + currentConversation);
     }
     
 }

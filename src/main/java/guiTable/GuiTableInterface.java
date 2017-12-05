@@ -1,11 +1,11 @@
 package guiTable;
 
 import javafx.stage.Stage;
-import packageStructDonnées.Boat;
-import packageStructDonnées.Message;
-import packageStructDonnées.Shot;
 import guiTable.controllers.ChatController;
 import guiTable.controllers.PlacementPhaseController;
+import structData.Boat;
+import structData.ChatMessage;
+import structData.Shot;
 
 
 /**
@@ -21,7 +21,7 @@ public interface GuiTableInterface {
      * @throws Exception 
      */
     public void displayPlacementPhase(Stage currentStage, Boolean classic) throws Exception;
-    
+
     /**
      * Notifies the IHM Table that the opponent is ready so that it can adapt its views.
      * @param myTurn 
@@ -61,7 +61,9 @@ public interface GuiTableInterface {
      * Displays a new incoming message on chat window.
      * @param message : New incoming message to display.
      */
-    public void addChatMessage(Message message);
+    
+    public void addChatMessage(ChatMessage message);
+
     /**
      * Displays an error or notification message in main window.
      * @param messageType : Error type to show

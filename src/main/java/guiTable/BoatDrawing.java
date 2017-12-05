@@ -5,12 +5,17 @@
  */
 package guiTable;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import packageStructDonnées.Boat;
-import packageStructDonnées.BoatType;
+import structData.Boat;
+import structData.BoatType;
+import structData.Position;
 
 /**
  *
@@ -43,7 +48,7 @@ public class BoatDrawing{
     public BoatDrawing(BoatType boatType, Rectangle boatRectangle) {
         this.active = false;
         this.rotation = false;
-        this.boat = new Boat(boatType);
+        this.boat = new Boat(boatType, false, new ArrayList<Position>()); //Will change when boat will be correct
         this.boatRectangle = boatRectangle;
         this.boatType = boatType;
         
