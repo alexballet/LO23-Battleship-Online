@@ -72,7 +72,7 @@ public interface IDataCom {
       * Add the player to the game if it is available.
       * @param sender : The player who sends this request
       * @param g : The game that the player wants to join
-      * @return 1 if the parameter game is an avaiable game and add the player 
+      * @return 1 if the parameter game is an available game and add the player
       * to this game, 0 if not
       */
      public void notifToJoinGame(User sender, Game g);

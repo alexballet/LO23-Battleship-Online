@@ -10,25 +10,44 @@ import java.net.InetAddress;
 import java.util.List;
 
 /**
- * Created by xzirva on 14/11/17.
+ * Network message class, extends Message class.
+ * Message sent when the local user wants to join a network of P2P users on the application.
+ * The local user (the sender) let the other users know he wants to join the network.
  */
 public class ConnectionRequestMessage extends Message {
     private User sender;
-    private List<InetAddress> ipAdressesTable;
+    private List<InetAddress> ipAdressesTable; /**< Known IP addresses list */
 
+    /**
+     * Class constructor.
+     * @param user is the User class of the network message sender.
+     * @param ipAdressesTable is the IP addresses list known by the sender.
+     */
     public ConnectionRequestMessage(User user, List<InetAddress> ipAdressesTable) {
         this.sender = user;
         this.ipAdressesTable = ipAdressesTable;
         type = "ConnectionRequestMessage";
     }
+
+    /**
+     * Message type getter. Implementation of an abstract method.
+     * @return type, this is the message type.
+     */
     public String getType() {
         return type;
     }
-    public void process(IDataCom dataInterface) {
 
+    /**
+     * Unused method for this class.
+     * @param IData interface with Data.
+     */
+    public void process(IDataCom IData) { }
 
-    }
-
+    /**
+     * Method updating the NetworkController and class members accordingly to the message sent.
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
+     */
     public void process(IDataCom IData, InetAddress senderAddress) {
 
         //dataInterface.getIPTableAdresses();
