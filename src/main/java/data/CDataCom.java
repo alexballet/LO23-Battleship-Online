@@ -242,6 +242,7 @@ public class CDataCom implements IDataCom {
      
      @Override
      public void notifyToSpecGame(Game g, User spec){
+         
          controller.updateSpecList(g,spec);
      }
     
