@@ -18,7 +18,7 @@ public interface COMInterface {
      * @param user player who is notify
      * @return true= message sent, false= message not sent
      * */
-    public boolean notifyReady(User user);
+    public boolean notifyReady(User user, Player playerToNotify);
 
     /**
      * Send a chat message
@@ -26,7 +26,7 @@ public interface COMInterface {
      * @param g : game related to the message
      * @return true= message sent, false= message not sent
      */
-    public boolean sendChatMessage(String message, Game g);
+    public boolean sendChatMessage(ChatMessage message, Game g);
 
     /**
      * allow to view an user profile
@@ -86,8 +86,13 @@ public interface COMInterface {
     /**
      * search for players who are connected
      * @param user User that is connecting
-     * @return list of all users who are connected
+     * @return void
      */
     public void searchForPlayers();
 
+    /**
+     * notifies every user to remove the game from their list
+     * @param game Game to delete
+     */
+    public void removeGame(Game game);
 }

@@ -1,6 +1,7 @@
 package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
+import structData.User;
 
 import java.net.InetAddress;
 
@@ -12,8 +13,13 @@ import java.net.InetAddress;
 
 public class NotifyReadyMessage extends Message {
 
-    public NotifyReadyMessage(){
+    private User sender;
+    private User destUser;
+
+    public NotifyReadyMessage(User sender, User destUser){
         this.type = "NotifyReadyMessage";
+        this.destUser = destUser;
+        this.sender = sender;
     }
 
 
