@@ -9,6 +9,7 @@ package guiTable.controllers;
 
 import guiTable.BoatDrawing;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,13 +34,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-<<<<<<< HEAD
 import javafx.util.Duration;
-import packageStructDonnées.Boat;
-=======
 import javafx.scene.text.Text;
 import structData.Boat;
->>>>>>> ihm-plateau
 
 /**
  *
@@ -65,11 +62,13 @@ public abstract class PlacementPhaseController {
     protected static final int GRID_ELEMENT_SIZE = 35;
     protected static final int NB_CASES_GRID = 10;
     protected static final int RANDOM_ROTATION = 2;
+    protected static final int MULTIPLE_FACTOR_PLACEMENT = 7;
     
     protected Timeline timeline;
     @FXML
     protected Label timerLabel;
-    protected Integer timeSeconds;
+    protected LocalTime time;
+    private LocalTime timePerShot;
     
     protected boolean rotationIsValide;
     protected BoatDrawing activeBoat;
@@ -144,7 +143,7 @@ public abstract class PlacementPhaseController {
         }
         
         // Sets the events handlers
-        table.setOnMousePressed(placeBoat());
+        table.setOnMousePressed(MousePlaceBoat());
         table.setOnMouseEntered(enableRotation());
         table.setOnMouseExited(disableRotation());
         // This probably will change after the addition of the chat.
@@ -419,24 +418,28 @@ public abstract class PlacementPhaseController {
      * Unactivates the boat when it is placed over the grid.
      * @return mousePressGridHandler The handler of the event (Click over the grid).
      */    
-    protected EventHandler<MouseEvent> placeBoat() {
+    protected EventHandler<MouseEvent> MousePlaceBoat() {
         EventHandler<MouseEvent> mousePressGridHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if(activeBoat!=null){
-                        if(positionCorrect(activeBoat)) {
-                            activeBoat.setPlaced(true);
-                            desactiveBoat(); 
-                            // enable validate button if all boats are well placed
-                            valider.setDisable(!allBoatsArePlaced());
-                        }
+                        placeBoat(activeBoat);
                     }
                 }
                 event.consume();
             }
         };
         return mousePressGridHandler;
+    }
+    
+    protected void placeBoat(BoatDrawing myBoat) {
+        if(positionCorrect(myBoat)) {
+            myBoat.setPlaced(true);
+            desactiveBoat(); 
+            // enable validate button if all boats are well placed
+            valider.setDisable(!allBoatsArePlaced());
+        }
     }
            
     /**
@@ -453,22 +456,23 @@ public abstract class PlacementPhaseController {
     }
     
     public void setPlacementTime(Integer placementTime){
-        this.timeSeconds = placementTime;
+        this.timePerShot = LocalTime.MIN.plusSeconds(placementTime);
+        this.time = timePerShot.plusSeconds(placementTime*MULTIPLE_FACTOR_PLACEMENT) ;
         // update timerLabel
-        timerLabel.setText(timeSeconds.toString());
+        timerLabel.setText(time.toString().substring(3));
         timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
                     // KeyFrame event handler                      
             @Override
             public void handle(Event event) {
-                timeSeconds--;
                     // update timerLabel
-                    timerLabel.setText(timeSeconds.toString());
-                if (timeSeconds <= 10) {
+                    time = time.minusSeconds(1);
+                    timerLabel.setText(time.toString().substring(3));
+                if (time.getSecond() <= 10) {
                     timerLabel.setTextFill(Color.RED);
                 }
-                if (timeSeconds <= 0) {
+                if (time.getSecond() <= 0) {
                     timeline.stop();
                     timeIsOver();
                 }
@@ -490,8 +494,7 @@ public abstract class PlacementPhaseController {
                     drawRotation(activeBoat);
                 }                
                 if(positionCorrect(myBoat)){
-                    activeBoat.setPlaced(true);
-                    desactiveBoat(); 
+                    this.placeBoat(myBoat);
                 }
            }
         }
