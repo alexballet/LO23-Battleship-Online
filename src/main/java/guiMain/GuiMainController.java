@@ -278,7 +278,7 @@ public class GuiMainController implements GuiMainInterface {
 	        stage.show();
                 
                 // débug placement phase : 
-                this.openPlacementPhase(game);
+             //   this.openPlacementPhase(game);
                 
 	        stage.setOnCloseRequest((WindowEvent event1) -> {
 	            	idata.removeGame(game);
