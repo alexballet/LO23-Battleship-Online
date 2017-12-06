@@ -47,7 +47,7 @@ public interface IDataCom {
      * @param player2 : The player who joins the game
      */
     public void setGameJoinResponse(Boolean ok, Player player1, Player player2);
-     
+
     /**
      * The distance user has refused the request to join the game
      * @param no : Refuse of the request to join the game

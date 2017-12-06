@@ -9,21 +9,35 @@ import structData.User;
 import java.net.InetAddress;
 
 /**
- * CreatedGameNotification,descendant class Message, create a game notification and send the new game to data
- * @author Lejeune Lola
+ * Network message class, extends Message class.
+ * Message notifying Data a new game has been created by the sender.
  */
-
 public class CreatedGameNotificationMessage extends Message{
     Game game;
 
+    /**
+     * Class constructor.
+     * @param gameCreated game created by the sender. The receiver will be able to fill its displayed game list.
+     */
     public CreatedGameNotificationMessage(Game gameCreated) {
-        this.game = gameCreated;
-        this.type = "CreatedGameNotificationMessage";}
 
+        this.game = gameCreated;
+        this.type = "CreatedGameNotificationMessage";
+    }
+
+    /**
+     * Message type getter. Implementation of an abstract method.
+     * @return type, this is the message type.
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Unused method for this class.
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
+     */
     public void process(IDataCom IData, InetAddress senderAddress){
 
         System.out.println("Game received " + game.getName() + " from " + game.getPlayer1().getProfile().getLogin());
