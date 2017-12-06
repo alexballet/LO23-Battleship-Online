@@ -110,7 +110,17 @@ public class GuiMainController implements GuiMainInterface {
 	@Override
 	public void sendStatistics(Profile profil) {
 		// TODO Auto-generated method stub
-		profilController.setProfil(profil);
+		System.out.println("HELLO " + profil.getLogin());
+		if (profilController != null) {
+			Runnable command = new Runnable() {
+				@Override
+				public void run() {
+					profilController.setProfil(profil);
+				}
+			};
+			Platform.runLater(command);
+			
+		}
 
 	}
 
