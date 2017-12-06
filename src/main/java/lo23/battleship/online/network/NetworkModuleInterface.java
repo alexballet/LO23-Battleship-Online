@@ -16,24 +16,41 @@ import java.util.List;
 
 public class NetworkModuleInterface implements COMInterface {
     private IDataCom dataInterface;
-    private final String[] listMessages = {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
     private NetworkController controller;
 
     public NetworkModuleInterface(NetworkController cont) {
         controller = cont;
     }
+    
+    public boolean notifyReady(User user, Player playerToNotify) {
 
-    @Override
-    public boolean notifyReady(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+        NotifyReadyMessage notifyReadyMessage = new NotifyReadyMessage(user, playerToNotify.getProfile());
+
+        controller.sendMessage(notifyReadyMessage, controller.getAddressForUser(playerToNotify.getProfile()));
+
+        return true;
     }
 
-    @Override
-    public boolean sendChatMessage(String message, Game g) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
-    }
+    public boolean sendChatMessage(ChatMessage chatMessage, Game g) {
 
-    @Override
+        SendTextMessage sendTextMessage = new SendTextMessage(chatMessage);
+
+        HashSet<User> listUsers = g.getListSpectators();
+
+        if (dataInterface.getLocalUser().getIdUser() == g.getPlayer1().getProfile().getIdUser()) {
+            listUsers.add(g.getPlayer2().getProfile());
+        } else {
+            listUsers.add(g.getPlayer1().getProfile());
+        }
+
+        for (User user : listUsers) {
+
+            controller.sendMessage(sendTextMessage, controller.getAddressForUser(user));
+
+        }
+
+        return true;
+    }
     public void getProfile(User userRequested) {
 
         GetProfileRequestMessage getProfileRequestMessage = new GetProfileRequestMessage(dataInterface.getUserProfile());
@@ -41,7 +58,7 @@ public class NetworkModuleInterface implements COMInterface {
         controller.sendMessage(getProfileRequestMessage, controller.getAddressForUser(userRequested));
     }
 
-    @Override
+    
     public boolean notifyJoinGameResponse(Boolean isOk, Profile user, Game game) {
         System.out.println("NMI isok " + isOk);
         JoinGameResponseMessage joinGameResponseMessage = new JoinGameResponseMessage(isOk, dataInterface.getUserProfile(), game);
@@ -51,7 +68,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    @Override
+    
     public boolean changeStatusGame(Game game) {
 
         List<InetAddress> ipAddresses = controller.getIPTable();
@@ -67,7 +84,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    @Override
+    
     public boolean notifyNewGame(Game g) {
         List<InetAddress> ipAddresses = controller.getIPTable();
 
@@ -82,7 +99,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    @Override
+    
     public boolean joinGame(Game g) {
         InetAddress destinationAddress = controller.getAddressForUser(g.getPlayer1().getProfile());
 
@@ -94,7 +111,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    @Override
+    
     public boolean askDisconnection() {
 
         User user = dataInterface.getLocalUser();
@@ -112,12 +129,25 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
 
-    @Override
+    
     public boolean sendShot(Player player, Game game, Shot shot) {
-        throw new UnsupportedOperationException("Not supported yet."); //TODO: To change body of generated methods, choose Tools | Templates.
+
+        ShotNotificationMessage shotNotificationMessage = new ShotNotificationMessage(shot);
+
+        InetAddress destAddress;
+
+        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
+            destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
+        } else {
+            destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
+        }
+
+        controller.sendMessage(shotNotificationMessage, destAddress);
+
+        return true;
     }
 
-    @Override
+    
     public void searchForPlayers() {
         controller.launchServer();
         User user = dataInterface.getLocalUser();
@@ -136,7 +166,50 @@ public class NetworkModuleInterface implements COMInterface {
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
     }
-    @Override
+
+
+    public void notifyGameWon(Player player) {
+
+        GameWonMessage gameWonMessage = new GameWonMessage(player);
+
+        controller.sendMessage(gameWonMessage, controller.getAddressForUser(player.getProfile()));
+
+    }
+
+    public boolean coordinates(Player destPlayer, Shot resultShot, Game game) {
+
+        ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, null);
+
+        InetAddress destAddress;
+
+        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
+            destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
+        } else {
+            destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
+        }
+
+        controller.sendMessage(shotNotificationResultMessage, destAddress);
+
+        return true;
+    }
+
+    public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat) {
+
+        ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, boat);
+
+        InetAddress destAddress;
+
+        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
+            destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
+        } else {
+            destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
+        }
+
+        controller.sendMessage(shotNotificationResultMessage, destAddress);
+
+        return true;
+    }
+    
     public void removeGame(Game game) {
         List<InetAddress> ipAddresses = controller.getIPTable();
         GameQuitMessage gameQuitMessage = new GameQuitMessage(game);

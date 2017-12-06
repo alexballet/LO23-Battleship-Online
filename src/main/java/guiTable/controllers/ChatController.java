@@ -55,7 +55,7 @@ public class ChatController {
         
         //add this to the conversation
         currentConversation = conversation.getText();
-        conversation.setText(message.getProfile().getIdUser() + ": " + message.getContent() + "\n" + currentConversation);
+        conversation.setText(message.getProfile().getUsername()+ ": " + message.getContent() + "\n" + currentConversation);
     }
     
     public void setDataController(CDataTable d) {
