@@ -9,6 +9,7 @@ import java.net.UnknownHostException;
 import java.util.Date;
 import structData.ContactGroup;
 import structData.Game;
+import structData.User;
 import java.util.HashSet;
 import java.util.List;
 import structData.Profile;
@@ -53,6 +54,12 @@ public interface IDataMain {
      * @return a profile
      */
     public void getStatistics(Profile p);
+    
+    /**
+     * Returns the profile of an user
+     * @return a profile
+     */
+    public void getProfile(User u);
     
     /**
      * Notifies the away application that an user wants to join a game
