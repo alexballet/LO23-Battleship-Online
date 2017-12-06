@@ -6,13 +6,11 @@
 package guiTable.controllers;
 
 import data.CDataTable;
-import data.DataController;
 import guiTable.GuiTableInterface;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import structData.Boat;
 import structData.ChatMessage;
 import structData.Shot;
 
