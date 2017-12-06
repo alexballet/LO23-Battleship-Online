@@ -92,7 +92,7 @@ public class CDataMain implements IDataMain {
     @Override
     public void askDisconnection() {
         interfaceCom.askDisconnection();
-        //controller.reset();
+        controller = new DataController();
     }
 
     @Override
