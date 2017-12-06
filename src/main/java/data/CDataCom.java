@@ -194,6 +194,7 @@ public class CDataCom implements IDataCom {
 
     @Override
     public void coordinates(Shot s, Boat b) {
+        controller.getLocalPlayer().addShot(s);
         interfaceTable.displayMyShotResult(s, b);
     }
     

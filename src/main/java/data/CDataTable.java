@@ -16,6 +16,7 @@ import structData.Position;
 import structData.Game;
 import lo23.battleship.online.network.COMInterface;
 import guiMain.GuiMainInterface;
+import java.util.Random;
 import structData.Shot;
 
 /**
@@ -28,6 +29,8 @@ public class CDataTable implements IDataTable {
     
     private GuiMainInterface interfaceMain;
     private COMInterface interfaceCom;
+    
+     protected static final int NB_CASES_GRID = 10;
     
     public CDataTable(DataController dc){
         super();
@@ -59,7 +62,26 @@ public class CDataTable implements IDataTable {
     @Override
     public void coordinateShips(List<Boat> listBoat) {
         controller.getLocalPlayer().setListBoats(listBoat);
-        interfaceCom.notifyReady(controller.getLocalUser());
+        // notifyready was modified by Com : it will be OK once integrated
+        if (controller.getLocalGame().getPlayer1().equals(controller.getLocalPlayer())){
+            interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer1());
+        }else{ 
+            interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
+        };
+        
+    }
+    
+    public Shot iaShot(){
+        Position p = new Position();
+        Random rn1 = new Random();
+        Random rn2 = new Random();
+        
+        rn1.nextInt(NB_CASES_GRID);
+        rn2.nextInt(NB_CASES_GRID);
+        
+        Shot s = new Shot(p);
+
+        return s;
     }
     
 }
