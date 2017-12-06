@@ -14,6 +14,7 @@ import structData.Game;
 import structData.User;
 import structData.DataUser;
 import structData.Profile;
+import structData.Player;
 import java.util.HashSet;
 import java.util.List;
 
@@ -116,6 +117,8 @@ public class CDataMain implements IDataMain {
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
         controller.setLocalGame(g);
+        Player p = new Player(controller.getLocalProfile());
+        controller.setLocalPlayer(p);
         return g;
     }
     
@@ -130,5 +133,9 @@ public class CDataMain implements IDataMain {
     public void setLocalGame(Game g){
         controller.setLocalGame(g);
     }
+    
+     public void getProfile(User u){
+         interfaceCom.getProfile(u);
+     }
 
 }
