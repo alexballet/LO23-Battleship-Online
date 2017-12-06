@@ -45,7 +45,7 @@ public class CDataTable implements IDataTable {
     public void textMessage(String message) {
         ChatMessage cm = new ChatMessage(controller.getLocalUser(),message,new Date());
         Game g = controller.getLocalGame();
-        //interfaceCom.sendChatMessage(cm, g); décommenter à l'integ
+        interfaceCom.sendChatMessage(cm, g); //décommenter à l'integ
     }
 
     @Override

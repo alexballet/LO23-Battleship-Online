@@ -97,7 +97,7 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void addChatMessage(ChatMessage message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        chatController.receiveAMessage(message);
     }
 
     @Override
