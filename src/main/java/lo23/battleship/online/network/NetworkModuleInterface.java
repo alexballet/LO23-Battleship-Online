@@ -155,7 +155,7 @@ public class NetworkModuleInterface implements COMInterface {
                 new ConnectionRequestMessage(user, new ArrayList<InetAddress>(), null);
 
         HashSet<InetAddress> knownUsersAddresses = user.getIPs();
-
+        System.out.println("Sending CRM to " + knownUsersAddresses);
         for (InetAddress ipAddress : knownUsersAddresses) {
 
             controller.sendMessage(connectionRequestMessage, ipAddress);
