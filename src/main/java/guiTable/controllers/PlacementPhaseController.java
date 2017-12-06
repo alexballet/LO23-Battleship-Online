@@ -76,6 +76,8 @@ public abstract class PlacementPhaseController extends BaseController{
     
     protected HashMap<Rectangle, BoatDrawing> boatMap;
     
+    private boolean isValidate = false;
+    
     /**
      * log message into interface.
      * @param msg message to be displayed
@@ -170,11 +172,14 @@ public abstract class PlacementPhaseController extends BaseController{
      */
     @FXML
     protected void onValidate() {
+        this.setIsValidate(!this.isValidate);
+        if (this.isIsValidate()) {
         List<Boat> boats = this.getBoats();
         timeline.stop();
         timerLabel.setVisible(false);
-        System.out.println("list boat : " + boats);
+        logMsg("en attente de la validation de l'autre joueur", "");
         GuiTableController.getInstance().validateBoats(boats);
+        }
     }
     
     /**
@@ -185,7 +190,6 @@ public abstract class PlacementPhaseController extends BaseController{
         List<Boat> boats = new ArrayList(this.boatMap.size());
         for(BoatDrawing boatDraw : boatMap.values()) {
             boats.add(boatDraw.getBoat());
-            System.out.println("boat : "+ boatDraw);
         }
         
         return boats;
@@ -218,20 +222,23 @@ public abstract class PlacementPhaseController extends BaseController{
         EventHandler<MouseEvent> mousePressHandler = new EventHandler<MouseEvent>() {        
             @Override
             public void handle(MouseEvent event) {
-                if (event.getButton() == MouseButton.PRIMARY) {
-                    //If the user has clicked in the window and no other boat is already selected
-                    if (activeBoat == null) {
-                        Rectangle myRectangle =(Rectangle) event.getSource();
-                        BoatDrawing myboat  = boatMap.get(myRectangle);
-                        activeBoat = myboat.setActiveBoat(boatMap);
-                        activeBoat.setPlaced(false);
-                        logMsg("press R to rotate Boat and DEL to reinitialize boat");
+                if(!isValidate) {
+                    if (event.getButton() == MouseButton.PRIMARY) {
+                        //If the user has clicked in the window and no other boat is already selected
+                        if (activeBoat == null) {
+                            Rectangle myRectangle =(Rectangle) event.getSource();
+                            BoatDrawing myboat  = boatMap.get(myRectangle);
+                            activeBoat = myboat.setActiveBoat(boatMap);
+                            activeBoat.setPlaced(false);
+                            logMsg("press R to rotate Boat and DEL to reinitialize boat");
+                        }
+
                     }
-                    
-                }
-           }
+               }
+            }
         };
         return mousePressHandler;
+                    
     }
     
     /**
@@ -493,5 +500,19 @@ public abstract class PlacementPhaseController extends BaseController{
            }
         }
         onValidate();
+    }
+
+    /**
+     * @return the isValidate
+     */
+    public boolean isIsValidate() {
+        return isValidate;
+    }
+
+    /**
+     * @param isValidate the isValidate to set
+     */
+    public void setIsValidate(boolean isValidate) {
+        this.isValidate = isValidate;
     }
 }
