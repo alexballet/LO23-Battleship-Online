@@ -2,6 +2,7 @@ package guiMain;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -322,12 +323,24 @@ public class GuiMainController implements GuiMainInterface {
 		return this.ipsList;
 	}
 
-	public void setIps(List<String> ips){
+	public void setIps(List<String> list){
 		Profile p = idata.getLocalProfile();
+		
 		if ( p != null && p.getIdUser() != null) {
-			// DATA : function for update IP
+			HashSet<InetAddress> ips = new HashSet<>();
+			if (list != null && list.size() > 0){
+				for (String ip : list) {
+					try {
+						ips.add(InetAddress.getByName(ip));
+					} catch (UnknownHostException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			idata.setListIps(ips);
 		}
-		this.ipsList = ips;
+		this.ipsList = list;
 	}
 
 	public void setIdata(IDataMain idata) {
