@@ -55,7 +55,7 @@ public interface COMInterface {
      * @param g Game <code>user</code> wants to join
      * @return true= message sent, false= message not sent
      */
-    public boolean joinGame(User user, Game g);
+    public boolean joinGame(Game g);
 
     /**
      * allow an user to join a game
@@ -65,7 +65,7 @@ public interface COMInterface {
      * @param g Game <code>user</code> joined if isOk
      * @return true= message sent, false= message not sent
      */
-    public boolean notifyJoinGameResponse(Boolean isOk, User user, Game g);
+    public boolean notifyJoinGameResponse(Boolean isOk, Profile user, Game g);
 
     /**
      * allow an user to be disconnected to the network

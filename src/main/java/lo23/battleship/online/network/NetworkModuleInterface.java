@@ -9,7 +9,6 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by xzirva on 17/10/17.
@@ -17,13 +16,12 @@ import java.util.Random;
 
 public class NetworkModuleInterface implements COMInterface {
     private IDataCom dataInterface;
-    private String[] listMessages = {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
     private NetworkController controller;
 
     public NetworkModuleInterface(NetworkController cont) {
         controller = cont;
     }
-
+    
     public boolean notifyReady(User user, Player playerToNotify) {
 
         NotifyReadyMessage notifyReadyMessage = new NotifyReadyMessage(user, playerToNotify.getProfile());
@@ -53,21 +51,6 @@ public class NetworkModuleInterface implements COMInterface {
 
         return true;
     }
-
-    /**
-     * NOTE: this method is only use in test environment
-     *
-     * @param host
-     * @param port
-     * @return true= message sent, false= message not sent
-     */
-    public void sendRandomMessage(String host, int port, User u) {
-        System.out.println("TEST");
-        System.out.println("host: " + host + "/" + port);
-        //InetAddress address = InetAddress.getByAddress(host)
-        //controller.sendMessage(newRandomMessage(u), host);
-    }
-
     public void getProfile(User userRequested) {
 
         GetProfileRequestMessage getProfileRequestMessage = new GetProfileRequestMessage(dataInterface.getUserProfile());
@@ -75,15 +58,17 @@ public class NetworkModuleInterface implements COMInterface {
         controller.sendMessage(getProfileRequestMessage, controller.getAddressForUser(userRequested));
     }
 
-    public boolean notifyJoinGameResponse(Boolean isOk, User user, Game game) {
-
-        JoinGameResponseMessage joinGameResponseMessage = new JoinGameResponseMessage(isOk, dataInterface.getLocalUser(), game);
+    
+    public boolean notifyJoinGameResponse(Boolean isOk, Profile user, Game game) {
+        System.out.println("NMI isok " + isOk);
+        JoinGameResponseMessage joinGameResponseMessage = new JoinGameResponseMessage(isOk, dataInterface.getUserProfile(), game);
 
         controller.sendMessage(joinGameResponseMessage, controller.getAddressForUser(user));
 
         return true;
     }
 
+    
     public boolean changeStatusGame(Game game) {
 
         List<InetAddress> ipAddresses = controller.getIPTable();
@@ -99,11 +84,11 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
+    
     public boolean notifyNewGame(Game g) {
-        User user = dataInterface.getLocalUser();
         List<InetAddress> ipAddresses = controller.getIPTable();
 
-        CreatedGameNotificationMessage createdGameNotification = new CreatedGameNotificationMessage(user, g);
+        CreatedGameNotificationMessage createdGameNotification = new CreatedGameNotificationMessage(g);
 
         for (InetAddress ipAddress : ipAddresses) {
 
@@ -114,17 +99,19 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    public boolean joinGame(User user, Game g) {
-
+    
+    public boolean joinGame(Game g) {
         InetAddress destinationAddress = controller.getAddressForUser(g.getPlayer1().getProfile());
 
-        JoinGameRequestMessage joinGameRequest = new JoinGameRequestMessage(user, g);
+        Profile profile = dataInterface.getUserProfile();
+        JoinGameRequestMessage joinGameRequest = new JoinGameRequestMessage(profile, g);
 
         controller.sendMessage(joinGameRequest, destinationAddress);
 
         return true;
     }
 
+    
     public boolean askDisconnection() {
 
         User user = dataInterface.getLocalUser();
@@ -142,6 +129,7 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
 
+    
     public boolean sendShot(Player player, Game game, Shot shot) {
 
         ShotNotificationMessage shotNotificationMessage = new ShotNotificationMessage(shot);
@@ -159,11 +147,12 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
+    
     public void searchForPlayers() {
 
         User user = dataInterface.getLocalUser();
         ConnectionRequestMessage connectionRequestMessage =
-                new ConnectionRequestMessage(user, new ArrayList<InetAddress>());
+                new ConnectionRequestMessage(user, new ArrayList<InetAddress>(), null);
 
         HashSet<InetAddress> knownUsersAddresses = user.getIPs();
 
@@ -178,20 +167,6 @@ public class NetworkModuleInterface implements COMInterface {
         this.dataInterface = IData;
     }
 
-    public void removeGame(Game game) {
-
-        User user = dataInterface.getLocalUser();
-        RemoveGameMessage removeGameMessage =
-                new RemoveGameMessage(game);
-
-        HashSet<InetAddress> knownUsersAddresses = user.getIPs();
-
-        for (InetAddress ipAddress : knownUsersAddresses) {
-
-            controller.sendMessage(removeGameMessage, ipAddress);
-
-        }
-    }
 
     public void notifyGameWon(Player player) {
 
@@ -233,5 +208,16 @@ public class NetworkModuleInterface implements COMInterface {
         controller.sendMessage(shotNotificationResultMessage, destAddress);
 
         return true;
+    }
+    
+    public void removeGame(Game game) {
+        List<InetAddress> ipAddresses = controller.getIPTable();
+        GameQuitMessage gameQuitMessage = new GameQuitMessage(game);
+
+        for (InetAddress ipAddress : ipAddresses) {
+
+            controller.sendMessage(gameQuitMessage, ipAddress);
+
+        }
     }
 }

@@ -2,42 +2,41 @@ package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
 import structData.Game;
+import structData.Profile;
 import structData.User;
 
 import java.net.InetAddress;
 
+/**
+ * JoinGameRequest,descendant class Message, received a game request and send to data.
+ * @author Lejeune Lola
+ */
+
 public class JoinGameResponseMessage extends Message{
 
     Game game;
-    User sender;
+    Profile sender;
     Boolean isOk;
 
-    public JoinGameResponseMessage(Boolean isOk, User sender, Game game){
+    public JoinGameResponseMessage(Boolean isOk, Profile sender, Game game){
         this.game = game;
         this.isOk = isOk;
         this.sender = sender;
-        this.type = "JoinGameResponseMessage";}
+        this.type = "JoinGameResponseMessage";
+    }
 
     public String getType() {
         return type;
     }
 
-    public void process(IDataCom IData){
+    public void process(IDataCom IData, InetAddress senderAddress) {
+        System.out.println("Response received for game " + game.getName() + " from " + senderAddress.toString());
 
         if (isOk) {
-
-            //TODO : uncomment when integV3 done
-            //IData.setGameJoinResponse(true, sender, IData.getLocalUser());
-
+            IData.setLocalGame(game);
         } else {
 
             IData.setGameJoinResponse(false);
         }
     }
-
-    public void process(IDataCom IData, InetAddress senderAddress){
-    }
-
-
-
 }

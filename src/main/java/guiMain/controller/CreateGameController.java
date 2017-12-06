@@ -96,8 +96,15 @@ public class CreateGameController implements Initializable{
         Boolean spectators = spectatorsAutorise.isSelected();
         Boolean chat = chatAutorise.isSelected();
         Boolean classicGame = classicGameType.isSelected();
-        Boolean oponent = humanGameAdversaire.isSelected();          
-        int timePerShot = Integer.parseInt(reflectionTime.getText());
+        Boolean oponent = humanGameAdversaire.isSelected();   
+        int timePerShot;
+        //add try catch exception for default value time per shot
+        try {
+        timePerShot = Integer.parseInt(reflectionTime.getText());
+        } catch (NumberFormatException e) {
+            System.out.println("le champ temps est vide initialisation à 30s");
+            timePerShot = 30;
+        }
 
         // Create new game object
         // Game game = new Game(classicGame, name, oponent, timePerShot, spectators, chat);
@@ -106,16 +113,7 @@ public class CreateGameController implements Initializable{
         Game game = mainController.getIdata().newGame(classicGame, name, oponent, timePerShot, spectators, chat);     
         
         // Open waiting room window 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Ihm-main/waitingRoom.fxml"));
-        Parent layout = loader.load();
-        Scene scene = new Scene(layout);
-        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        // Set game data in new window
-        WaitingRoomController controller = loader.<WaitingRoomController>getController();
-        controller.initData(game);
-        // Show window
-        window.show();
+        mainController.openWaitingRoomWindow(game);
     }
     
     /**
@@ -126,4 +124,8 @@ public class CreateGameController implements Initializable{
     void returnToMenu(ActionEvent event) {
         mainController.openMenuWindow();
     }
+    
+	public void setMainController (GuiMainController c) {
+		mainController = c;
+	}
 }

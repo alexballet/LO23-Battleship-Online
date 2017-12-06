@@ -5,16 +5,12 @@ import static javafx.application.Application.launch;
 
 import data.DataController;
 import guiMain.GuiMainController;
-import guiMain.controller.menuController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lo23.battleship.online.network.NetworkController;
 
 
 public class MainApp extends Application {
+
 
 	@Override
 	public void start(Stage stage) throws Exception {
