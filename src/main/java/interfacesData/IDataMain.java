@@ -96,5 +96,7 @@ public interface IDataMain {
 	Profile getLocalProfile();
 
     public void setLocalGame(Game g);
+    
+    public void setListIps(HashSet Ips);
 
 }

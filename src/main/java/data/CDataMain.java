@@ -6,6 +6,7 @@
 package data;
 
 import interfacesData.IDataMain;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
 import lo23.battleship.online.network.COMInterface;
@@ -137,6 +138,10 @@ public class CDataMain implements IDataMain {
     
      public void getProfile(User u){
          interfaceCom.getProfile(u);
+     }
+     
+     public void setListIps(HashSet Ips){
+         controller.getLocalUser().setIPs(Ips);
      }
 
 }
