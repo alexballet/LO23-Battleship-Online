@@ -153,6 +153,7 @@ public class DataController {
             listGames.add(g);
     }
     
+    
     /**
      * Update the status of game and add it into the list of Game
      * @param g : the game which status has been modified
@@ -185,6 +186,9 @@ public class DataController {
             localGame.setStatus(StatusGame.WAITINGPLAYER);
         }
         
+    }
+    public void updateSpecList(Game g, User spec){
+        g.addSpectators(spec);
     }
 
     

@@ -82,6 +82,12 @@ public interface IDataCom {
       * @param g : The new game
       */
      public void addNewGameList(Game g);
+     
+     /**
+      * Removes the game given as a parameter from the list of games.
+      * @param g : game to remove
+      */
+     public void removeGameFromList(Game g);
 
      /**
       * Takes the error message given as a parameter in order to transmit it to 
@@ -136,6 +142,8 @@ phase can be displayed
       * Notification that you won, update stats and display win
       */
      public void notifiedGameWon();
+     
+     public void notifyToSpecGame(Game g, User spec);
 }
 
 

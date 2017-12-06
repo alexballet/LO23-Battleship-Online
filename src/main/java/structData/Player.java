@@ -113,6 +113,7 @@ public class Player implements Serializable{
      * Add a new shot to the list of shots
      * @param newShot : the new shot to be added into the list of boats
      */
+    
     public void addShot (Shot newShot){
         listShots.add(newShot);
     }

@@ -43,7 +43,9 @@ public class CDataTable implements IDataTable {
 
     @Override
     public Boolean exit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Boolean b = interfaceCom.exit(); Com doit s'occuper la fonction exit
+        //return b;
+        return true; //delete, si Com a fini exit
     }
 
     @Override

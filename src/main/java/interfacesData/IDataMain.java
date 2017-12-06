@@ -73,4 +73,11 @@ public interface IDataMain {
      * @param g : game to add
      */
     void newGame(Game g);
+    
+    /**
+     * Add a spectator in the game
+     * @param g : game that the spectator wants to join
+     * @param spec : spectator
+     */
+    void gameToSpec(Game g, User spec);
 }

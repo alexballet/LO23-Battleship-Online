@@ -131,10 +131,18 @@ public class CDataCom implements IDataCom {
         controller.addGameToList(g);
         interfaceMain.addGame(g);
     }
+    
+    @Override
+    public void removeGameFromList(Game g){
+        controller.removeGameFromList(g);
+        
+    }
 
     @Override
     public void errorPrint(String error) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //wait the method errorPrint in GuiTableInterface.java and GuiMainInterface.java
+        //Interfacetable.errorPrint(error);
+        //InterfaceMain.errorPrint(error);
     }
 
     @Override
@@ -183,10 +191,20 @@ public class CDataCom implements IDataCom {
             if (gameOver){
                 //arreter la partie localPlayer a perdu
                 interfaceTable.displayDefeat();
-                //interfaceCom.notifyGameWon(); COM doit notifier à l'autre joueur qu'il a gagné
+                
+                //notify the other player that he has won
+                Player pl; // to know to which player we send the notification : it's the player who is not ourself
+                if (controller.getLocalGame().getPlayer1() == controller.getLocalPlayer())
+                    pl = controller.getLocalGame().getPlayer2();
+                else
+                    pl = controller.getLocalGame().getPlayer1();
+                //interfaceCom.notifyGameWon(pl);
+                
                 controller.getLocalProfile().setGamesLost(controller.getLocalProfile().getGamesLost()+1);
                 controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
                 controller.removeGameFromList(controller.getLocalGame()); // Verifier comment est géré la notification que la partie n'existe plus
+                //interfaceMain.removeGame(controller.getLocalGame());
+                //interfaceCom.removeGame(controller.getLocalGame());
             }              
             
         }
@@ -231,6 +249,12 @@ public class CDataCom implements IDataCom {
          controller.getLocalProfile().setGamesWon(controller.getLocalProfile().getGamesWon()+1);
          controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
          interfaceTable.displayVictory();
+     }
+     
+     @Override
+     public void notifyToSpecGame(Game g, User spec){
+         
+         controller.updateSpecList(g,spec);
      }
     
 }
