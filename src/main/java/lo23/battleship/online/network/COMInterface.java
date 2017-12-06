@@ -2,9 +2,6 @@ package lo23.battleship.online.network;
 
 import structData.*;
 
-import javax.xml.crypto.Data;
-import java.net.InetAddress;
-import java.util.ArrayList;
 
 /**
  * Data interface

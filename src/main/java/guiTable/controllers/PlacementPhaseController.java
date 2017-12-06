@@ -172,8 +172,9 @@ public abstract class PlacementPhaseController extends BaseController{
     protected void onValidate() {
         List<Boat> boats = this.getBoats();
         timeline.stop();
-        timerLabel.setText("");
-        // TODO: Call the coordinateShips(boats) function in Data interface, once the arguement is changed by Data team
+        timerLabel.setVisible(false);
+        System.out.println("list boat : " + boats);
+        GuiTableController.getInstance().validateBoats(boats);
     }
     
     /**
@@ -184,6 +185,7 @@ public abstract class PlacementPhaseController extends BaseController{
         List<Boat> boats = new ArrayList(this.boatMap.size());
         for(BoatDrawing boatDraw : boatMap.values()) {
             boats.add(boatDraw.getBoat());
+            System.out.println("boat : "+ boatDraw);
         }
         
         return boats;

@@ -121,6 +121,7 @@ public class GuiTableController implements GuiTableInterface {
     }
     
     public void validateBoats(List<Boat> boats) {
+        System.out.println("main rendue à Data");
         dataController.coordinateShips(boats);
     }
 }

@@ -1,7 +1,6 @@
 package guiTable;
 
 import data.CDataTable;
-import data.DataController;
 import javafx.stage.Stage;
 import structData.Boat;
 import structData.ChatMessage;

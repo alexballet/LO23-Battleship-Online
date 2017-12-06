@@ -1,21 +1,17 @@
 package guiMain;
 
-import java.awt.event.ActionEvent;
-import java.beans.EventHandler;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.print.attribute.HashPrintJobAttributeSet;
 
 import guiMain.controller.CreateGameController;
 import guiMain.controller.IpConfigController;
 import guiMain.controller.LoginController;
 import guiMain.controller.SignupController;
 import guiMain.controller.WaitingRoomController;
-import guiMain.controller.connectionController;
 import guiMain.controller.menuController;
 import guiTable.controllers.GuiTableController;
 import interfacesData.IDataMain;
@@ -23,7 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;

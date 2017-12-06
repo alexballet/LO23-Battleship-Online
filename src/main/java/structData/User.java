@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package structData;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.UUID;
 import java.io.Serializable;

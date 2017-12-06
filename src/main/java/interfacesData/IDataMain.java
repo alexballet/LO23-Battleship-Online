@@ -9,8 +9,6 @@ import java.net.UnknownHostException;
 import java.util.Date;
 import structData.ContactGroup;
 import structData.Game;
-import structData.User;
-import java.awt.Image;
 import java.util.HashSet;
 import java.util.List;
 import structData.Profile;
