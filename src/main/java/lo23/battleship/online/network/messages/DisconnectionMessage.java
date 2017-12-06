@@ -1,6 +1,5 @@
 package lo23.battleship.online.network.messages;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkController;
 import structData.User;

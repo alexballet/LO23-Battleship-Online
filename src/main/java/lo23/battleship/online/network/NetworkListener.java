@@ -1,17 +1,16 @@
 package lo23.battleship.online.network;
 
-import com.sun.security.ntlm.Server;
 import interfacesData.IDataCom;
-import lo23.battleship.online.network.NetworkSender;
 import lo23.battleship.online.network.messages.Message;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.*;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
