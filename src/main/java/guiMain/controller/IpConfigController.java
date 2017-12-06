@@ -67,6 +67,7 @@ public class IpConfigController {
 				&& !ipsListView.getItems().contains(ipToAdd)
 				&& pattern.matcher(ipToAdd).matches()) {
 			ipsListView.getItems().add(ipTextField.getText());
+			ipTextField.clear();
 		}
 	}
 
