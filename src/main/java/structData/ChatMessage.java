@@ -13,6 +13,7 @@ import java.io.Serializable;
  * @author loulou
  */
 public class ChatMessage implements Serializable{
+    static final long serialVersionUID = 2L;
     private User profile;
     private String content;
     private Date time;
