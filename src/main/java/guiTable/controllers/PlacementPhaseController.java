@@ -463,10 +463,10 @@ public abstract class PlacementPhaseController extends BaseController{
                     // update timerLabel
                     time = time.minusSeconds(1);
                     timerLabel.setText(time.toString().substring(3));
-                if (time.getSecond() <= 10) {
+                if (time.isBefore(LocalTime.MIN.plusSeconds(10))) {
                     timerLabel.setTextFill(Color.RED);
                 }
-                if (time.getSecond() <= 0) {
+                if (time.isBefore(LocalTime.MIN.plusSeconds(1)) ) {
                     timeline.stop();
                     timeIsOver();
                 }
