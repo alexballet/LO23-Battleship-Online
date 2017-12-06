@@ -100,7 +100,9 @@ public class CDataMain implements IDataMain {
         Boolean result = false;
         controller.reloadSavedProfile(login, password);
         if(controller.getLocalProfile() != null){
-        	interfaceCom.searchForPlayers();
+            Player p = new Player(controller.getLocalProfile());
+            controller.setLocalPlayer(p);
+            interfaceCom.searchForPlayers();
             result = true;
         }
         return result;
@@ -118,8 +120,6 @@ public class CDataMain implements IDataMain {
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
         controller.setLocalGame(g);
-        Player p = new Player(controller.getLocalProfile());
-        controller.setLocalPlayer(p);
         return g;
     }
     
