@@ -1,6 +1,5 @@
 package guiMain;
 
-import java.beans.EventHandler;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -10,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import guiMain.controller.ChangeProfileController;
+
 import guiMain.controller.CreateGameController;
 import guiMain.controller.IpConfigController;
 import guiMain.controller.LoginController;
@@ -247,28 +247,23 @@ public class GuiMainController implements GuiMainInterface {
 			e.printStackTrace();
 		}
 	}
-
-	public void openPlacementPhase(final Game game) {
-		try {
-			Runnable command = new Runnable() {
-				@Override
-				public void run() {
-					try {
-						if (waitingRoomController != null) waitingRoomController.closeWindow();
-						GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType() ); // use boolean to specifie classic type or not	
-
-					} catch (Exception ex) {
-						Logger.getLogger(GuiMainController.class.getName()).log(Level.SEVERE, null, ex);
-					}
-				}
-			};
-			Platform.runLater(command);
-
-
-			stage.setOnCloseRequest((WindowEvent event1) -> {
-				idata.removeGame(game);
-				System.out.println("Exit waiting room");
-			});
+        
+        public void openPlacementPhase(final Game game) {
+            try {
+                Runnable command = new Runnable() {
+			@Override
+			public void run() {
+                            try {
+                                if (waitingRoomController != null) waitingRoomController.closeWindow();
+                                GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType(), game.getTimePerShot() ); 
+                                
+                            } catch (Exception ex) {
+                                Logger.getLogger(GuiMainController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+			}
+		};
+		Platform.runLater(command);
+                
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -293,6 +288,7 @@ public class GuiMainController implements GuiMainInterface {
 			stage.setScene(new Scene(root));
 			waitingRoomController.setStage(stage);
 			stage.show();
+
 
 			stage.setOnCloseRequest((WindowEvent event1) -> {
 				idata.removeGame(game);

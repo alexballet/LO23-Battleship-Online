@@ -1,10 +1,7 @@
 package lo23.battleship.online.network.messages;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import structData.Game;
 import interfacesData.IDataCom;
-import structData.Profile;
-import structData.User;
 
 import java.net.InetAddress;
 
