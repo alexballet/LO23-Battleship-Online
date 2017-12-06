@@ -41,13 +41,12 @@ public class NetworkController {
         networkInterface = new NetworkModuleInterface(this);
         networkState = new HashMap<>();
         networkInterface = new NetworkModuleInterface(this);
-        // Launch server
-        this.launchServer();
+        // Create server
+        if (networkServer != null) return;
+        this.networkServer = new NetworkServer(this);
     }
 
     public void launchServer() {
-        if (networkServer != null) return;
-        this.networkServer = new NetworkServer(this);
         try {
             this.networkServer.open();
         } catch (IOException e) {
@@ -154,6 +153,7 @@ public class NetworkController {
     }
 
     public void closeListener() {
+        networkState.clear();
         networkServer.close();
     }
 

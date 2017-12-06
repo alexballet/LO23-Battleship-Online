@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.LoginController">
    <children>
       <GridPane layoutX="94.0" layoutY="103.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -64,12 +64,17 @@
                   </Label>
                </children>
             </TilePane>
+            <PasswordField fx:id="userPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </PasswordField>
             <TilePane GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="100.0" />
                </GridPane.margin>
                <children>
-                  <Button fx:id="loginButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="60.0" text="Entrer" />
+                  <Button fx:id="loginButton" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="60.0" text="Entrer" />
                </children>
             </TilePane>
             <Button fx:id="createAccount" mnemonicParsing="false" onAction="#openCreateAccountWindow" text="Créer un compte" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
@@ -77,11 +82,6 @@
                   <Insets bottom="10.0" right="10.0" />
                </GridPane.margin>
             </Button>
-            <PasswordField fx:id="userPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </PasswordField>
          </children>
       </GridPane>
    </children>
