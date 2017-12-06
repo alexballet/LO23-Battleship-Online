@@ -147,6 +147,8 @@ public class CDataCom implements IDataCom {
     
     public void receiveMessage(ChatMessage message) {
         controller.getLocalGame().addMessage(message);
+        System.out.println("Message: " + message);
+        System.out.println("interfaceTable: " + interfaceTable);
         interfaceTable.addChatMessage(message);
     }
 
