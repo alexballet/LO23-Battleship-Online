@@ -27,9 +27,7 @@ public class NotifyReadyMessage extends Message {
         return type;
     }
 
-    public void process(IDataCom IData) {
-        IData.receiveReady();
-    }
-
-    public void process(IDataCom IData, InetAddress senderAddress) {}
+    public void process(IDataCom IData, InetAddress senderAddress) {
+        System.out.println(getType() + ": Player " + sender.getUsername() + " is ready." );
+        IData.receiveReady();}
 }
