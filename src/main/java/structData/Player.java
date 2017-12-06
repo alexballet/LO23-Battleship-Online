@@ -13,6 +13,7 @@ import java.util.List;
  * @author loulou
  */
 public class Player implements Serializable{
+    static final long serialVersionUID = 5L;
     private Profile profile;
     private List<Boat> listBoats;
     private HashSet<Shot> listShots;

@@ -75,8 +75,6 @@ public class NetworkServer {
     public void close() {
 
         System.out.println("-----------Close Server(Listener)---------");
-        listener.setIsRunning(false);
-
         try {
             listener.closeSocket();
         } catch (IOException e) {

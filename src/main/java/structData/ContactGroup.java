@@ -12,6 +12,7 @@ import java.util.List;
  * @author loulou
  */
 public class ContactGroup implements Serializable{
+    static final long serialVersionUID = 3L;
     private List<User> listUsers;
     private int rights;
     private String name;

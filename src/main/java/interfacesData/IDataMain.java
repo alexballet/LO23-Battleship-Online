@@ -9,6 +9,7 @@ import java.net.UnknownHostException;
 import java.util.Date;
 import structData.ContactGroup;
 import structData.Game;
+import structData.Profile;
 import structData.User;
 import java.awt.Image;
 import java.util.HashSet;
@@ -89,4 +90,7 @@ public interface IDataMain {
     public List<Game> getGames();
 
 	Profile getLocalProfile();
+
+    public void setLocalGame(Game g);
+
 }

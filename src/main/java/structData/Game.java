@@ -12,6 +12,7 @@ import java.io.Serializable;
  * Game is a class for the user's game
  */
 public class Game implements Serializable{
+    static final long serialVersionUID = 4L;
     private UUID idGame;
     private StatusGame status;
     private Boolean classicType;

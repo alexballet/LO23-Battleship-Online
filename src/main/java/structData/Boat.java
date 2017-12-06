@@ -13,6 +13,7 @@ import java.util.ListIterator;
  * Boat is the class which represents a ship of a player.
  */
 public class Boat implements Serializable{
+    static final long serialVersionUID = 1L;
     private BoatType type;
     private Boolean status;
     private List<Position> listCases;

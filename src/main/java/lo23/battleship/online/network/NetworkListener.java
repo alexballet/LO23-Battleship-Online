@@ -9,10 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +44,7 @@ public class NetworkListener extends Thread {
 
             try {
                 //Waiting for client request --> Accept
+                System.out.println("IsRunning: " + isRunning);
                 Socket client = serverSocket.accept();
 
                 //request accepted --> New thread to process it
@@ -55,12 +53,12 @@ public class NetworkListener extends Thread {
 
                 //Waiting for client request
                 Message request = read();
-                InetSocketAddress remote = (InetSocketAddress)client.getRemoteSocketAddress();
+                InetSocketAddress remote = (InetSocketAddress) client.getRemoteSocketAddress();
 
                 //Displaying info about request
                 String debug = "";
                 debug = "Thread : " + Thread.currentThread().getName() + ". ";
-                debug += "Sender : " + remote.getAddress().getHostAddress() +".";
+                debug += "Sender : " + remote.getAddress().getHostAddress() + ".";
                 debug += "Port : " + remote.getPort() + ".\n";
                 debug += "\t -> Request Content : " + request + "\n";
                 String timeStamps = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM).format(new Date());
@@ -74,7 +72,8 @@ public class NetworkListener extends Thread {
                 //Waiting for server response
 //                Message responseFromServer = read();
 //                System.out.println("\t * " + name + " : Server response: " + responseFromServer);
-
+            } catch(SocketException e) {
+                System.out.println("Still closing. Revert accept");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -87,7 +86,13 @@ public class NetworkListener extends Thread {
     }
 
     public void closeSocket() throws IOException {
-        serverSocket.close();
+        try {
+            this.isRunning = false;
+            System.out.println("IsRunning: close " + isRunning);
+            serverSocket.close();
+        } catch(IOException e) {
+            System.out.println("Still closing. Revert accept");
+        }
     }
 
     //Read data:  byte --> string
