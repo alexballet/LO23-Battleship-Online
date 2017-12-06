@@ -16,6 +16,9 @@ import structData.Position;
 import structData.Game;
 import lo23.battleship.online.network.COMInterface;
 import guiMain.GuiMainInterface;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Objects;
 import java.util.Random;
 import structData.Shot;
 
@@ -73,14 +76,38 @@ public class CDataTable implements IDataTable {
         
     }
     
+    @Override
     public Shot iaShot(){
-        Position p = new Position();
+        
         Random rn1 = new Random();
         Random rn2 = new Random();
         
-        rn1.nextInt(NB_CASES_GRID);
-        rn2.nextInt(NB_CASES_GRID);
+        Byte x;
+        Byte y;
         
+        HashSet<Shot> listShot = controller.getLocalPlayer().getListShots();
+                
+        Boolean shotAlreadyPlayed = false;
+        
+        do { 
+            
+            x = (byte) rn1.nextInt(NB_CASES_GRID);
+            y = (byte) rn2.nextInt(NB_CASES_GRID);
+            
+            Iterator<Shot> itr;
+            itr = listShot.iterator();
+            while(itr.hasNext() && shotAlreadyPlayed == false) {
+                
+                if (itr.next().getX().equals(x) && itr.next().getY().equals(y)) {
+                    shotAlreadyPlayed = true;
+                } else {
+                    shotAlreadyPlayed = false;
+                }  
+            }
+            
+        } while (shotAlreadyPlayed == true);
+        
+        Position p = new Position(x, y, false);
         Shot s = new Shot(p);
 
         return s;
