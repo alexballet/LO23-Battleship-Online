@@ -5,12 +5,12 @@
  */
 package guiTable.controllers;
 
+import data.CDataTable;
 import guiTable.GuiTableInterface;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
-import structData.Boat;
 import structData.ChatMessage;
 import structData.Shot;
 
@@ -22,7 +22,10 @@ public class GuiTableController implements GuiTableInterface {
 
     
     private AnchorPane rootLayout;
+    private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
+    private ChatController chatController;
     private static GuiTableController INSTANCE = null;
+    private CDataTable dataController;
 
     /**
      * Private constructor for GuiTableController.
@@ -45,10 +48,10 @@ public class GuiTableController implements GuiTableInterface {
     }
     
     /**
-     * this function call an other fxml context and refresh page
-     * @param currentStage
-     * @throws Exception 
-     */
+    * this function call an other fxml context and refresh page
+    * @param currentStage
+    * @throws Exception 
+    */
     @Override
     public void displayPlacementPhase(Stage currentStage, Boolean classic, Integer placementTime) throws Exception {
         FXMLLoader loader = new FXMLLoader();
@@ -60,6 +63,10 @@ public class GuiTableController implements GuiTableInterface {
         rootLayout = (AnchorPane) loader.load(); 
         PlacementPhaseController controller = loader.getController();
         controller.setPlacementTime(placementTime);
+
+        chatController = controller.fillChatSlot(chatFxmlURL);
+        chatController.setDataController(dataController);
+
         Scene scene = new Scene(rootLayout);
         currentStage.setTitle("Battleship-Online");
         currentStage.setScene(scene);
@@ -86,10 +93,7 @@ public class GuiTableController implements GuiTableInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void addChatMessage(ChatMessage message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     @Override
     public void displayMessage(String message) {
@@ -97,6 +101,11 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
+    public void addChatMessage(ChatMessage message) { 
+        chatController.receiveAMessage(message);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public void displayOpponentShot(Shot opponentShot, structData.Boat boat) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -104,6 +113,11 @@ public class GuiTableController implements GuiTableInterface {
     @Override
     public void displayMyShotResult(Shot myShotResult, structData.Boat boat) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void setDataController(CDataTable data) {
+        this.dataController = data;
     }
     
 }
