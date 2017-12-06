@@ -1,5 +1,6 @@
 package guiTable;
 
+import data.CDataTable;
 import javafx.stage.Stage;
 import structData.Boat;
 import structData.ChatMessage;
@@ -16,10 +17,11 @@ public interface GuiTableInterface {
      * Displays the window where the player will place their ships.
      * @param currentStage 
      * @param classic 
+     * @param placementTime 
      * @throws Exception 
      */
-    public void displayPlacementPhase(Stage currentStage, Boolean classic) throws Exception;
-
+    public void displayPlacementPhase(Stage currentStage, Boolean classic, Integer placementTime) throws Exception;
+    
     /**
      * Notifies the IHM Table that the opponent is ready so that it can adapt its views.
      * @param myTurn 
@@ -68,5 +70,7 @@ public interface GuiTableInterface {
      */
     //public void displayMessage(MessageType messageType, String message);
     public void displayMessage(String message);
+    
+    public void setDataController(CDataTable d);
 
 }

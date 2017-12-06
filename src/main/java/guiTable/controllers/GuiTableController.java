@@ -5,7 +5,9 @@
  */
 package guiTable.controllers;
 
+import data.CDataTable;
 import guiTable.GuiTableInterface;
+import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -23,6 +25,9 @@ public class GuiTableController implements GuiTableInterface {
     
     private AnchorPane rootLayout;
     private static GuiTableController INSTANCE = null;
+    private CDataTable dataController;
+    private ChatController chatController;
+    private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
 
     /**
      * Private constructor for GuiTableController.
@@ -35,8 +40,8 @@ public class GuiTableController implements GuiTableInterface {
      * Entry point for a unique instance of singleton GuiTableController;
      * @return GuiTableController : the singleton GuiTableController.
      */
-    public static GuiTableInterface getInstance()
-    {			
+    public static GuiTableController getInstance()
+    {
         if (INSTANCE == null)
         { 
             INSTANCE = new GuiTableController();	
@@ -45,23 +50,29 @@ public class GuiTableController implements GuiTableInterface {
     }
     
     /**
-     * this function call an other fxml context and refresh page
-     * @param currentStage
-     * @throws Exception 
-     */
+    * this function call an other fxml context and refresh page
+    * @param currentStage
+    * @throws Exception 
+    */
     @Override
-    public void displayPlacementPhase(Stage currentStage, Boolean classic) throws Exception {
+    public void displayPlacementPhase(Stage currentStage, Boolean classic, Integer placementTime) throws Exception {
         FXMLLoader loader = new FXMLLoader();
         if(classic) {
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
         } else {
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
-        }
-        rootLayout = (AnchorPane) loader.load();
+            loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
+        }        
+        rootLayout = (AnchorPane) loader.load(); 
+        PlacementPhaseController controller = loader.getController();
+        controller.setPlacementTime(placementTime);
+
+        chatController = controller.fillChatSlot(chatFxmlURL);
+        chatController.setDataController(dataController);
+
         Scene scene = new Scene(rootLayout);
         currentStage.setTitle("Battleship-Online");
         currentStage.setScene(scene);
-        currentStage.show();
+        currentStage.show();        
     }
 
     @Override
@@ -104,4 +115,13 @@ public class GuiTableController implements GuiTableInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    @Override
+    public void setDataController(CDataTable data) {
+        this.dataController = data;
+    }
+    
+    public void validateBoats(List<Boat> boats) {
+        System.out.println("main rendue à Data");
+        dataController.coordinateShips(boats);
+    }
 }

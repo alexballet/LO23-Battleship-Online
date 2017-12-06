@@ -1,12 +1,10 @@
 package lo23.battleship.online.network.messages;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkController;
 import structData.Game;
 import structData.User;
 
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.List;
 

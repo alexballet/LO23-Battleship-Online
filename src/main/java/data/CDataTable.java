@@ -5,11 +5,9 @@
  */
 package data;
 
-import guiTable.GuiTableInterface;
 import interfacesData.IDataTable;
 import java.util.Date;
 import java.util.List;
-import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.Position;

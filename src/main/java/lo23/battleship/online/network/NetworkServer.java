@@ -40,6 +40,7 @@ public class NetworkServer {
                 }
                 if(address != null) break;
             }
+            //listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -50,7 +51,6 @@ public class NetworkServer {
 
     public void setDataInterface(IDataCom IData) {
         dataInterface = IData;
-        listener.setDataInterface(dataInterface);
     }
 
     //Open and run server
@@ -59,6 +59,7 @@ public class NetworkServer {
         //A different thread to run the server
         System.out.println("-----------Open Server(Listener)---------");
         listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
+        listener.setDataInterface(dataInterface);
         System.out.println(listener.getServerSocketIPAddress().toString());
         listener.start();
 

@@ -1,6 +1,5 @@
 package lo23.battleship.online.network.messages;
 
-import interfacesData.IDataCom;
 
 import java.io.Serializable;
 import java.net.InetAddress;

@@ -9,8 +9,6 @@ import guiMain.GuiMainInterface;
 import guiTable.GuiTableInterface;
 import interfacesData.IDataCom;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import lo23.battleship.online.network.COMInterface;
 import structData.Boat;

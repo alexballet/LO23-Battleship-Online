@@ -14,7 +14,6 @@ import structData.Game;
 import structData.Player;
 import structData.Profile;
 import java.util.Set;
-import java.util.List;
 
 /**
  * Data's interface for Com

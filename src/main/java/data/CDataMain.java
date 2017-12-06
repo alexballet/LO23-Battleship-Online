@@ -98,9 +98,9 @@ public class CDataMain implements IDataMain {
         Boolean result = false;
         controller.reloadSavedProfile(login, password);
         if(controller.getLocalProfile() != null){
+        	interfaceCom.searchForPlayers();
             result = true;
         }
-        interfaceCom.searchForPlayers();
         return result;
     }
 

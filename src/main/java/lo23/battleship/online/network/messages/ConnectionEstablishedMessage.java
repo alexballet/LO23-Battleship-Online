@@ -5,7 +5,6 @@ import lo23.battleship.online.network.NetworkController;
 import structData.Game;
 import structData.User;
 
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
