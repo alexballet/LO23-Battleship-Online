@@ -172,8 +172,8 @@ public abstract class PlacementPhaseController extends BaseController{
      */
     @FXML
     protected void onValidate() {
-        this.setIsValidate(!this.isValidate);
-        if (this.isIsValidate()) {
+        if (!this.isIsValidate()) {
+        this.setIsValidate(true);
         List<Boat> boats = this.getBoats();
         timeline.stop();
         timerLabel.setVisible(false);
