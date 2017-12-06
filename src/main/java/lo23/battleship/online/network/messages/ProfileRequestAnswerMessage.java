@@ -36,10 +36,6 @@ public class ProfileRequestAnswerMessage extends Message {
      * Method requesting the needed profile from Data.
      * @param IData interface with Data.
      */
-    public void process(IDataCom IData){
-
-        IData.sendStatistics(profile);
-    }
 
     /**
      * Unused method for this class.
@@ -47,7 +43,7 @@ public class ProfileRequestAnswerMessage extends Message {
      * @param senderAddress sender IP address.
      */
     public void process(IDataCom IData, InetAddress senderAddress){
+        IData.sendStatistics(profile);
     }
-
 
 }
