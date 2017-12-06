@@ -5,7 +5,7 @@
  */
 package guiTable.controllers;
 
-import data.DataController;
+import data.CDataTable;
 import guiTable.GuiTableInterface;
 import java.util.List;
 import javafx.scene.Scene;
@@ -25,7 +25,9 @@ public class GuiTableController implements GuiTableInterface {
     
     private AnchorPane rootLayout;
     private static GuiTableController INSTANCE = null;
-    private DataController dataController;
+    private CDataTable dataController;
+    private ChatController chatController;
+    private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
 
     /**
      * Private constructor for GuiTableController.
@@ -48,23 +50,29 @@ public class GuiTableController implements GuiTableInterface {
     }
     
     /**
-     * this function call an other fxml context and refresh page
-     * @param currentStage
-     * @throws Exception 
-     */
+    * this function call an other fxml context and refresh page
+    * @param currentStage
+    * @throws Exception 
+    */
     @Override
-    public void displayPlacementPhase(Stage currentStage, Boolean classic) throws Exception {
+    public void displayPlacementPhase(Stage currentStage, Boolean classic, Integer placementTime) throws Exception {
         FXMLLoader loader = new FXMLLoader();
         if(classic) {
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
         } else {
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
-        }
-        rootLayout = (AnchorPane) loader.load();
+            loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
+        }        
+        rootLayout = (AnchorPane) loader.load(); 
+        PlacementPhaseController controller = loader.getController();
+        controller.setPlacementTime(placementTime);
+
+        chatController = controller.fillChatSlot(chatFxmlURL);
+        chatController.setDataController(dataController);
+
         Scene scene = new Scene(rootLayout);
         currentStage.setTitle("Battleship-Online");
         currentStage.setScene(scene);
-        currentStage.show();
+        currentStage.show();        
     }
 
     @Override
@@ -108,11 +116,11 @@ public class GuiTableController implements GuiTableInterface {
     }
     
     @Override
-    public void setDataController(DataController data) {
+    public void setDataController(CDataTable data) {
         this.dataController = data;
     }
     
     public void validateBoats(List<Boat> boats) {
-        dataController.getInterfaceDataTable().coordinateShips(boats);
+        dataController.coordinateShips(boats);
     }
 }

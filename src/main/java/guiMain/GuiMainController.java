@@ -244,7 +244,7 @@ public class GuiMainController implements GuiMainInterface {
 			public void run() {
                             try {
                                 if (waitingRoomController != null) waitingRoomController.closeWindow();
-                                GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType() ); // use boolean to specifie classic type or not	
+                                GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType(), game.getTimePerShot() ); 
                                 
                             } catch (Exception ex) {
                                 Logger.getLogger(GuiMainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -281,6 +281,9 @@ public class GuiMainController implements GuiMainInterface {
 	        stage.setScene(new Scene(root));
                 waitingRoomController.setStage(stage);
 	        stage.show();
+                
+                // débug placement phase : 
+                this.openPlacementPhase(game);
                 
 	        stage.setOnCloseRequest((WindowEvent event1) -> {
 	            	idata.removeGame(game);

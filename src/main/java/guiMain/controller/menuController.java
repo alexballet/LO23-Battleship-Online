@@ -129,12 +129,6 @@ public class menuController implements Initializable{
 	@FXML
 	private void createGame(){
             
-         /*   try{
-                GuiTableController.getInstance().displayPlacementPhase( this.currentStage, false ); // use boolean to specifie classic type or not
-            }
-            catch(Exception e){
-                System.err.println(e.getMessage());
-            }*/
 	}
         
         

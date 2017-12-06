@@ -9,16 +9,22 @@ package guiTable.controllers;
 
 import guiTable.BoatDrawing;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
@@ -26,7 +32,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import javafx.scene.text.Text;
 import structData.Boat;
 
@@ -34,7 +42,7 @@ import structData.Boat;
  *
  * @author caioz
  */
-public abstract class PlacementPhaseController {
+public abstract class PlacementPhaseController extends BaseController{
        
     @FXML
     private AnchorPane anchorPane;
@@ -44,7 +52,8 @@ public abstract class PlacementPhaseController {
     private Button valider;
     @FXML
     private AnchorPane chatPane;
-    
+    @FXML
+    private AnchorPane profilePane;    
     @FXML
     private Text messageContainer;
         
@@ -53,6 +62,14 @@ public abstract class PlacementPhaseController {
     protected static final int SPACE = 3;
     protected static final int GRID_ELEMENT_SIZE = 35;
     protected static final int NB_CASES_GRID = 10;
+    protected static final int RANDOM_ROTATION = 2;
+    protected static final int MULTIPLE_FACTOR_PLACEMENT = 7;
+    
+    protected Timeline timeline;
+    @FXML
+    protected Label timerLabel;
+    protected LocalTime time;
+    private LocalTime timePerShot;
     
     protected boolean rotationIsValide;
     protected BoatDrawing activeBoat;
@@ -80,14 +97,6 @@ public abstract class PlacementPhaseController {
     protected void closeMsg() {
         messageContainer.setVisible(false);
     }
-     
-    /**
-     * TODO ad object to show more information if user move mouse over
-     */
-    @FXML
-    protected void showMsgDescritption() {
-        
-    }
     
     
     /**
@@ -105,9 +114,13 @@ public abstract class PlacementPhaseController {
     public void initialize(URL location, ResourceBundle resources){
         
         FXMLLoader loader;
-        loader = fillElement(chatPane, "/fxml/IhmTable/chat.fxml" );
-        ChatController chatController = loader.getController();
-        chatController.init();
+//        loader = fillElement(chatPane, "/fxml/IhmTable/chat.fxml" );
+//        ChatController chatController = loader.getController();
+//        chatController.init();
+
+        loader = fillElement(profilePane, "/fxml/IhmTable/profile.fxml" );
+        ProfileController profileController = loader.getController();
+        profileController.init();
         
         boatMap = new HashMap<>();
         // Initializes the boat set
@@ -127,15 +140,30 @@ public abstract class PlacementPhaseController {
         }
         
         // Sets the events handlers
-        table.setOnMousePressed(placeBoat());
+        table.setOnMousePressed(MousePlaceBoat());
         table.setOnMouseEntered(enableRotation());
         table.setOnMouseExited(disableRotation());
         // This probably will change after the addition of the chat.
         anchorPane.addEventHandler(KeyEvent.KEY_PRESSED, playKeyEvent());
         
         rotationIsValide = false;
+        
+        valider.setDisable(true);                        
     }
     
+    
+    /**
+    * fillChatSlot() allows external class to fill the chatPane and get the ChatController
+    * @param chatFxmlUrl
+    * @return chatController
+    */        
+    public ChatController fillChatSlot(String chatFxmlUrl){
+        FXMLLoader loader;
+        loader = fillElement(chatPane, chatFxmlUrl );
+        ChatController chatController = loader.getController();
+        chatController.init();
+        return chatController;
+    }
         
     /**
      * Trigger validation of placement phase
@@ -143,6 +171,8 @@ public abstract class PlacementPhaseController {
     @FXML
     protected void onValidate() {
         List<Boat> boats = this.getBoats();
+        timeline.stop();
+        timerLabel.setText("");
         // TODO: Call the coordinateShips(boats) function in Data interface, once the arguement is changed by Data team
     }
     
@@ -175,27 +205,7 @@ public abstract class PlacementPhaseController {
         return true;
     }
     
-    
-     /**
-     * Allows to replace pane by another one
-     * @param paneToFill
-     * @param contentAdress
-     * @return FXMLLoader
-     * @throws Exception 
-     */
-    private FXMLLoader fillElement(AnchorPane paneToFill, String contentAdress) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(contentAdress));
-        try{
-            AnchorPane contentPane = loader.load();
-            paneToFill.getChildren().add(contentPane);
-        }
-        catch(Exception e){
-            System.err.println(e.getMessage());
-        }
-        return loader;
-    }
-    
+     
     
     
      /**
@@ -400,24 +410,28 @@ public abstract class PlacementPhaseController {
      * Unactivates the boat when it is placed over the grid.
      * @return mousePressGridHandler The handler of the event (Click over the grid).
      */    
-    protected EventHandler<MouseEvent> placeBoat() {
+    protected EventHandler<MouseEvent> MousePlaceBoat() {
         EventHandler<MouseEvent> mousePressGridHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if(activeBoat!=null){
-                        if(positionCorrect(activeBoat)) {
-                            activeBoat.setPlaced(true);
-                            desactiveBoat(); 
-                            // enable validate button if all boats are well placed
-                            valider.setDisable(!allBoatsArePlaced());
-                        }
+                        placeBoat(activeBoat);
                     }
                 }
                 event.consume();
             }
         };
         return mousePressGridHandler;
+    }
+    
+    protected void placeBoat(BoatDrawing myBoat) {
+        if(positionCorrect(myBoat)) {
+            myBoat.setPlaced(true);
+            desactiveBoat(); 
+            // enable validate button if all boats are well placed
+            valider.setDisable(!allBoatsArePlaced());
+        }
     }
            
     /**
@@ -431,5 +445,51 @@ public abstract class PlacementPhaseController {
             activeBoat=null;
             closeMsg();
         } 
+    }
+    
+    public void setPlacementTime(Integer placementTime){
+        this.timePerShot = LocalTime.MIN.plusSeconds(placementTime);
+        this.time = timePerShot.plusSeconds(placementTime*MULTIPLE_FACTOR_PLACEMENT) ;
+        // update timerLabel
+        timerLabel.setText(time.toString().substring(3));
+        timeline = new Timeline();
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
+                    // KeyFrame event handler                      
+            @Override
+            public void handle(Event event) {
+                    // update timerLabel
+                    time = time.minusSeconds(1);
+                    timerLabel.setText(time.toString().substring(3));
+                if (time.getSecond() <= 10) {
+                    timerLabel.setTextFill(Color.RED);
+                }
+                if (time.getSecond() <= 0) {
+                    timeline.stop();
+                    timeIsOver();
+                }
+            }
+        }));
+        timeline.playFromStart();
+    }
+    
+    /**
+     * Places the boats randomly if time's over and there are boats to place
+     */
+    protected void timeIsOver(){
+        for(BoatDrawing myBoat : boatMap.values()){
+            while(!myBoat.isPlaced()){
+                activeBoat=myBoat;
+                Random rn = new Random(); 
+                draw(activeBoat, rn.nextInt(NB_CASES_GRID), rn.nextInt(NB_CASES_GRID));
+                if(rn.nextInt(RANDOM_ROTATION)==1){
+                    drawRotation(activeBoat);
+                }                
+                if(positionCorrect(myBoat)){
+                    this.placeBoat(myBoat);
+                }
+           }
+        }
+        onValidate();
     }
 }
