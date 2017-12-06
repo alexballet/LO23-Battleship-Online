@@ -110,6 +110,7 @@ public class GuiMainController implements GuiMainInterface {
 	@Override
 	public void sendStatistics(Profile profil) {
 		// TODO Auto-generated method stub
+		profilController.setProfil(profil);
 
 	}
 
@@ -248,7 +249,7 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
         
-        public void openPlacementPhase(final Game game) {
+    public void openPlacementPhase(final Game game) {
             try {
                 Runnable command = new Runnable() {
 			@Override
@@ -269,7 +270,6 @@ public class GuiMainController implements GuiMainInterface {
 			e.printStackTrace();
 		}
 	}
-
 
 	public void openWaitingRoomWindow(Game game){
 		try {
@@ -303,7 +303,7 @@ public class GuiMainController implements GuiMainInterface {
 	public List<String> getIps(){
 		Profile p = idata.getLocalProfile();
 		if (p != null && p.getIdUser() != null) {
-			// ipsList = new ArrayList<>();
+			ipsList = new ArrayList<>();
 			HashSet<InetAddress> ips = p.getIPs();
 			for (InetAddress ip : ips) {
 				this.ipsList.add(ip.getHostAddress());
