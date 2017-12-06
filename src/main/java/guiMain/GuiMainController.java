@@ -60,9 +60,7 @@ public class GuiMainController implements GuiMainInterface {
 		Runnable command = new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("GUIMain");
 				menuController.addUser(user);
-				System.out.println("After GUIMain");
 			}
 		};
 		Platform.runLater(command);
@@ -111,7 +109,6 @@ public class GuiMainController implements GuiMainInterface {
 	@Override
 	public void sendStatistics(Profile profil) {
 		// TODO Auto-generated method stub
-		System.out.println("HELLO " + profil.getLogin());
 		if (profilController != null) {
 			Runnable command = new Runnable() {
 				@Override
@@ -320,6 +317,7 @@ public class GuiMainController implements GuiMainInterface {
 				this.ipsList.add(ip.getHostAddress());
 			}
 		}
+		
 		return this.ipsList;
 	}
 
@@ -340,6 +338,7 @@ public class GuiMainController implements GuiMainInterface {
 			}
 			idata.setListIps(ips);
 		}
+		
 		this.ipsList = list;
 	}
 
