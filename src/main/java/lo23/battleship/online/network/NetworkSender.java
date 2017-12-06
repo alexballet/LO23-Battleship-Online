@@ -3,12 +3,9 @@ package lo23.battleship.online.network;
 import lo23.battleship.online.network.messages.Message;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.util.Date;
 
