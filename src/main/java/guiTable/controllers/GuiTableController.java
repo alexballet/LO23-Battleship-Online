@@ -125,8 +125,9 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void displayMyShotResult(Shot myShotResult, structData.Boat boat) {
+    public void displayMessage(String message) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     
 }
