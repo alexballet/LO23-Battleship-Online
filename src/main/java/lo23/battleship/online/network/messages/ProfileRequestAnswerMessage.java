@@ -6,27 +6,44 @@ import structData.User;
 
 import java.net.InetAddress;
 
+/**
+ * Network message class, extends Message class.
+ * Message sent to provide the Profile requested by the network.
+ */
 public class ProfileRequestAnswerMessage extends Message {
 
-    User user;
+    User user; //! whut?
     Profile profile;
 
+    /**
+     * Class constructor.
+     * @param profile the Profile class which needs to be sent.
+     */
     public ProfileRequestAnswerMessage(Profile profile) {
-
         this.profile = profile;
-        this.type = "ProfileRequestAnswerMessage";}
+        this.type = "ProfileRequestAnswerMessage";
+    }
 
+    /**
+     * Message type getter. Implementation of an abstract method.
+     * @return type, this is the message type.
+     */
     public String getType() {
         return type;
     }
 
-    public void process(IDataCom IData){
+    /**
+     * Method requesting the needed profile from Data.
+     * @param IData interface with Data.
+     */
 
+    /**
+     * Unused method for this class.
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
+     */
+    public void process(IDataCom IData, InetAddress senderAddress){
         IData.sendStatistics(profile);
     }
-
-    public void process(IDataCom IData, InetAddress senderAddress){
-    }
-
 
 }

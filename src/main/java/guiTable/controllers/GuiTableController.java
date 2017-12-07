@@ -5,8 +5,10 @@
  */
 package guiTable.controllers;
 
+import data.CDataTable;
 import guiTable.GuiTableInterface;
 import java.io.IOException;
+import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -29,6 +31,9 @@ public class GuiTableController implements GuiTableInterface {
     private Boolean classic;
     
     private GamePhaseController controller;
+    private CDataTable dataController;
+    private ChatController chatController;
+    private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
 
     /**
      * Private constructor for GuiTableController.
@@ -41,8 +46,8 @@ public class GuiTableController implements GuiTableInterface {
      * Entry point for a unique instance of singleton GuiTableController;
      * @return GuiTableController : the singleton GuiTableController.
      */
-    public static GuiTableInterface getInstance()
-    {			
+    public static GuiTableController getInstance()
+    {
         if (INSTANCE == null)
         { 
             INSTANCE = new GuiTableController();	
@@ -51,12 +56,12 @@ public class GuiTableController implements GuiTableInterface {
     }
     
     /**
-     * this function call an other fxml context and refresh page
-     * @param currentStage
-     * @throws Exception 
-     */
+    * this function call an other fxml context and refresh page
+    * @param currentStage
+    * @throws Exception 
+    */
     @Override
-    public void displayPlacementPhase(Stage currentStage, Boolean classic) throws Exception {
+    public void displayPlacementPhase(Stage currentStage, Boolean classic, Integer placementTime) throws Exception {
         this.mainStage = currentStage;
         this.classic = classic;
         
@@ -71,6 +76,12 @@ public class GuiTableController implements GuiTableInterface {
         mainStage.setTitle("Battleship-Online");
         mainStage.setScene(scene);
         mainStage.show();
+        PlacementPhaseController controller = loader.getController();
+        controller.setPlacementTime(placementTime);
+
+        chatController = controller.fillChatSlot(chatFxmlURL);
+        chatController.setDataController(dataController);
+
     }
 
     @Override
@@ -108,7 +119,7 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void addChatMessage(ChatMessage message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        chatController.receiveAMessage(message);
     }
 
     @Override
@@ -130,4 +141,12 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     
+    @Override
+    public void setDataController(CDataTable data) {
+        this.dataController = data;
+    }
+    
+    public void validateBoats(List<Boat> boats) {
+        dataController.coordinateShips(boats);
+    }
 }

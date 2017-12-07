@@ -222,9 +222,18 @@
             <Rectangle fx:id="sousMarinRectangle4" arcHeight="5.0" arcWidth="5.0" fill="#ababab" height="29.0" layoutX="662.0" layoutY="176.0" stroke="BLACK" strokeType="INSIDE" width="29.0" />
             <Button fx:id="valider" disable="true" layoutX="449.0" layoutY="505.0" mnemonicParsing="false" onAction="#onValidate" text="Valider" />
             <Button layoutX="14.0" layoutY="505.0" mnemonicParsing="false" text="Quitter" />
-            <Text fx:id="messageContainer" layoutX="25.0" layoutY="557.0" lineSpacing="2.0" onMouseClicked="#closeMsg" onMouseEntered="#showMsgDescritption" strokeType="OUTSIDE" strokeWidth="0.0" text="tdjr-ktyi" textAlignment="CENTER" visible="false" wrappingWidth="500.0" />
+            <Label fx:id="timerLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="202.0" layoutY="14.0" maxWidth="149.0" minWidth="60.0" prefHeight="44.0" prefWidth="149.0" text="02:56" textAlignment="CENTER">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Text fx:id="messageContainer" layoutX="25.0" layoutY="557.0" lineSpacing="2.0" onMouseClicked="#closeMsg" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" visible="false" wrappingWidth="500.0" />
          </children>
       </Pane>
-      <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="274.0" prefHeight="327.0" prefWidth="250.0" />
+      
+      
+      <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="369.0" prefHeight="230.0" prefWidth="250.0" style="-fx-background-color: grey;" />
+      <AnchorPane fx:id="profilePane" layoutX="550.0" layoutY="272.0" prefHeight="97.0" prefWidth="250.0" style="-fx-background-color: black;" />
+   
    </children>
 </AnchorPane>

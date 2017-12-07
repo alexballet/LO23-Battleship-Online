@@ -6,6 +6,7 @@
 package data;
 
 import interfacesData.IDataMain;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
 import lo23.battleship.online.network.COMInterface;
@@ -14,6 +15,7 @@ import structData.Game;
 import structData.User;
 import structData.DataUser;
 import structData.Profile;
+import structData.Player;
 import java.util.HashSet;
 import java.util.List;
 
@@ -91,6 +93,7 @@ public class CDataMain implements IDataMain {
     @Override
     public void askDisconnection() {
         interfaceCom.askDisconnection();
+        controller = new DataController();
     }
 
     @Override
@@ -98,9 +101,11 @@ public class CDataMain implements IDataMain {
         Boolean result = false;
         controller.reloadSavedProfile(login, password);
         if(controller.getLocalProfile() != null){
+            Player p = new Player(controller.getLocalProfile());
+            controller.setLocalPlayer(p);
+            interfaceCom.searchForPlayers();
             result = true;
         }
-        interfaceCom.searchForPlayers();
         return result;
     }
 
@@ -115,7 +120,7 @@ public class CDataMain implements IDataMain {
         Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newSpectator, newSpectatorChat, controller.getLocalProfile());
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
-        
+        controller.setLocalGame(g);
         return g;
     }
     
@@ -126,4 +131,20 @@ public class CDataMain implements IDataMain {
     public List<Game> getGames() {
         return controller.getListGames();
     }
+
+    public void setLocalGame(Game g){
+        controller.setLocalGame(g);
+    }
+    
+     public void getProfile(User u){
+         interfaceCom.getProfile(u);
+     }
+     
+     public void setListIps(HashSet Ips){
+         controller.getLocalProfile().setIPs(Ips);
+         System.out.println("Test------------" + controller.getLocalUser().getIPs());
+         interfaceCom.searchForPlayers();
+         controller.getLocalProfile().saveProfile();
+     }
+
 }

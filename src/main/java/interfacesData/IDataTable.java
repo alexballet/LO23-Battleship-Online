@@ -6,8 +6,6 @@
 package interfacesData;
 import structData.Position;
 import structData.Boat;
-import structData.ChatMessage;
-import java.util.Date;
 import java.util.List;
 
 /**

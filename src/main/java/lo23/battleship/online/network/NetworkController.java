@@ -41,15 +41,15 @@ public class NetworkController {
         networkInterface = new NetworkModuleInterface(this);
         networkState = new HashMap<>();
         networkInterface = new NetworkModuleInterface(this);
-        // Launch server
-        this.launchServer();
+        // Create server
+        if (networkServer == null)
+            this.networkServer = new NetworkServer(this);
     }
 
     public void launchServer() {
-        if (networkServer != null) return;
-        this.networkServer = new NetworkServer(this);
         try {
-            this.networkServer.open();
+            if(!networkServer.isOpened())
+                this.networkServer.open();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -151,6 +151,11 @@ public class NetworkController {
                 return;
             }
         }
+    }
+
+    public void closeListener() {
+        networkState.clear();
+        networkServer.close();
     }
 
     public Set<User> getConnectedUsers() {

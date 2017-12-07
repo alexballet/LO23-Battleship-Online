@@ -10,7 +10,6 @@ import java.util.Date;
 import structData.ContactGroup;
 import structData.Game;
 import structData.User;
-import java.awt.Image;
 import java.util.HashSet;
 import java.util.List;
 import structData.Profile;
@@ -57,6 +56,12 @@ public interface IDataMain {
     public void getStatistics(Profile p);
     
     /**
+     * Returns the profile of an user
+     * @return a profile
+     */
+    public void getProfile(User u);
+    
+    /**
      * Notifies the away application that an user wants to join a game
      * @param g : Game the user wants to join
      */
@@ -89,4 +94,9 @@ public interface IDataMain {
     public List<Game> getGames();
 
 	Profile getLocalProfile();
+
+    public void setLocalGame(Game g);
+    
+    public void setListIps(HashSet Ips);
+
 }

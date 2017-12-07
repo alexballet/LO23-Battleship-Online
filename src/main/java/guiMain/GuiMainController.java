@@ -1,29 +1,27 @@
 package guiMain;
 
-import java.awt.event.ActionEvent;
-import java.beans.EventHandler;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.print.attribute.HashPrintJobAttributeSet;
+import guiMain.controller.ChangeProfileController;
 
 import guiMain.controller.CreateGameController;
 import guiMain.controller.IpConfigController;
 import guiMain.controller.LoginController;
+import guiMain.controller.ProfilController;
 import guiMain.controller.SignupController;
 import guiMain.controller.WaitingRoomController;
-import guiMain.controller.connectionController;
 import guiMain.controller.menuController;
 import guiTable.controllers.GuiTableController;
 import interfacesData.IDataMain;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -43,17 +41,18 @@ public class GuiMainController implements GuiMainInterface {
 	private Stage stage;
 	private AnchorPane rootLayout;
 	private IDataMain idata;
-    private menuController menuController;
-    private SignupController signUpController;
-    private IpConfigController ipConfigController;
-    private LoginController loginController;
-    private CreateGameController createGameController;
-    private WaitingRoomController waitingRoomController;
+	private menuController menuController;
+	private SignupController signUpController;
+	private IpConfigController ipConfigController;
+	private LoginController loginController;
+	private ProfilController profilController;
+	private ChangeProfileController changeProfileController;
+	private CreateGameController createGameController;
+	private WaitingRoomController waitingRoomController;
 
 	public IDataMain getIdata() {
 		return idata;
 	}
-
 
 	@Override
 	public void addUser(final User user) {
@@ -61,9 +60,7 @@ public class GuiMainController implements GuiMainInterface {
 		Runnable command = new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("GUIMain");
 				menuController.addUser(user);
-				System.out.println("After GUIMain");
 			}
 		};
 		Platform.runLater(command);
@@ -96,7 +93,7 @@ public class GuiMainController implements GuiMainInterface {
 			Platform.runLater(command);
 		}
 	}
-	
+
 	public void removeGame(final Game removedGame) {
 		if (removedGame != null) {
 			Runnable command = new Runnable() {
@@ -112,6 +109,16 @@ public class GuiMainController implements GuiMainInterface {
 	@Override
 	public void sendStatistics(Profile profil) {
 		// TODO Auto-generated method stub
+		if (profilController != null) {
+			Runnable command = new Runnable() {
+				@Override
+				public void run() {
+					profilController.setProfil(profil);
+				}
+			};
+			Platform.runLater(command);
+			
+		}
 
 	}
 
@@ -165,12 +172,25 @@ public class GuiMainController implements GuiMainInterface {
 
 			Scene scene = new Scene(rootLayout);
 			stage.setTitle("Battleship-Online");
+			stage.setOnCloseRequest((WindowEvent event1) -> {
+	            	idata.askDisconnection();
+	        });
+
 			stage.setScene(scene);
 			stage.show();
-
+			
 			System.out.println("start connection");
 			// idata.connection(loginController.);
 			System.out.println("Connection etablished");
+
+			/*
+			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					idata.askDisconnection();
+					System.out.println("Stage is closing");
+				}
+			});
+			 */  
 
 
 		} catch (IOException e) {
@@ -221,30 +241,30 @@ public class GuiMainController implements GuiMainInterface {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/fxml/Ihm-main/ip_config.fxml"));
-	        Parent root = (Parent) loader.load();
+			Parent root = (Parent) loader.load();
 
-	        ipConfigController = loader.getController();
+			ipConfigController = loader.getController();
 			ipConfigController.setMainController(this);
 			ipConfigController.init();
 
-	        Stage stage = new Stage();
-	        stage.initModality(Modality.APPLICATION_MODAL);
-	        stage.setTitle("Configurations des IPs");
-	        stage.setScene(new Scene(root));
-	        stage.show();
-        } catch(Exception e) {
-            e.printStackTrace();
-           }
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setTitle("Configurations des IPs");
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
         
-        public void openPlacementPhase(final Game game) {
+    public void openPlacementPhase(final Game game) {
             try {
                 Runnable command = new Runnable() {
 			@Override
 			public void run() {
                             try {
                                 if (waitingRoomController != null) waitingRoomController.closeWindow();
-                                GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType() ); // use boolean to specifie classic type or not	
+                                GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType(), game.getTimePerShot() ); 
                                 
                             } catch (Exception ex) {
                                 Logger.getLogger(GuiMainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -254,62 +274,74 @@ public class GuiMainController implements GuiMainInterface {
 		Platform.runLater(command);
                 
 
-	        stage.setOnCloseRequest((WindowEvent event1) -> {
-	            	idata.removeGame(game);
-	            	System.out.println("Exit waiting room");
-	        });
-
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        }
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void openWaitingRoomWindow(Game game){
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("/fxml/Ihm-main/waitingRoom.fxml"));
-	        Parent root = (Parent) loader.load();
+			Parent root = (Parent) loader.load();
 
-	        waitingRoomController = loader.getController();
-	        waitingRoomController.initData(game);
+			waitingRoomController = loader.getController();
+			waitingRoomController.initData(game);
 
-                    System.out.println("open waiting room");
-                
-	        Stage stage = new Stage();
-	        stage.initModality(Modality.APPLICATION_MODAL);
-	        stage.setTitle("Salle d'attente");
-	        stage.setScene(new Scene(root));
-                waitingRoomController.setStage(stage);
-	        stage.show();
-                
-	        stage.setOnCloseRequest((WindowEvent event1) -> {
-	            	idata.removeGame(game);
-	            	System.out.println("Exit waiting room");
-	        });
+			System.out.println("open waiting room");
 
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setTitle("Salle d'attente");
+			stage.setScene(new Scene(root));
+			waitingRoomController.setStage(stage);
+			stage.show();
+
+                        //DEBUG
+                        this.openPlacementPhase(game);
+
+			stage.setOnCloseRequest((WindowEvent event1) -> {
+				idata.removeGame(game);
+				System.out.println("Exit waiting room");
+			});
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	} 
 
 	public List<String> getIps(){
 		Profile p = idata.getLocalProfile();
 		if (p != null && p.getIdUser() != null) {
-			// ipsList = new ArrayList<>();
+			ipsList = new ArrayList<>();
 			HashSet<InetAddress> ips = p.getIPs();
 			for (InetAddress ip : ips) {
 				this.ipsList.add(ip.getHostAddress());
 			}
 		}
+		
 		return this.ipsList;
 	}
 
-	public void setIps(List<String> ips){
+	public void setIps(List<String> list){
 		Profile p = idata.getLocalProfile();
+		
 		if ( p != null && p.getIdUser() != null) {
-			// DATA : function for update IP
+			HashSet<InetAddress> ips = new HashSet<>();
+			if (list != null && list.size() > 0){
+				for (String ip : list) {
+					try {
+						ips.add(InetAddress.getByName(ip));
+					} catch (UnknownHostException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			idata.setListIps(ips);
 		}
-		this.ipsList = ips;
+		
+		this.ipsList = list;
 	}
 
 	public void setIdata(IDataMain idata) {
@@ -323,17 +355,53 @@ public class GuiMainController implements GuiMainInterface {
 
 	public void askJoinGame(final Game game) {
 		Runnable command = new Runnable() {
-			
+
 			@Override
 			public void run() {
 				idata.notifGameChosen(game);
-				
+
 			}
 		};
 		Platform.runLater(command);
 	}
-	
-	
+
+	public void openProfileWindow(User user){
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/fxml/Ihm-main/profil.fxml"));
+			Parent root = (Parent) loader.load();
+
+			profilController = loader.getController();
+			profilController.setMainController(this);
+			profilController.init(user);
+
+			Stage stage = new Stage();
+			stage.setTitle("Profil");
+			stage.setScene(new Scene(root));  
+			stage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void openChangeProfileWindow(User user){
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/fxml/Ihm-main/changeProfile.fxml"));
+			Parent root = (Parent) loader.load();
+
+			changeProfileController = loader.getController();
+			changeProfileController.setMainController(this);
+			changeProfileController.init(user);
+
+			Stage stage = new Stage();
+			stage.setTitle("Modification de profil");
+			stage.setScene(new Scene(root));  
+			stage.show();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
 
 
