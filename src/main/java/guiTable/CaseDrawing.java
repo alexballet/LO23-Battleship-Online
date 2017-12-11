@@ -16,7 +16,7 @@ import javafx.scene.image.ImageView;
  */
 public class CaseDrawing extends Label {
     
-    public enum Type { TOUCHED, MISSED, SHOT }
+    public enum Type { TOUCHED, MISSED, SHOT, BOAT, SUNK_BOAT }
     
     public CaseDrawing() {
         this.setPrefHeight(GamePhaseController.GRID_ELEMENT_SIZE);
@@ -35,6 +35,12 @@ public class CaseDrawing extends Label {
                 break;
             case MISSED:
                 this.setStyle("-fx-background-color: #34495e");
+                break;
+            case BOAT:
+                this.setStyle("-fx-background-color: #34495e");
+                break;
+            case SUNK_BOAT:
+                this.setStyle("-fx-background-color: #c0392b");
                 break;
         }
     }

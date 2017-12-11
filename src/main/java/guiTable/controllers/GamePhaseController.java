@@ -7,6 +7,7 @@ package guiTable.controllers;
 
 import guiTable.CaseDrawing;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,6 +32,8 @@ public class GamePhaseController implements Initializable {
     @FXML
     private GridPane table;
     @FXML
+    private GridPane myTable;
+    @FXML
     private Button valider;
     @FXML
     private AnchorPane chatPane;
@@ -38,6 +41,8 @@ public class GamePhaseController implements Initializable {
     private CaseDrawing selectedCase;
     
     private Boolean myTurn;
+    
+    private List<Boat> boats = null;
     
     protected static final int GRID_X = 100;
     protected static final int GRID_Y = 100;
@@ -81,14 +86,14 @@ public class GamePhaseController implements Initializable {
     }
     
     @FXML
-    protected void validateShoot() {
+    protected void validateShot() {
         Integer col = GridPane.getColumnIndex(selectedCase);
         Integer row = GridPane.getRowIndex(selectedCase);
         Byte colB = Byte.decode(col.toString());
         Byte rowB = Byte.decode(row.toString());
         
         Position shoot = new Position(colB, rowB, null);
-        // TODO: call coordinate(Position shoot) in Data
+        GuiTableController.getInstance().validateShot(shoot);
         valider.setDisable(true);
     }
 
@@ -104,6 +109,7 @@ public class GamePhaseController implements Initializable {
     }
 
     public void addShot(Shot shot) {
+        selectedCase = null;
         Integer col = shot.getX().intValue();
         Integer row = shot.getY().intValue();
         CaseDrawing.Type t;
@@ -118,5 +124,29 @@ public class GamePhaseController implements Initializable {
 
     public void sunckBoat(Boat boat) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    void addOpponentShot(Shot opponentShot) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    void sunkMyBoat(Boat boat) {
+        for(Position position : boat.getListCases()) {
+            CaseDrawing c = new CaseDrawing(CaseDrawing.Type.SUNK_BOAT);
+            myTable.add(c, position.getX().intValue(), position.getY().intValue());
+        }
+    }
+
+    void setMyBoats(List<Boat> boats) {
+        if (boats == null) {
+            System.err.println("Error : boats is null");
+        } else {
+            for(Boat boat : boats) {
+                for(Position position : boat.getListCases()) {
+                    CaseDrawing c = new CaseDrawing(CaseDrawing.Type.BOAT);
+                    myTable.add(c, position.getX().intValue(), position.getY().intValue());
+                }
+            }
+        }
     }
 }

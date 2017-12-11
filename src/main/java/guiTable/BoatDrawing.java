@@ -27,7 +27,6 @@ public class BoatDrawing{
     private BoatType boatType;
     private Integer gridRow;
     private Integer gridCol;
-    private boolean placed;
     
     //not supposed to change
     final private double initialLayoutX;
@@ -99,16 +98,8 @@ public class BoatDrawing{
         return gridRow;
     }
 
-    public void setGridRow(Integer gridRow) {
-        this.gridRow = gridRow;
-    }
-
     public Integer getGridCol() {
         return gridCol;
-    }
-
-    public void setGridCol(Integer gridCol) {
-        this.gridCol = gridCol;
     }
 
     public BoatType getBoatType() {
@@ -120,11 +111,7 @@ public class BoatDrawing{
     }
 
     public boolean isPlaced() {
-        return placed;
-    }
-
-    public void setPlaced(boolean placed) {
-        this.placed = placed;
+        return !boat.getListCases().isEmpty();
     }
 
     /**
@@ -153,8 +140,7 @@ public class BoatDrawing{
      * Reiniciates the boat, meaning that it has returned to its original position.
      */
     public void reinit() {
-        this.setGridCol(null);
-        this.setGridRow(null);
+        this.setPosition(null, null);
         this.setActive(false);
         this.setRotation(false);
         this.setPlaced(false);
@@ -172,5 +158,32 @@ public class BoatDrawing{
         rectangle.setMouseTransparent(true);
         rectangle.setFill(getActiveColor());
         return this; 
+    }
+
+    public void setPosition(Integer colIndex, Integer rowIndex) {
+        this.gridCol = colIndex;
+        this.gridRow = rowIndex;
+    }
+    
+    public void setPlaced(Boolean placed) {
+        if (placed) {
+            Byte toIncrement, fixed;
+            if (!this.isRotation()) {
+                toIncrement = this.gridCol.byteValue();
+                fixed = this.gridRow.byteValue();
+                for(Byte i = toIncrement; i < (toIncrement + this.boatType.getNbCases());i++) {
+                    Position p = new Position(i, fixed, null);
+                    boat.addPosition(p);
+                }
+            } else {
+                toIncrement = this.gridRow.byteValue();
+                fixed = this.gridCol.byteValue();
+                for(Byte i = toIncrement; i < (toIncrement + this.boatType.getNbCases());i++) {
+                    boat.addPosition(new Position(fixed, i, null));
+                }
+            }
+        } else {
+            boat.setListcases(new ArrayList<Position>());
+        }
     }
 }

@@ -38,6 +38,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import javafx.scene.text.Text;
 import structData.Boat;
+import structData.Position;
 
 /**
  *
@@ -89,8 +90,7 @@ public abstract class PlacementPhaseController extends BaseController implements
         messageContainer.setVisible(true);
         messageContainer.setText(msg);
         for (String string : param) {
-        System.out.println(string);
-            
+            System.out.println(string); 
         }
     }
     
@@ -176,12 +176,12 @@ public abstract class PlacementPhaseController extends BaseController implements
     @FXML
     protected void onValidate() {
         if (!this.isIsValidate()) {
-        this.setIsValidate(true);
-        List<Boat> boats = this.getBoats();
-        timeline.stop();
-        timerLabel.setVisible(false);
-        logMsg("en attente de la validation de l'autre joueur", "");
-        GuiTableController.getInstance().validateBoats(boats);
+            this.setIsValidate(true);
+            List<Boat> boats = this.getBoats();
+            timeline.stop();
+            timerLabel.setVisible(false);
+            logMsg("en attente de la validation de l'autre joueur", "");
+            GuiTableController.getInstance().validateBoats(boats);
         }
     }
     
@@ -320,8 +320,7 @@ public abstract class PlacementPhaseController extends BaseController implements
         float positionY = GRID_Y + SPACE + GRID_ELEMENT_SIZE*(rowIndex + offset);
             
         boat.getBoatRectangle().relocate(positionX, positionY);
-        boat.setGridCol(colIndex);
-        boat.setGridRow(rowIndex);
+        boat.setPosition(colIndex, rowIndex);
         if(positionCorrect(boat)) {
            boat.getBoatRectangle().setFill(boat.getActiveColor());            
            logMsg("press R to rotate Boat and DEL to reinitialize boat");

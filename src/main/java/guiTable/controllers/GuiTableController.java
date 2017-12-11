@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import structData.Boat;
 import structData.ChatMessage;
+import structData.Position;
 import structData.Shot;
 
 /**
@@ -34,6 +35,7 @@ public class GuiTableController implements GuiTableInterface {
     private CDataTable dataController;
     private ChatController chatController;
     private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
+    private List<Boat> boats = null;
 
     /**
      * Private constructor for GuiTableController.
@@ -93,6 +95,7 @@ public class GuiTableController implements GuiTableInterface {
             rootLayout = (AnchorPane) loader.load();
             controller = loader.<GamePhaseController>getController();
             controller.setMyTurn(myTurn);
+            controller.setMyBoats(boats);
         
             Scene scene = new Scene(rootLayout);
             mainStage.setScene(scene);
@@ -131,8 +134,11 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void displayOpponentShot(Shot opponentShot, structData.Boat boat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void displayOpponentShot(Shot opponentShot, Boat boat) {
+        controller.addOpponentShot(opponentShot);
+        if (boat != null){
+            controller.sunkMyBoat(boat);
+        }
     }
 
     @Override
@@ -140,13 +146,17 @@ public class GuiTableController implements GuiTableInterface {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
     @Override
     public void setDataController(CDataTable data) {
         this.dataController = data;
     }
     
     public void validateBoats(List<Boat> boats) {
+        this.boats = boats;
         dataController.coordinateShips(boats);
+    }
+    
+    public void validateShot(Position pos) {
+        dataController.coordinate(pos);
     }
 }
