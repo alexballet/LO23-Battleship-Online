@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -39,6 +40,8 @@ public class GamePhaseController implements Initializable {
     private AnchorPane chatPane;
     @FXML
     private CaseDrawing selectedCase;
+    @FXML
+    private Label gameState;
     
     private Boolean myTurn;
     
@@ -67,18 +70,19 @@ public class GamePhaseController implements Initializable {
         EventHandler<MouseEvent> mousePositionHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                Node source = (Node)event.getSource() ;
-                Integer colIndex = GridPane.getColumnIndex(source);
-                Integer rowIndex = GridPane.getRowIndex(source);
-                if (selectedCase.getParent() == null) {
-                    table.add(selectedCase, colIndex, rowIndex);
-                } else {
-                    GridPane.setColumnIndex(selectedCase, colIndex);
-                    GridPane.setRowIndex(selectedCase, rowIndex);
+                if (myTurn) {
+                    Node source = (Node)event.getSource() ;
+                    Integer colIndex = GridPane.getColumnIndex(source);
+                    Integer rowIndex = GridPane.getRowIndex(source);
+                    if (selectedCase.getParent() == null) {
+                        table.add(selectedCase, colIndex, rowIndex);
+                    } else {
+                        GridPane.setColumnIndex(selectedCase, colIndex);
+                        GridPane.setRowIndex(selectedCase, rowIndex);
+                    }
+
+                    valider.setDisable(false);
                 }
-                
-                valider.setDisable(false);
-                
                 event.consume();
             }
         };
@@ -102,14 +106,24 @@ public class GamePhaseController implements Initializable {
         
         // Grise le plateau non actif
         if (myTurn) {
+            gameState.setText("A votre tour de jouer");
             table.setStyle("-fx-background-color: #FFFFFF;");
         } else {
+            gameState.setText("Au tour de l'adversaire de jouer");
             table.setStyle("-fx-background-color: #EEEEEE;");
         }
     }
 
     public void addShot(Shot shot) {
-        selectedCase = null;
+        removeSelectedCase();
+        plateShotTo(shot, table);
+    }
+    
+    protected void removeSelectedCase() {
+        table.getChildren().remove(selectedCase);
+    }
+    
+    protected void plateShotTo(Shot shot, GridPane gird) {
         Integer col = shot.getX().intValue();
         Integer row = shot.getY().intValue();
         CaseDrawing.Type t;
@@ -119,7 +133,7 @@ public class GamePhaseController implements Initializable {
             t = CaseDrawing.Type.MISSED;
         }
         CaseDrawing c = new CaseDrawing(t);
-        table.add(c, col, row);
+        gird.add(c, col, row);
     }
 
     public void sunckBoat(Boat boat) {
@@ -127,7 +141,8 @@ public class GamePhaseController implements Initializable {
     }
 
     void addOpponentShot(Shot opponentShot) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        removeSelectedCase();
+        plateShotTo(opponentShot, myTable);
     }
 
     void sunkMyBoat(Boat boat) {

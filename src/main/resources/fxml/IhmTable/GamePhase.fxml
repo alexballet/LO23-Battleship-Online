@@ -383,6 +383,7 @@
             </Pane>
             <Button fx:id="valider" disable="true" layoutX="449.0" layoutY="505.0" mnemonicParsing="false" onAction="#validateShot" text="Valider" />
             <Button layoutX="20.0" layoutY="505.0" mnemonicParsing="false" text="Quitter" />
+            <Label fx:id="gameState" layoutX="50.0" layoutY="27.0" />
          </children>
       </Pane>
       <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="274.0" prefHeight="327.0" prefWidth="250.0" />

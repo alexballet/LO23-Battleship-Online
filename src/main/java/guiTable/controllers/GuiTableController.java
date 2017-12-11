@@ -131,6 +131,7 @@ public class GuiTableController implements GuiTableInterface {
         if (boat != null){
             controller.sunckBoat(boat);
         }
+        controller.setMyTurn(false);
     }
 
     @Override
@@ -139,6 +140,7 @@ public class GuiTableController implements GuiTableInterface {
         if (boat != null){
             controller.sunkMyBoat(boat);
         }
+        controller.setMyTurn(true);
     }
 
     @Override

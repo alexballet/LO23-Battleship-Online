@@ -25,16 +25,19 @@ public class CaseDrawing extends Label {
     
     public CaseDrawing(Type t) {
         this();
+        Image image;
         switch(t) {
             case SHOT: 
-                Image image = new Image(getClass().getResourceAsStream("/img/target.png"));
+                image = new Image(getClass().getResourceAsStream("/img/target.png"));
                 this.setGraphic(new ImageView(image));
                 break;
             case TOUCHED:
-                this.setStyle("-fx-background-color: #c0392b");
+                image = new Image(getClass().getResourceAsStream("/img/explosion.png"));
+                this.setGraphic(new ImageView(image));
                 break;
             case MISSED:
-                this.setStyle("-fx-background-color: #34495e");
+                image = new Image(getClass().getResourceAsStream("/img/sea.png"));
+                this.setGraphic(new ImageView(image));
                 break;
             case BOAT:
                 this.setStyle("-fx-background-color: #34495e");
