@@ -137,8 +137,6 @@ public class NetworkModuleInterface implements COMInterface {
         InetAddress destAddress;
 
         if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
-            System.out.println(game.getPlayer2());
-            System.out.println(controller);
             destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
         } else {
             destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
