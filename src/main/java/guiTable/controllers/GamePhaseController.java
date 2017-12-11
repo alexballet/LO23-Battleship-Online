@@ -137,22 +137,26 @@ public class GamePhaseController implements Initializable {
     }
 
     public void sunckBoat(Boat boat) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        sunkABoat(table, boat);
     }
 
-    void addOpponentShot(Shot opponentShot) {
+    public void addOpponentShot(Shot opponentShot) {
         removeSelectedCase();
         plateShotTo(opponentShot, myTable);
     }
 
-    void sunkMyBoat(Boat boat) {
+    public void sunkMyBoat(Boat boat) {
+        sunkABoat(myTable, boat);
+    }
+    
+    protected void sunkABoat(GridPane gird, Boat boat) {
         for(Position position : boat.getListCases()) {
             CaseDrawing c = new CaseDrawing(CaseDrawing.Type.SUNK_BOAT);
-            myTable.add(c, position.getX().intValue(), position.getY().intValue());
+            gird.add(c, position.getX().intValue(), position.getY().intValue());
         }
     }
 
-    void setMyBoats(List<Boat> boats) {
+    public void setMyBoats(List<Boat> boats) {
         if (boats == null) {
             System.err.println("Error : boats is null");
         } else {
