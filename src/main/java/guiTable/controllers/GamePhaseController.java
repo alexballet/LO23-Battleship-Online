@@ -19,6 +19,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import structData.Boat;
 import structData.Position;
 import structData.Shot;
@@ -37,11 +39,23 @@ public class GamePhaseController implements Initializable {
     @FXML
     private Button valider;
     @FXML
+    private Button exitButton;
+    @FXML
+    private Button yesButton;
+    @FXML
+    private Button noButton;
+    @FXML
     private AnchorPane chatPane;
     @FXML
     private CaseDrawing selectedCase;
     @FXML
     private Label gameState;
+    @FXML
+    private Pane messageContainer;
+    @FXML
+    private Text messageTextContainer;
+    @FXML
+    private Rectangle messageMask;
     
     private Boolean myTurn;
     
@@ -64,6 +78,8 @@ public class GamePhaseController implements Initializable {
                 table.add(pane, i, j);
             }
         }
+        
+        messageContainer.setVisible(false);
     }
     
     protected EventHandler<MouseEvent> onClickCase() {
@@ -169,12 +185,85 @@ public class GamePhaseController implements Initializable {
         }
     }
     
+    
+    /**
+     * log message into interface.
+     * @param msg message to be displayed
+     */
+    public void logMsg(String msg) {
+        messageContainer.setVisible(true);
+        noButton.setVisible(false);
+        yesButton.setVisible(false);
+        messageTextContainer.setText(msg);
+    }
+    
+    /**
+     * log yesNoMessage into interface.
+     * @param msg message to be displayed
+     */
+    public void logYesNoMsg(String msg) {
+        messageContainer.setVisible(true);
+        noButton.setVisible(true);
+        yesButton.setVisible(true);
+        messageTextContainer.setText(msg);
+    }
+    
+    /**
+     * close message when click on it
+     */
     @FXML
-    public void exitGame() {
+    protected void closeMsg() {
+        messageContainer.setVisible(false);
+    }
+    
+    /**
+     * Validate end of game
+     */
+    @FXML
+    protected void yesClicked() {
         if (GuiTableController.getInstance().exitGame()) {
             // Passer la main à ihm main
         } else {
             // Message d'erreur
         }
+    }
+    
+    /**
+     * Cancel end of game
+     */
+    @FXML
+    protected void noClicked() {
+        messageContainer.setVisible(false);
+        exitButton.setDisable(false);
+        valider.setDisable(false);
+        table.setDisable(false);
+    }
+    
+    /*Clicking on exit button will ask the user if he wants to end the game*/
+    @FXML
+    public void exitGame() {
+        valider.setDisable(true);
+        table.setDisable(true);
+        exitButton.setDisable(true);
+        messageContainer.setVisible(true);
+        logYesNoMsg("Voulez-vous vraiment quitter la partie ?");
+    }
+    
+    /**
+    * Shows victory message
+    */
+    public void showVictory(){
+        logMsg("Victoire !");
+        valider.setDisable(true);
+    }
+    
+    
+    /**
+    * Shows defeat message
+    */
+    public void showDefeat(){
+        logMsg("Defaite !");
+        valider.setDisable(true);
+        table.setDisable(true);
     }
 }

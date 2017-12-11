@@ -31,7 +31,7 @@ public class GuiTableController implements GuiTableInterface {
     
     private Boolean classic;
     
-    private GamePhaseController controller;
+    private GamePhaseController gamePhaseController;
     private CDataTable dataController;
     private ChatController chatController;
     private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
@@ -93,9 +93,9 @@ public class GuiTableController implements GuiTableInterface {
 
         try {
             rootLayout = (AnchorPane) loader.load();
-            controller = loader.<GamePhaseController>getController();
-            controller.setMyTurn(myTurn);
-            controller.setMyBoats(boats);
+            gamePhaseController = loader.<GamePhaseController>getController();
+            gamePhaseController.setMyTurn(myTurn);
+            gamePhaseController.setMyBoats(boats);
         
             Scene scene = new Scene(rootLayout);
             mainStage.setScene(scene);
@@ -112,12 +112,12 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void displayVictory() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gamePhaseController.showVictory();
     }
 
     @Override
     public void displayDefeat() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gamePhaseController.showDefeat();
     }
 
     @Override
@@ -127,20 +127,20 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void displayMyShotResult(Shot myShotResult, Boat boat) {
-        controller.addShot(myShotResult);
+        gamePhaseController.addShot(myShotResult);
         if (boat != null){
-            controller.sunckBoat(boat);
+            gamePhaseController.sunckBoat(boat);
         }
-        controller.setMyTurn(false);
+        gamePhaseController.setMyTurn(false);
     }
 
     @Override
     public void displayOpponentShot(Shot opponentShot, Boat boat) {
-        controller.addOpponentShot(opponentShot);
+        gamePhaseController.addOpponentShot(opponentShot);
         if (boat != null){
-            controller.sunkMyBoat(boat);
+            gamePhaseController.sunkMyBoat(boat);
         }
-        controller.setMyTurn(true);
+        gamePhaseController.setMyTurn(true);
     }
 
     @Override
