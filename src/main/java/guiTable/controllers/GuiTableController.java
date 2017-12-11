@@ -161,4 +161,8 @@ public class GuiTableController implements GuiTableInterface {
     public void validateShot(Position pos) {
         dataController.coordinate(pos);
     }
+    
+    public Boolean exitGame() {
+        return dataController.exit();
+    }
 }

@@ -168,4 +168,13 @@ public class GamePhaseController implements Initializable {
             }
         }
     }
+    
+    @FXML
+    public void exitGame() {
+        if (GuiTableController.getInstance().exitGame()) {
+            // Passer la main à ihm main
+        } else {
+            // Message d'erreur
+        }
+    }
 }
