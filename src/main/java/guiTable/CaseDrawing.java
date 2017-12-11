@@ -7,6 +7,8 @@ package guiTable;
 
 import guiTable.controllers.GamePhaseController;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -24,8 +26,9 @@ public class CaseDrawing extends Label {
     public CaseDrawing(Type t) {
         this();
         switch(t) {
-            case SHOT:
-                this.setStyle("-fx-background-color: #e67e22");
+            case SHOT: 
+                Image image = new Image(getClass().getResourceAsStream("/img/target.png"));
+                this.setGraphic(new ImageView(image));
                 break;
             case TOUCHED:
                 this.setStyle("-fx-background-color: #c0392b");
