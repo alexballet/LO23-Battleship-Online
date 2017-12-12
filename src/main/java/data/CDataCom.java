@@ -162,34 +162,35 @@ public class CDataCom implements IDataCom {
 
     
     public void receiveReady() {
-
+        //TODO decrasser le code !!! les conditions sont toujours les mêmes donc faire ça proprement
         Boolean myTurn;
         Boolean p1Start = controller.getLocalGame().getPlayer1Start();
         Player localPlayer = controller.getLocalPlayer();
         Player p1 = controller.getLocalGame().getPlayer1();
 
-        if ( p1Start && p1.equals(localPlayer) ) {
+        if ( p1Start && p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser()) ) {
             controller.getLocalGame().getPlayer2().setReady(true);
         } else {
             controller.getLocalGame().getPlayer1().setReady(true);
         }
 
-
-
-
-
+        
+        
+        
         if(controller.getLocalGame().getPlayer1().isReady() &&
                 controller.getLocalGame().getPlayer2().isReady())
         {
-            if (p1Start && p1.equals(localPlayer)) {
+            System.out.println("2 player are ready");
+            if (p1Start && p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
                 myTurn = true;
-            } else if (p1Start && !p1.equals(localPlayer)) {
+            } else if (p1Start && !p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
                 myTurn = false;
-            } else if (p1Start && !p1.equals(localPlayer)) {
+            } else if (p1Start && !p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
                 myTurn = true;
             } else /*if ( p1Start == false && p1 == localPlayer )*/ {
                 myTurn = false;
             }
+            //System.out.println("myturn"+ myTurn);
 
             interfaceTable.opponentReady(myTurn);
         }
