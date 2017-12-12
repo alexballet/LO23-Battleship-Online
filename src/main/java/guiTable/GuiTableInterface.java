@@ -39,8 +39,9 @@ public interface GuiTableInterface {
     
     /**
      * Displays view where the user can watch a game.
+     * @param currentStage current stage to be replaced
      */
-    public void displayObserverPhase();
+    public void displayObserverPhase(Stage currentStage);
 
     /**
      * Displays a victory message, and allow player to return to IHM Main.

@@ -112,7 +112,7 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void displayObserverPhase() {
+    public void displayObserverPhase(Stage currentStage) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
