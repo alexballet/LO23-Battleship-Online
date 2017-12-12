@@ -9,8 +9,9 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.*;
 
-/**
- * NetworkController allows to
+/** TODO: a completer
+ * NetworkController allows to overview the known P2P network which the user is connected to or trying to connect to.
+ * It maintains the different IP addresses tables required for the different type of network message sending.
  */
 public class NetworkController {
 
@@ -19,7 +20,7 @@ public class NetworkController {
 
     /**
      * Getter.
-     * @return
+     * @return port member.
      */
     public int getPort() {
         return port;
@@ -32,7 +33,7 @@ public class NetworkController {
     private NetworkServer networkServer;
 
     /**
-     * Getter
+     * Getter.
      * @return the unique instance of the NetworkController.
      */
     public static NetworkController getInstance() {
@@ -54,8 +55,8 @@ public class NetworkController {
         this.networkServer = new NetworkServer(this);
     }
 
-    /**
-     *
+    /** TODO: a définir
+     * Method to open a thread.
      */
     public void launchServer() {
         try {
@@ -76,15 +77,15 @@ public class NetworkController {
     }
 
     /**
-     * Getter of the IPTable.
+     * Getter.
      * @return the list of the connected users IP addresses.
      */
     public List<InetAddress> getIPTable() {
         return new ArrayList<InetAddress>(networkState.values());
     }
 
-    /** ...
-     *
+    /** TODO: a completer
+     * Getter.
      * @param user
      * @return
      */
@@ -127,10 +128,11 @@ public class NetworkController {
         return networkInterface;
     }
 
-    /** ...
-     *
-     * @param iPAddressesTable
-     * @return
+    /**
+     * Method to add an IP address to the list of filtered IP addresses of the NetworkController. If one of the
+     * addresses of the list given in parameter doesn't belong to the filtered addresses list, it will be added to it.
+     * @param iPAddressesTable IP addresses list to be checked by the method.
+     * @return the updated list of the filtered addresses.
      */
     public List<InetAddress> filterUnknownIPAddresses(List<InetAddress> iPAddressesTable) {
         List<InetAddress> filteredAddresses = new ArrayList<>();
@@ -146,16 +148,17 @@ public class NetworkController {
         return filteredAddresses;
     }
 
-    /** ...
-     *
-     * @param iPAddressesTable
-     * @return
+    /** /! a completer
+     * Method to filter the IPAddresses to notify by a network message (for example, at the user connection to the
+     * network). If one of the addresses of the list given in parameter doesn't belong to the filtered addresses list,
+     * it will be added to it.
+     * @param iPAddressesTable IP addresses list to be checked by the method.
+     * @return the updated list of the filtered addresses.
      */
     public List<InetAddress> filterKnownIPAddressesToNotify(List<InetAddress> iPAddressesTable) {
         List<InetAddress> filteredAddresses = new ArrayList<>();
         for (InetAddress ipAddress : networkState.values()) {
-            if (!ipAddress.equals(networkServer.getIpAddress()) &&
-                    !iPAddressesTable.contains(ipAddress)) {
+            if (!ipAddress.equals(networkServer.getIpAddress()) && !iPAddressesTable.contains(ipAddress)) {
                 filteredAddresses.add(ipAddress);
             }
 
@@ -216,7 +219,7 @@ public class NetworkController {
         }
     }
 
-    /** ???
+    /** TODO: a definir
      * Close the Listener (clean the RAM ?)
      */
     public void closeListener() {
