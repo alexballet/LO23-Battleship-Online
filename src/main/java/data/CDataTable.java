@@ -14,6 +14,7 @@ import structData.Position;
 import structData.Game;
 import lo23.battleship.online.network.COMInterface;
 import guiMain.GuiMainInterface;
+import guiTable.GuiTableInterface;
 import structData.Shot;
 
 /**
@@ -23,7 +24,10 @@ import structData.Shot;
 public class CDataTable implements IDataTable {
     
     private DataController controller;
-    
+   
+    /* ajout ihm-plateau débug   */
+    private GuiTableInterface interfaceTable;
+    /* ajout ihm-plateau débug   */
     private GuiMainInterface interfaceMain;
     private COMInterface interfaceCom;
     
@@ -32,6 +36,11 @@ public class CDataTable implements IDataTable {
         controller = dc;
     }
     
+    /* ajout ihm-plateau débug   */
+    public void setInterfaceTable(GuiTableInterface t) {
+        interfaceTable = t;
+    }
+    /* ajout ihm-plateau débug   */
     public void setInterfaceCom(COMInterface c){
         interfaceCom = c;
     }
@@ -58,11 +67,18 @@ public class CDataTable implements IDataTable {
     public void coordinateShips(List<Boat> listBoat) {
         controller.getLocalPlayer().setListBoats(listBoat);
         //TODO : uncomment when integV3 done
+        Game myGame = controller.getLocalGame();
+       /* ajout ihm-plateau débug   */
+        if(!myGame.getHumanOpponent())  {
+            interfaceTable.opponentReady(myGame.getPlayer1Start());
+        }else {
+            /* ajout ihm-plateau débug   */
         if(controller.getLocalUser().getIdUser().equals(
                 controller.getLocalGame().getPlayer1().getProfile().getIdUser()))
-                    interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
+            interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
         else
             interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer1());
+        }
 
     }
     
