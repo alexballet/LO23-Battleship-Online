@@ -167,21 +167,32 @@ public class CDataCom implements IDataCom {
         Boolean p1Start = controller.getLocalGame().getPlayer1Start();
         Player localPlayer = controller.getLocalPlayer();
         Player p1 = controller.getLocalGame().getPlayer1();
-        
-        if ( p1Start && p1.equals(localPlayer) ){
-            myTurn = true;
+
+        if ( p1Start && p1.equals(localPlayer) ) {
+            controller.getLocalGame().getPlayer2().setReady(true);
+        } else {
+            controller.getLocalGame().getPlayer1().setReady(true);
         }
-        else if ( p1Start && !p1.equals(localPlayer) ){
-            myTurn = false;
+
+
+
+
+
+        if(controller.getLocalGame().getPlayer1().isReady() &&
+                controller.getLocalGame().getPlayer2().isReady())
+        {
+            if (p1Start && p1.equals(localPlayer)) {
+                myTurn = true;
+            } else if (p1Start && !p1.equals(localPlayer)) {
+                myTurn = false;
+            } else if (p1Start && !p1.equals(localPlayer)) {
+                myTurn = true;
+            } else /*if ( p1Start == false && p1 == localPlayer )*/ {
+                myTurn = false;
+            }
+
+            interfaceTable.opponentReady(myTurn);
         }
-        else if ( p1Start && !p1.equals(localPlayer) ){
-            myTurn = true;
-        }
-        else /*if ( p1Start == false && p1 == localPlayer )*/{
-            myTurn = false;
-        }
-        
-        interfaceTable.opponentReady(myTurn);
     }
 
 

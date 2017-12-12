@@ -72,8 +72,16 @@ public class CDataTable implements IDataTable {
     }
 
     @Override
+
+    // TODO: Mettre les instructions dans le bon sens
     public void coordinateShips(List<Boat> listBoat) {
+        Boolean myTurn;
+        Boolean p1Start = controller.getLocalGame().getPlayer1Start();
         controller.getLocalPlayer().setListBoats(listBoat);
+        boolean localPlayerIsPlayer1 = controller.getLocalUser().getIdUser().equals(
+                controller.getLocalGame().getPlayer1().getProfile().getIdUser());
+        boolean localPlayerIsPlayer2 = controller.getLocalUser().getIdUser().equals(
+                controller.getLocalGame().getPlayer2().getProfile().getIdUser());
         //TODO : uncomment when integV3 done
         Game myGame = controller.getLocalGame();
        /* ajout ihm-plateau débug   */
@@ -81,13 +89,31 @@ public class CDataTable implements IDataTable {
             interfaceTable.opponentReady(myGame.getPlayer1Start());
         }else {
             /* ajout ihm-plateau débug   */
-        if(controller.getLocalUser().getIdUser().equals(
-                controller.getLocalGame().getPlayer1().getProfile().getIdUser()))
-            interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
-        else
-            interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer1());
+            if (localPlayerIsPlayer1) {
+                controller.getLocalGame().getPlayer1().setReady(true);
+                interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
+            } else {
+                controller.getLocalGame().getPlayer2().setReady(true);
+                interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer1());
+            }
         }
 
+        // TODO: Simplifier les conditions (myTurn = p1Start && localPlayerIsPlayer1)
+        if(controller.getLocalGame().getPlayer1().isReady() &&
+                controller.getLocalGame().getPlayer2().isReady())
+        {
+            if (p1Start && localPlayerIsPlayer1) {
+                myTurn = true;
+            } else if (p1Start && localPlayerIsPlayer2) {
+                myTurn = false;
+            } else if (!p1Start && localPlayerIsPlayer2) {
+                myTurn = true;
+            } else /*if ( p1Start == false && p1 == localPlayer )*/ {
+                myTurn = false;
+            }
+
+            interfaceTable.opponentReady(myTurn);
+        }
     }
     
     @Override
