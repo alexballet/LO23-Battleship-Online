@@ -12,6 +12,7 @@ import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import structData.Boat;
 import structData.ChatMessage;
@@ -88,21 +89,27 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void opponentReady(Boolean myTurn) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/GamePhase.fxml"));
-
-        try {
-            rootLayout = (AnchorPane) loader.load();
-            gamePhaseController = loader.<GamePhaseController>getController();
-            gamePhaseController.setMyTurn(myTurn);
-            gamePhaseController.setMyBoats(boats);
-        
-            Scene scene = new Scene(rootLayout);
-            mainStage.setScene(scene);
-            mainStage.show();
-        } catch(IOException e) {
-            System.err.println("ERROR : "+e.getMessage());
-        }
+    		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+		        FXMLLoader loader = new FXMLLoader();
+		        loader.setLocation(getClass().getResource("/fxml/IhmTable/GamePhase.fxml"));
+		
+		        try {
+		            rootLayout = (AnchorPane) loader.load();
+		            gamePhaseController = loader.<GamePhaseController>getController();
+		            gamePhaseController.setMyTurn(myTurn);
+		            gamePhaseController.setMyBoats(boats);
+		        
+		            Scene scene = new Scene(rootLayout);
+		            mainStage.setScene(scene);
+		            mainStage.show();
+		        } catch(IOException e) {
+		            System.err.println("ERROR : "+e.getMessage());
+		        }
+			}
+		};
+		Platform.runLater(command);
     }
 
     @Override
