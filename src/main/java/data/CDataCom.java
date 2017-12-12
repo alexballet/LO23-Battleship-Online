@@ -286,5 +286,6 @@ public class CDataCom implements IDataCom {
          
          controller.updateSpecList(g,spec);
      }
+     
     
 }
