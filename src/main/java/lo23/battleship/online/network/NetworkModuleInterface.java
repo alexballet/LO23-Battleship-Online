@@ -231,4 +231,22 @@ public class NetworkModuleInterface implements COMInterface {
 
         }
     }
+
+
+    // TODO vérifier si c'est correct + ajouter à l'interface si c'est OK
+    public void JoinGameSpectator(User spec, Game game) {
+        JoinGameSpectatorMessage joinGameSpectatorMessage = new JoinGameSpectatorMessage(game, dataInterface.getUserProfile());
+
+        controller.sendMessage(joinGameSpectatorMessage, controller.getAddressForUser(spec));
+
+    }
+
+    // TODO vérifier si c'est correct + ajouter à l'interface si c'est OK
+    public void GameQuitSpectator(User spec, Game game) {
+        GameQuitSpectatorMessage gameQuitSpectator = new GameQuitSpectatorMessage(game, dataInterface.getUserProfile());
+
+        controller.sendMessage(gameQuitSpectator, controller.getAddressForUser(spec));
+
+    }
+
 }

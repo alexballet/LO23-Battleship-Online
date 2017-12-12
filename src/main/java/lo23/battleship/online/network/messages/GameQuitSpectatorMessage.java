@@ -14,7 +14,7 @@ import java.net.InetAddress;
 public class GameQuitSpectatorMessage extends Message{
     Game game;
     User spec;
-    public GameQuitSpectatorMessage(User s, Game g){
+    public GameQuitSpectatorMessage(Game g, User s){
         this.type = "GameQuitSpectatorMessage";
         this.spec = s;
         this.game =g;
