@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -18,8 +11,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.menuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.menuController">
    <children>
       <GridPane prefHeight="617.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -105,7 +100,7 @@
                               </GridPane>
                               <HBox alignment="CENTER">
                                  <children>
-                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="avatarImage" fitHeight="196.0" fitWidth="219.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../img/defaultAvatar.png" />
                                        </image>
@@ -117,21 +112,23 @@
 												<fx:define>
 													<Image fx:id="btnOption" url="@../../img/option.png" />
 												</fx:define>
-												<Button fx:id="optionButton" mnemonicParsing="false"
-													onAction="#option" prefHeight="46.0" prefWidth="81.0">
+												<Button fx:id="optionButton" mnemonicParsing="false" onAction="#option" prefHeight="46.0" prefWidth="81.0">
 													<graphic>
-														<ImageView image="$btnOption" fitHeight="45.0"
-															fitWidth="40.0" pickOnBounds="true" preserveRatio="false" />
+														<ImageView fitHeight="45.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="false">
+                                             <image>
+                                                <Image url="@../../img/option.png" />
+                                             </image></ImageView>
 													</graphic>
 												</Button>
 												<fx:define>
 													<Image fx:id="btnDisconnect" url="@../../img/logout.png" />
 												</fx:define>
-												<Button fx:id="disconnectionButton" mnemonicParsing="false"
-													onAction="#disconnection" prefHeight="46.0" prefWidth="81.0">
+												<Button fx:id="disconnectionButton" mnemonicParsing="false" onAction="#disconnection" prefHeight="46.0" prefWidth="81.0">
 													<graphic>
-														<ImageView image="$btnDisconnect" fitHeight="45.0"
-															fitWidth="40.0" pickOnBounds="true" preserveRatio="false" />
+														<ImageView fitHeight="45.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="false">
+                                             <image>
+                                                <Image url="@../../img/logout.png" />
+                                             </image></ImageView>
 													</graphic>
 												</Button>
 											</children>

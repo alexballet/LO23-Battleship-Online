@@ -1,5 +1,7 @@
 package guiMain.controller;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,14 +11,19 @@ import guiMain.GuiMainController;
 import guiMain.PlayerCell;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.swing.ImageIcon;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 
 import structData.*;
@@ -26,6 +33,8 @@ public class menuController implements Initializable{
 
 	private GuiMainController mainController;
 
+	@FXML 
+	private ImageView avatarImage;
 	@FXML 
 	private ListView<User> playersView;
 	@FXML 
@@ -47,6 +56,7 @@ public class menuController implements Initializable{
 		//randomListUser();
 		this.initUserList();
 		this.initGamesList();
+		this.setImage();
 	}
 
 	/**
@@ -108,6 +118,16 @@ public class menuController implements Initializable{
 				return new GameCell(controller); 
 			} 
 		});
+	}
+	
+	private void setImage(){
+		ImageIcon icon = mainController.getIdata().getLocalProfile().getAvatar();
+		BufferedImage bi = new BufferedImage(
+				icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics g = bi.createGraphics();
+		icon.paintIcon(null, g, 0,0);
+		g.dispose();
+		avatarImage.setImage(SwingFXUtils.toFXImage(bi, null));
 	}
 
 	public void joinGame(Game game) {
