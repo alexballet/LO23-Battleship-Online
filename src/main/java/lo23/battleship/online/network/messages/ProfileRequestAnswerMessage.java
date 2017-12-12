@@ -31,7 +31,7 @@ public class ProfileRequestAnswerMessage extends Message {
     public String getType() {
         return type;
     }
-
+    
 
     /**
      * Unused method for this class.
@@ -41,6 +41,5 @@ public class ProfileRequestAnswerMessage extends Message {
     public void process(IDataCom IData, InetAddress senderAddress){
         IData.sendStatistics(profile);
     }
-
 
 }

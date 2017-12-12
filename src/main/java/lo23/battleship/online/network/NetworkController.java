@@ -42,13 +42,14 @@ public class NetworkController {
         networkState = new HashMap<>();
         networkInterface = new NetworkModuleInterface(this);
         // Create server
-        if (networkServer != null) return;
-        this.networkServer = new NetworkServer(this);
+        if (networkServer == null)
+            this.networkServer = new NetworkServer(this);
     }
 
     public void launchServer() {
         try {
-            this.networkServer.open();
+            if(!networkServer.isOpened())
+                this.networkServer.open();
         } catch (IOException e) {
             e.printStackTrace();
         }

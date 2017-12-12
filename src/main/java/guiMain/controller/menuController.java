@@ -121,7 +121,7 @@ public class menuController implements Initializable{
 
 	public void lookUser(User user) {
 		System.out.println("LOOK USER " + user.getUsername());
-
+		mainController.openProfileWindow(user);
 	}
 
 

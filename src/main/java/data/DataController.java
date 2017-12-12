@@ -331,16 +331,4 @@ public class DataController {
     public void setListGame(List<Game> g){
         listGames = g;
     }
-    
-    public void reset(){
-        
-    setLocalUser(null);
-    setLocalProfile(null);
-    setLocalDataUser(null);
-    setLocalPlayer(null);
-    setLocalGame(null);
-    setListUser(null);
-    setListGame(null);
-    
-    }
 }

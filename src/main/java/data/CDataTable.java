@@ -58,7 +58,12 @@ public class CDataTable implements IDataTable {
     public void coordinateShips(List<Boat> listBoat) {
         controller.getLocalPlayer().setListBoats(listBoat);
         //TODO : uncomment when integV3 done
-        //interfaceCom.notifyReady(controller.getLocalUser());
+        if(controller.getLocalUser().getIdUser().equals(
+                controller.getLocalGame().getPlayer1().getProfile().getIdUser()))
+                    interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
+        else
+            interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer1());
+
     }
     
 }
