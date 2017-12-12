@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="285.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.IpConfigController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="285.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.IpConfigController">
    <children>
       <VBox layoutX="51.0" layoutY="14.0" prefHeight="316.0" prefWidth="236.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,7 +29,24 @@
                   </Button>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="28.0" prefWidth="285.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="285.0">
+               <children>
+                  <Label text="Port">
+                     <HBox.margin>
+                        <Insets left="10.0" right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="port" prefHeight="25.0" prefWidth="164.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="37.0" prefWidth="285.0">
                <children>
                   <Button fx:id="validateButton" mnemonicParsing="false" onAction="#validate" prefHeight="25.0" prefWidth="121.0" text="Valider" textAlignment="CENTER" />
                </children>
