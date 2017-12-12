@@ -200,6 +200,22 @@ public class Profile extends DataUser {
     public int getGamesPlayed(){
         return this.gamesPlayed;
     }
+    
+    /**
+     * Mutator for gamesWon
+     * @param nb the number of games won as an integer
+     */
+    public void setGamesWon(int nb){
+        this.gamesWon = nb;
+    }
+    /**
+     * Accessor for gamesWon
+     * @return the number of games won as an integer
+     */
+    public int getGamesWon(){
+        return this.gamesWon;
+    }
+    
     /**
      * Mutator for gamesLost
      * @param nb the number of games lost as an integer
@@ -245,19 +261,4 @@ public class Profile extends DataUser {
          e.printStackTrace(); 
       }
     }
-    
-    /**
-     * Mutator for gamesWon
-     * @param nb the number of games won as an integer
-     */
-    public void setGamesWon(int nb){
-        this.gamesWon = nb;
-    }
-    /**
-     * Accessor for gamesWon
-     * @return the number of games won as an integer
-     */
-    public int getGamesWon(){
-        return this.gamesWon;
-    }    
 }

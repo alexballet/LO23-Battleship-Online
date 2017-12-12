@@ -14,12 +14,12 @@ import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.Game;
-import structData.Position;
 import structData.Profile;
 import structData.Shot;
 import structData.StatusGame;
 import structData.User;
 import structData.Player;
+import java.util.Iterator;
 
 /**
  *
@@ -138,10 +138,18 @@ public class CDataCom implements IDataCom {
         controller.addGameToList(g);
         interfaceMain.addGame(g);
     }
+    
+    @Override
+    public void removeGameFromList(Game g){
+        controller.removeGameFromList(g);
+        
+    }
 
     
     public void errorPrint(String error) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //wait the method errorPrint in GuiTableInterface.java and GuiMainInterface.java
+        //Interfacetable.errorPrint(error);
+        //InterfaceMain.errorPrint(error);
     }
 
     
@@ -182,11 +190,40 @@ public class CDataCom implements IDataCom {
         Boat b = controller.testShot(s);
         interfaceTable.displayOpponentShot(s, b);
         //interfaceCom.coordinates(s,b); TODO : décommenter quand la fonction sera crée chez COM
-
+        if (b != null){
+            boolean gameOver = true;            
+            for(int i=0;i<controller.getLocalPlayer().getListBoats().size();i++) {
+                if (!controller.getLocalPlayer().getListBoats().get(i).getStatus()){
+                    gameOver = false;
+                    break;
+                }
+                i++;
+            }
+            if (gameOver){
+                //arreter la partie localPlayer a perdu
+                interfaceTable.displayDefeat();
+                
+                //notify the other player that he has won
+                Player pl; // to know to which player we send the notification : it's the player who is not ourself
+                if (controller.getLocalGame().getPlayer1() == controller.getLocalPlayer())
+                    pl = controller.getLocalGame().getPlayer2();
+                else
+                    pl = controller.getLocalGame().getPlayer1();
+                //interfaceCom.notifyGameWon(pl);
+                
+                controller.getLocalProfile().setGamesLost(controller.getLocalProfile().getGamesLost()+1);
+                controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
+                controller.removeGameFromList(controller.getLocalGame()); // Verifier comment est géré la notification que la partie n'existe plus
+                //interfaceMain.removeGame(controller.getLocalGame());
+                //interfaceCom.removeGame(controller.getLocalGame());
+            }              
+            
+        }
     }
 
     
     public void coordinates(Shot s, Boat b) {
+        controller.getLocalPlayer().addShot(s);
         interfaceTable.displayMyShotResult(s, b);
     }
     
@@ -233,10 +270,21 @@ public class CDataCom implements IDataCom {
         controller.removeGameFromList(g);
         interfaceMain.removeGame(g);
     }
-
-	
-	public void coordinate(Position p, Shot s, Boat b) {
-		// TODO Auto-generated method stub
-		
-	}
+    
+    /**
+      * Notification that you won, update stats and display win
+      */
+    @Override
+     public void notifiedGameWon(){
+         controller.getLocalProfile().setGamesWon(controller.getLocalProfile().getGamesWon()+1);
+         controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
+         interfaceTable.displayVictory();
+     }
+     
+     @Override
+     public void notifyToSpecGame(Game g, User spec){
+         
+         controller.updateSpecList(g,spec);
+     }
+    
 }

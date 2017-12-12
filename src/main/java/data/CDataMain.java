@@ -147,4 +147,14 @@ public class CDataMain implements IDataMain {
          controller.getLocalProfile().saveProfile();
      }
 
+    
+    /**
+     * Add a spectator in the game
+     * @param g : game that the spectator wants to join
+     * @param spec : spectator
+     */
+    @Override
+    public void gameToSpec(Game g, User spec){
+        controller.updateSpecList(g, spec);
+    }
 }

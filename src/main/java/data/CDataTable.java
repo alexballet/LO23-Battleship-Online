@@ -14,6 +14,10 @@ import structData.Position;
 import structData.Game;
 import lo23.battleship.online.network.COMInterface;
 import guiMain.GuiMainInterface;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Objects;
+import java.util.Random;
 import structData.Shot;
 
 /**
@@ -27,6 +31,8 @@ public class CDataTable implements IDataTable {
     private GuiMainInterface interfaceMain;
     private COMInterface interfaceCom;
     
+     protected static final int NB_CASES_GRID = 10;
+    
     public CDataTable(DataController dc){
         super();
         controller = dc;
@@ -38,7 +44,9 @@ public class CDataTable implements IDataTable {
 
     @Override
     public Boolean exit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Boolean b = interfaceCom.exit(); Com doit s'occuper la fonction exit
+        //return b;
+        return true; //delete, si Com a fini exit
     }
 
     @Override
@@ -64,6 +72,43 @@ public class CDataTable implements IDataTable {
         else
             interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer1());
 
+    }
+    
+    @Override
+    public Shot iaShot(){
+        
+        Random rn1 = new Random();
+        Random rn2 = new Random();
+        
+        Byte x;
+        Byte y;
+        
+        HashSet<Shot> listShot = controller.getLocalPlayer().getListShots();
+                
+        Boolean shotAlreadyPlayed = false;
+        
+        do { 
+            
+            x = (byte) rn1.nextInt(NB_CASES_GRID);
+            y = (byte) rn2.nextInt(NB_CASES_GRID);
+            
+            Iterator<Shot> itr;
+            itr = listShot.iterator();
+            while(itr.hasNext() && shotAlreadyPlayed == false) {
+                
+                if (itr.next().getX().equals(x) && itr.next().getY().equals(y)) {
+                    shotAlreadyPlayed = true;
+                } else {
+                    shotAlreadyPlayed = false;
+                }  
+            }
+            
+        } while (shotAlreadyPlayed == true);
+        
+        Position p = new Position(x, y, false);
+        Shot s = new Shot(p);
+
+        return s;
     }
     
 }
