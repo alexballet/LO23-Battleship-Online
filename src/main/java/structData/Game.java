@@ -20,6 +20,7 @@ public class Game implements Serializable{
     private String name;
     private Boolean humanOpponent;
     private int timePerShot;
+    private int timeToPlaceBoats;
     private Boolean spectator;
     private Boolean spectatorChat;
     private HashSet<User> listSpectators;
@@ -39,6 +40,7 @@ public class Game implements Serializable{
         name = new String("");
         humanOpponent = false;
         timePerShot = 0;
+        timeToPlaceBoats = 300;
         spectator = false;
         spectatorChat = false;
         listSpectators = new HashSet();
@@ -65,7 +67,7 @@ public class Game implements Serializable{
      * @param lMsg an ArrayList
      */
     public Game(Boolean newClassicType, String newName, 
-            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newHumanOpponent, int newTimePerShot, int newTimeToPlaceBoats,
             Boolean newSpectator, Boolean newSpectatorChat,
             Profile p){
         idGame = UUID.randomUUID();
@@ -78,6 +80,7 @@ public class Game implements Serializable{
             status = StatusGame.WAITINGBOT;
         }
         timePerShot = newTimePerShot;
+        timeToPlaceBoats = newTimeToPlaceBoats;
         spectator = newSpectator;
         spectatorChat = newSpectatorChat;
         listSpectators = new HashSet();

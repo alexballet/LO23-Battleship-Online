@@ -114,10 +114,10 @@ public class CDataMain implements IDataMain {
      */
     @Override
     public Game newGame(Boolean newClassicType, String newName, 
-            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newHumanOpponent, int newTimePerShot, int newTimeToPlaceBoats,
             Boolean newSpectator, Boolean newSpectatorChat) {
     		
-        Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newSpectator, newSpectatorChat, controller.getLocalProfile());
+        Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newTimeToPlaceBoats, newSpectator, newSpectatorChat, controller.getLocalProfile());
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
         controller.setLocalGame(g);

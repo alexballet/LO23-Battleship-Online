@@ -20,6 +20,7 @@ import structData.StatusGame;
 import structData.User;
 import structData.Player;
 import java.util.Iterator;
+import structData.Position;
 
 /**
  *
@@ -270,12 +271,6 @@ public class CDataCom implements IDataCom {
         controller.removeGameFromList(g);
         interfaceMain.removeGame(g);
     }
-
-	
-	public void coordinate(Position p, Shot s, Boat b) {
-		// TODO Auto-generated method stub
-		
-	}
     /**
       * Notification that you won, update stats and display win
       */
