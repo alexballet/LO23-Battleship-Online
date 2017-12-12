@@ -96,7 +96,7 @@ public class CDataTable implements IDataTable {
             itr = listShot.iterator();
             while(itr.hasNext() && shotAlreadyPlayed == false) {
                 
-                if (itr.next().getX().equals(x) && itr.next().getY().equals(y)) {
+                if(itr.next().getX().equals(x) && itr.next().getY().equals(y)){
                     shotAlreadyPlayed = true;
                 } else {
                     shotAlreadyPlayed = false;
