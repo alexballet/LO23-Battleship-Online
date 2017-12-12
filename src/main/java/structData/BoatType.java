@@ -26,7 +26,6 @@ public enum BoatType {
         this.name = name;
         this.nbCases = nbCases;
     }
-
     /**
      * @return the name
      */
@@ -41,5 +40,5 @@ public enum BoatType {
         return nbCases;
     }
     
-    
 }
+

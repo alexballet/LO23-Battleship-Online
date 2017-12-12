@@ -2,7 +2,7 @@ package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
 import structData.Game;
-import structData.User;
+import structData.Profile;
 
 import java.net.InetAddress;
 
@@ -15,7 +15,7 @@ import java.net.InetAddress;
 public class JoinGameResponseMessage extends Message{
 
     Game game;
-    User sender;
+    Profile sender;
     Boolean isOk;
 
     /**
@@ -25,11 +25,12 @@ public class JoinGameResponseMessage extends Message{
      * @param sender is the User class of the local player.
      * @param game is the game which is willed to be joined by the distant player.
      */
-    public JoinGameResponseMessage(Boolean isOk, User sender, Game game){
+    public JoinGameResponseMessage(Boolean isOk, Profile sender, Game game){
         this.game = game;
         this.isOk = isOk;
         this.sender = sender;
-        this.type = "JoinGameResponseMessage";}
+        this.type = "JoinGameResponseMessage";
+    }
 
     /**
      * Message type getter. Implementation of an abstract method.
@@ -43,26 +44,14 @@ public class JoinGameResponseMessage extends Message{
      * Method updating the game status in Data whether the opponent slot is available or not.
      * @param IData interface with Data.
      */
-    public void process(IDataCom IData){
+    public void process(IDataCom IData, InetAddress senderAddress){
+            System.out.println("Response received for game " + game.getName() + " from " + senderAddress.toString());
 
-        if (isOk) {
-
-            //TODO : uncomment when integV3 done
-            //IData.setGameJoinResponse(true, sender, IData.getLocalUser());
-
+            if (isOk) {
+            IData.setLocalGame(game);
         } else {
 
             IData.setGameJoinResponse(false);
         }
     }
-
-    /**
-     * Unused method for this class.
-     * @param IData interface with Data.
-     * @param senderAddress sender IP address.
-     */
-    public void process(IDataCom IData, InetAddress senderAddress){ }
-
-
-
 }

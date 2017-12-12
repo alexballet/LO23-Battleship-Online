@@ -34,15 +34,9 @@ public class UpdateGameMessage extends Message{
      * Method providing the updated game to Data.
      * @param IData interface with Data.
      */
-    public void process(IDataCom IData){
+    public void process(IDataCom IData, InetAddress senderAddress) {
         System.out.println("game: "+ gameUpdate);
         IData.changeStatusGame(gameUpdate);
-       }
+    }
 
-    /**
-     * Unused method for this class.
-     * @param IData interface with Data.
-     * @param senderAddress sender IP address.
-     */
-    public void process(IDataCom IData, InetAddress senderAddress){}
 }

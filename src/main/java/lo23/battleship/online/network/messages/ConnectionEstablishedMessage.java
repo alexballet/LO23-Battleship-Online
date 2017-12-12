@@ -5,7 +5,6 @@ import lo23.battleship.online.network.NetworkController;
 import structData.Game;
 import structData.User;
 
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
@@ -68,7 +67,7 @@ public class ConnectionEstablishedMessage extends Message {
 
         for(InetAddress ipAddress : filteredAddresses) {
             ConnectionRequestMessage connectionRequestMessage =
-                    new ConnectionRequestMessage(user, controller.getIPTable());
+                    new ConnectionRequestMessage(user, controller.getIPTable(), IData.getCreatedGame());
             controller.sendMessage(connectionRequestMessage, ipAddress);
         }
 

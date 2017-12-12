@@ -2,6 +2,7 @@ package guiMain.controller;
 
 import guiMain.GuiMainController;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,14 +54,19 @@ public class LoginController implements Initializable{
     void login(ActionEvent event) {
         String login = userLogin.getText();
         String password = userPassword.getText();
-        /* WAIT FOR CHANGES IN IDATAMAIN TO PASS LOGIN PARAMETERS*/
-     /*   if(mainController.getIdata().connection()){
-            mainController.startIHM();
-        }else{
-           // User can not login. Show error message
-           errorMessage.setText("Une erreur sauvage est apparue. Veuillez réessayer.");
-           errorMessage.setVisible(true);
-        }*/
+
+        try {
+			if (mainController.getIdata().connection(login, password)){
+			    mainController.openMenuWindow();
+			} else{
+			   // User can not login. Show error message
+			   errorMessage.setText("Une erreur sauvage est apparue. Veuillez réessayer.");
+			   errorMessage.setVisible(true);
+			}
+		} catch (UnknownHostException e) {
+			errorMessage.setText("Une erreur sauvage est apparue. Veuillez réessayer.");
+			errorMessage.setVisible(true);
+		}
     }
 
     /**
@@ -69,6 +75,6 @@ public class LoginController implements Initializable{
      */
     @FXML
     void openCreateAccountWindow(ActionEvent event){
-        mainController.openMenuWindow();
+        mainController.openSignupWindow();
     }
 }

@@ -2,7 +2,7 @@ package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
 import structData.Game;
-import structData.User;
+import structData.Profile;
 import java.net.InetAddress;
 
 /**
@@ -11,7 +11,7 @@ import java.net.InetAddress;
  */
 public class JoinGameRequestMessage extends Message{
 
-    User sender;
+    Profile sender;
     Game game;
 
     /**
@@ -19,7 +19,7 @@ public class JoinGameRequestMessage extends Message{
      * @param senderGame is the User class of the local player who wants to join the game.
      * @param gameSend is the Game class that the local player wants to join.
      */
-    public JoinGameRequestMessage(User senderGame, Game gameSend){
+    public JoinGameRequestMessage(Profile senderGame, Game gameSend){
         this.sender = senderGame;
         this.game = gameSend;
         this.type = "JoinGameRequestMessage";}
@@ -36,16 +36,10 @@ public class JoinGameRequestMessage extends Message{
      * Method notifying Data the local player wants to join the game.
      * @param IData interface with Data.
      */
-    public void process(IDataCom IData){
+    public void process(IDataCom IData, InetAddress senderAddress){
         IData.notifToJoinGame(sender, game);
     }
 
-    /**
-     * Unused method for this class.
-     * @param IData interface with Data.
-     * @param senderAddress sender IP address.
-     */
-    public void process(IDataCom IData, InetAddress senderAddress){ }
 
 
 

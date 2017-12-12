@@ -1,6 +1,5 @@
 package lo23.battleship.online.network.messages;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkController;
 import structData.User;
@@ -36,11 +35,6 @@ public class DisconnectionMessage extends Message{
         return type;
     }
 
-    /**
-     * Unused method for this class.
-     * @param IData interface with Data.
-     */
-    public void process(IDataCom IData){ }
 
     /**
      * Method updating the NetworkController with the disconnecting user.

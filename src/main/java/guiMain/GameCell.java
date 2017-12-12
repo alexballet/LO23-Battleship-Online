@@ -8,18 +8,15 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import structData.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.net.URLClassLoader;
 
 import guiMain.controller.menuController;
-import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class GameCell extends ListCell<Game> {
 	HBox hbox = new HBox();
+	HBox joinButtonBox = new HBox();
+	HBox lookButtonBox = new HBox();
     Label title = new Label();
     Label type = new Label();
     // Label isRobot = new Label();
@@ -51,11 +48,20 @@ public class GameCell extends ListCell<Game> {
 		robotBox.setAlignment(Pos.CENTER_LEFT);
 		robotBox.getChildren().addAll(robot);
 		
-        hbox.getChildren().addAll(titleBox, robotBox, typeBox, lookButton, joinButton);
+		joinButtonBox.setPrefWidth(50);
+		joinButtonBox.setAlignment(Pos.CENTER_LEFT);
+		joinButtonBox.getChildren().addAll(joinButton);
+		
+		lookButtonBox.setPrefWidth(50);
+		lookButtonBox.setAlignment(Pos.CENTER_LEFT);
+		lookButtonBox.getChildren().addAll(lookButton);
+		
+        hbox.getChildren().addAll(titleBox, robotBox, typeBox, lookButtonBox, joinButtonBox);
         hbox.setAlignment(Pos.CENTER);
         HBox.setHgrow(title, Priority.ALWAYS);
    }
     
+   
    protected void updateItem(final Game game, boolean empty) {
         super.updateItem(game, empty);
         setText(null);
@@ -72,29 +78,38 @@ public class GameCell extends ListCell<Game> {
                 robot.setPreserveRatio(true);
         		}
         		
-        		ImageView backgroundJoin=new ImageView(new Image("/img/join-arrow.png"));
-        	    backgroundJoin.setFitHeight(20);
-        	    backgroundJoin.setPreserveRatio(true);
-        	    joinButton.setGraphic(backgroundJoin);
-        		
-            joinButton.setOnAction(new EventHandler<ActionEvent>() {
-	        		@Override
-	            public void handle(ActionEvent event) {
-	        			controller.joinGame(game);
-	            }
-	        });
+        	    
+        	    if (game.getHumanOpponent() && game.getStatus().equals(StatusGame.WAITINGPLAYER)) {
+            		ImageView backgroundJoin=new ImageView(new Image("/img/join-arrow.png"));
+            	    backgroundJoin.setFitHeight(20);
+            	    backgroundJoin.setPreserveRatio(true);
+            	    joinButton.setGraphic(backgroundJoin);
+                joinButton.setOnAction(new EventHandler<ActionEvent>() {
+        	        		@Override
+        	            public void handle(ActionEvent event) {
+        	        			controller.joinGame(game);
+        	            }
+        	        });
+        	    } else {
+        	    		joinButtonBox.getChildren().remove(joinButton);
+        	    }
             
-	    		ImageView backgroundLook=new ImageView(new Image("/img/look.png"));
-	    		backgroundLook.setFitHeight(20);
-	    		backgroundLook.setPreserveRatio(true);
-	    		lookButton.setGraphic(backgroundLook);
-            
-            lookButton.setOnAction(new EventHandler<ActionEvent>() {
-	        		@Override
-	            public void handle(ActionEvent event) {
-	        			controller.lookGame(game);
-	            }
-	        });
+        	    if (game.getSpectator()) {
+	    	    		ImageView backgroundLook=new ImageView(new Image("/img/look.png"));
+	    	    		backgroundLook.setFitHeight(20);
+	    	    		backgroundLook.setPreserveRatio(true);
+	    	    		lookButton.setGraphic(backgroundLook);
+	                
+	                lookButton.setOnAction(new EventHandler<ActionEvent>() {
+	    	        		@Override
+	    	            public void handle(ActionEvent event) {
+	    	        			controller.lookGame(game);
+	    	            }
+	    	        });
+        	    } else {
+        	    		lookButtonBox.getChildren().remove(lookButton);
+        	    }
+        	    
             
             setGraphic(hbox);
             

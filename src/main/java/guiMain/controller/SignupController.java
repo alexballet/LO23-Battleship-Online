@@ -1,8 +1,11 @@
 package guiMain.controller;
 
 import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,7 +97,7 @@ public class SignupController {
 		String username = usernameTextField.getText();
 		
 		/* Long ??? */
-		Long[] ips;
+		HashSet<InetAddress> ips = new HashSet<>();
 		
 		
 		String password = passwordTextField.getText();
@@ -118,14 +121,20 @@ public class SignupController {
 		System.out.println("Nom " + lastname);
 		System.out.println("Date de Naissance " + birthDate);
 		List<String> ipsStrings = mainController.getIps();
-		if (ipsStrings != null){
+		if (ipsStrings != null && ipsStrings.size() > 0){
 			for (String ip : ipsStrings) {
-				System.out.println(" Ip " + ip);
+				try {
+					ips.add(InetAddress.getByName(ip));
+				} catch (UnknownHostException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		
 		if (!login.trim().isEmpty() && !password.trim().isEmpty() && !username.trim().isEmpty()){
-			//mainController.getIdata().createAccount(idUser, login, username, ips, password, contactList, avatar, lastname, firstname, birthDate);
+			mainController.getIdata().createAccount(login, username, ips, password, null, null, lastname, firstname, birthDate);
+			mainController.startIHM();
 		}
 		else{
 			messageLabel.setText("Des champs obligatoires ne sont pas remplis");
@@ -140,7 +149,7 @@ public class SignupController {
 	
 	@FXML
 	private void backToConnectionWindow(){
-		// mainController. --- method to open connection window ----
+		mainController.startIHM();
 	}
 	
 	private void openFile(File file) {

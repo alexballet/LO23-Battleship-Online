@@ -2,9 +2,6 @@ package lo23.battleship.online.network;
 
 import structData.*;
 
-import javax.xml.crypto.Data;
-import java.net.InetAddress;
-import java.util.ArrayList;
 
 /**
  * Data interface
@@ -55,7 +52,7 @@ public interface COMInterface {
      * @param g Game <code>user</code> wants to join
      * @return true= message sent, false= message not sent
      */
-    public boolean joinGame(User user, Game g);
+    public boolean joinGame(Game g);
 
     /**
      * allow an user to join a game
@@ -65,7 +62,7 @@ public interface COMInterface {
      * @param g Game <code>user</code> joined if isOk
      * @return true= message sent, false= message not sent
      */
-    public boolean notifyJoinGameResponse(Boolean isOk, User user, Game g);
+    public boolean notifyJoinGameResponse(Boolean isOk, Profile user, Game g);
 
     /**
      * allow an user to be disconnected to the network
@@ -118,5 +115,5 @@ public interface COMInterface {
      * notifies every user to remove the game from their list
      * @param game Game to delete
      */
-    public void notifyGameWon(Player player);
+    public void notifyGameWon();
 }

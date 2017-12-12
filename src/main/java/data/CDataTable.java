@@ -5,11 +5,9 @@
  */
 package data;
 
-import guiTable.GuiTableInterface;
 import interfacesData.IDataTable;
 import java.util.Date;
 import java.util.List;
-import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.Position;
@@ -47,7 +45,7 @@ public class CDataTable implements IDataTable {
     public void textMessage(String message) {
         ChatMessage cm = new ChatMessage(controller.getLocalUser(),message,new Date());
         Game g = controller.getLocalGame();
-        //interfaceCom.sendChatMessage(cm, g); décommenter à l'integ
+        interfaceCom.sendChatMessage(cm, g); //décommenter à l'integ
     }
 
     @Override

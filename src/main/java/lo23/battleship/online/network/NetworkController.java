@@ -1,18 +1,12 @@
 package lo23.battleship.online.network;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-import data.DataController;
-import lo23.battleship.online.network.messages.ConnectionRequestMessage;
 import lo23.battleship.online.network.messages.Message;
-import structData.Game;
-import structData.DataUser;
 import interfacesData.IDataCom;
 import structData.Game;
 import structData.User;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.util.*;
 
 /**
@@ -47,13 +41,12 @@ public class NetworkController {
         networkInterface = new NetworkModuleInterface(this);
         networkState = new HashMap<>();
         networkInterface = new NetworkModuleInterface(this);
-        // Launch server
-        this.launchServer();
+        // Create server
+        if (networkServer != null) return;
+        this.networkServer = new NetworkServer(this);
     }
 
     public void launchServer() {
-        if (networkServer != null) return;
-        this.networkServer = new NetworkServer(this);
         try {
             this.networkServer.open();
         } catch (IOException e) {
@@ -74,7 +67,7 @@ public class NetworkController {
 
         for (User u : networkState.keySet()) {
 
-            if (u.getIdUser() == user.getIdUser()) {
+            if (u.getIdUser().equals(user.getIdUser())) {
 
                 return networkState.get(u);
             }
@@ -140,7 +133,9 @@ public class NetworkController {
         if (addUserToNetwork(sender, senderAddress)) {
             try {
                 dataInterface.addUserToUserList(sender);
-                dataInterface.addNewGameList(game);
+                if(game != null && game.getPlayer1().getProfile().getIdUser().equals(sender.getIdUser())) {
+                    dataInterface.addNewGameList(game);
+                }
             } catch (UnsupportedOperationException e) {
 
             }
@@ -151,10 +146,15 @@ public class NetworkController {
         for (User u : networkState.keySet()) {
             if(user.getIdUser().equals(u.getIdUser())) {
                 networkState.remove(u);
-                //IData.removeUser(u);
+                dataInterface.removeUser(u);
                 return;
             }
         }
+    }
+
+    public void closeListener() {
+        networkState.clear();
+        networkServer.close();
     }
 
     public Set<User> getConnectedUsers() {
