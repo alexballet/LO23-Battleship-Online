@@ -1,0 +1,37 @@
+package lo23.battleship.online.network.messages;
+
+import interfacesData.IDataCom;
+import structData.Game;
+import structData.Player;
+import structData.User;
+
+import java.net.InetAddress;
+import java.util.HashSet;
+
+/**
+ * SendNewSpectatorMessage,descendant class Message, notify everybody there is a new spectator.
+ * @author Lejeune Lola
+ */
+
+public class SendNewSpectatorMessage extends Message {
+
+    Player player;
+    User spec;
+    HashSet<User> listS;
+    public SendNewSpectatorMessage(User s, Player p, HashSet<User> listSpectators) {
+        this.type = "SendNewSpectatorMessage";
+        this.player = p;
+        this.spec = s;
+        this.listS = listSpectators;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+
+    public void process(IDataCom IData, InetAddress senderAddress){
+        // TODO decommenter quand dans interface data
+        //IData.notifyToSpecGame(User spec)
+    }
+}

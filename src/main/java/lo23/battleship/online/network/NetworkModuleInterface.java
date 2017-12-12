@@ -249,6 +249,12 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     // TODO à implémenter + ajouter à l'interface quand c'est fait
+    public void SendNewSpectatorMessage(User u, Player p, HashSet<User> listSpectators)  {
+
+        // player1(localuser) envoie à tous (player2 et spectateur) l'arrivée d'un nouveau spectateur
+    }
+
+    // TODO à implémenter + ajouter à l'interface quand c'est fait
     public void gameQuitSpectator(User spec, Game game) {
 
         // signaler a tout le monde que le spectateur part du game

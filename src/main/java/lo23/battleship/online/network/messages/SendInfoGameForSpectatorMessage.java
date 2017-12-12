@@ -7,7 +7,7 @@ import structData.User;
 import java.net.InetAddress;
 
 /**
- * GetInfoGameForSpectatorMessage,descendant class Message, spectator ask the game.
+ * SendInfoGameForSpectatorMessage,descendant class Message, localuser send the game to the spectator.
  * @author Lejeune Lola
  */
 
@@ -28,6 +28,6 @@ public class SendInfoGameForSpectatorMessage extends Message{
 
     public void process(IDataCom IData, InetAddress senderAddress){
         // TODO decommenter quand dans interface data
-        //IData. joinGameSpectator(game)
+        //IData.joinGameSpectator(game)
     }
 }
