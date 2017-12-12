@@ -15,16 +15,25 @@ public interface GuiTableInterface {
     
     /**
      * Displays the window where the player will place their ships.
-     * @param currentStage 
+     * @param currentStage
      * @param classic 
-     * @param placementTime 
+     * @param placementTime : Time limitation for placement phase, if null, no time limtation
      * @throws Exception 
      */
     public void displayPlacementPhase(Stage currentStage, Boolean classic, Integer placementTime) throws Exception;
     
     /**
      * Notifies the IHM Table that the opponent is ready so that it can adapt its views.
-     * @param myTurn 
+     * @param myTurn
+     * @param roundTime : Time limitation for each round game, if null, no time round limitation
+     */
+    public void opponentReady(Boolean myTurn, Integer roundTime);
+
+    /**
+     * Notifies the IHM Table that the opponent is ready so that it can adapt its views.
+     * Without round time limitation
+     * This method exist to avoid BC compatibilities
+     * @param myTurn
      */
     public void opponentReady(Boolean myTurn);
     

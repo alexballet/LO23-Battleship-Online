@@ -87,7 +87,7 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void opponentReady(Boolean myTurn) {
+    public void opponentReady(Boolean myTurn, Integer roundTime) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/IhmTable/GamePhase.fxml"));
 
@@ -96,13 +96,19 @@ public class GuiTableController implements GuiTableInterface {
             controller = loader.<GamePhaseController>getController();
             controller.setMyTurn(myTurn);
             controller.setMyBoats(boats);
-        
+            controller.setRoundTime(roundTime);
+
             Scene scene = new Scene(rootLayout);
             mainStage.setScene(scene);
             mainStage.show();
         } catch(IOException e) {
             System.err.println("ERROR : "+e.getMessage());
         }
+    }
+
+    @Override
+    public void opponentReady(Boolean myTurn) {
+        this.opponentReady(myTurn, null);
     }
 
     @Override

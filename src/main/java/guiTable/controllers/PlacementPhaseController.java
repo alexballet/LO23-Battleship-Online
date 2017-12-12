@@ -459,29 +459,31 @@ public abstract class PlacementPhaseController extends BaseController implements
     }
     
     public void setPlacementTime(Integer placementTime){
-        this.timePerShot = LocalTime.MIN.plusSeconds(placementTime);
-        this.time = timePerShot.plusSeconds(placementTime*MULTIPLE_FACTOR_PLACEMENT) ;
-        // update timerLabel
-        timerLabel.setText(time.toString().substring(3));
-        timeline = new Timeline();
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
-                    // KeyFrame event handler                      
-            @Override
-            public void handle(Event event) {
+        if (placementTime != null) {
+            this.timePerShot = LocalTime.MIN.plusSeconds(placementTime);
+            this.time = timePerShot.plusSeconds(placementTime*MULTIPLE_FACTOR_PLACEMENT) ;
+            // update timerLabel
+            timerLabel.setText(time.toString().substring(3));
+            timeline = new Timeline();
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
+                // KeyFrame event handler
+                @Override
+                public void handle(Event event) {
                     // update timerLabel
                     time = time.minusSeconds(1);
                     timerLabel.setText(time.toString().substring(3));
-                if (time.isBefore(LocalTime.MIN.plusSeconds(10))) {
-                    timerLabel.setTextFill(Color.RED);
+                    if (time.isBefore(LocalTime.MIN.plusSeconds(10))) {
+                        timerLabel.setTextFill(Color.RED);
+                    }
+                    if (time.isBefore(LocalTime.MIN.plusSeconds(1)) ) {
+                        timeline.stop();
+                        timeIsOver();
+                    }
                 }
-                if (time.isBefore(LocalTime.MIN.plusSeconds(1)) ) {
-                    timeline.stop();
-                    timeIsOver();
-                }
-            }
-        }));
-        timeline.playFromStart();
+            }));
+            timeline.playFromStart();
+        }
     }
     
     /**
