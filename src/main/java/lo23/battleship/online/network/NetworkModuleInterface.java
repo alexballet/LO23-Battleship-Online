@@ -31,6 +31,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
+    // TODO ajout envoyer à tous les spectateurs le message (via le game et getListSpectators)
     public boolean sendChatMessage(ChatMessage chatMessage, Game g) {
 
         SendTextMessage sendTextMessage = new SendTextMessage(chatMessage);
@@ -204,6 +205,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
+    // TODO ajout paramètre HashSet<User> listSpectators et envoyer à tous les spectateurs le shot
     public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat) {
 
         ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, boat);
@@ -233,19 +235,23 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
 
-    // TODO vérifier si c'est correct + ajouter à l'interface si c'est OK
-    public void JoinGameSpectator(User spec, Game game) {
-        JoinGameSpectatorMessage joinGameSpectatorMessage = new JoinGameSpectatorMessage(game, dataInterface.getUserProfile());
+    // TODO à implémenter + ajouter à l'interface quand c'est fait
+    public void getInfoGameForSpectator(Player player, User spec) {
 
-        controller.sendMessage(joinGameSpectatorMessage, controller.getAddressForUser(spec));
+        // spectateur(spec) demande au player(player) de lui filer les infos du game
 
     }
 
-    // TODO vérifier si c'est correct + ajouter à l'interface si c'est OK
-    public void GameQuitSpectator(User spec, Game game) {
-        GameQuitSpectatorMessage gameQuitSpectator = new GameQuitSpectatorMessage(game, dataInterface.getUserProfile());
+    // TODO à implémenter + ajouter à l'interface quand c'est fait
+    public void sendInfoGameForSpectator(Game game, User spec) {
 
-        controller.sendMessage(gameQuitSpectator, controller.getAddressForUser(spec));
+        // player(localuser) envoie au spectateur(spec) les infos du game
+    }
+
+    // TODO à implémenter + ajouter à l'interface quand c'est fait
+    public void gameQuitSpectator(User spec, Game game) {
+
+        // signaler a tout le monde que le spectateur part du game
 
     }
 

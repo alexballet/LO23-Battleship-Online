@@ -7,16 +7,16 @@ import structData.User;
 import java.net.InetAddress;
 
 /**
- * JoinGameSpectatorMessage,descendant class Message, spectator join a game.
+ * GetInfoGameForSpectatorMessage,descendant class Message, spectator ask the game.
  * @author Lejeune Lola
  */
 
-public class JoinGameSpectatorMessage extends Message{
+public class SendInfoGameForSpectatorMessage extends Message{
 
     Game game;
     User spec;
-    public JoinGameSpectatorMessage(Game g, User s){
-        this.type = "JoinGameSpectatorMessage";
+    public SendInfoGameForSpectatorMessage(Game g, User s){
+        this.type = "SendInfoGameForSpectatorMessage";
         this.game = g;
         this.spec = s;
     }
@@ -27,8 +27,7 @@ public class JoinGameSpectatorMessage extends Message{
 
 
     public void process(IDataCom IData, InetAddress senderAddress){
-        // TODO avoir la méthode de data à appeler
-        // methode de data à appeler
-        //IData.truc()
+        // TODO decommenter quand dans interface data
+        //IData. joinGameSpectator(game)
     }
 }
