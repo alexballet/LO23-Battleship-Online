@@ -270,12 +270,7 @@ public class CDataCom implements IDataCom {
         controller.removeGameFromList(g);
         interfaceMain.removeGame(g);
     }
-
-	
-	public void coordinate(Position p, Shot s, Boat b) {
-		// TODO Auto-generated method stub
-		
-	}
+    
     /**
       * Notification that you won, update stats and display win
       */

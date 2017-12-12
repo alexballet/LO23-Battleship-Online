@@ -99,10 +99,10 @@ public interface IDataMain {
     
     public void setListIps(HashSet Ips);
 
-    void gameToSpec(Game g, User spec);
-     */
-     * @param spec : spectator
-     * @param g : game that the spectator wants to join
-     * Add a spectator in the game
     /**
+     * Add a spectator in the game
+     * @param g : game that the spectator wants to join
+     * @param spec : spectator
+     */
+    void gameToSpec(Game g, User spec);
 }

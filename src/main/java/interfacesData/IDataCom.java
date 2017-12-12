@@ -106,15 +106,6 @@ public interface IDataCom {
     public void receiveReady();
 
     /**
-     * Takes a position to transmit it to IHM-Table. Returns a Shot and if a 
-     * boat was sunk, it returns the object Boat
-     * @param p : The position played by the user
-     * @param s (returned) : shot corresponding to the position
-     * @param b (optionnally returned) : The sunk boat
-     */
-    public void coordinate(Position p, Shot s, Boat b);
-
-    /**
      * Takes a Shot and in option a Boat to transmit it to IHM-Table
      * @param s : The position played by the user
      * @param b : In option, the boat that was sunk
