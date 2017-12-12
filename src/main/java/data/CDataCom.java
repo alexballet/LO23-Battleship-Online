@@ -8,6 +8,7 @@ package data;
 import guiMain.GuiMainInterface;
 import guiTable.GuiTableInterface;
 import interfacesData.IDataCom;
+import java.util.HashSet;
 
 import java.util.Set;
 import lo23.battleship.online.network.COMInterface;
@@ -285,6 +286,11 @@ public class CDataCom implements IDataCom {
      public void notifyToSpecGame(Game g, User spec){
          
          controller.updateSpecList(g,spec);
+     }
+     
+     @Override
+     public HashSet<User> getSpecList(){
+         return controller.getLocalGame().getListSpectators();
      }
      
     

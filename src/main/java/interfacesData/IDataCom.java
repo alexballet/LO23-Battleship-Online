@@ -5,6 +5,7 @@
  */
 package interfacesData;
 
+import java.util.HashSet;
 import structData.Boat;
 import structData.Shot;
 import structData.Position;
@@ -160,6 +161,8 @@ public interface IDataCom {
      public void notifiedGameWon();
      
      public void notifyToSpecGame(Game g, User spec);
+     
+     public HashSet<User> getSpecList();
 }
 
 
