@@ -30,6 +30,26 @@ public class Boat implements Serializable{
     }
     
 
+    /**
+     * constructor with parameters
+     * @param typedata : the type of the new boat
+     * @param statusdata : the status of the new boat
+     * @param listCasesdata  : the list of positions of the new boat
+     */
+    public Boat(BoatType typedata, Boolean rotation, Position pos){
+        type = typedata;
+        status = false;
+        this.listCases = new ArrayList();
+        for (int i = 0; i < typedata.getNbCases(); i++) {
+            if(rotation) {
+                this.listCases.add(new Position(pos.x + i, pos.y, false));
+            } else {
+                this.listCases.add(new Position(pos.x, pos.y+i, false));
+            }
+            
+        }
+    }
+    
 
     /**
      * constructor with parameters
@@ -125,9 +145,9 @@ public class Boat implements Serializable{
        ListIterator<Position> it = this.listCases.listIterator();
        while(it.hasNext()){
             Position posboat = it.next();
-            Byte posboatx = posboat.x;
-            Byte posboaty = posboat.y;
-            if ((posboatx.equals(pos.x)) && (posboaty.equals(pos.y))){
+            int posboatx = posboat.x;
+            int posboaty = posboat.y;
+            if ((posboatx == pos.x) && (posboaty==pos.y)){
                 isbelonged = true;
                 break;
             }

@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -177,7 +178,13 @@ public abstract class PlacementPhaseController extends BaseController implements
     protected void onValidate() {
         if (!this.isIsValidate()) {
             this.setIsValidate(true);
-            List<Boat> boats = this.getBoats();
+            
+            List<Boat> boats = new ArrayList<Boat>();
+            for (Map.Entry<Rectangle, BoatDrawing> entry : boatMap.entrySet()) {
+                BoatDrawing myBoat = entry.getValue();
+                boats.add(new Boat(myBoat.getBoatType(), myBoat.isRotation(), new Position(myBoat.getGridCol(), myBoat.getGridRow(), false)));
+            }
+            
             timeline.stop();
             timerLabel.setVisible(false);
             logMsg("en attente de la validation de l'autre joueur", "");

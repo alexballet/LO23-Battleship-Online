@@ -44,7 +44,7 @@ public class BoatDrawing{
     public BoatDrawing(BoatType boatType, Rectangle boatRectangle) {
         this.active = false;
         this.rotation = false;
-        this.boat = new Boat(boatType, false, new ArrayList<Position>()); //Will change when boat will be correct
+        this.boat = new Boat(boatType, false, new ArrayList<Position>());
         this.boatRectangle = boatRectangle;
         this.boatType = boatType;
         

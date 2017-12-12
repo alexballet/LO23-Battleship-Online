@@ -122,8 +122,8 @@ public class CDataTable implements IDataTable {
         Random rn1 = new Random();
         Random rn2 = new Random();
         
-        Byte x;
-        Byte y;
+        int x;
+        int y;
         
         HashSet<Shot> listShot = controller.getLocalPlayer().getListShots();
                 
@@ -131,14 +131,14 @@ public class CDataTable implements IDataTable {
         
         do { 
             
-            x = (byte) rn1.nextInt(NB_CASES_GRID);
-            y = (byte) rn2.nextInt(NB_CASES_GRID);
+            x =  rn1.nextInt(NB_CASES_GRID);
+            y =  rn2.nextInt(NB_CASES_GRID);
             
             Iterator<Shot> itr;
             itr = listShot.iterator();
             while(itr.hasNext() && shotAlreadyPlayed == false) {
                 
-                if (itr.next().getX().equals(x) && itr.next().getY().equals(y)) {
+                if (itr.next().getX()==x && itr.next().getY()==y) {
                     shotAlreadyPlayed = true;
                 } else {
                     shotAlreadyPlayed = false;

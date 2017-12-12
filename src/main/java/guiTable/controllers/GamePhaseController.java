@@ -140,8 +140,8 @@ public class GamePhaseController implements Initializable {
     }
     
     protected void plateShotTo(Shot shot, GridPane gird) {
-        Integer col = shot.getX().intValue();
-        Integer row = shot.getY().intValue();
+        Integer col = shot.getX();
+        Integer row = shot.getY();
         CaseDrawing.Type t;
         if(shot.getTouched()) {
             t = CaseDrawing.Type.TOUCHED;
@@ -168,7 +168,7 @@ public class GamePhaseController implements Initializable {
     protected void sunkABoat(GridPane gird, Boat boat) {
         for(Position position : boat.getListCases()) {
             CaseDrawing c = new CaseDrawing(CaseDrawing.Type.SUNK_BOAT);
-            gird.add(c, position.getX().intValue(), position.getY().intValue());
+            gird.add(c, position.getX(), position.getY());
         }
     }
 
@@ -179,7 +179,7 @@ public class GamePhaseController implements Initializable {
             for(Boat boat : boats) {
                 for(Position position : boat.getListCases()) {
                     CaseDrawing c = new CaseDrawing(CaseDrawing.Type.BOAT);
-                    myTable.add(c, position.getX().intValue(), position.getY().intValue());
+                    myTable.add(c, position.getX(), position.getY());
                 }
             }
         }
