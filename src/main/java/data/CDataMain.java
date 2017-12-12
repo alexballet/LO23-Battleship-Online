@@ -157,4 +157,13 @@ public class CDataMain implements IDataMain {
     public void gameToSpec(Game g, User spec){
         controller.updateSpecList(g, spec);
     }
+    
+    /**
+     * Get the list of connected users
+     * @return the list of connected users
+     */
+    @Override
+    public List<User> getListUsers() {
+        return controller.getListUsers();
+    }
 }
