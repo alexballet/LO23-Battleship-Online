@@ -297,8 +297,6 @@ public class GuiMainController implements GuiMainInterface {
 			waitingRoomController.setStage(stage);
 			stage.show();
 
-                        //DEBUG
-                        this.openPlacementPhase(game);
 
 			stage.setOnCloseRequest((WindowEvent event1) -> {
 				idata.removeGame(game);
