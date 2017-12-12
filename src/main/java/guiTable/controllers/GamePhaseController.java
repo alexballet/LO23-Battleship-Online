@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -29,7 +30,7 @@ import structData.Shot;
  *
  * @author corentinhembise
  */
-public class GamePhaseController implements Initializable {
+public class GamePhaseController extends BaseController implements Initializable  {
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -68,7 +69,8 @@ public class GamePhaseController implements Initializable {
     protected static final int NB_CASES_GRID = 10;
     
     @Override
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(URL location, ResourceBundle resources){        
+        
         selectedCase = new CaseDrawing(CaseDrawing.Type.SHOT);
 
         for (int i = 0 ; i < NB_CASES_GRID ; i++) {
@@ -80,6 +82,15 @@ public class GamePhaseController implements Initializable {
         }
         
         messageContainer.setVisible(false);
+    }
+    
+        /**
+    * fillChatSlot() allows external class to fill the chatPane and get the ChatController
+    * @param chatFxmlUrl
+    * @return chatController
+    */        
+    public void fillChatSlot(String chatFxmlUrl){
+        fillElement(chatPane, chatFxmlUrl );
     }
     
     protected EventHandler<MouseEvent> onClickCase() {

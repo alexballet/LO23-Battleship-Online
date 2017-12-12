@@ -6,7 +6,6 @@
 
 package guiTable.controllers;
 
-
 import guiTable.BoatDrawing;
 import java.net.URL;
 import java.time.LocalTime;
@@ -55,8 +54,6 @@ public abstract class PlacementPhaseController extends BaseController implements
     private Button valider;
     @FXML
     private AnchorPane chatPane;
-    @FXML
-    private AnchorPane profilePane;    
     @FXML
     private Text messageContainer;
         
@@ -117,15 +114,6 @@ public abstract class PlacementPhaseController extends BaseController implements
      */
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        
-        FXMLLoader loader;
-//        loader = fillElement(chatPane, "/fxml/IhmTable/chat.fxml" );
-//        ChatController chatController = loader.getController();
-//        chatController.init();
-
-        loader = fillElement(profilePane, "/fxml/IhmTable/profile.fxml" );
-        ProfileController profileController = loader.getController();
-        profileController.init();
         
         boatMap = new HashMap<>();
         // Initializes the boat set

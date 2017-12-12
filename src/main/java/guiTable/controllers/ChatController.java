@@ -37,7 +37,7 @@ public class ChatController {
         {
             
             //send the message to other users
-            dataController.textMessage(message);
+            //dataController.textMessage(message);
             
             //add this to the conversation
             currentConversation = conversation.getText();

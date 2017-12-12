@@ -100,6 +100,8 @@ public class GuiTableController implements GuiTableInterface {
             Scene scene = new Scene(rootLayout);
             mainStage.setScene(scene);
             mainStage.show();
+            
+            gamePhaseController.fillChatSlot(chatFxmlURL);
         } catch(IOException e) {
             System.err.println("ERROR : "+e.getMessage());
         }
