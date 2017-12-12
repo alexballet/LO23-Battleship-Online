@@ -13,9 +13,10 @@ import java.net.Socket;
 import java.text.DateFormat;
 import java.util.Date;
 
-/**
- * Created by xzirva on 17/10/17.
- * TODO: To be completed
+/** TODO: To be completed
+ * Extends Thread class.
+ * Unique class instance being in charge of network message reception. Allows the data transmissions between users via
+ * server socket, the local user is receiving network messages sent by a distant user.
  */
 public class NetworkListener extends Thread {
 
@@ -27,15 +28,29 @@ public class NetworkListener extends Thread {
     private NetworkController networkController;
     private static String name = "Client-";
     private static int count = 0;
+
+    /** TODO:
+     * Class constructor.
+     * @param server
+     * @param socket
+     */
     NetworkListener(NetworkServer server, ServerSocket socket) {
         this.server = server;
         this.serverSocket = socket;
     }
 
+    /**
+     * Method to set
+     * @param newValue
+     */
     public void setIsRunning (boolean newValue) {
         isRunning = newValue;
     }
 
+    /**
+     * Method to open a new thread/server socket with a distant user in order to transmit message from the former to
+     * the local user.
+     */
     @Override
     public void run() {
         setIsRunning(true);
@@ -80,10 +95,18 @@ public class NetworkListener extends Thread {
     }
 
 
+    /** TODO:
+     * Getter.
+     * @return the IP address of ...
+     */
     public InetAddress getServerSocketIPAddress() {
         return serverSocket.getInetAddress();
     }
 
+    /** TODO:
+     * Method to close a server socket previously created.
+     * @throws IOException
+     */
     public void closeSocket() throws IOException {
         try {
             this.isRunning = false;
@@ -94,6 +117,11 @@ public class NetworkListener extends Thread {
         }
     }
 
+    /** TODO:
+     * Method to read a network message received by the local user.
+     * @return the read Message.
+     * @throws IOException
+     */
     //Read data:  byte --> string
     private Message read() throws IOException{
         try {
@@ -105,6 +133,10 @@ public class NetworkListener extends Thread {
         return null;
     }
 
+    /**
+     * Method to set the dataInterface member, which is the interface with Data.
+     * @param IData interface with Data to be set.
+     */
     public void setDataInterface(IDataCom IData) {
         dataInterface = IData;
     }

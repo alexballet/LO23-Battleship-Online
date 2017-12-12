@@ -11,6 +11,10 @@ import java.util.Date;
 
 //  {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
 
+/** TODO:
+ * Extends Thread class.
+ * 
+ */
 public class NetworkSender extends Thread{
 
     private InetAddress host;
