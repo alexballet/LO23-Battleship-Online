@@ -13,6 +13,7 @@ import java.util.ListIterator;
  * Boat is the class which represents a ship of a player.
  */
 public class Boat implements Serializable{
+    static final long serialVersionUID = 1L;
     private BoatType type;
     private Boolean status;
     private List<Position> listCases;
@@ -20,7 +21,7 @@ public class Boat implements Serializable{
     
     /**
      * constructor by default
-     * staus = false means that the boat isn't sunk
+     * status = false means that the boat isn't sunk
      */
     public Boat(){
         type = BoatType.PORTEAVIONS;
@@ -28,6 +29,7 @@ public class Boat implements Serializable{
         this.listCases = new ArrayList();
     }
     
+
 
     /**
      * constructor with parameters
@@ -41,26 +43,25 @@ public class Boat implements Serializable{
         listCases = listCasesdata;
     }
     
-    //accessors
     /**
-     * 
-     * @return the type of the current boat
+     * Accessor for the type
+     * @return the boat's type
      */
     public BoatType getType(){
         return type;
     }
     
     /**
-     * 
-     * @return the status of the current boat
+     * Accessor for the status
+     * @return the boat's status
      */
     public Boolean getStatus(){
         return status;
     }
     
     /**
-     * 
-     * @return the list of positions of the current boat
+     * Accessor for the List of cases
+     * @return the boat's list of cases
      */
     public List<Position> getListCases(){
         return listCases;
@@ -76,27 +77,26 @@ public class Boat implements Serializable{
     }
     
     /**
-     * 
-     * @param statusdata : the new value of the status of the boat
+     * Mutator for the boat's status
+     * @param statusdata : the new boat's status
      */
     public void setStatus(Boolean statusdata){
         this.status = statusdata;
     }
     
     /**
-     * 
-     * @param listCasesdata : the new value of the list of the positions of the boat
+     * Mutator for the boat's list of positions
+     * @param listCasesdata : the new list of posiitons
      */
-    public void setListCases(List<Position> listCasesdata){
+    public void setListcases(List<Position> listCasesdata){
         this.listCases = listCasesdata;
     }
     
     
-    //clone
     /**
-     * 
-     * @param boatclone : the boat to be cloned
-     * @return : the new cloned boat
+     * Clone method for a boat
+     * @param boatclone : boat to clone
+     * @return a clone of the boat
      */
     public Boat cloneBoat(Boat boatclone){
         type = boatclone.type;
@@ -105,20 +105,18 @@ public class Boat implements Serializable{
         return this;
    }
     
-    
     /**
-     * add a position to listCases
-     * @param pos : the position to be added in the list
+     * Add a position to listCases
+     * @param pos: position to add
      */
     public void addPosition (Position pos){
         listCases.add(pos);
     }
     
-    
     /**
-     * verify if a position belong to a boat
-     * @param pos : the position to be verified
-     * @return : the boolean variable indicating if the position belongs to the current boat
+     * Verify if a position belongs to a boat
+     * @param pos : position to check
+     * @return a boolean set to true if the position belongs to a boat
      */
     public Boolean verifyPosition (Position pos){
         Boolean isbelonged;
@@ -140,7 +138,7 @@ public class Boat implements Serializable{
     
     
     /**
-     * if the position belongs to the boat, set this positon touched
+     * If the position belongs to the boat, set this positon touched
      * @param pos : the position to be verified
      */
     public void setTouchedPosition (Position pos){

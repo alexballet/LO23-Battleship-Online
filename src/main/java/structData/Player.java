@@ -13,6 +13,7 @@ import java.util.List;
  * @author loulou
  */
 public class Player implements Serializable{
+    static final long serialVersionUID = 5L;
     private Profile profile;
     private List<Boat> listBoats;
     private HashSet<Shot> listShots;
@@ -27,6 +28,17 @@ public class Player implements Serializable{
         listShots = new HashSet();
     }
     
+    /**
+     * 
+     * @param dUser : the parent class DataUser of the profil of the new player
+     */
+    public Player(Profile p) {
+        profile = p;
+        listBoats = new ArrayList();
+        listShots = new HashSet();
+    }
+    
+    /*constructor with parameters*/
     /**
      * Constructor with parameters
      * @param p : the profile of the new player
@@ -116,6 +128,16 @@ public class Player implements Serializable{
     
     public void addShot (Shot newShot){
         listShots.add(newShot);
+    }
+    
+    /**
+     * Function to compare a profile with the current player's profile
+     * @param p profile to compare with the current player's profile
+     * @return a boolean wich is true if profiles are equals
+     */
+    public Boolean compareProfileToPlayer(Profile p){
+        Boolean isEqual = this.profile.idUser.equals(p.idUser); 
+        return isEqual;
     }
    
 }

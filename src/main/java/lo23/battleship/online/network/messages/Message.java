@@ -1,6 +1,5 @@
 package lo23.battleship.online.network.messages;
 
-import interfacesData.IDataCom;
 
 import java.io.Serializable;
 import java.net.InetAddress;
@@ -8,13 +7,22 @@ import interfacesData.IDataCom;
 
 
 /**
- * Created by xzirva on 31/10/17.
+ * Abstract network class, implements Serializable.
  */
 public abstract class Message implements Serializable {
 
     String type;
+
+    /**
+     * Abstract getter method, once implemented it returns the message type.
+     */
     public abstract String getType();
-    public abstract void process(IDataCom IData);
+
+    /**
+     * Abstract method, interacts with Data once implemented.
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
+     */
     public abstract void process(IDataCom IData, InetAddress senderAddress);
 }
 

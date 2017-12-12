@@ -8,7 +8,7 @@ package data;
 import guiMain.GuiMainInterface;
 import guiTable.GuiTableInterface;
 import interfacesData.IDataCom;
-import java.util.List;
+
 import java.util.Set;
 import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
@@ -27,7 +27,7 @@ import java.util.Iterator;
  */
 public class CDataCom implements IDataCom {
     
-    private DataController controller;
+    private final DataController controller;
     
     private GuiMainInterface interfaceMain;
     private GuiTableInterface interfaceTable;
@@ -50,7 +50,7 @@ public class CDataCom implements IDataCom {
         interfaceCom = c;
     }
 
-    //@Override
+    
     public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -59,14 +59,14 @@ public class CDataCom implements IDataCom {
     * Returns the current Game
     * @return the current Game
     */    
-    @Override
+    
     public Game getCreatedGame() {
         Game g = controller.getLocalGame();
         return g;
     }
 
  
-    @Override
+    
     public void setGameJoinResponse(Boolean ok, Player player1, Player player2) {
        interfaceMain.setGameJoinResponse(true);
        controller.updateGameData(true, player1, player2);
@@ -76,7 +76,7 @@ public class CDataCom implements IDataCom {
      * The distance user has refused the request to join the game 
      * @param no : Refuse of the request to join the game
      */
-    @Override
+    
     public void setGameJoinResponse(Boolean no){
         interfaceMain.setGameJoinResponse(false);
     }
@@ -85,7 +85,7 @@ public class CDataCom implements IDataCom {
     * After an user has connected, this user will be added to the list of user
     * @param u : The new user
     */
-    @Override
+    
     public void addUserToUserList(User u) {
         controller.addUserToList(u);
         interfaceMain.addUser(u);
@@ -95,7 +95,7 @@ public class CDataCom implements IDataCom {
      * Sends the profile of a distant user to the local user 
      * @param profile : the profile of distant user
      */
-    @Override
+    
     public void sendStatistics(Profile profile) {
         interfaceMain.sendStatistics(profile);
     }
@@ -107,26 +107,33 @@ public class CDataCom implements IDataCom {
     * @return 1 if the parameter game is an avaiable game and add the player 
     * to this game, 0 if not
     */
-    @Override
-    public void notifToJoinGame(User sender, Game g) {
+    
+    public void notifToJoinGame(Profile sender, Game g) {
         Boolean isOk = false;
         for (Game ga: controller.getListGames()) {
-            if (ga.getIdGame() == g.getIdGame()) {
-                if (ga.getStatus() == StatusGame.WAITINGPLAYER){
+            if (ga.getIdGame().equals(g.getIdGame())) {
+                if (ga.getStatus().equals(StatusGame.WAITINGPLAYER)){
                     isOk = true;
+                    ga.setStatus(StatusGame.BOATPHASE);
+                    Player p = new Player(sender);
+                    ga.setPlayer2(p);
+                    interfaceCom.changeStatusGame(ga);
+                    g = ga;
                 }else{
                     isOk = false;           
                 }
             }
         }
+        System.out.println("CDataCom isok " + isOk);
         interfaceCom.notifyJoinGameResponse(isOk, sender, g);
+        interfaceMain.openPlacementPhase(g);
     }
 
     /**
     * Adds the game given as a parameter to the list of games.
     * @param g : The new game
     */
-    @Override
+    
     public void addNewGameList(Game g) {
         controller.addGameToList(g);
         interfaceMain.addGame(g);
@@ -138,33 +145,36 @@ public class CDataCom implements IDataCom {
         
     }
 
-    @Override
+    
     public void errorPrint(String error) {
         //wait the method errorPrint in GuiTableInterface.java and GuiMainInterface.java
         //Interfacetable.errorPrint(error);
         //InterfaceMain.errorPrint(error);
     }
 
-    @Override
+    
     public void receiveMessage(ChatMessage message) {
         controller.getLocalGame().addMessage(message);
+        System.out.println("Message: " + message);
+        System.out.println("interfaceTable: " + interfaceTable);
         interfaceTable.addChatMessage(message);
     }
 
-    @Override
+    
     public void receiveReady() {
-                Boolean myTurn;
+
+        Boolean myTurn;
         Boolean p1Start = controller.getLocalGame().getPlayer1Start();
         Player localPlayer = controller.getLocalPlayer();
         Player p1 = controller.getLocalGame().getPlayer1();
         
-        if ( p1Start == true && p1 == localPlayer ){
+        if ( p1Start && p1.equals(localPlayer) ){
             myTurn = true;
         }
-        else if ( p1Start == true && p1 != localPlayer ){
+        else if ( p1Start && !p1.equals(localPlayer) ){
             myTurn = false;
         }
-        else if ( p1Start == false && p1 != localPlayer ){
+        else if ( p1Start && !p1.equals(localPlayer) ){
             myTurn = true;
         }
         else /*if ( p1Start == false && p1 == localPlayer )*/{
@@ -174,8 +184,9 @@ public class CDataCom implements IDataCom {
         interfaceTable.opponentReady(myTurn);
     }
 
-    @Override
-    public void coordinate(Shot s) {
+
+
+    public void coordinates(Shot s) {
         Boat b = controller.testShot(s);
         interfaceTable.displayOpponentShot(s, b);
         //interfaceCom.coordinates(s,b); TODO : décommenter quand la fonction sera crée chez COM
@@ -210,7 +221,7 @@ public class CDataCom implements IDataCom {
         }
     }
 
-    @Override
+    
     public void coordinates(Shot s, Boat b) {
         controller.getLocalPlayer().addShot(s);
         interfaceTable.displayMyShotResult(s, b);
@@ -220,7 +231,7 @@ public class CDataCom implements IDataCom {
      * Returns the local user's profile
      * @return the local user's profile
      */
-    @Override
+    
     public Profile getUserProfile() {
         Profile localProfile = controller.getLocalProfile();
         return localProfile;
@@ -230,17 +241,41 @@ public class CDataCom implements IDataCom {
      * Takes a game given as a parameter and updates his status
      * @param g : the game which status has been modified
      */
-    @Override
+    
     public void changeStatusGame(Game g) {
         Game localGame  = controller.getLocalGame();
-        controller.removeGameFromList(localGame);
+        if (localGame != null) controller.removeGameFromList(localGame);
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);
     }
+    
     public User getLocalUser(){
         return controller.getLocalUser();
     }
     
+    
+    public void setLocalGame(Game g){
+        controller.setLocalGame(g);
+        interfaceMain.openPlacementPhase(g);
+    }
+    
+    
+    public void removeUser(User u){
+        controller.removeUserFromList(u);
+        interfaceMain.removeUser(u);
+    }
+    
+    
+    public void removeGame(Game g){
+        controller.removeGameFromList(g);
+        interfaceMain.removeGame(g);
+    }
+
+	
+	public void coordinate(Position p, Shot s, Boat b) {
+		// TODO Auto-generated method stub
+		
+	}
     /**
       * Notification that you won, update stats and display win
       */

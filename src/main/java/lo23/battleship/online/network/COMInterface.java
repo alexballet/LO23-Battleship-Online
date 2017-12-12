@@ -2,9 +2,6 @@ package lo23.battleship.online.network;
 
 import structData.*;
 
-import javax.xml.crypto.Data;
-import java.net.InetAddress;
-import java.util.ArrayList;
 
 /**
  * Data interface
@@ -18,15 +15,15 @@ public interface COMInterface {
      * @param user player who is notify
      * @return true= message sent, false= message not sent
      * */
-    public boolean notifyReady(User user);
+    public boolean notifyReady(User user, Player playerToNotify);
 
     /**
      * Send a chat message
-     * @param message message send
+     * @param chatMessage message send
      * @param g : game related to the message
      * @return true= message sent, false= message not sent
      */
-    public boolean sendChatMessage(String message, Game g);
+    public boolean sendChatMessage(ChatMessage chatMessage, Game g);
 
     /**
      * allow to view an user profile
@@ -55,17 +52,17 @@ public interface COMInterface {
      * @param g Game <code>user</code> wants to join
      * @return true= message sent, false= message not sent
      */
-    public boolean joinGame(User user, Game g);
+    public boolean joinGame(Game g);
 
     /**
      * allow an user to join a game
      * @param isOk access to <code>game</code> true=access granted false= access denied
 
-     * @param user who created the game and send the response to the join request
+     * @param user who asked to join the game
      * @param g Game <code>user</code> joined if isOk
      * @return true= message sent, false= message not sent
      */
-    public boolean notifyJoinGameResponse(Boolean isOk, User user, Game g);
+    public boolean notifyJoinGameResponse(Boolean isOk, Profile user, Game g);
 
     /**
      * allow an user to be disconnected to the network
@@ -83,11 +80,40 @@ public interface COMInterface {
      */
     public boolean sendShot(Player player, Game g, Shot shot);
 
+
+    /**
+     * send a shot result to a player on the right game
+     * @param game where the ships are
+     * @param resultShot result of the shot
+     * @return true= message sent, false= message not sent
+     */
+    public boolean coordinates(Player destPlayer, Shot resultShot, Game game);
+
+    /**
+     * send a shot result to a player on the right game
+     * @param game where the ships are
+     * @param resultShot result of the shot
+     * @param boat optional
+     * @return true= message sent, false= message not sent
+     */
+    public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat);
+
     /**
      * search for players who are connected
      * @param user User that is connecting
-     * @return list of all users who are connected
+     * @return void
      */
     public void searchForPlayers();
 
+    /**
+     * notifies every user to remove the game from their list
+     * @param game Game to delete
+     */
+    public void removeGame(Game game);
+
+    /**
+     * notifies every user to remove the game from their list
+     * @param game Game to delete
+     */
+    public void notifyGameWon(Player player);
 }

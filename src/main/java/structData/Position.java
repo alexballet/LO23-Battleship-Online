@@ -10,6 +10,7 @@ import java.io.Serializable;
  * Position is a class of a position in a table.
  */
 public class Position implements Serializable{
+    static final long serialVersionUID = 6L;
     protected Byte x;
     protected Byte y;
     protected Boolean touched;

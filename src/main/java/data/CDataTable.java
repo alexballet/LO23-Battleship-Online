@@ -5,11 +5,9 @@
  */
 package data;
 
-import guiTable.GuiTableInterface;
 import interfacesData.IDataTable;
 import java.util.Date;
 import java.util.List;
-import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.Position;
@@ -55,7 +53,7 @@ public class CDataTable implements IDataTable {
     public void textMessage(String message) {
         ChatMessage cm = new ChatMessage(controller.getLocalUser(),message,new Date());
         Game g = controller.getLocalGame();
-        //interfaceCom.sendChatMessage(cm, g); décommenter à l'integ
+        interfaceCom.sendChatMessage(cm, g); //décommenter à l'integ
     }
 
     @Override
@@ -67,13 +65,13 @@ public class CDataTable implements IDataTable {
     @Override
     public void coordinateShips(List<Boat> listBoat) {
         controller.getLocalPlayer().setListBoats(listBoat);
-        // notifyready was modified by Com : it will be OK once integrated
-        if (controller.getLocalGame().getPlayer1().equals(controller.getLocalPlayer())){
+        //TODO : uncomment when integV3 done
+        if(controller.getLocalUser().getIdUser().equals(
+                controller.getLocalGame().getPlayer1().getProfile().getIdUser()))
+                    interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
+        else
             interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer1());
-        }else{ 
-            interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
-        };
-        
+
     }
     
     @Override

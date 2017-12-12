@@ -8,7 +8,6 @@ package data;
 import interfacesData.IDataMain;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Date;
 import lo23.battleship.online.network.COMInterface;
 import structData.ContactGroup;
@@ -16,7 +15,7 @@ import structData.Game;
 import structData.User;
 import structData.DataUser;
 import structData.Profile;
-import javax.swing.ImageIcon;
+import structData.Player;
 import java.util.HashSet;
 import java.util.List;
 
@@ -61,18 +60,24 @@ public class CDataMain implements IDataMain {
         DataUser newDataUser = new DataUser(newUser,password,contactList);
         
         Profile newProfile = new Profile(newDataUser,avatar,lastname,firstname,birthDate);
-     
-        controller.setLocalUser(newUser);
-        controller.addUserToList(newUser);
-        controller.setLocalUser(newUser);
-        controller.setLocalDataUser(newDataUser);
-        controller.setLocalProfile(newProfile);
-        controller.addUserToList(newUser);
+        newProfile.saveProfile();
+        
+        // controller.setLocalUser(newUser);
+        // controller.setLocalDataUser(newDataUser);
+        // controller.setLocalProfile(newProfile);
     }
 
     @Override
     public void getStatistics(Profile p) {
         //demander à l'interface de la com
+    }
+    
+    /*
+     * 
+     */
+    @Override
+    public Profile getLocalProfile() {
+    		return controller.getLocalProfile();
     }
     
     /**
@@ -82,33 +87,66 @@ public class CDataMain implements IDataMain {
     @Override
     public void notifGameChosen(Game g) {
         User u = controller.getLocalUser();
-        interfaceCom.joinGame(u, g);    
+        interfaceCom.joinGame(g);
     }
 
     @Override
     public void askDisconnection() {
         interfaceCom.askDisconnection();
+        controller = new DataController();
     }
 
     @Override
-    public void connection() throws UnknownHostException {
-        User u = new User("Xzirva", "Xzirva");
-        ArrayList<InetAddress> IPs = new ArrayList<InetAddress>();
-        //IPs.add(InetAddress.getByName("192.168.1.37"));
-        //u.setIPs(IPs);
-        controller.setLocalUser(u);
-        interfaceCom.searchForPlayers(); //TODO : choisir entre HASHSET et ARRAYLIST pour le stockage des IP
+    public Boolean connection(String login, String password) throws UnknownHostException {
+        Boolean result = false;
+        controller.reloadSavedProfile(login, password);
+        if(controller.getLocalProfile() != null){
+            Player p = new Player(controller.getLocalProfile());
+            controller.setLocalPlayer(p);
+            interfaceCom.searchForPlayers();
+            result = true;
+        }
+        return result;
     }
 
     /**
      * Adds a new game to the list of games
-     * @param g game to add
      */
     @Override
-    public void newGame(Game g) {
+    public Game newGame(Boolean newClassicType, String newName, 
+            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newSpectator, Boolean newSpectatorChat) {
+    		
+        Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newSpectator, newSpectatorChat, controller.getLocalProfile());
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
+        controller.setLocalGame(g);
+        return g;
     }
+    
+    public void removeGame(Game g){
+        interfaceCom.removeGame(g);
+    }
+
+    public List<Game> getGames() {
+        return controller.getListGames();
+    }
+
+    public void setLocalGame(Game g){
+        controller.setLocalGame(g);
+    }
+    
+     public void getProfile(User u){
+         interfaceCom.getProfile(u);
+     }
+     
+     public void setListIps(HashSet Ips){
+         controller.getLocalProfile().setIPs(Ips);
+         System.out.println("Test------------" + controller.getLocalUser().getIPs());
+         interfaceCom.searchForPlayers();
+         controller.getLocalProfile().saveProfile();
+     }
+
     
     /**
      * Add a spectator in the game

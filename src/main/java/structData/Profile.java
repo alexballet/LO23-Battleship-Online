@@ -51,7 +51,9 @@ public class Profile extends DataUser {
     public Profile(DataUser dUser, String pathToImage, String newLastname, 
             String newName, Date newBirthdate){
         super(dUser);
-        avatar = new ImageIcon(pathToImage);
+        if (pathToImage != null && !pathToImage.trim().isEmpty()) {
+            avatar = new ImageIcon(pathToImage);
+        }
         lastname = new String(newLastname);
         name = new String(newName);
         // (Date) newBirthdate.clone() if newbirthdate belongs to an other object
@@ -135,6 +137,7 @@ public class Profile extends DataUser {
     
     /**
      * Accessor for the image from avatar
+     * @return 
      * @return an avatar as an image
      */
     public Image getImage(){
@@ -246,8 +249,8 @@ public class Profile extends DataUser {
      * Save profile in a local file
      */
     public void saveProfile(){
-        String filename = idUser.toString();
-        filename.concat(".ser");
+        String filename = Integer.toString(idUser.hashCode());
+        filename = filename.concat(".ser");
         String FILE_NAME = filename;
         try {
          FileOutputStream fs = new FileOutputStream(FILE_NAME);
@@ -259,4 +262,18 @@ public class Profile extends DataUser {
       }
     }
     
+    /**
+     * Mutator for gamesWon
+     * @param nb the number of games won as an integer
+     */
+    public void setGamesWon(int nb){
+        this.gamesWon = nb;
+    }
+    /**
+     * Accessor for gamesWon
+     * @return the number of games won as an integer
+     */
+    public int getGamesWon(){
+        return this.gamesWon;
+    }    
 }

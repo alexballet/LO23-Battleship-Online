@@ -1,36 +1,46 @@
 package lo23.battleship.online.network.messages;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import structData.Game;
 import interfacesData.IDataCom;
-import structData.User;
 
 import java.net.InetAddress;
 
 /**
- * CreatedGameNotification,descendant class Message, create a game notification and send the new game to data
- * @author Lejeune Lola
+ * Network message class, extends Message class.
+ * Message notifying Data a new game has been created by the sender.
  */
-
 public class CreatedGameNotificationMessage extends Message{
-    User user;
     Game game;
 
-    public CreatedGameNotificationMessage(User sender, Game gameCreated) {
-        this.game = gameCreated;
-        this.user = sender;
-        this.type = "CreatedGameNotification";}
+    /**
+     * Class constructor.
+     * @param gameCreated game created by the sender. The receiver will be able to fill its displayed game list.
+     */
+    public CreatedGameNotificationMessage(Game gameCreated) {
 
+        this.game = gameCreated;
+        this.type = "CreatedGameNotificationMessage";
+    }
+
+    /**
+     * Message type getter. Implementation of an abstract method.
+     * @return type, this is the message type.
+     */
     public String getType() {
         return type;
     }
 
-    public void process(IDataCom IData){
-        System.out.println("Game received" + game.getName() + " from " + user.getLogin());
+    /**
+     * Unused method for this class.
+     * @param IData interface with Data.
+     * @param senderAddress sender IP address.
+     */
+    public void process(IDataCom IData, InetAddress senderAddress){
+
+        System.out.println("Game received " + game.getName() + " from " + game.getPlayer1().getProfile().getLogin());
         IData.addNewGameList(game);
     }
 
-    public void process(IDataCom IData, InetAddress senderAddress){}
 
 }
 

@@ -2,34 +2,44 @@ package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
 import structData.Game;
-import structData.User;
+import structData.Profile;
 import java.net.InetAddress;
 
 /**
- * JoinGameRequest,descendant class Message, received a game request and send to data.
- * @author Lejeune Lola
+ * Network message class, extends Message class.
+ * Message sent when the local player wants to join a distant game displayed in the HMI games list.
  */
-
 public class JoinGameRequestMessage extends Message{
 
-    User sender;
+    Profile sender;
     Game game;
 
-    public JoinGameRequestMessage(User senderGame, Game gameSend){
+    /**
+     * Class constructor.
+     * @param senderGame is the User class of the local player who wants to join the game.
+     * @param gameSend is the Game class that the local player wants to join.
+     */
+    public JoinGameRequestMessage(Profile senderGame, Game gameSend){
         this.sender = senderGame;
         this.game = gameSend;
-        this.type = "JoinGameRequest";}
+        this.type = "JoinGameRequestMessage";}
 
+    /**
+     * Message type getter. Implementation of an abstract method.
+     * @return type, this is the message type.
+     */
     public String getType() {
         return type;
     }
 
-    public void process(IDataCom IData){
-        }
-
+    /**
+     * Method notifying Data the local player wants to join the game.
+     * @param IData interface with Data.
+     */
     public void process(IDataCom IData, InetAddress senderAddress){
         IData.notifToJoinGame(sender, game);
     }
+
 
 
 

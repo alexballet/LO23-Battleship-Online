@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.Controller.connectionController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.Controller.connectionController">
    <children>
       <BorderPane layoutX="248.0" layoutY="68.0" prefHeight="617.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -39,7 +39,7 @@
             </Pane>
          </top>
          <center>
-            <GridPane BorderPane.alignment="CENTER">
+            <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.0" minWidth="10.0" prefWidth="187.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="293.0" />
@@ -51,14 +51,13 @@
               </rowConstraints>
                <children>
                   <Label prefHeight="17.0" prefWidth="225.0" text="Identifiant" />
-                  <Label text="Mot de passe" GridPane.rowIndex="1" />
-                  <Button fx:id="okButton" mnemonicParsing="false" onAction="#okAction" prefHeight="25.0" prefWidth="89.0" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="loginTextField" GridPane.columnIndex="1" />
+                  <Label text="Mot de passe" GridPane.rowIndex="1" />
                   <TextField fx:id="pwdTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="okButton" mnemonicParsing="false" onAction="#okAction" prefHeight="25.0" prefWidth="89.0" text="OK" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </center>
       </BorderPane>
-      <Pane layoutX="-217.0" layoutY="-47.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>
