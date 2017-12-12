@@ -27,9 +27,7 @@ public class NotifyReadyMessage extends Message {
         return type;
     }
 
-    public void process(IDataCom IData) {
+    public void process(IDataCom IData, InetAddress senderAddress) {
         IData.receiveReady();
     }
-
-    public void process(IDataCom IData, InetAddress senderAddress) {}
 }

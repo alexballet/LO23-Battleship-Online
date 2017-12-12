@@ -168,11 +168,22 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
 
-    public void notifyGameWon(Player player) {
+    public void notifyGameWon() {
 
-        GameWonMessage gameWonMessage = new GameWonMessage(player);
+        Player winner = null;
+        Game game = dataInterface.getCreatedGame();
+        if(dataInterface.getUserProfile().getIdUser().equals(
+                game.getPlayer1().getProfile().getIdUser())) {
+            winner = game.getPlayer2();
+        }
+        else {
+            winner = game.getPlayer1();
+        }
 
-        controller.sendMessage(gameWonMessage, controller.getAddressForUser(player.getProfile()));
+
+        GameWonMessage gameWonMessage = new GameWonMessage(winner);
+
+        controller.sendMessage(gameWonMessage, controller.getAddressForUser(winner.getProfile()));
 
     }
 

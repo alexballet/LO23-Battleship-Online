@@ -24,12 +24,8 @@ public class GameWonMessage extends Message{
         return type;
     }
 
-    public void process(IDataCom IData){
-        // TO DO decommenter quand méthode sera ajoutée par data
-        //IData.notifiedGameWon(player);
-    }
-
     public void process(IDataCom IData, InetAddress senderAddress){
+        //IData.notifiedGameWon();
     }
 
 

@@ -31,12 +31,6 @@ public class GetProfileRequestMessage extends Message {
     }
 
     /**
-     * Unused method for this class.
-     * @param IData interface with Data.
-     */
-    public void process(IDataCom IData){ }
-
-    /**
      * Method requesting the profile from Data.
      * @param IData interface with Data.
      * @param senderAddress sender IP address.
