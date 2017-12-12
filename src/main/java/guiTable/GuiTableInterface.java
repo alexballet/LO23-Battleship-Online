@@ -15,8 +15,8 @@ public interface GuiTableInterface {
     
     /**
      * Displays the window where the player will place their ships.
-     * @param currentStage
-     * @param classic 
+     * @param currentStage current stage to be replaced
+     * @param classic specify if it is a classic or belgian game
      * @param placementTime : Time limitation for placement phase, if null, no time limtation
      * @throws Exception 
      */
@@ -24,7 +24,7 @@ public interface GuiTableInterface {
     
     /**
      * Notifies the IHM Table that the opponent is ready so that it can adapt its views.
-     * @param myTurn
+     * @param myTurn specify if it is the local player turn
      * @param roundTime : Time limitation for each round game, if null, no time round limitation
      */
     public void opponentReady(Boolean myTurn, Integer roundTime);
@@ -33,7 +33,7 @@ public interface GuiTableInterface {
      * Notifies the IHM Table that the opponent is ready so that it can adapt its views.
      * Without round time limitation
      * This method exist to avoid BC compatibilities
-     * @param myTurn
+     * @param myTurn specify if it is the local player turn
      */
     public void opponentReady(Boolean myTurn);
     
@@ -74,7 +74,6 @@ public interface GuiTableInterface {
 
     /**
      * Displays an error or notification message in main window.
-     * @param messageType : Error type to show
      * @param message : Error message to show.
      */
     //public void displayMessage(MessageType messageType, String message);
