@@ -5,12 +5,18 @@
  */
 package data;
 
+import guiTable.GuiTableInterface;
 import interfacesData.IDataTable;
 import java.util.Date;
 import java.util.List;
+import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.Position;
+import structData.Game;
+import lo23.battleship.online.network.COMInterface;
+import guiMain.GuiMainInterface;
+import structData.Shot;
 
 /**
  *
@@ -20,9 +26,16 @@ public class CDataTable implements IDataTable {
     
     private DataController controller;
     
+    private GuiMainInterface interfaceMain;
+    private COMInterface interfaceCom;
+    
     public CDataTable(DataController dc){
         super();
         controller = dc;
+    }
+    
+    public void setInterfaceCom(COMInterface c){
+        interfaceCom = c;
     }
 
     @Override
@@ -31,23 +44,22 @@ public class CDataTable implements IDataTable {
     }
 
     @Override
-    public void textMessage(ChatMessage message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void textMessage(String content, Date time) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void textMessage(String message) {
+        ChatMessage cm = new ChatMessage(controller.getLocalUser(),message,new Date());
+        Game g = controller.getLocalGame();
+        //interfaceCom.sendChatMessage(cm, g); décommenter à l'integ
     }
 
     @Override
     public void coordinate(Position pos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Shot s = new Shot(pos);
+        interfaceCom.sendShot(controller.getLocalPlayer(), controller.getLocalGame(), s);
     }
 
     @Override
     public void coordinateShips(List<Boat> listBoat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        controller.getLocalPlayer().setListBoats(listBoat);
+        interfaceCom.notifyReady(controller.getLocalUser());
     }
     
 }

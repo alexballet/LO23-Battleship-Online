@@ -24,15 +24,9 @@ public interface IDataTable {
     * Add the message to the chat in the current game.
     * @param message : The main part of message that the player wants to send.
     */
-    public void textMessage(ChatMessage message);
+    public void textMessage(String message);
 
-    /**
-    * Returns a message after the creation of chat in the game.
-    * @param content : The string (some characters) of message before 
-    * players send a main part.
-    * @param time : The moment when the player sends the message.
-    */
-    public void textMessage(String content, Date time);
+
 
     /**
      * Point out the position of shot.

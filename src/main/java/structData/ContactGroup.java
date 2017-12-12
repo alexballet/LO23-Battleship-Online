@@ -16,6 +16,9 @@ public class ContactGroup implements Serializable{
     private int rights;
     private String name;
     
+    /**
+     * Constructor by default
+     */
     public ContactGroup() {
         listUsers = new ArrayList();
         rights = 0;

@@ -7,9 +7,6 @@ package structData;
 
 import java.util.Date;
 import java.awt.Image;
-import java.util.HashSet;
-import java.util.UUID;
-import java.awt.Image;
 import javax.swing.ImageIcon;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -54,7 +51,9 @@ public class Profile extends DataUser {
     public Profile(DataUser dUser, String pathToImage, String newLastname, 
             String newName, Date newBirthdate){
         super(dUser);
-        avatar = new ImageIcon(pathToImage);
+        if (pathToImage != null && !pathToImage.trim().isEmpty()) {
+            avatar = new ImageIcon(pathToImage);
+        }
         lastname = new String(newLastname);
         name = new String(newName);
         // (Date) newBirthdate.clone() if newbirthdate belongs to an other object
@@ -233,7 +232,9 @@ public class Profile extends DataUser {
      * Save profile in a local file
      */
     public void saveProfile(){
-        String FILE_NAME = "profile.ser";
+        String filename = Integer.toString(idUser.hashCode());
+        filename = filename.concat(".ser");
+        String FILE_NAME = filename;
         try {
          FileOutputStream fs = new FileOutputStream(FILE_NAME);
          ObjectOutputStream os = new ObjectOutputStream(fs);

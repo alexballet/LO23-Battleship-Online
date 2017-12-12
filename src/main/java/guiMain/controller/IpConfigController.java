@@ -47,8 +47,8 @@ public class IpConfigController {
 		ObservableList<String> ipsObservable = FXCollections.observableArrayList(new ArrayList<String>());
 		if (mainController.getIps() != null)
 			ipsObservable.setAll(mainController.getIps());
-		ipsListView.setItems(ipsObservable);
-		ipsListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() { 
+			ipsListView.setItems(ipsObservable);
+			ipsListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() { 
 			  
 		   @Override 
 		    public ListCell<String> call(ListView<String> lv) { 

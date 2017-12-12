@@ -98,11 +98,11 @@
                            </padding>
                         </Label>
                         <TextField fx:id="idTextField" prefHeight="25.0" prefWidth="126.0" GridPane.columnIndex="1" />
-                        <TextField fx:id="usernameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="lastNameTextField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <TextField fx:id="firstNameTextField" GridPane.columnIndex="3" />
-                        <DatePicker fx:id="birthDatePicker" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                         <PasswordField fx:id="passwordTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="usernameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="firstNameTextField" GridPane.columnIndex="3" />
+                        <TextField fx:id="lastNameTextField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="birthDatePicker" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>

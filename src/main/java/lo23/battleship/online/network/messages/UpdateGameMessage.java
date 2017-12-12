@@ -15,16 +15,17 @@ public class UpdateGameMessage extends Message{
 
     public UpdateGameMessage(Game game){
         this.gameUpdate = game;
-        this.type = "UpdateGame";
+        this.type = "UpdateGameMessage";
     }
 
     public String getType() {
         return type;
     }
 
-    public void process(IDataCom IData){
+    public void process(IDataCom IData, InetAddress senderAddress) {
+        System.out.println("game: "+ gameUpdate);
         IData.changeStatusGame(gameUpdate);
        }
 
-    public void process(IDataCom IData, InetAddress senderAddress){}
+    {}
 }
