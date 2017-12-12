@@ -73,6 +73,9 @@ public class DataController {
     public void setInterfaceTable(GuiTableInterface i){
         interfaceTable = i;
         interfaceDataCom.setInterfaceTable(i);
+        /* ajout ihm-plateau débug   */
+        interfaceDataTable.setInterfaceTable(i);
+        /* ajout ihm-plateau débug   */
     }
     
     /**

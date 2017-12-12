@@ -7,6 +7,7 @@ package guiTable.controllers;
 
 import data.CDataTable;
 import guiTable.GuiTableInterface;
+import java.io.IOException;
 import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import structData.Boat;
 import structData.ChatMessage;
+import structData.Position;
 import structData.Shot;
 
 /**
@@ -22,12 +24,18 @@ import structData.Shot;
  */
 public class GuiTableController implements GuiTableInterface {
 
-    
     private AnchorPane rootLayout;
     private static GuiTableController INSTANCE = null;
+    
+    private Stage mainStage;
+    
+    private Boolean classic;
+    
+    private GamePhaseController gamePhaseController;
     private CDataTable dataController;
     private ChatController chatController;
     private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
+    private List<Boat> boats = null;
 
     /**
      * Private constructor for GuiTableController.
@@ -56,28 +64,45 @@ public class GuiTableController implements GuiTableInterface {
     */
     @Override
     public void displayPlacementPhase(Stage currentStage, Boolean classic, Integer placementTime) throws Exception {
+        this.mainStage = currentStage;
+        this.classic = classic;
+        
         FXMLLoader loader = new FXMLLoader();
         if(classic) {
             loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
         } else {
             loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
-        }        
-        rootLayout = (AnchorPane) loader.load(); 
+        }
+        rootLayout = (AnchorPane) loader.load();
+        Scene scene = new Scene(rootLayout);
+        mainStage.setTitle("Battleship-Online");
+        mainStage.setScene(scene);
+        mainStage.show();
         PlacementPhaseController controller = loader.getController();
         controller.setPlacementTime(placementTime);
 
         chatController = controller.fillChatSlot(chatFxmlURL);
         chatController.setDataController(dataController);
 
-        Scene scene = new Scene(rootLayout);
-        currentStage.setTitle("Battleship-Online");
-        currentStage.setScene(scene);
-        currentStage.show();        
     }
 
     @Override
     public void opponentReady(Boolean myTurn) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/IhmTable/GamePhase.fxml"));
+
+        try {
+            rootLayout = (AnchorPane) loader.load();
+            gamePhaseController = loader.<GamePhaseController>getController();
+            gamePhaseController.setMyTurn(myTurn);
+            gamePhaseController.setMyBoats(boats);
+        
+            Scene scene = new Scene(rootLayout);
+            mainStage.setScene(scene);
+            mainStage.show();
+        } catch(IOException e) {
+            System.err.println("ERROR : "+e.getMessage());
+        }
     }
 
     @Override
@@ -87,12 +112,12 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void displayVictory() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gamePhaseController.showVictory();
     }
 
     @Override
     public void displayDefeat() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gamePhaseController.showDefeat();
     }
 
     @Override
@@ -101,26 +126,43 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
+    public void displayMyShotResult(Shot myShotResult, Boat boat) {
+        gamePhaseController.addShot(myShotResult);
+        if (boat != null){
+            gamePhaseController.sunckBoat(boat);
+        }
+        gamePhaseController.setMyTurn(false);
+    }
+
+    @Override
+    public void displayOpponentShot(Shot opponentShot, Boat boat) {
+        gamePhaseController.addOpponentShot(opponentShot);
+        if (boat != null){
+            gamePhaseController.sunkMyBoat(boat);
+        }
+        gamePhaseController.setMyTurn(true);
+    }
+
+    @Override
     public void displayMessage(String message) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void displayOpponentShot(Shot opponentShot, structData.Boat boat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void displayMyShotResult(Shot myShotResult, structData.Boat boat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     @Override
     public void setDataController(CDataTable data) {
         this.dataController = data;
     }
     
     public void validateBoats(List<Boat> boats) {
+        this.boats = boats;
         dataController.coordinateShips(boats);
+    }
+    
+    public void validateShot(Position pos) {
+        dataController.coordinate(pos);
+    }
+    
+    public Boolean exitGame() {
+        return dataController.exit();
     }
 }
