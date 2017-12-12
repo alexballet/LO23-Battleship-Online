@@ -105,4 +105,8 @@ public interface IDataMain {
      * @param spec : spectator
      */
     void gameToSpec(Game g, User spec);
+    
+    public List<User> getListUsers();
+    
+   
 }

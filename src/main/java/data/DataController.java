@@ -270,6 +270,14 @@ public class DataController {
     }
     
     /**
+     * Get list of Users
+     * @return the list of users
+     */
+    public List<User> getListUsers(){
+        return listUsers;
+    }
+    
+    /**
      * Reload local profile previously saved given the login and password given
      * @param login : login written by User 
      * @param mdp : password written by User
