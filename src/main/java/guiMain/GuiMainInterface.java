@@ -42,7 +42,7 @@ public interface GuiMainInterface {
 	 */
 	public void setGameJoinResponse(boolean isOk);
         
-        public void openPlacementPhase(Game game);
+    public void openPlacementPhase(Game game);
 	
 	/**
 	  * Remove the game passed as a parameter to the list of users.
@@ -50,4 +50,8 @@ public interface GuiMainInterface {
 	  */
 	public void removeGame(Game game);
 	
+	/**
+	 * 
+	 */
+	public void openMenuWindow();
 }
