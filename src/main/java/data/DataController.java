@@ -330,8 +330,6 @@ public class DataController {
                     s.setTouched(true);
                     b = listBoat.get(i);
                 }
-                System.out.println("listBoat : " + listBoat);
-                System.out.println("myBoat : " + myBoat);
                 
                 if (myBoat.getListCases().get(j).getTouched() == false) // if atmost 1 position is not touched then the boat is not sunk
                     boatSunk = false;

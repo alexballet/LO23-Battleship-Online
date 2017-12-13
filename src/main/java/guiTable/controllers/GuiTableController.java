@@ -143,11 +143,17 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void displayOpponentShot(Shot opponentShot, Boat boat) {
-        gamePhaseController.addOpponentShot(opponentShot);
-        if (boat != null){
-            gamePhaseController.sunkMyBoat(boat);
-        }
-        gamePhaseController.setMyTurn(true);
+    		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+		        gamePhaseController.addOpponentShot(opponentShot);
+		        if (boat != null){
+		            gamePhaseController.sunkMyBoat(boat);
+		        }
+		        gamePhaseController.setMyTurn(true);
+			}
+		};
+		Platform.runLater(command);
     }
 
     @Override
