@@ -68,6 +68,7 @@ public class DataController {
     public void setInterfaceMain(GuiMainInterface i){
         interfaceMain = i;
         interfaceDataCom.setInterfaceMain(i);
+        interfaceDataTable.setInterfaceMain(i);
     }
         
     public void setInterfaceTable(GuiTableInterface i){

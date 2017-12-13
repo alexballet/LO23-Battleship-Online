@@ -50,6 +50,9 @@ public class CDataTable implements IDataTable {
         interfaceCom = c;
     }
 
+    public void setInterfaceMain(GuiMainInterface m) {
+        interfaceMain = m;
+    }
     @Override
     public Boolean exit() {
         //Boolean b = interfaceCom.exit(); Com doit s'occuper la fonction exit
