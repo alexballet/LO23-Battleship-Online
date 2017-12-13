@@ -25,7 +25,7 @@ public class GameWonMessage extends Message{
     }
 
     public void process(IDataCom IData, InetAddress senderAddress){
-        //IData.notifiedGameWon();
+        IData.notifiedGameWon();
     }
 
 
