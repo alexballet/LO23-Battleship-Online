@@ -349,4 +349,14 @@ public class DataController {
     public void setListGame(List<Game> g){
         listGames = g;
     }
+    
+    public Player getOtherPLayer() {
+        boolean localPlayerIsPlayer1 = getLocalUser().getIdUser().equals(
+                getLocalGame().getPlayer1().getProfile().getIdUser());
+        if (localPlayerIsPlayer1) {
+            return getLocalGame().getPlayer2();
+        } else {
+            return getLocalGame().getPlayer1();
+        }
+    }
 }
