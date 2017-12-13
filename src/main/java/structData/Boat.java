@@ -33,21 +33,14 @@ public class Boat implements Serializable{
     /**
      * constructor with parameters
      * @param typedata : the type of the new boat
-     * @param statusdata : the status of the new boat
-     * @param listCasesdata  : the list of positions of the new boat
+     * @param rotation
+     * @param pos
      */
     public Boat(BoatType typedata, Boolean rotation, Position pos){
         type = typedata;
         status = false;
         this.listCases = new ArrayList();
-        for (int i = 0; i < typedata.getNbCases(); i++) {
-            if(rotation) {
-                this.listCases.add(new Position(pos.x + i, pos.y, false));
-            } else {
-                this.listCases.add(new Position(pos.x, pos.y+i, false));
-            }
-            
-        }
+        this.setListcases(rotation, pos);
     }
     
 
@@ -110,6 +103,17 @@ public class Boat implements Serializable{
      */
     public void setListcases(List<Position> listCasesdata){
         this.listCases = listCasesdata;
+    }
+    
+    public void setListcases(Boolean rotation, Position pos){
+        for (int i = 0; i < this.type.getNbCases(); i++) {
+            if(rotation) {
+                this.listCases.add(new Position(pos.x, pos.y+i, false));
+            } else {
+                this.listCases.add(new Position(pos.x+i, pos.y, false));
+            }
+            
+        }
     }
     
     

@@ -181,8 +181,10 @@ public abstract class PlacementPhaseController extends BaseController implements
             
             List<Boat> boats = new ArrayList<Boat>();
             for (Map.Entry<Rectangle, BoatDrawing> entry : boatMap.entrySet()) {
-                BoatDrawing myBoat = entry.getValue();
-                boats.add(new Boat(myBoat.getBoatType(), myBoat.isRotation(), new Position(myBoat.getGridCol(), myBoat.getGridRow(), false)));
+                BoatDrawing myBoatDrawing = entry.getValue();
+                Boat myBoat = myBoatDrawing.getBoat();
+                boats.add(new Boat(myBoatDrawing.getBoatType(), myBoatDrawing.isRotation(), new Position(myBoatDrawing.getGridCol(), myBoatDrawing.getGridRow(), false)));
+                boats.add(myBoat);
             }
             
             timeline.stop();
