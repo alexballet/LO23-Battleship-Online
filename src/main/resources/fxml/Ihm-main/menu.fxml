@@ -73,7 +73,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                        <children>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="300.0" text="Modifier mon profil" textAlignment="CENTER">
+                                          <Button onAction="#openChangeProfileWindow" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="300.0" text="Modifier mon profil" textAlignment="CENTER">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>

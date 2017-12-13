@@ -44,6 +44,7 @@ public class menuController implements Initializable{
 	 *  UserTest à remplacer par User lorsque les getter/setter seront dispo
 	 */
 	public void init() {
+		System.out.println("YOLO");
 		//randomListUser();
 		this.initUserList();
 		this.initGamesList();
@@ -74,8 +75,10 @@ public class menuController implements Initializable{
                 }
             });
 		 */
+		
 		final menuController controller = this;
-		ObservableList<User> playersObservable = FXCollections.observableArrayList(new ArrayList<User>());
+		List<User> users = mainController.getIdata().getListUsers();
+		ObservableList<User> playersObservable = FXCollections.observableArrayList(users);
 		playersView.setItems(playersObservable);
 		playersView.setCellFactory(new Callback<ListView<User>, ListCell<User>>() { 
 
@@ -90,6 +93,7 @@ public class menuController implements Initializable{
 		final menuController controller = this;
 
 		List<Game> games = mainController.getIdata().getGames();
+		System.out.println("GAMES " + games.size());
 		Game game = null;
 		Profile local = mainController.getIdata().getLocalProfile();
 		for(int i=0; i < games.size(); i++) {
@@ -97,12 +101,13 @@ public class menuController implements Initializable{
 			if (game.doesProfileBelongToGame(local)) games.remove(i);
 			else i++;
 		}
+		
+		System.out.println("GAMES 2 "+ games.size());
 
-		ObservableList<Game> gamesObservable =
-				FXCollections.observableArrayList();
+		ObservableList<Game> gamesObservable = FXCollections.observableArrayList(games);
 		gamesView.setItems(gamesObservable);
+		System.out.println("GAME VIEW "+ gamesView.getItems().size());
 		gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>() { 
-
 			@Override 
 			public ListCell<Game> call(ListView<Game> lv) { 
 				return new GameCell(controller); 
@@ -172,8 +177,7 @@ public class menuController implements Initializable{
 	 */
 	@FXML
 	void openChangeProfileWindow(ActionEvent event) {
-		// TODO : get local user (ask Data to create methode ) 
-		User user = new User();// change to correct methode
+		User user = mainController.getIdata().getLocalProfile();
 		mainController.openChangeProfileWindow(user);
 	}
 
@@ -183,7 +187,16 @@ public class menuController implements Initializable{
 	 * @param user : user to add to the list.
 	 */
 	public void addUser(User user){
-		playersView.getItems().add(user);
+		Boolean isOk = true;
+		ObservableList<User> users = playersView.getItems();
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getIdUser().equals(user.getIdUser())) {
+				isOk = false;
+			}
+		}
+		if (isOk) {
+			playersView.getItems().add(user);
+		}
 	}
 
 	/** 
@@ -197,7 +210,16 @@ public class menuController implements Initializable{
 
 	public void addGame(Game game){
 		if (!game.doesProfileBelongToGame(mainController.getIdata().getLocalProfile())) {
-			gamesView.getItems().add(game);
+			Boolean isOk = true;
+			ObservableList<Game> games = gamesView.getItems();
+			for (int i = 0; i < games.size(); i++) {
+				if (games.get(i).getIdGame().equals(game.getIdGame())) {
+					isOk = false;
+				}
+			}
+			if (isOk) {
+				gamesView.getItems().add(game);
+			}
 		}
 
 	}
