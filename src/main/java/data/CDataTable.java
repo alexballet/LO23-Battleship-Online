@@ -16,7 +16,6 @@ import lo23.battleship.online.network.COMInterface;
 import guiMain.GuiMainInterface;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.Random;
 import guiTable.GuiTableInterface;
 import structData.Shot;
@@ -51,6 +50,9 @@ public class CDataTable implements IDataTable {
         interfaceCom = c;
     }
 
+    public void setInterfaceMain(GuiMainInterface m) {
+        interfaceMain = m;
+    }
     @Override
     public Boolean exit() {
         //Boolean b = interfaceCom.exit(); Com doit s'occuper la fonction exit
@@ -151,6 +153,11 @@ public class CDataTable implements IDataTable {
         Shot s = new Shot(p);
 
         return s;
+    }
+    
+    public void gameEnded() {
+        //TODO gérer data fin de partie
+        interfaceMain.openMenuWindow();
     }
     
 }

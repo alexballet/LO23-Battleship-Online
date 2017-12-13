@@ -201,7 +201,7 @@ public class CDataCom implements IDataCom {
     public void coordinates(Shot s) {
         Boat b = controller.testShot(s);
         interfaceTable.displayOpponentShot(s, b);
-        //interfaceCom.coordinates(s,b); TODO : décommenter quand la fonction sera crée chez COM
+        interfaceCom.coordinates(controller.getOtherPLayer() , s, controller.getLocalGame());
         if (b != null){
             boolean gameOver = true;            
             for(int i=0;i<controller.getLocalPlayer().getListBoats().size();i++) {

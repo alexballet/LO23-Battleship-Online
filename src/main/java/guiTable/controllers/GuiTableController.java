@@ -134,11 +134,17 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void displayMyShotResult(Shot myShotResult, Boat boat) {
-        gamePhaseController.addShot(myShotResult);
-        if (boat != null){
-            gamePhaseController.sunckBoat(boat);
-        }
-        gamePhaseController.setMyTurn(false);
+    		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+		        gamePhaseController.addShot(myShotResult);
+		        if (boat != null){
+		            gamePhaseController.sunckBoat(boat);
+		        }
+		        gamePhaseController.setMyTurn(false);
+			}
+		};
+		Platform.runLater(command);
     }
 
     @Override
@@ -177,5 +183,10 @@ public class GuiTableController implements GuiTableInterface {
     
     public Boolean exitGame() {
         return dataController.exit();
+    }
+
+    public CDataTable getDataController() {
+        return dataController;
+        
     }
 }
