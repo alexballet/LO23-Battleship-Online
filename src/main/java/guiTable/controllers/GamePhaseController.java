@@ -112,7 +112,7 @@ public class GamePhaseController implements Initializable {
         Byte colB = Byte.decode(col.toString());
         Byte rowB = Byte.decode(row.toString());
         
-        Position shoot = new Position(colB, rowB, null);
+        Position shoot = new Position(colB, rowB, false);
         GuiTableController.getInstance().validateShot(shoot);
         valider.setDisable(true);
     }

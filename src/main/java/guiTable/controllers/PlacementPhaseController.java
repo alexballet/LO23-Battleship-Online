@@ -182,9 +182,10 @@ public abstract class PlacementPhaseController extends BaseController implements
             List<Boat> boats = new ArrayList<Boat>();
             for (Map.Entry<Rectangle, BoatDrawing> entry : boatMap.entrySet()) {
                 BoatDrawing myBoatDrawing = entry.getValue();
-                Boat myBoat = myBoatDrawing.getBoat();
+                //Boat myBoat = myBoatDrawing.getBoat();
                 boats.add(new Boat(myBoatDrawing.getBoatType(), myBoatDrawing.isRotation(), new Position(myBoatDrawing.getGridCol(), myBoatDrawing.getGridRow(), false)));
-                boats.add(myBoat);
+              //  myBoat.setListcases(myBoatDrawing.isRotation(), new Position(myBoatDrawing.getGridCol(), myBoatDrawing.getGridRow(), false));
+               // boats.add(myBoat);
             }
             
             timeline.stop();
@@ -198,6 +199,7 @@ public abstract class PlacementPhaseController extends BaseController implements
      * Convert the boatMap of type HashMap<Rectangle, BoatDrawing> to List<Boat>
      * @return List<Boat> list of boats
      */
+    /*
     protected List<Boat> getBoats() {
         List<Boat> boats = new ArrayList(this.boatMap.size());
         for(BoatDrawing boatDraw : boatMap.values()) {
@@ -205,7 +207,7 @@ public abstract class PlacementPhaseController extends BaseController implements
         }
         
         return boats;
-    }
+    }*/ // potentiellement inutile
     
         
     /**
