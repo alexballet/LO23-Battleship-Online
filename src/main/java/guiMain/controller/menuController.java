@@ -53,7 +53,6 @@ public class menuController implements Initializable{
 	 *  UserTest à remplacer par User lorsque les getter/setter seront dispo
 	 */
 	public void init() {
-		System.out.println("YOLO");
 		//randomListUser();
 		this.initUserList();
 		this.initGamesList();
