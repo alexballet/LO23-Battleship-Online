@@ -57,7 +57,7 @@ public class menuController implements Initializable{
 		//randomListUser();
 		this.initUserList();
 		this.initGamesList();
-		this.setImage();
+		if (mainController.getIdata().getLocalProfile().getAvatar() != null) this.setImage();
 	}
 
 	/**
@@ -127,8 +127,7 @@ public class menuController implements Initializable{
 	
 	private void setImage(){
 		ImageIcon icon = mainController.getIdata().getLocalProfile().getAvatar();
-		BufferedImage bi = new BufferedImage(
-				icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+		BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
 		Graphics g = bi.createGraphics();
 		icon.paintIcon(null, g, 0,0);
 		g.dispose();
