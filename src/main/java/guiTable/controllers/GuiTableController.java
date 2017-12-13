@@ -184,4 +184,9 @@ public class GuiTableController implements GuiTableInterface {
     public Boolean exitGame() {
         return dataController.exit();
     }
+
+    public CDataTable getDataController() {
+        return dataController;
+        
+    }
 }

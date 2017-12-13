@@ -5,6 +5,7 @@
  */
 package guiTable.controllers;
 
+import guiMain.GuiMainController;
 import guiTable.CaseDrawing;
 import java.net.URL;
 import java.util.List;
@@ -222,7 +223,8 @@ public class GamePhaseController implements Initializable {
     @FXML
     protected void yesClicked() {
         if (GuiTableController.getInstance().exitGame()) {
-            // Passer la main à ihm main
+            GuiTableController controller = GuiTableController.getInstance();
+            controller.getDataController().gameEnded();
         } else {
             // Message d'erreur
         }
