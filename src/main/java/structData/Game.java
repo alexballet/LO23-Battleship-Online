@@ -19,8 +19,8 @@ public class Game implements Serializable{
     private Boolean classicType;
     private String name;
     private Boolean humanOpponent;
-    private int timePerShot;
-    private int timeToPlaceBoats;
+    private Integer timePerShot;
+    private Integer timeToPlaceBoats;
     private Boolean spectator;
     private Boolean spectatorChat;
     private HashSet<User> listSpectators;
@@ -60,14 +60,9 @@ public class Game implements Serializable{
      * @param newSpectator a boolean equal to 1 if spectators are allowed
      * @param newSpectatorChat  a boolean equal to 1 if chat is allowed
      * @param p a Profile
-     * @param lS a Hashset
-     * @param p1 a Player
-     * @param p2 a Player
-     * @param p1Start a Boolean
-     * @param lMsg an ArrayList
      */
     public Game(Boolean newClassicType, String newName, 
-            Boolean newHumanOpponent, int newTimePerShot, int newTimeToPlaceBoats,
+            Boolean newHumanOpponent, Integer newTimePerShot, Integer newTimeToPlaceBoats,
             Boolean newSpectator, Boolean newSpectatorChat,
             Profile p){
         idGame = UUID.randomUUID();
@@ -107,7 +102,7 @@ public class Game implements Serializable{
      * @param lMsg an ArrayList
      */
     public Game(Boolean newClassicType, String newName, 
-            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newHumanOpponent, Integer newTimePerShot,  Integer newTimeToPlaceBoats,
             Boolean newSpectator, Boolean newSpectatorChat,
             Profile p, HashSet lS, Player p1, Player p2,
             Boolean p1Start, ArrayList lMsg){
@@ -126,6 +121,7 @@ public class Game implements Serializable{
             player2 = pBot;
         }
         timePerShot = newTimePerShot;
+        timeToPlaceBoats = newTimeToPlaceBoats;
         spectator = newSpectator;
         spectatorChat = newSpectatorChat;
         if (spectator == true) {
@@ -134,50 +130,6 @@ public class Game implements Serializable{
         else {
             listSpectators = new HashSet();
         }
-            
-        player1 = p1;
-        player1Start = p1Start;
-        listMessages = lMsg;
-    }
-
-    /**
-     * Constructor without list of spectators
-     * @param newClassicType the game type
-     * @param newName the game's name
-     * @param newHumanOpponent a boolean equal to 1 if 
-     * the game is between two players and 0 if it is against a bot
-     * @param newTimePerShot time per shot
-     * @param newSpectator a boolean equal to 1 if spectators are allowed
-     * @param newSpectatorChat  a boolean equal to 1 if chat is allowed
-     * @param p a Profile
-     * @param p1 a Player
-     * @param p2 a Player
-     * @param p1Start a Boolean
-     * @param lMsg an ArrayList
-     */
-    public Game(Boolean newClassicType, String newName, 
-            Boolean newHumanOpponent, int newTimePerShot, 
-            Boolean newSpectator, Boolean newSpectatorChat,
-            Profile p, Player p1, Player p2,
-            Boolean p1Start, ArrayList lMsg){
-        idGame = UUID.randomUUID();
-        classicType = newClassicType;
-        name = new String(newName);
-        humanOpponent = newHumanOpponent;
-        if (humanOpponent){
-            status = StatusGame.WAITINGPLAYER;
-            player2 = p2;
-        }else{
-            status = StatusGame.WAITINGBOT;
-            User u = new User("Bot", "Bot");
-            DataUser dU= new DataUser(u);
-            Player pBot = new Player(dU);
-            player2 = pBot;
-        }
-        timePerShot = newTimePerShot;
-        spectator = newSpectator;
-        spectatorChat = newSpectatorChat;
-        listSpectators = new HashSet(); 
             
         player1 = p1;
         player1Start = p1Start;
@@ -396,5 +348,9 @@ public class Game implements Serializable{
      */
     public Boolean doesProfileBelongToGame(Profile p){
         return ((this.player1 != null && this.player1.compareProfileToPlayer(p)) || (this.player2 != null && this.player2.compareProfileToPlayer(p)));
+    }
+    
+    public int getTimeToPlaceBoats(){
+        return timeToPlaceBoats;
     }
 }

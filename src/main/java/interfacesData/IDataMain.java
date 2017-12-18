@@ -83,7 +83,7 @@ public interface IDataMain {
      * @param g : game to add
      */
     Game newGame(Boolean newClassicType, String newName, 
-            Boolean newHumanOpponent, int newTimePerShot, int newTimeToPlaceBoats,
+            Boolean newHumanOpponent, Integer newTimePerShot, Integer newTimeToPlaceBoats,
             Boolean newSpectator, Boolean newSpectatorChat);
     
     /**
@@ -102,7 +102,6 @@ public interface IDataMain {
     /**
      * Add a spectator in the game
      * @param g : game that the spectator wants to join
-     * @param spec : spectator
      */
-    void gameToSpec(Game g, User spec);
+    void gameToSpec(Game g);
 }

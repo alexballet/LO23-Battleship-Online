@@ -8,6 +8,7 @@ package data;
 import guiMain.GuiMainInterface;
 import guiTable.GuiTableInterface;
 import interfacesData.IDataCom;
+import java.util.Date;
 import java.util.HashSet;
 
 import java.util.Set;
@@ -183,7 +184,8 @@ public class CDataCom implements IDataCom {
             myTurn = false;
         }
         
-        interfaceTable.opponentReady(myTurn);
+        // TODO : décommenter à l'integ
+        //interfaceTable.opponentReady(myTurn, controller.getLocalGame().getTimePerShot());
     }
 
 
@@ -283,15 +285,26 @@ public class CDataCom implements IDataCom {
      }
      
      @Override
-     public void notifyToSpecGame(Game g, User spec){
+     public void notifyToSpecGame(User spec){
+         controller.getLocalGame().addSpectators(spec);
+     }
+     
+     public void newRequestSpectator(User u){
+         //TODO : décommenter à l'integ
+         //interfaceCom.sendInfoGameForSpectator(controller.getLocalGame(), u);
+         ChatMessage m = new ChatMessage(controller.getLocalUser(), "Le joueur " + u.getUsername() + " a rejoint en spectateur.", new Date());
+         controller.getLocalGame().addMessage(m);
+         interfaceCom.sendChatMessage(m, controller.getLocalGame());
          
-         controller.updateSpecList(g,spec);
+         //TODO : décommenter à l'integ
+         //interfaceCom.sendNewSpectator(User u, Player p, HashSet<User> listSpectators)
      }
-     
-     @Override
-     public HashSet<User> getSpecList(){
-         return controller.getLocalGame().getListSpectators();
-     }
-     
+
+    @Override
+    public void joinGameSpectator(Game g) {
+        controller.setLocalGame(g);
+        //to finish
+        //interfaceMain.joinGameSpec(Game g);
+    }
     
 }

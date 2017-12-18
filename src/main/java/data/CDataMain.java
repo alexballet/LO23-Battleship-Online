@@ -77,7 +77,7 @@ public class CDataMain implements IDataMain {
      */
     @Override
     public Profile getLocalProfile() {
-    		return controller.getLocalProfile();
+        return controller.getLocalProfile();
     }
     
     /**
@@ -114,7 +114,7 @@ public class CDataMain implements IDataMain {
      */
     @Override
     public Game newGame(Boolean newClassicType, String newName, 
-            Boolean newHumanOpponent, int newTimePerShot, int newTimeToPlaceBoats,
+            Boolean newHumanOpponent, Integer newTimePerShot, Integer newTimeToPlaceBoats,
             Boolean newSpectator, Boolean newSpectatorChat) {
     		
         Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newTimeToPlaceBoats, newSpectator, newSpectatorChat, controller.getLocalProfile());
@@ -154,7 +154,8 @@ public class CDataMain implements IDataMain {
      * @param spec : spectator
      */
     @Override
-    public void gameToSpec(Game g, User spec){
-        controller.updateSpecList(g, spec);
+    public void gameToSpec(Game g){
+        //TODO : décommenter à l'integ
+        //interfaceCom.getInfoGameForSpectator(g.getPlayer1(), controller.getLocalUser());
     }
 }

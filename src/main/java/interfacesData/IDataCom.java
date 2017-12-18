@@ -160,9 +160,11 @@ public interface IDataCom {
       */
      public void notifiedGameWon();
      
-     public void notifyToSpecGame(Game g, User spec);
+     public void notifyToSpecGame(User spec);
      
-     public HashSet<User> getSpecList();
+     public void newRequestSpectator(User u);
+     
+     public void joinGameSpectator(Game g);
 }
 
 
