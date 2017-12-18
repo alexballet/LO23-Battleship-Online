@@ -61,6 +61,10 @@ public class CDataMain implements IDataMain {
         
         Profile newProfile = new Profile(newDataUser,avatar,lastname,firstname,birthDate);
         newProfile.saveProfile();
+        
+        // controller.setLocalUser(newUser);
+        // controller.setLocalDataUser(newDataUser);
+        // controller.setLocalProfile(newProfile);
     }
 
     @Override
@@ -73,7 +77,7 @@ public class CDataMain implements IDataMain {
      */
     @Override
     public Profile getLocalProfile() {
-    		return controller.getLocalProfile();
+        return controller.getLocalProfile();
     }
     
     /**
