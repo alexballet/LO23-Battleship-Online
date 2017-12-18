@@ -255,8 +255,10 @@ public class CDataCom implements IDataCom {
      */
     
     public void changeStatusGame(Game g) {
-        Game localGame  = controller.getLocalGame();
+       /* Game localGame  = controller.getLocalGame();
         if (localGame != null) controller.removeGameFromList(localGame);
+        controller.updateGameStatus(g);
+        interfaceMain.transmitNewStatus(g);*/
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);
     }
