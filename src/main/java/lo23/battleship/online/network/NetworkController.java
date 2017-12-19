@@ -18,6 +18,10 @@ public class NetworkController {
     // CONSTANTS
     private int port = 2345;
 
+    /**
+     * Getter for port attribute.
+     * @return port attribute
+     */
     public int getPort() {
         return port;
     }
@@ -28,7 +32,10 @@ public class NetworkController {
     IDataCom dataInterface;
     private NetworkServer networkServer;
 
-
+    /**
+     * Singleton getter for NetworkController.
+     * @return static instance of NetworkController
+     */
     public static NetworkController getInstance() {
         if (instance == null)
             instance = new NetworkController();
@@ -37,6 +44,9 @@ public class NetworkController {
 
     }
 
+    /**
+     * Contructor for NetworkController.
+     */
     private NetworkController() {
         networkInterface = new NetworkModuleInterface(this);
         networkState = new HashMap<>();
@@ -46,6 +56,9 @@ public class NetworkController {
             this.networkServer = new NetworkServer(this);
     }
 
+    /**
+     * Method that launches the NetworkServer object.
+     */
     public void launchServer() {
         try {
             if(!networkServer.isOpened())
@@ -55,15 +68,29 @@ public class NetworkController {
         }
     }
 
+    /**
+     * Method that sends a Message object to a specified IP address.
+     * @param message message that needs to be sent
+     * @param destinationIpAddress IP address of the destination user
+     */
     public void sendMessage(Message message, InetAddress destinationIpAddress) {
         NetworkSender networkSender = new NetworkSender(destinationIpAddress, this.getPort(), message);
         networkSender.start();
     }
 
+    /**
+     * Method that returns the list of IP addresses that are currently on the network.
+     * @return list of IP addresses that are presently on the network
+     */
     public List<InetAddress> getIPTable() {
         return new ArrayList<InetAddress>(networkState.values());
     }
 
+    /**
+     * Method that recovers the IP address of a specified User object.
+     * @param user user object that we want the IP address of.
+     * @return IP address of the specified User object
+     */
     public InetAddress getAddressForUser(User user) {
 
         for (User u : networkState.keySet()) {
@@ -76,7 +103,7 @@ public class NetworkController {
 
         return null;
     }
-
+    
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
         networkServer.setDataInterface(dataInterface);
