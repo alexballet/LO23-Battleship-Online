@@ -5,6 +5,7 @@
  */
 package interfacesData;
 
+import java.util.HashSet;
 import structData.Boat;
 import structData.Shot;
 import structData.Position;
@@ -164,6 +165,9 @@ public interface IDataCom {
      public void newRequestSpectator(User u);
      
      public void joinGameSpectator(Game g);
+     
+     /**
+      * Notif everyone when a spectator leaves
+      */
+     public void notifyQuitSpectator(User spec);
 }
-
-

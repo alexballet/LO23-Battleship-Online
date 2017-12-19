@@ -9,6 +9,8 @@ import guiMain.GuiMainInterface;
 import guiTable.GuiTableInterface;
 import interfacesData.IDataCom;
 import java.util.Date;
+import java.util.HashSet;
+
 import java.util.Set;
 import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
@@ -240,7 +242,7 @@ public class CDataCom implements IDataCom {
     }
     
     /**
-     * Takes a game given as a parameter and updates his status
+     * Takes a game given as a parameter and updates its status
      * @param g : the game which status has been modified
      */
     
@@ -287,7 +289,6 @@ public class CDataCom implements IDataCom {
          controller.getLocalGame().addSpectators(spec);
      }
      
-     @Override
      public void newRequestSpectator(User u){
          //TODO : décommenter à l'integ
          //interfaceCom.sendInfoGameForSpectator(controller.getLocalGame(), u);
@@ -302,8 +303,12 @@ public class CDataCom implements IDataCom {
     @Override
     public void joinGameSpectator(Game g) {
         controller.setLocalGame(g);
-        //todo : décommenter à l'integ
-        //interfaceMain.joinGameSpec(Game g);
+        //to finish
+        //interfaceMain.joinGameSpec(Game g); le main doit nous swap dans la partie, on vient de récupérer les données de la partie via le player1
     }
     
+    @Override
+    public void notifyQuitSpectator(User spec){
+        //interfaceCom.notifyQuitSpectator(spec); A decommenter pdt l'integ
+    }
 }

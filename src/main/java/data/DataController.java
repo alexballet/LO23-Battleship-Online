@@ -279,6 +279,7 @@ public class DataController {
                     ObjectInputStream ois = new ObjectInputStream(fis);
                     Profile p = (Profile) ois.readObject();
                     ois.close();
+                    fis.close();
                     if ((p.getLogin().equals(login)) && (p.getPassword().equals(mdp))){
                         localProfile = p; 
                         localUser = localProfile;

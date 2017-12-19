@@ -151,7 +151,10 @@ public class CDataMain implements IDataMain {
     /**
      * Add a spectator in the game
      * @param g : game that the spectator wants to join
+<<<<<<< HEAD
      * @param spec : spectator
+=======
+>>>>>>> 3f5032c5d15b186be83a94e34fa7a94af47215fb
      */
     @Override
     public void gameToSpec(Game g){

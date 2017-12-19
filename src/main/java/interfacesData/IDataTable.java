@@ -45,6 +45,11 @@ public interface IDataTable {
      * @return the chosen Shot
      */
     public Shot iaShot();
+    
+    /**
+     * transmit to every user that the game is beign played, allow them to spectate
+     */
+    public void changeStatusGameStarted();
 }
 
 

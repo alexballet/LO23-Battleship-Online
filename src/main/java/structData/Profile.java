@@ -257,6 +257,7 @@ public class Profile extends DataUser {
          ObjectOutputStream os = new ObjectOutputStream(fs);
          os.writeObject(this); 
          os.close();
+         fs.close();
       } catch (Exception e) { 
          e.printStackTrace(); 
       }
