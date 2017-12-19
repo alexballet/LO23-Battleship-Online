@@ -6,6 +6,7 @@
 package data;
 
 import interfacesData.IDataMain;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
 import lo23.battleship.online.network.COMInterface;
@@ -48,6 +49,8 @@ public class CDataMain implements IDataMain {
         controller.getLocalProfile().setLastname(lastName);
         controller.getLocalProfile().setName(firstName);
         controller.getLocalProfile().setBirthdate(birthDate);
+        
+        controller.getLocalProfile().saveProfile();
         
     }
 
@@ -92,7 +95,7 @@ public class CDataMain implements IDataMain {
     @Override
     public void askDisconnection() {
         interfaceCom.askDisconnection();
-        //controller.reset();
+        controller = new DataController();
     }
 
     @Override
@@ -100,7 +103,9 @@ public class CDataMain implements IDataMain {
         Boolean result = false;
         controller.reloadSavedProfile(login, password);
         if(controller.getLocalProfile() != null){
-        	interfaceCom.searchForPlayers();
+            Player p = new Player(controller.getLocalProfile());
+            controller.setLocalPlayer(p);
+            interfaceCom.searchForPlayers();
             result = true;
         }
         return result;
@@ -118,8 +123,6 @@ public class CDataMain implements IDataMain {
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
         controller.setLocalGame(g);
-        Player p = new Player(controller.getLocalProfile());
-        controller.setLocalPlayer(p);
         return g;
     }
     
@@ -138,5 +141,30 @@ public class CDataMain implements IDataMain {
      public void getProfile(User u){
          interfaceCom.getProfile(u);
      }
+     
+     public void setListIps(HashSet Ips){
+         controller.getLocalProfile().setIPs(Ips);
+         interfaceCom.searchForPlayers();
+         controller.getLocalProfile().saveProfile();
+     }
 
+    
+    /**
+     * Add a spectator in the game
+     * @param g : game that the spectator wants to join
+     * @param spec : spectator
+     */
+    @Override
+    public void gameToSpec(Game g, User spec){
+        controller.updateSpecList(g, spec);
+    }
+    
+    /**
+     * Get the list of connected users
+     * @return the list of connected users
+     */
+    @Override
+    public List<User> getListUsers() {
+        return controller.getListUsers();
+    }
 }

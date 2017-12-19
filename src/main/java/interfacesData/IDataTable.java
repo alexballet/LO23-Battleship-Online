@@ -7,6 +7,7 @@ package interfacesData;
 import structData.Position;
 import structData.Boat;
 import java.util.List;
+import structData.Shot;
 
 /**
  * Data's interface for IHM-Table
@@ -39,6 +40,11 @@ public interface IDataTable {
      */
     public void coordinateShips(List<Boat> listBoat);
 
+    /**
+     * IA that choose a shot
+     * @return the chosen Shot
+     */
+    public Shot iaShot();
 }
 
 

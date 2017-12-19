@@ -14,6 +14,10 @@ import structData.Position;
 import structData.Game;
 import lo23.battleship.online.network.COMInterface;
 import guiMain.GuiMainInterface;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Random;
+import guiTable.GuiTableInterface;
 import structData.Shot;
 
 /**
@@ -23,22 +27,37 @@ import structData.Shot;
 public class CDataTable implements IDataTable {
     
     private DataController controller;
-    
+   
+    /* ajout ihm-plateau débug   */
+    private GuiTableInterface interfaceTable;
+    /* ajout ihm-plateau débug   */
     private GuiMainInterface interfaceMain;
     private COMInterface interfaceCom;
+    
+     protected static final int NB_CASES_GRID = 10;
     
     public CDataTable(DataController dc){
         super();
         controller = dc;
     }
     
+    /* ajout ihm-plateau débug   */
+    public void setInterfaceTable(GuiTableInterface t) {
+        interfaceTable = t;
+    }
+    /* ajout ihm-plateau débug   */
     public void setInterfaceCom(COMInterface c){
         interfaceCom = c;
     }
 
+    public void setInterfaceMain(GuiMainInterface m) {
+        interfaceMain = m;
+    }
     @Override
     public Boolean exit() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //Boolean b = interfaceCom.exit(); Com doit s'occuper la fonction exit
+        //return b;
+        return true; //delete, si Com a fini exit
     }
 
     @Override
@@ -55,10 +74,90 @@ public class CDataTable implements IDataTable {
     }
 
     @Override
+
+    // TODO: Mettre les instructions dans le bon sens
     public void coordinateShips(List<Boat> listBoat) {
+        Boolean myTurn;
+        Boolean p1Start = controller.getLocalGame().getPlayer1Start();
         controller.getLocalPlayer().setListBoats(listBoat);
+        boolean localPlayerIsPlayer1 = controller.getLocalUser().getIdUser().equals(
+                controller.getLocalGame().getPlayer1().getProfile().getIdUser());
+        boolean localPlayerIsPlayer2 = controller.getLocalUser().getIdUser().equals(
+                controller.getLocalGame().getPlayer2().getProfile().getIdUser());
         //TODO : uncomment when integV3 done
-        //interfaceCom.notifyReady(controller.getLocalUser());
+        Game myGame = controller.getLocalGame();
+       /* ajout ihm-plateau débug   */
+        if(!myGame.getHumanOpponent())  {
+            interfaceTable.opponentReady(myGame.getPlayer1Start());
+        }else {
+            /* ajout ihm-plateau débug   */
+            if (localPlayerIsPlayer1) {
+                controller.getLocalGame().getPlayer1().setReady(true);
+                interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
+            } else {
+                controller.getLocalGame().getPlayer2().setReady(true);
+                interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer1());
+            }
+        }
+
+        // TODO: Simplifier les conditions (myTurn = p1Start && localPlayerIsPlayer1)
+        if(controller.getLocalGame().getPlayer1().isReady() &&
+                controller.getLocalGame().getPlayer2().isReady())
+        {
+            if (p1Start && localPlayerIsPlayer1) {
+                myTurn = true;
+            } else if (p1Start && localPlayerIsPlayer2) {
+                myTurn = false;
+            } else if (!p1Start && localPlayerIsPlayer2) {
+                myTurn = true;
+            } else /*if ( p1Start == false && p1 == localPlayer )*/ {
+                myTurn = false;
+            }
+
+            interfaceTable.opponentReady(myTurn);
+        }
+    }
+    
+    @Override
+    public Shot iaShot(){
+        
+        Random rn1 = new Random();
+        Random rn2 = new Random();
+        
+        int x;
+        int y;
+        
+        HashSet<Shot> listShot = controller.getLocalPlayer().getListShots();
+                
+        Boolean shotAlreadyPlayed = false;
+        
+        do { 
+            
+            x =  rn1.nextInt(NB_CASES_GRID);
+            y =  rn2.nextInt(NB_CASES_GRID);
+            
+            Iterator<Shot> itr;
+            itr = listShot.iterator();
+            while(itr.hasNext() && shotAlreadyPlayed == false) {
+                
+                if (itr.next().getX()==x && itr.next().getY()==y) {
+                    shotAlreadyPlayed = true;
+                } else {
+                    shotAlreadyPlayed = false;
+                }  
+            }
+            
+        } while (shotAlreadyPlayed == true);
+        
+        Position p = new Position(x, y, false);
+        Shot s = new Shot(p);
+
+        return s;
+    }
+    
+    public void gameEnded() {
+        //TODO gérer data fin de partie
+        interfaceMain.openMenuWindow();
     }
     
 }

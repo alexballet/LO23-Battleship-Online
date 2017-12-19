@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import structData.Profile;
 import structData.User;
 
@@ -59,7 +60,7 @@ public class ProfilController implements Initializable {
          */
         @FXML
         void backToTheMenu(ActionEvent event) {
-                mainController.openMenuWindow();
+    			((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
         }
 
         /**
@@ -67,20 +68,21 @@ public class ProfilController implements Initializable {
          * @param user 
          */
         public void init(User user) {
-                // TODO : Envoyer un user pour recuperer leur profil (changement interface IdataMain)
-                
-                /*Profile profile = mainController.getIdata().getStatistics(user);
-                nameTitle.setText(profile.getUsername());
-                //userAvatar.setImage(profile.getAvatar());
-                userName.setText(profile.getUsername());
-                lastName.setText(profile.getLastname());
-                firstName.setText(profile.getName());
-                // Convert Date type to formatted strind
-                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                birthdate.setText(df.format(profile.getBirthdate()));
-                numberOfGame.setText(String.valueOf(profile.getGamesPlayed()));
-                numberOfGameWon.setText(String.valueOf(profile.getGamesWon()));
-                numberOfGameLost.setText(String.valueOf(profile.getGamesLost()));*/
+        			mainController.getIdata().getProfile(user);
+        }
+        
+        public void setProfil(Profile profile) {
+            nameTitle.setText(profile.getUsername());
+            //userAvatar.setImage(profile.getAvatar());
+            userName.setText(profile.getUsername());
+            lastName.setText(profile.getLastname());
+            firstName.setText(profile.getName());
+            // Convert Date type to formatted strind
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            birthdate.setText(df.format(profile.getBirthdate()));
+            numberOfGame.setText(String.valueOf(profile.getGamesPlayed()));
+            numberOfGameWon.setText(String.valueOf(profile.getGamesWon()));
+            numberOfGameLost.setText(String.valueOf(profile.getGamesLost()));
         }
 
         /**

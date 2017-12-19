@@ -1,5 +1,7 @@
 package guiMain.controller;
 
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,14 +11,19 @@ import guiMain.GuiMainController;
 import guiMain.PlayerCell;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.swing.ImageIcon;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 
 import structData.*;
@@ -26,6 +33,8 @@ public class menuController implements Initializable{
 
 	private GuiMainController mainController;
 
+	@FXML 
+	private ImageView avatarImage;
 	@FXML 
 	private ListView<User> playersView;
 	@FXML 
@@ -47,6 +56,9 @@ public class menuController implements Initializable{
 		//randomListUser();
 		this.initUserList();
 		this.initGamesList();
+		
+		if (mainController.getIdata().getLocalProfile().getAvatar() != null &&
+				mainController.getIdata().getLocalProfile().getAvatar().getImage() != null) this.setImage();
 	}
 
 	/**
@@ -74,8 +86,10 @@ public class menuController implements Initializable{
                 }
             });
 		 */
+		
 		final menuController controller = this;
-		ObservableList<User> playersObservable = FXCollections.observableArrayList(new ArrayList<User>());
+		List<User> users = mainController.getIdata().getListUsers();
+		ObservableList<User> playersObservable = FXCollections.observableArrayList(users);
 		playersView.setItems(playersObservable);
 		playersView.setCellFactory(new Callback<ListView<User>, ListCell<User>>() { 
 
@@ -97,21 +111,27 @@ public class menuController implements Initializable{
 			if (game.doesProfileBelongToGame(local)) games.remove(i);
 			else i++;
 		}
-
-		ObservableList<Game> gamesObservable =
-				FXCollections.observableArrayList();
+		
+		ObservableList<Game> gamesObservable = FXCollections.observableArrayList(games);
 		gamesView.setItems(gamesObservable);
 		gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>() { 
-
 			@Override 
 			public ListCell<Game> call(ListView<Game> lv) { 
 				return new GameCell(controller); 
 			} 
 		});
 	}
+	
+	private void setImage(){
+		ImageIcon icon = mainController.getIdata().getLocalProfile().getAvatar();
+		BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics g = bi.createGraphics();
+		icon.paintIcon(null, g, 0,0);
+		g.dispose();
+		avatarImage.setImage(SwingFXUtils.toFXImage(bi, null));
+	}
 
 	public void joinGame(Game game) {
-		System.out.println("JOIN GAME " + game.getName());
 		mainController.askJoinGame(game);
 	}
 
@@ -120,8 +140,7 @@ public class menuController implements Initializable{
 	}
 
 	public void lookUser(User user) {
-		System.out.println("LOOK USER " + user.getUsername());
-
+		mainController.openProfileWindow(user);
 	}
 
 
@@ -172,8 +191,7 @@ public class menuController implements Initializable{
 	 */
 	@FXML
 	void openChangeProfileWindow(ActionEvent event) {
-		// TODO : get local user (ask Data to create methode ) 
-		User user = new User();// change to correct methode
+		User user = mainController.getIdata().getLocalProfile();
 		mainController.openChangeProfileWindow(user);
 	}
 
@@ -183,7 +201,16 @@ public class menuController implements Initializable{
 	 * @param user : user to add to the list.
 	 */
 	public void addUser(User user){
-		playersView.getItems().add(user);
+		Boolean isOk = true;
+		ObservableList<User> users = playersView.getItems();
+		for (int i = 0; i < users.size(); i++) {
+			if (users.get(i).getIdUser().equals(user.getIdUser())) {
+				isOk = false;
+			}
+		}
+		if (isOk) {
+			playersView.getItems().add(user);
+		}
 	}
 
 	/** 
@@ -197,7 +224,16 @@ public class menuController implements Initializable{
 
 	public void addGame(Game game){
 		if (!game.doesProfileBelongToGame(mainController.getIdata().getLocalProfile())) {
-			gamesView.getItems().add(game);
+			Boolean isOk = true;
+			ObservableList<Game> games = gamesView.getItems();
+			for (int i = 0; i < games.size(); i++) {
+				if (games.get(i).getIdGame().equals(game.getIdGame())) {
+					isOk = false;
+				}
+			}
+			if (isOk) {
+				gamesView.getItems().add(game);
+			}
 		}
 
 	}

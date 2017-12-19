@@ -62,6 +62,7 @@ public class SignupController {
 	@FXML
 	private Label messageLabel;
 	
+	private String avatarPath;
 	
 	
 	public void setMainController (GuiMainController c) {
@@ -101,12 +102,8 @@ public class SignupController {
 		
 		
 		String password = passwordTextField.getText();
-		/* C'est quoi ? */
-		//ContactGroup[] contactList,
-		
-		/* int ???? */
-		//int avatar = ;
-		
+
+		String avatar = avatarPath;
 		
 		String lastname = lastNameTextField.getText();
 		String firstname = firstNameTextField.getText();
@@ -133,7 +130,7 @@ public class SignupController {
 		}
 		
 		if (!login.trim().isEmpty() && !password.trim().isEmpty() && !username.trim().isEmpty()){
-			mainController.getIdata().createAccount(login, username, ips, password, null, null, lastname, firstname, birthDate);
+			mainController.getIdata().createAccount(login, username, ips, password, null, avatar, lastname, firstname, birthDate);
 			mainController.startIHM();
 		}
 		else{
@@ -154,7 +151,8 @@ public class SignupController {
 	
 	private void openFile(File file) {
         try {
-        	Image selectedImage = new Image("file:" + file.getAbsolutePath());
+        	avatarPath = file.getAbsolutePath();
+        	Image selectedImage = new Image("file:" + avatarPath);
         	avatarImage.setImage(selectedImage);
         } catch (IllegalArgumentException ex) {
             Logger.getLogger(

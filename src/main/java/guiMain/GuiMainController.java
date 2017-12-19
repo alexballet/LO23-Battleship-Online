@@ -2,6 +2,7 @@ package guiMain;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -59,9 +60,7 @@ public class GuiMainController implements GuiMainInterface {
 		Runnable command = new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("GUIMain");
 				menuController.addUser(user);
-				System.out.println("After GUIMain");
 			}
 		};
 		Platform.runLater(command);
@@ -72,9 +71,7 @@ public class GuiMainController implements GuiMainInterface {
 		Runnable command = new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("GUIMain");
 				menuController.removeUser(user);
-				System.out.println("After GUIMain");
 			}
 		};
 		Platform.runLater(command);
@@ -110,6 +107,16 @@ public class GuiMainController implements GuiMainInterface {
 	@Override
 	public void sendStatistics(Profile profil) {
 		// TODO Auto-generated method stub
+		if (profilController != null) {
+			Runnable command = new Runnable() {
+				@Override
+				public void run() {
+					profilController.setProfil(profil);
+				}
+			};
+			Platform.runLater(command);
+			
+		}
 
 	}
 
@@ -248,7 +255,7 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
         
-        public void openPlacementPhase(final Game game) {
+    public void openPlacementPhase(final Game game) {
             try {
                 Runnable command = new Runnable() {
 			@Override
@@ -270,7 +277,6 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
 
-
 	public void openWaitingRoomWindow(Game game){
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -279,8 +285,6 @@ public class GuiMainController implements GuiMainInterface {
 
 			waitingRoomController = loader.getController();
 			waitingRoomController.initData(game);
-
-			System.out.println("open waiting room");
 
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
@@ -292,7 +296,6 @@ public class GuiMainController implements GuiMainInterface {
 
 			stage.setOnCloseRequest((WindowEvent event1) -> {
 				idata.removeGame(game);
-				System.out.println("Exit waiting room");
 			});
 
 		} catch(Exception e) {
@@ -303,21 +306,35 @@ public class GuiMainController implements GuiMainInterface {
 	public List<String> getIps(){
 		Profile p = idata.getLocalProfile();
 		if (p != null && p.getIdUser() != null) {
-			// ipsList = new ArrayList<>();
+			ipsList = new ArrayList<>();
 			HashSet<InetAddress> ips = p.getIPs();
 			for (InetAddress ip : ips) {
 				this.ipsList.add(ip.getHostAddress());
 			}
 		}
+		
 		return this.ipsList;
 	}
 
-	public void setIps(List<String> ips){
+	public void setIps(List<String> list){
 		Profile p = idata.getLocalProfile();
+		
 		if ( p != null && p.getIdUser() != null) {
-			// DATA : function for update IP
+			HashSet<InetAddress> ips = new HashSet<>();
+			if (list != null && list.size() > 0){
+				for (String ip : list) {
+					try {
+						ips.add(InetAddress.getByName(ip));
+					} catch (UnknownHostException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+			idata.setListIps(ips);
 		}
-		this.ipsList = ips;
+		
+		this.ipsList = list;
 	}
 
 	public void setIdata(IDataMain idata) {

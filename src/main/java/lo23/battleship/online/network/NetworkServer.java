@@ -73,6 +73,11 @@ public class NetworkServer {
      * Close server
      * Turn isRunning into false
      * */
+
+    public boolean isOpened() {
+        if(listener == null) return false;
+        return listener.isRunning;
+    }
     public void close() {
 
         System.out.println("-----------Close Server(Listener)---------");

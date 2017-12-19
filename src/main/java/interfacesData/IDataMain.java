@@ -96,5 +96,17 @@ public interface IDataMain {
 	Profile getLocalProfile();
 
     public void setLocalGame(Game g);
+    
+    public void setListIps(HashSet Ips);
 
+    /**
+     * Add a spectator in the game
+     * @param g : game that the spectator wants to join
+     * @param spec : spectator
+     */
+    void gameToSpec(Game g, User spec);
+    
+    public List<User> getListUsers();
+    
+   
 }

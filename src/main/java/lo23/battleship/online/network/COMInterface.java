@@ -80,15 +80,6 @@ public interface COMInterface {
      */
     public boolean sendShot(Player player, Game g, Shot shot);
 
-
-    /**
-     * send a shot result to a player on the right game
-     * @param game where the ships are
-     * @param resultShot result of the shot
-     * @return true= message sent, false= message not sent
-     */
-    public boolean coordinates(Player destPlayer, Shot resultShot, Game game);
-
     /**
      * send a shot result to a player on the right game
      * @param game where the ships are
