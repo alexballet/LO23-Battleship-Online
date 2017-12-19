@@ -88,7 +88,7 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void opponentReady(Boolean myTurn) {
+    public void opponentReady(final Boolean myTurn) {
     		Runnable command = new Runnable() {
 			@Override
 			public void run() {
@@ -133,7 +133,7 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void displayMyShotResult(Shot myShotResult, Boat boat) {
+    public void displayMyShotResult(final Shot myShotResult,final Boat boat) {
     		Runnable command = new Runnable() {
 			@Override
 			public void run() {
@@ -148,7 +148,7 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void displayOpponentShot(Shot opponentShot, Boat boat) {
+    public void displayOpponentShot(final Shot opponentShot,final Boat boat) {
     		Runnable command = new Runnable() {
 			@Override
 			public void run() {

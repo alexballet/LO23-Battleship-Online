@@ -20,6 +20,7 @@ import structData.StatusGame;
 import structData.User;
 import structData.Player;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -199,19 +200,23 @@ public class CDataCom implements IDataCom {
 
 
     public void coordinates(Shot s) {
+        System.out.println("#############COORDINATE####################");
         Boat b = controller.testShot(s);
+        System.out.println("boat " + b);
         interfaceTable.displayOpponentShot(s, b);
         interfaceCom.coordinates(controller.getOtherPLayer() , s, controller.getLocalGame());
         if (b != null){
-            boolean gameOver = true;            
-            for(int i=0;i<controller.getLocalPlayer().getListBoats().size();i++) {
-                if (!controller.getLocalPlayer().getListBoats().get(i).getStatus()){
+            boolean gameOver = true;   
+            Player localPlayer = controller.getLocalPlayer();
+            List<Boat> listboat = localPlayer.getListBoats();
+            for (Boat boat : listboat) {
+                if(!boat.getSunk()) {
                     gameOver = false;
                     break;
                 }
-                i++;
             }
             if (gameOver){
+                System.out.println("GAME OVER");
                 //arreter la partie localPlayer a perdu
                 interfaceTable.displayDefeat();
                 

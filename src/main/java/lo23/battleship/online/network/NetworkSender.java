@@ -30,6 +30,7 @@ public class NetworkSender extends Thread{
     public void run() {
 
         try {
+            System.out.println("ouverture de la socket : " + host + "  " + port);
             sock = new Socket(host, port);
             writer = new ObjectOutputStream(sock.getOutputStream());
             String timeStamps = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM).format(new Date());
@@ -37,6 +38,7 @@ public class NetworkSender extends Thread{
             writer.writeObject(message);
             sock.close();
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             System.out.println("Warning: Unable to reach host: " + host + ":" + port);
         }
     }
