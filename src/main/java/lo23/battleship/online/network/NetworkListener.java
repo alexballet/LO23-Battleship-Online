@@ -79,7 +79,7 @@ public class NetworkListener extends Thread {
             } catch(SocketException e) {
                 System.out.println("Still closing. Revert accept");
             } catch (IOException e) {
-                Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
+                Logger.getLogger(NetworkListener.class.getName()).log(Level.SEVERE, null, e);
             }
         }
     }
@@ -105,7 +105,7 @@ public class NetworkListener extends Thread {
             Message message = (Message) reader.readObject();
             return message;
         } catch(ClassNotFoundException e) {
-            Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
+            Logger.getLogger(NetworkListener.class.getName()).log(Level.SEVERE, null, e);
         }
         return null;
     }

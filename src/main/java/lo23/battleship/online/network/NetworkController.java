@@ -53,7 +53,7 @@ public class NetworkController {
             if(!networkServer.isOpened())
                 this.networkServer.open();
         } catch (IOException e) {
-            Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
+            Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 

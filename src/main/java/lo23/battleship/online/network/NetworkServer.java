@@ -44,7 +44,7 @@ public class NetworkServer {
             }
             //listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
         } catch (UnknownHostException e) {
-            Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
+            Logger.getLogger(NetworkServer.class.getName()).log(Level.SEVERE, null, e);
         } catch (IOException e) {
             System.out.println("------!! Server already opened !!------");
         }
@@ -86,7 +86,7 @@ public class NetworkServer {
         try {
             listener.closeSocket();
         } catch (IOException e) {
-            Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
+            Logger.getLogger(NetworkServer.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 }
