@@ -56,7 +56,9 @@ public class menuController implements Initializable{
 		//randomListUser();
 		this.initUserList();
 		this.initGamesList();
-		if (mainController.getIdata().getLocalProfile().getAvatar() != null) this.setImage();
+		
+		if (mainController.getIdata().getLocalProfile().getAvatar() != null &&
+				mainController.getIdata().getLocalProfile().getAvatar().getImage() != null) this.setImage();
 	}
 
 	/**
@@ -102,7 +104,6 @@ public class menuController implements Initializable{
 		final menuController controller = this;
 
 		List<Game> games = mainController.getIdata().getGames();
-		System.out.println("GAMES " + games.size());
 		Game game = null;
 		Profile local = mainController.getIdata().getLocalProfile();
 		for(int i=0; i < games.size(); i++) {
@@ -111,11 +112,8 @@ public class menuController implements Initializable{
 			else i++;
 		}
 		
-		System.out.println("GAMES 2 "+ games.size());
-
 		ObservableList<Game> gamesObservable = FXCollections.observableArrayList(games);
 		gamesView.setItems(gamesObservable);
-		System.out.println("GAME VIEW "+ gamesView.getItems().size());
 		gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>() { 
 			@Override 
 			public ListCell<Game> call(ListView<Game> lv) { 
@@ -134,7 +132,6 @@ public class menuController implements Initializable{
 	}
 
 	public void joinGame(Game game) {
-		System.out.println("JOIN GAME " + game.getName());
 		mainController.askJoinGame(game);
 	}
 
@@ -143,7 +140,6 @@ public class menuController implements Initializable{
 	}
 
 	public void lookUser(User user) {
-		System.out.println("LOOK USER " + user.getUsername());
 		mainController.openProfileWindow(user);
 	}
 
