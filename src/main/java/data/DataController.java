@@ -311,8 +311,8 @@ public class DataController {
                     ois.close();
                     if ((p.getLogin().equals(login)) && (p.getPassword().equals(mdp))){
                         localProfile = p; 
-                        localUser = new User(localProfile);
-                        localDataUser = new DataUser(localProfile);
+                        localUser = localProfile;
+                        localDataUser = localProfile;
                         break;
                     }            
                 } catch (Exception e) { 

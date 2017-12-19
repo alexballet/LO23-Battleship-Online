@@ -369,6 +369,7 @@ public class GuiMainController implements GuiMainInterface {
 			profilController.init(user);
 
 			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Profil");
 			stage.setScene(new Scene(root));  
 			stage.show();
@@ -388,6 +389,7 @@ public class GuiMainController implements GuiMainInterface {
 			changeProfileController.init(user);
 
 			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Modification de profil");
 			stage.setScene(new Scene(root));  
 			stage.show();
