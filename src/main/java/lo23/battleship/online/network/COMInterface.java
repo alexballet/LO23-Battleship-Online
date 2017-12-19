@@ -2,6 +2,8 @@ package lo23.battleship.online.network;
 
 import structData.*;
 
+import java.util.HashSet;
+
 
 /**
  * Data interface
@@ -116,4 +118,33 @@ public interface COMInterface {
      * @param game Game to delete
      */
     public void notifyGameWon();
+
+    /**
+     * spectator send a request to a player in order to have the game informations
+     * @param player player game
+     * @param spec spectator who ask for request
+     */
+    public void getInfoGameForSpectator(Player player, User spec);
+
+    /**
+     * player send the game to the spectator after his request
+     * @param game game send to the spectator
+     * @param spec spectator who want to see the game
+     */
+    public void sendInfoGameForSpectator(Game game, User spec);
+
+    /**
+     * alert everybody (the other player and the spectator) that there is a new spectator
+     * @param u new spectator
+     * @param p other player
+     * @param listSpectator list of all actual spectator
+     */
+    public void sendNewSpectator(User u, Player p, HashSet<User> listSpectator);
+
+    /**
+    * alert everybody that the spectator quit the game
+    * @param spec spectator who quit the game
+    * @param game game quit by the spectator (permit to retrieve player and listSpectator)
+    */
+    public void gameQuitSpectator(User spec, Game game);
 }
