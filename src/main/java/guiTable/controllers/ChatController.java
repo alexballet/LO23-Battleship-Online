@@ -19,11 +19,11 @@ public class ChatController {
     private String conversation;
     
     
-    public void init() {
+    public void init(String conv) {
         //initialisation of the chat controller
+        this.conversation = conv;
         conversationArea.setEditable(false);
-        conversation = "Vous êtes connecté.";
-        conversationArea.setText(conversation);
+        conversationArea.setText(this.conversation);
         System.out.println("\n FONCTION INIT \n");
     }
 
@@ -68,6 +68,10 @@ public class ChatController {
     
     public void setDataController(CDataTable d) {
         this.dataController = d;
+    }
+
+    public String getConversation() {
+        return this.conversation;
     }
     
 }

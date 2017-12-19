@@ -34,7 +34,7 @@ public class GuiTableController implements GuiTableInterface {
     private GamePhaseController gamePhaseController;
     private CDataTable dataController;
     private ChatController chatController;
-    private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
+    private final String CHAT_FXML_URL = "/fxml/IhmTable/chat.fxml";
     private List<Boat> boats = null;
 
     /**
@@ -81,7 +81,7 @@ public class GuiTableController implements GuiTableInterface {
         PlacementPhaseController controller = loader.getController();
         controller.setPlacementTime(placementTime);
 
-        chatController = controller.fillChatSlot(chatFxmlURL);
+        chatController = controller.fillChatSlot(controller.getChatPane(), CHAT_FXML_URL, ""); // string final message initial
         chatController.setDataController(dataController);
 
     }
@@ -100,9 +100,9 @@ public class GuiTableController implements GuiTableInterface {
             Scene scene = new Scene(rootLayout);
             mainStage.setScene(scene);
             mainStage.show();
-            
+            String conv = chatController.getConversation();
+            gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, conv);
             chatController.reloadConversation();
-            gamePhaseController.fillChatSlot(chatFxmlURL);
         } catch(IOException e) {
             System.err.println("ERROR : "+e.getMessage());
         }

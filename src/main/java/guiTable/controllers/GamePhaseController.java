@@ -84,14 +84,8 @@ public class GamePhaseController extends BaseController implements Initializable
         messageContainer.setVisible(false);
     }
     
-        /**
-    * fillChatSlot() allows external class to fill the chatPane and get the ChatController
-    * @param chatFxmlUrl
-    * @return chatController
-    */        
-    public void fillChatSlot(String chatFxmlUrl){
-        fillElement(chatPane, chatFxmlUrl );
-    }
+    
+    
     
     protected EventHandler<MouseEvent> onClickCase() {
         EventHandler<MouseEvent> mousePositionHandler = new EventHandler<MouseEvent>() {
@@ -276,5 +270,12 @@ public class GamePhaseController extends BaseController implements Initializable
         logMsg("Defaite !");
         valider.setDisable(true);
         table.setDisable(true);
+    }
+
+    /**
+     * @return the chatPane
+     */
+    public AnchorPane getChatPane() {
+        return chatPane;
     }
 }

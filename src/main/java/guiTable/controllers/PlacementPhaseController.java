@@ -144,20 +144,7 @@ public abstract class PlacementPhaseController extends BaseController implements
         valider.setDisable(true);                        
     }
     
-    
-    /**
-    * fillChatSlot() allows external class to fill the chatPane and get the ChatController
-    * @param chatFxmlUrl
-    * @return chatController
-    */        
-    public ChatController fillChatSlot(String chatFxmlUrl){
-        FXMLLoader loader;
-        loader = fillElement(chatPane, chatFxmlUrl );
-        ChatController chatController = loader.getController();
-        chatController.init();
-        return chatController;
-    }
-        
+   
     /**
      * Trigger validation of placement phase
      */
@@ -504,5 +491,9 @@ public abstract class PlacementPhaseController extends BaseController implements
      */
     public void setIsValidate(boolean isValidate) {
         this.isValidate = isValidate;
+    }
+
+    public AnchorPane getChatPane() {
+        return this.chatPane;
     }
 }
