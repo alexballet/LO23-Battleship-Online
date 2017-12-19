@@ -88,8 +88,7 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-
-    public void opponentReady(final Boolean myTurn) {
+    public void opponentReady(final Boolean myTurn, int time) {
     		Runnable command = new Runnable() {
 			@Override
 			public void run() {
@@ -101,6 +100,7 @@ public class GuiTableController implements GuiTableInterface {
 		            gamePhaseController = loader.<GamePhaseController>getController();
 		            gamePhaseController.setMyTurn(myTurn);
 		            gamePhaseController.setMyBoats(boats);
+                            gamePhaseController.setRoundTime(time);
 		        
 		            Scene scene = new Scene(rootLayout);
 		            mainStage.setScene(scene);

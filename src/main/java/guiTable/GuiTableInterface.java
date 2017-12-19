@@ -28,7 +28,7 @@ public interface GuiTableInterface {
      * This method exist to avoid BC compatibilities
      * @param myTurn specify if it is the local player turn
      */
-    public void opponentReady(Boolean myTurn);
+    public void opponentReady(Boolean myTurn, int time);
     
     /**
      * Displays view where the user can watch a game.

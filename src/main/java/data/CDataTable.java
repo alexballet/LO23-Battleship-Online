@@ -88,7 +88,7 @@ public class CDataTable implements IDataTable {
         Game myGame = controller.getLocalGame();
        /* ajout ihm-plateau débug   */
         if(!myGame.getHumanOpponent())  {
-            interfaceTable.opponentReady(myGame.getPlayer1Start());
+            interfaceTable.opponentReady(myGame.getPlayer1Start(), myGame.getTimePerShot());
         }else {
             /* ajout ihm-plateau débug   */
             if (localPlayerIsPlayer1) {
@@ -114,7 +114,7 @@ public class CDataTable implements IDataTable {
                 myTurn = false;
             }
 
-            interfaceTable.opponentReady(myTurn);
+            interfaceTable.opponentReady(myTurn, myGame.getTimePerShot());
         }
     }
     
