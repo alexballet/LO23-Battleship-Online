@@ -189,12 +189,17 @@ public class NetworkModuleInterface implements COMInterface {
     }
     
 
-    // TODO ajout paramètre HashSet<User> listSpectators et envoyer à tous les spectateurs le shot
+
     public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat) {
 
         ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, boat);
+        HashSet<User> listSpectator = game.getListSpectators();
 
         InetAddress destAddress;
+
+        for (User s: listSpectator) {
+            controller.sendMessage(shotNotificationResultMessage, controller.getAddressForUser(s));
+        }
 
         if (dataInterface.getLocalUser().getIdUser().equals(game.getPlayer1().getProfile().getIdUser())) {
             destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
@@ -219,7 +224,6 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
 
-    // TODO à implémenter + ajouter à l'interface quand c'est fait
     public void getInfoGameForSpectator(Player player, User spec) {
 
         // spectateur(spec) demande au player(player) de lui filer les infos du game
@@ -229,7 +233,7 @@ public class NetworkModuleInterface implements COMInterface {
         controller.sendMessage(message, address);
     }
 
-    // TODO à implémenter + ajouter à l'interface quand c'est fait
+
     public void sendInfoGameForSpectator(Game game, User spec) {
 
         // player(localuser) envoie au spectateur(spec) les infos du game
@@ -239,7 +243,7 @@ public class NetworkModuleInterface implements COMInterface {
         controller.sendMessage(sendInfoGameForSpectatorMessage, address);
     }
 
-    // TODO à implémenter + ajouter à l'interface quand c'est fait
+
     public void sendNewSpectator(User u, Player p, HashSet<User> listSpectators)  {
 
         // player1(localuser) envoie à tous (player2 et spectateur) l'arrivée d'un nouveau spectateur
@@ -253,8 +257,7 @@ public class NetworkModuleInterface implements COMInterface {
             controller.sendMessage(sendNewSpectatorMessage, address);
         }
     }
-
-    // TODO à implémenter + ajouter à l'interface quand c'est fait
+    
     public void gameQuitSpectator(User spec, Game game) {
 
         // signaler a tout le monde que le spectateur part du game
