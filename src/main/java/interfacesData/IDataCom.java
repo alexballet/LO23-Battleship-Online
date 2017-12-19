@@ -22,17 +22,6 @@ import java.util.Set;
  */
 public interface IDataCom {
     /**
-     * Sends known user's IP table to new user and the current game if the new user is playing a game
-     * @param withGame : if (withGame==true) return the game the user is playing
-     * @param iPs (returned) : ipadresses known by local user to send to send to a new user
-     * @param dataGame (returned) : the game the user is playing
-     */
-    // TODO Change void to struct containing a Set and DataGame
-    public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame);
-
-
-    // TODO Create method to return current user game if exists : getCurrentUserGame
-    /**
      * Returns the current Game
      * @return the current Game
      */
@@ -162,26 +151,26 @@ public interface IDataCom {
      
 
       /**
-      * Natify a spectator watching a game
-      * @param g Game wathced
-      * @param spec Spectator watching the game
+      * Notify that a new spectator has joined the game
+      * @param spec New spectator
       */
      public void notifyToSpecGame(User spec);
      
      /**
-      * 
-      * @param u 
+      * A new spectator want to join the game, he need to get the informations of the game
+      * @param u The spectator who want to come
       */
      public void newRequestSpectator(User u);
      
      /**
-      * 
-      * @param g 
+      * The spectator receives the informations of the game that he wants to join
+      * @param g The joined game
       */
      public void joinGameSpectator(Game g);
      
      /**
       * Notif everyone when a spectator leaves
+      * @param spec The spectator who leaves
       */
      public void notifyQuitSpectator(User spec);
 }
