@@ -44,7 +44,13 @@ public class CreateGameController implements Initializable{
 
 	@FXML
 	private CheckBox chatAutorise;
+	
+	@FXML
+	private CheckBox timeDisabled;
 
+	@FXML
+	private TextField positioningTime;
+	
 	@FXML
 	private TextField reflectionTime;
 
@@ -91,13 +97,19 @@ public class CreateGameController implements Initializable{
 		 Boolean chat = chatAutorise.isSelected();
 		 Boolean classicGame = classicGameType.isSelected();
 		 Boolean oponent = humanGameAdversaire.isSelected();   
-		 int timePerShot;
+		 Integer timePerShot = null;
+		 Integer timeForPositioning= null;
+		 
 		 //add try catch exception for default value time per shot
-		 try {
-			 timePerShot = Integer.parseInt(reflectionTime.getText());
-		 } catch (NumberFormatException e) {
-			 System.out.println("le champ temps est vide initialisation à 30s");
-			 timePerShot = 30;
+		 if (!timeDisabled.isSelected()){
+			 try {
+				 timePerShot = Integer.parseInt(reflectionTime.getText());
+				 timeForPositioning = Integer.parseInt(positioningTime.getText());
+			 } catch (NumberFormatException e) {
+				 System.out.println("le champ temps est vide initialisation à 30s");
+				 timePerShot = 30;
+				 timeForPositioning = 30; 
+			 } 
 		 }
 
 		 // Create new game object
@@ -117,6 +129,13 @@ public class CreateGameController implements Initializable{
 	 @FXML
 	 void returnToMenu(ActionEvent event) {
 		 mainController.openMenuWindow();
+	 }
+	 
+	 @FXML
+	 void timerDisable(ActionEvent event){
+		 boolean isSelected = timeDisabled.isSelected();
+		 positioningTime.setDisable(isSelected);
+		 reflectionTime.setDisable(isSelected);
 	 }
 
 	 public void setMainController (GuiMainController c) {
