@@ -242,7 +242,7 @@ public class CDataCom implements IDataCom {
     }
     
     /**
-     * Takes a game given as a parameter and updates his status
+     * Takes a game given as a parameter and updates its status
      * @param g : the game which status has been modified
      */
     
@@ -304,7 +304,11 @@ public class CDataCom implements IDataCom {
     public void joinGameSpectator(Game g) {
         controller.setLocalGame(g);
         //to finish
-        //interfaceMain.joinGameSpec(Game g);
+        //interfaceMain.joinGameSpec(Game g); le main doit nous swap dans la partie, on vient de récupérer les données de la partie via le player1
     }
     
+    @Override
+    public void notifyQuitSpectator(User spec){
+        //interfaceCom.notifyQuitSpectator(spec); A decommenter pdt l'integ
+    }
 }

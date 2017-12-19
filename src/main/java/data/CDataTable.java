@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.Random;
 import structData.Shot;
+import structData.StatusGame;
 
 /**
  *
@@ -166,4 +167,10 @@ public class CDataTable implements IDataTable {
         return s;
     }
     
+    @Override
+    public void changeStatusGameStarted(){ //to be called when boatphase is over
+        Game g = controller.getLocalGame();
+        g.setStatus(StatusGame.PLAYING);
+        interfaceCom.changeStatusGame(g);
+    }
 }
