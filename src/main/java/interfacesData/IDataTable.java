@@ -41,7 +41,7 @@ public interface IDataTable {
     public void coordinateShips(List<Boat> listBoat);
 
     /**
-     * IA that choose a shot
+     * IA that choose a shot. Not used because the robot user was abandonned.
      * @return the chosen Shot
      */
     public Shot iaShot();

@@ -119,6 +119,7 @@ public class CDataTable implements IDataTable {
         }
     }
     
+    // Not used because the robot user was dropped
     @Override
     public Shot iaShot(){
         
