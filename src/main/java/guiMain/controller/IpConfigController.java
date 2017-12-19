@@ -32,8 +32,8 @@ public class IpConfigController {
 	@FXML
 	private Button validateButton;
         
-        @FXML 
-        private TextField port;
+    @FXML 
+    private TextField port;
 
 	
 	
@@ -88,15 +88,14 @@ public class IpConfigController {
 
 	@FXML
 	private void validate(ActionEvent event){
-		System.out.println("Ips " + ipsListView.getItems());
 		mainController.setIps(ipsListView.getItems());
-                
-                int num_port = Integer.getInteger(port.getText());
-                /** Decommenter pour l'integration et checker la fonction chez IDataMain **/
-                //mainController.getIdata().setPort(num_port);
-                
-                ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+		
+        int num_port = Integer.parseInt(port.getText());
+        /** Decommenter pour l'integration et checker la fonction chez IDataMain **/
+        //mainController.getIdata().setPort(num_port);
+        
+        ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
 	
-        }
+    	}
         
 }
