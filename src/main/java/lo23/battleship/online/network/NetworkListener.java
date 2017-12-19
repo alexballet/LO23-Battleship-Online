@@ -12,6 +12,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by xzirva on 17/10/17.
@@ -64,7 +66,10 @@ public class NetworkListener extends Thread {
                 debug += "\n Request Received at " + timeStamps;
                 System.err.println("\n" + debug);
 
-                request.process(dataInterface, remote.getAddress());
+                if (request != null) {
+
+                    request.process(dataInterface, remote.getAddress());
+                }
 
 //                Thread t = new Thread(new NetworkSender(client, responseToSend));
 //                t.start();//Run the client request process thread
@@ -74,7 +79,7 @@ public class NetworkListener extends Thread {
             } catch(SocketException e) {
                 System.out.println("Still closing. Revert accept");
             } catch (IOException e) {
-                e.printStackTrace();
+                Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
             }
         }
     }
@@ -100,7 +105,7 @@ public class NetworkListener extends Thread {
             Message message = (Message) reader.readObject();
             return message;
         } catch(ClassNotFoundException e) {
-            e.printStackTrace();
+            Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
         }
         return null;
     }
