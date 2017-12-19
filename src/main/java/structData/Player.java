@@ -17,7 +17,8 @@ public class Player implements Serializable{
     private Profile profile;
     private List<Boat> listBoats;
     private HashSet<Shot> listShots;
-    
+    private boolean ready;
+
     /**
      * Constructor by default 
      * @param dUser : the parent class DataUser of the profile of the new player
@@ -26,6 +27,7 @@ public class Player implements Serializable{
         profile = new Profile(dUser);
         listBoats = new ArrayList();
         listShots = new HashSet();
+         ready = false;
     }
     
     /**
@@ -36,7 +38,18 @@ public class Player implements Serializable{
         profile = p;
         listBoats = new ArrayList();
         listShots = new HashSet();
+        ready = false;
     }
+
+    public boolean isReady() {
+        return ready;
+    }
+
+    public void setReady(boolean value) {
+        ready = value;
+    }
+
+
     
     /*constructor with parameters*/
     /**
@@ -125,6 +138,7 @@ public class Player implements Serializable{
      * Add a new shot to the list of shots
      * @param newShot : the new shot to be added into the list of boats
      */
+    
     public void addShot (Shot newShot){
         listShots.add(newShot);
     }

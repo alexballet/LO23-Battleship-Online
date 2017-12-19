@@ -5,6 +5,7 @@
  */
 package guiTable.controllers;
 
+import guiMain.GuiMainController;
 import guiTable.CaseDrawing;
 import java.net.URL;
 import java.util.List;
@@ -117,7 +118,7 @@ public class GamePhaseController extends BaseController implements Initializable
         Byte colB = Byte.decode(col.toString());
         Byte rowB = Byte.decode(row.toString());
         
-        Position shoot = new Position(colB, rowB, null);
+        Position shoot = new Position(colB, rowB, false);
         GuiTableController.getInstance().validateShot(shoot);
         valider.setDisable(true);
     }
@@ -145,8 +146,8 @@ public class GamePhaseController extends BaseController implements Initializable
     }
     
     protected void plateShotTo(Shot shot, GridPane gird) {
-        Integer col = shot.getX().intValue();
-        Integer row = shot.getY().intValue();
+        Integer col = shot.getX();
+        Integer row = shot.getY();
         CaseDrawing.Type t;
         if(shot.getTouched()) {
             t = CaseDrawing.Type.TOUCHED;
@@ -170,21 +171,21 @@ public class GamePhaseController extends BaseController implements Initializable
         sunkABoat(myTable, boat);
     }
     
-    protected void sunkABoat(GridPane gird, Boat boat) {
+    protected void sunkABoat(GridPane grid, Boat boat) {
         for(Position position : boat.getListCases()) {
             CaseDrawing c = new CaseDrawing(CaseDrawing.Type.SUNK_BOAT);
-            gird.add(c, position.getX().intValue(), position.getY().intValue());
+            grid.add(c, position.getX(), position.getY());
         }
     }
 
     public void setMyBoats(List<Boat> boats) {
         if (boats == null) {
-            System.err.println("Error : boats is null");
+            System.err.println("Error : boats are null");
         } else {
             for(Boat boat : boats) {
                 for(Position position : boat.getListCases()) {
                     CaseDrawing c = new CaseDrawing(CaseDrawing.Type.BOAT);
-                    myTable.add(c, position.getX().intValue(), position.getY().intValue());
+                    myTable.add(c, position.getX(), position.getY());
                 }
             }
         }
@@ -227,7 +228,8 @@ public class GamePhaseController extends BaseController implements Initializable
     @FXML
     protected void yesClicked() {
         if (GuiTableController.getInstance().exitGame()) {
-            // Passer la main à ihm main
+            GuiTableController controller = GuiTableController.getInstance();
+            controller.getDataController().gameEnded();
         } else {
             // Message d'erreur
         }

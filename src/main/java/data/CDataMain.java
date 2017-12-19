@@ -50,6 +50,8 @@ public class CDataMain implements IDataMain {
         controller.getLocalProfile().setName(firstName);
         controller.getLocalProfile().setBirthdate(birthDate);
         
+        controller.getLocalProfile().saveProfile();
+        
     }
 
     @Override
@@ -142,9 +144,27 @@ public class CDataMain implements IDataMain {
      
      public void setListIps(HashSet Ips){
          controller.getLocalProfile().setIPs(Ips);
-         System.out.println("Test------------" + controller.getLocalUser().getIPs());
          interfaceCom.searchForPlayers();
          controller.getLocalProfile().saveProfile();
      }
 
+    
+    /**
+     * Add a spectator in the game
+     * @param g : game that the spectator wants to join
+     * @param spec : spectator
+     */
+    @Override
+    public void gameToSpec(Game g, User spec){
+        controller.updateSpecList(g, spec);
+    }
+    
+    /**
+     * Get the list of connected users
+     * @return the list of connected users
+     */
+    @Override
+    public List<User> getListUsers() {
+        return controller.getListUsers();
+    }
 }

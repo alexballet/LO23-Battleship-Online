@@ -71,9 +71,7 @@ public class GuiMainController implements GuiMainInterface {
 		Runnable command = new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("GUIMain");
 				menuController.removeUser(user);
-				System.out.println("After GUIMain");
 			}
 		};
 		Platform.runLater(command);
@@ -288,8 +286,6 @@ public class GuiMainController implements GuiMainInterface {
 			waitingRoomController = loader.getController();
 			waitingRoomController.initData(game);
 
-			System.out.println("open waiting room");
-
 			Stage stage = new Stage();
 			stage.initModality(Modality.APPLICATION_MODAL);
 			stage.setTitle("Salle d'attente");
@@ -299,7 +295,6 @@ public class GuiMainController implements GuiMainInterface {
 
 			stage.setOnCloseRequest((WindowEvent event1) -> {
 				idata.removeGame(game);
-				System.out.println("Exit waiting room");
 			});
 
 		} catch(Exception e) {

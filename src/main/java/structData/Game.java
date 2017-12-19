@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.Date;
 /**
  * Game is a class for the user's game
  */
@@ -42,7 +43,7 @@ public class Game implements Serializable{
         spectatorChat = false;
         listSpectators = new HashSet();
         player1 = new Player(p);
-        player2 = new Player(p);
+        player2 = null;
         player1Start = false;
         listMessages = new ArrayList();
     }
@@ -113,8 +114,13 @@ public class Game implements Serializable{
         humanOpponent = newHumanOpponent;
         if (humanOpponent){
             status = StatusGame.WAITINGPLAYER;
+            player2 = p2;
         }else{
             status = StatusGame.WAITINGBOT;
+            User u = new User("Bot", "Bot");
+            DataUser dU= new DataUser(u);
+            Player pBot = new Player(dU);
+            player2 = pBot;
         }
         timePerShot = newTimePerShot;
         spectator = newSpectator;
@@ -127,7 +133,6 @@ public class Game implements Serializable{
         }
             
         player1 = p1;
-        player2 = p2;
         player1Start = p1Start;
         listMessages = lMsg;
     }
@@ -158,8 +163,13 @@ public class Game implements Serializable{
         humanOpponent = newHumanOpponent;
         if (humanOpponent){
             status = StatusGame.WAITINGPLAYER;
+            player2 = p2;
         }else{
             status = StatusGame.WAITINGBOT;
+            User u = new User("Bot", "Bot");
+            DataUser dU= new DataUser(u);
+            Player pBot = new Player(dU);
+            player2 = pBot;
         }
         timePerShot = newTimePerShot;
         spectator = newSpectator;
@@ -167,7 +177,6 @@ public class Game implements Serializable{
         listSpectators = new HashSet(); 
             
         player1 = p1;
-        player2 = p2;
         player1Start = p1Start;
         listMessages = lMsg;
     }

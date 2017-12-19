@@ -12,6 +12,7 @@ import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import structData.Boat;
 import structData.ChatMessage;
@@ -87,25 +88,32 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void opponentReady(Boolean myTurn) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/GamePhase.fxml"));
 
-        try {
-            rootLayout = (AnchorPane) loader.load();
-            gamePhaseController = loader.<GamePhaseController>getController();
-            gamePhaseController.setMyTurn(myTurn);
-            gamePhaseController.setMyBoats(boats);
-        
-            Scene scene = new Scene(rootLayout);
-            mainStage.setScene(scene);
-            mainStage.show();
-            String conv = chatController.getConversation();
-            gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, conv);
-            chatController.reloadConversation();
-        } catch(IOException e) {
-            System.err.println("ERROR : "+e.getMessage());
-        }
+    public void opponentReady(final Boolean myTurn) {
+    		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+		        FXMLLoader loader = new FXMLLoader();
+		        loader.setLocation(getClass().getResource("/fxml/IhmTable/GamePhase.fxml"));
+		
+		        try {
+		            rootLayout = (AnchorPane) loader.load();
+		            gamePhaseController = loader.<GamePhaseController>getController();
+		            gamePhaseController.setMyTurn(myTurn);
+		            gamePhaseController.setMyBoats(boats);
+		        
+		            Scene scene = new Scene(rootLayout);
+		            mainStage.setScene(scene);
+		            mainStage.show();
+                            String conv = chatController.getConversation();
+                            gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, conv);
+                            chatController.reloadConversation();
+		        } catch(IOException e) {
+		            System.err.println("ERROR : "+e.getMessage());
+		        }
+			}
+		};
+		Platform.runLater(command);
     }
 
     @Override
@@ -129,21 +137,33 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void displayMyShotResult(Shot myShotResult, Boat boat) {
-        gamePhaseController.addShot(myShotResult);
-        if (boat != null){
-            gamePhaseController.sunckBoat(boat);
-        }
-        gamePhaseController.setMyTurn(false);
+    public void displayMyShotResult(final Shot myShotResult,final Boat boat) {
+    		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+		        gamePhaseController.addShot(myShotResult);
+		        if (boat != null && boat.getSunk()){
+		            gamePhaseController.sunckBoat(boat);
+		        }
+		        gamePhaseController.setMyTurn(false);
+			}
+		};
+		Platform.runLater(command);
     }
 
     @Override
-    public void displayOpponentShot(Shot opponentShot, Boat boat) {
-        gamePhaseController.addOpponentShot(opponentShot);
-        if (boat != null){
-            gamePhaseController.sunkMyBoat(boat);
-        }
-        gamePhaseController.setMyTurn(true);
+    public void displayOpponentShot(final Shot opponentShot,final Boat boat) {
+    		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+		        gamePhaseController.addOpponentShot(opponentShot);
+		        if (boat != null){
+		            gamePhaseController.sunkMyBoat(boat);
+		        }
+		        gamePhaseController.setMyTurn(true);
+			}
+		};
+		Platform.runLater(command);
     }
 
     @Override
@@ -167,5 +187,10 @@ public class GuiTableController implements GuiTableInterface {
     
     public Boolean exitGame() {
         return dataController.exit();
+    }
+
+    public CDataTable getDataController() {
+        return dataController;
+        
     }
 }

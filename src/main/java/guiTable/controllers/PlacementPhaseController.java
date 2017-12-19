@@ -12,6 +12,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -152,7 +153,16 @@ public abstract class PlacementPhaseController extends BaseController implements
     protected void onValidate() {
         if (!this.isIsValidate()) {
             this.setIsValidate(true);
-            List<Boat> boats = this.getBoats();
+            
+            List<Boat> boats = new ArrayList<Boat>();
+            for (Map.Entry<Rectangle, BoatDrawing> entry : boatMap.entrySet()) {
+                BoatDrawing myBoatDrawing = entry.getValue();
+                //Boat myBoat = myBoatDrawing.getBoat();
+                boats.add(new Boat(myBoatDrawing.getBoatType(), myBoatDrawing.isRotation(), new Position(myBoatDrawing.getGridCol(), myBoatDrawing.getGridRow(), false)));
+              //  myBoat.setListcases(myBoatDrawing.isRotation(), new Position(myBoatDrawing.getGridCol(), myBoatDrawing.getGridRow(), false));
+               // boats.add(myBoat);
+            }
+            
             timeline.stop();
             timerLabel.setVisible(false);
             logMsg("en attente de la validation de l'autre joueur", "");
@@ -164,6 +174,7 @@ public abstract class PlacementPhaseController extends BaseController implements
      * Convert the boatMap of type HashMap<Rectangle, BoatDrawing> to List<Boat>
      * @return List<Boat> list of boats
      */
+    /*
     protected List<Boat> getBoats() {
         List<Boat> boats = new ArrayList(this.boatMap.size());
         for(BoatDrawing boatDraw : boatMap.values()) {
@@ -171,7 +182,7 @@ public abstract class PlacementPhaseController extends BaseController implements
         }
         
         return boats;
-    }
+    }*/ // potentiellement inutile
     
         
     /**
