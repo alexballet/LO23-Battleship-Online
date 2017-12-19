@@ -30,7 +30,7 @@ public class Profile extends DataUser {
      */
     public Profile(DataUser dUser){
         super(dUser);
-        avatar = new ImageIcon("");;
+        // avatar = new ImageIcon("");
         lastname = new String("");
         name = new String("");
         birthdate = new Date();

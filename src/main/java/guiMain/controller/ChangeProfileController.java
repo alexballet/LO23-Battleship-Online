@@ -1,5 +1,7 @@
 package guiMain.controller;
 import guiMain.GuiMainController;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +25,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.embed.swing.SwingFXUtils;
+import sun.awt.image.ToolkitImage;
 import structData.Profile;
 import structData.User;
 
@@ -83,7 +87,8 @@ public class ChangeProfileController implements Initializable {
          */
         @FXML
         void backToMenu(ActionEvent event) {
-                mainController.openMenuWindow();
+    			((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+    			mainController.openMenuWindow();
         }
 
         /**
@@ -124,7 +129,7 @@ public class ChangeProfileController implements Initializable {
                     password = userPassword.getText();
                 }
                 if (!user_name.trim().isEmpty() && !last_name.trim().isEmpty() && !first_name.trim().isEmpty()){    
-                    mainController.getIdata().editProfile(user_name, password, null, last_name, first_name, birth_date);
+                		mainController.getIdata().editProfile(user_name, password, null, last_name, first_name, birth_date);
                     // mainController.getIdata().editProfile(user_name, password, avatar.toString(), last_name, first_name, birth_date);
                 }else{
                     errorMessage.setText("Des champs obligatoires ne sont pas remplis");
@@ -140,13 +145,17 @@ public class ChangeProfileController implements Initializable {
                 // TODO : Verifier methode getStatistics with Data
                 Profile profile = mainController.getIdata().getLocalProfile();
                 nameTitle.setText(profile.getUsername());
-                // userAvatar.setImage(profile.getAvatar().getImage());
+                if (profile.getAvatar() != null) {
+                    BufferedImage bufferedImage = ((ToolkitImage) profile.getAvatar().getImage()).getBufferedImage();
+                    Image img = SwingFXUtils.toFXImage(bufferedImage, null);
+                    userAvatar.setImage(img);
+                }
                 userName.setText(profile.getUsername());
                 lastName.setText(profile.getLastname());
                 firstName.setText(profile.getName());
                 // Convert Date type to formatted string
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                birthdate.setValue(LocalDate.parse(df.format(profile.getBirthdate())));
+                if (profile.getBirthdate() != null) birthdate.setValue(LocalDate.parse(df.format(profile.getBirthdate())));
                 numberOfGame.setText(String.valueOf(profile.getGamesPlayed()));
                 numberOfGameWon.setText(String.valueOf(profile.getGamesWon()));
                 numberOfGameLost.setText(String.valueOf(profile.getGamesLost()));
