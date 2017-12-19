@@ -43,10 +43,10 @@ public class ChatController {
         if(!message.isEmpty())
         {
             //send the message to other users
-            //dataController.textMessage(message);
+            dataController.textMessage(message);
             
             //add this to the conversation
-            conversationArea.appendText("Moi: " + message + "\n");
+            conversationArea.setText("Moi: " + message + "\n" + conversation);
             conversation = conversationArea.getText();
         }
         
@@ -63,7 +63,7 @@ public class ChatController {
     public void reloadConversation(){
         conversationArea.setText("");
         conversationArea.appendText(conversation);
-        System.out.println("on reload \n conv : " + conversation);
+        //System.out.println("on reload \n conv : " + conversation);
     }
     
     public void setDataController(CDataTable d) {
