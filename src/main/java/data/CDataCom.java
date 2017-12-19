@@ -204,8 +204,8 @@ public class CDataCom implements IDataCom {
         Boat b = controller.testShot(s);
         System.out.println("boat " + b);
         interfaceTable.displayOpponentShot(s, b);
-        interfaceCom.coordinates(controller.getOtherPLayer() , s, controller.getLocalGame());
         if (b != null){
+            interfaceCom.coordinates(controller.getOtherPLayer() , s, controller.getLocalGame(), b);
             boolean gameOver = true;   
             Player localPlayer = controller.getLocalPlayer();
             List<Boat> listboat = localPlayer.getListBoats();
