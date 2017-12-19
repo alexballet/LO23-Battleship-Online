@@ -11,6 +11,10 @@ import javax.swing.ImageIcon;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * Profile is a class for the user's profile
  * @author loulou
@@ -262,33 +266,41 @@ public class Profile extends DataUser {
          os.close();
          fs.close();
       } catch (Exception e) { 
-         e.printStackTrace(); 
+         Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, e);
       }
     }
+    
+    /**
+     * Safe clean of file
+    */
+    public boolean cleanUp(File file) throws IOException{
+        Files.delete(file.toPath());
+        return true;
+    }
+    
     /**
      * save edited profil
      */
-    public void saveeditedProfile(){
+    public void saveeditedProfile() {
         String filename = Integer.toString(idUser.hashCode());
         filename = filename.concat(".ser");
-        String FILE_NAME = filename;
-        File file = new File(FILE_NAME);
-
-    	if(file.delete()){
-    		System.out.println(file.getName() + " is deleted!");
-    	}else{
-    		System.out.println("Delete operation is failed.");
-    	}
-        
-                
-
+        File file = new File(filename);
         try {
-         FileOutputStream fs = new FileOutputStream(FILE_NAME);
-         ObjectOutputStream os = new ObjectOutputStream(fs);
-         os.writeObject(this); 
-         os.close();
-        } catch (Exception e) { 
-         e.printStackTrace(); 
+            if(cleanUp(file)){
+                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, file.getName() + " is deleted!");
+            }else{
+                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, "Delete operation is failed.");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            FileOutputStream fs = new FileOutputStream(filename);
+            try (ObjectOutputStream os = new ObjectOutputStream(fs)) {
+                os.writeObject(this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
