@@ -240,6 +240,19 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     // TODO à implémenter + ajouter à l'interface quand c'est fait
+    public void sendNewSpectator(User u, Player p, HashSet<User> listSpectators)  {
+
+        // player1(localuser) envoie à tous (player2 et spectateur) l'arrivée d'un nouveau spectateur
+        SendNewSpectatorMessage sendNewSpectatorMessage =
+                new SendNewSpectatorMessage(u);
+        InetAddress otherPlayerAddress = controller.getAddressForUser(p.getProfile());
+        System.out.println("Sending gameQuitSpectator to otherPlayer : " + otherPlayerAddress);
+        controller.sendMessage(sendNewSpectatorMessage, otherPlayerAddress);
+        for(User spec : listSpectators) {
+            InetAddress address = controller.getAddressForUser(spec);
+            controller.sendMessage(sendNewSpectatorMessage, address);
+        }
+    }
 
     // TODO à implémenter + ajouter à l'interface quand c'est fait
     public void gameQuitSpectator(User spec, Game game) {

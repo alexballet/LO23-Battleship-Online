@@ -5,6 +5,7 @@ import structData.Player;
 import structData.User;
 
 import java.net.InetAddress;
+import java.util.HashSet;
 
 /**
  * GetInfoGameForSpectatorMessage,descendant class Message, spectator ask the game.
