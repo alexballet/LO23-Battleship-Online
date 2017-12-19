@@ -160,10 +160,24 @@ public interface IDataCom {
       */
      public void notifiedGameWon();
      
+
+      /**
+      * Natify a spectator watching a game
+      * @param g Game wathced
+      * @param spec Spectator watching the game
+      */
      public void notifyToSpecGame(User spec);
      
+     /**
+      * 
+      * @param u 
+      */
      public void newRequestSpectator(User u);
      
+     /**
+      * 
+      * @param g 
+      */
      public void joinGameSpectator(Game g);
      
      /**
