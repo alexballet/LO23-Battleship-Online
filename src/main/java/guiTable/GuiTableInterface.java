@@ -31,7 +31,21 @@ public interface GuiTableInterface {
     /**
      * Displays view where the user can watch a game.
      */
-    public void displayObserverPhase();
+    public void displayObserverPhase(final boolean turn);
+    
+    /**
+     * Displays the result of the player 1's shot on the board.
+     * @param opponentShot : The shot sent by the player 1.
+     * @param boat : If filled, indicates this 'boat' is sunk.
+     */
+    public void displayPlayer1Shot(Shot opponentShot, Boat boat);
+
+    /**
+     * Displays the result of the player 2's shot on the board.
+     * @param myShotResult : The result of the shot sent by the player 2.
+     * @param boat : If filled, indicates this 'boat' is sunk.
+     */
+    public void displayPlayer2Shot(Shot myShotResult, Boat boat);
 
     /**
      * Displays a victory message, and allow player to return to IHM Main.

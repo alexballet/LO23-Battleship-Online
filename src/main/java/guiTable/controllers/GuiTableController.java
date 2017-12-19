@@ -33,6 +33,7 @@ public class GuiTableController implements GuiTableInterface {
     private Boolean classic;
     
     private GamePhaseController gamePhaseController;
+    private ObserverPhaseController observerPhaseController;
     private CDataTable dataController;
     private ChatController chatController;
     private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
@@ -113,8 +114,57 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void displayObserverPhase() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void displayObserverPhase(final boolean turn) {
+        Runnable command = new Runnable() {
+			@Override
+                    public void run() {
+		        FXMLLoader loader = new FXMLLoader();
+		        loader.setLocation(getClass().getResource("/fxml/IhmTable/ObserverPhase.fxml"));
+		
+		        try {
+		            rootLayout = (AnchorPane) loader.load();
+		            observerPhaseController = loader.<ObserverPhaseController>getController();
+		            observerPhaseController.setTurn(turn);
+		        
+		            Scene scene = new Scene(rootLayout);
+		            mainStage.setScene(scene);
+		            mainStage.show();
+		        } catch(IOException e) {
+		            System.err.println("ERROR : "+e.getMessage());
+		        }
+                    }
+		};
+		Platform.runLater(command);
+    }
+    
+    @Override
+    public void displayPlayer1Shot(final Shot shotResult,final Boat boat) {
+    		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+		        observerPhaseController.addPlayer1Shot(shotResult);
+		        if (boat != null && boat.getSunk()){
+		            observerPhaseController.sunkPlayer1Boat(boat);
+		        }
+		        observerPhaseController.setTurn(false);
+			}
+		};
+		Platform.runLater(command);
+    }
+
+    @Override
+    public void displayPlayer2Shot(final Shot opponentShot,final Boat boat) {
+    		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+		        observerPhaseController.addPlayer2Shot(opponentShot);
+		        if (boat != null && boat.getSunk()){
+		            observerPhaseController.sunkPlayer2Boat(boat);
+		        }
+		        observerPhaseController.setTurn(true);
+			}
+		};
+		Platform.runLater(command);
     }
 
     @Override
