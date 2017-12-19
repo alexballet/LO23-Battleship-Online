@@ -144,7 +144,6 @@ public class CDataMain implements IDataMain {
      
      public void setListIps(HashSet Ips){
          controller.getLocalProfile().setIPs(Ips);
-         System.out.println("Test------------" + controller.getLocalUser().getIPs());
          interfaceCom.searchForPlayers();
          controller.getLocalProfile().saveProfile();
      }

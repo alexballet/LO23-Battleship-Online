@@ -20,6 +20,7 @@ import structData.StatusGame;
 import structData.User;
 import structData.Player;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  *
@@ -156,7 +157,6 @@ public class CDataCom implements IDataCom {
     public void receiveMessage(ChatMessage message) {
         controller.getLocalGame().addMessage(message);
         System.out.println("Message: " + message);
-        System.out.println("interfaceTable: " + interfaceTable);
         interfaceTable.addChatMessage(message);
     }
 
@@ -176,7 +176,7 @@ public class CDataCom implements IDataCom {
 
         
         
-        
+        //TODO REFACTOR
         if(controller.getLocalGame().getPlayer1().isReady() &&
                 controller.getLocalGame().getPlayer2().isReady())
         {
@@ -190,7 +190,6 @@ public class CDataCom implements IDataCom {
             } else /*if ( p1Start == false && p1 == localPlayer )*/ {
                 myTurn = false;
             }
-            //System.out.println("myturn"+ myTurn);
 
             interfaceTable.opponentReady(myTurn);
         }
@@ -201,17 +200,19 @@ public class CDataCom implements IDataCom {
     public void coordinates(Shot s) {
         Boat b = controller.testShot(s);
         interfaceTable.displayOpponentShot(s, b);
-        interfaceCom.coordinates(controller.getOtherPLayer() , s, controller.getLocalGame());
+        interfaceCom.coordinates(controller.getOtherPLayer() , s, controller.getLocalGame(), b);
         if (b != null){
-            boolean gameOver = true;            
-            for(int i=0;i<controller.getLocalPlayer().getListBoats().size();i++) {
-                if (!controller.getLocalPlayer().getListBoats().get(i).getStatus()){
+            boolean gameOver = true;
+            Player localPlayer = controller.getLocalPlayer();
+            List<Boat> listboat = localPlayer.getListBoats();
+            for (Boat boat : listboat) {
+                if(!boat.getSunk()) {
                     gameOver = false;
                     break;
                 }
-                i++;
             }
             if (gameOver){
+                System.out.println("GAME OVER");
                 //arreter la partie localPlayer a perdu
                 interfaceTable.displayDefeat();
                 
@@ -221,7 +222,7 @@ public class CDataCom implements IDataCom {
                     pl = controller.getLocalGame().getPlayer2();
                 else
                     pl = controller.getLocalGame().getPlayer1();
-                //interfaceCom.notifyGameWon(pl);
+                interfaceCom.notifyGameWon();
                 
                 controller.getLocalProfile().setGamesLost(controller.getLocalProfile().getGamesLost()+1);
                 controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);

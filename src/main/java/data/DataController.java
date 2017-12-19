@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,6 +21,7 @@ import structData.DataUser;
 import structData.Profile;
 import structData.StatusGame;
 import structData.Player;
+import structData.Position;
 import structData.Shot;
 
 /**
@@ -226,13 +228,14 @@ public class DataController {
         Boolean gameexist = false;
         
         for (int i = 0; i < listGames.size(); i++) {
-            if (listGames.get(i).getIdGame() == g.getIdGame()){
+            if (listGames.get(i).getIdGame().equals(g.getIdGame())){
                 gameexist = true;
                 listGames.set(i, g);
                 break;
             }
 	}
-        
+
+	    //TODO: Refactor (useless comparison)
         if (gameexist == false){
             listGames.add(g);
         }
@@ -334,24 +337,13 @@ public class DataController {
         boolean boatSunk = true;
         Boat b = null;
         List<Boat> listBoat = localPlayer.getListBoats();
-        for (i=0;i<listBoat.size();i++) { // each boats
-            Boat myBoat = listBoat.get(i); 
-            for (j=0;j<myBoat.getListCases().size();j++) { // each positions of the boat
-                if (myBoat.verifyPosition(s) == true) {
-                    myBoat.getListCases().get(j).setTouched(true);
-                    s.setTouched(true);
-                    b = listBoat.get(i);
-                }
-                
-                if (myBoat.getListCases().get(j).getTouched() == false) // if atmost 1 position is not touched then the boat is not sunk
-                    boatSunk = false;
+        for (Boat boat : listBoat) {
+            b = boat.updateShot(s);
+            if(s.getTouched()) {
+                return b;
             }
         }
-        // if a boat has been sunk return this boat
-        if (boatSunk == true)
-            return b;
-        else
-            return null;
+        return null;
     }
     
     public void setListUser(List<User> u){

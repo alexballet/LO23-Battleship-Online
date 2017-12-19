@@ -117,7 +117,7 @@ public class NetworkModuleInterface implements COMInterface {
         User user = dataInterface.getLocalUser();
         List<InetAddress> ipAddresses = controller.getIPTable();
 
-        DisconnectionMessage disconnection = new DisconnectionMessage(user);
+        DisconnectionMessage disconnection = new DisconnectionMessage(user, dataInterface.getCreatedGame());
 
         for (InetAddress ipAddress : ipAddresses) {
 
@@ -186,23 +186,7 @@ public class NetworkModuleInterface implements COMInterface {
         controller.sendMessage(gameWonMessage, controller.getAddressForUser(winner.getProfile()));
 
     }
-
-    public boolean coordinates(Player destPlayer, Shot resultShot, Game game) {
-
-        ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, null);
-
-        InetAddress destAddress;
-
-        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
-            destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
-        } else {
-            destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
-        }
-
-        controller.sendMessage(shotNotificationResultMessage, destAddress);
-
-        return true;
-    }
+    
 
     public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat) {
 
