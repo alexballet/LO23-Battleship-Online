@@ -44,7 +44,9 @@ public class CDataMain implements IDataMain {
     public void editProfile(String username, String password, String avatar, String lastName, String firstName, Date birthDate) {
   
         controller.getLocalUser().setUsername(username);
-        controller.getLocalDataUser().setPassword(password);
+        if (password != null && !password.isEmpty()) {
+        		controller.getLocalDataUser().setPassword(password);
+        }
         controller.getLocalProfile().setAvatar(avatar);
         controller.getLocalProfile().setLastname(lastName);
         controller.getLocalProfile().setName(firstName);
