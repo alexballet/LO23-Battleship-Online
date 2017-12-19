@@ -1,5 +1,7 @@
 package guiMain.controller;
 import guiMain.GuiMainController;
+
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +25,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.embed.swing.SwingFXUtils;
+import sun.awt.image.ToolkitImage;
 import structData.Profile;
 import structData.User;
 
@@ -71,6 +75,8 @@ public class ChangeProfileController implements Initializable {
         
         @FXML 
         private Label errorMessage;
+        
+        private String avatarPath;
 
         @Override
         public void initialize(URL location, ResourceBundle resources) {
@@ -83,7 +89,8 @@ public class ChangeProfileController implements Initializable {
          */
         @FXML
         void backToMenu(ActionEvent event) {
-                mainController.openMenuWindow();
+    			((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+    			mainController.openMenuWindow();
         }
 
         /**
@@ -92,15 +99,15 @@ public class ChangeProfileController implements Initializable {
          */
         @FXML
         void modifyAvatar(ActionEvent event) {
-		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
-                FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
-                fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
-                Stage stage = ((Stage)(((Button)event.getSource()).getScene().getWindow()));
-                File file = fileChooser.showOpenDialog(stage);
-                if (file != null) {
-                        openFile(file);
-                }
+			FileChooser fileChooser = new FileChooser();
+			FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+	        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+	        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+	        Stage stage = ((Stage)(((Button)event.getSource()).getScene().getWindow()));
+	        File file = fileChooser.showOpenDialog(stage);
+	        if (file != null) {
+	        		openFile(file);
+	        }
         }
 
         /**
@@ -114,21 +121,21 @@ public class ChangeProfileController implements Initializable {
                 String last_name = lastName.getText();
                 String first_name = firstName.getText();
                 Date birth_date = null;
-		if (birthdate.getValue() != null){
-                        birth_date = Date.from(birthdate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+                if (birthdate.getValue() != null){
+                		birth_date = Date.from(birthdate.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
                 }
                 // TODO : get local user password
                 String password = ""; // set correct password
                 if(!userPassword.getText().isEmpty()){
-                        // Change password if textfield is not empty
-                        password = userPassword.getText();
+                    // Change password if textfield is not empty
+                    password = userPassword.getText();
                 }
-                if (!user_name.trim().isEmpty() && !last_name.trim().isEmpty() && !first_name.trim().isEmpty()){    
-                        mainController.getIdata().editProfile(user_name, password, avatar.toString(), last_name, first_name, birth_date);
-		}else{
-                        errorMessage.setText("Des champs obligatoires ne sont pas remplis");
-                        errorMessage.setVisible(true);
-		}
+                if (!user_name.trim().isEmpty() && !last_name.trim().isEmpty() && !first_name.trim().isEmpty()){   
+                		mainController.getIdata().editProfile(user_name, password, avatarPath , last_name, first_name, birth_date);
+                }else{
+                    errorMessage.setText("Des champs obligatoires ne sont pas remplis");
+                    errorMessage.setVisible(true);
+                }
         }
 
         /**
@@ -137,18 +144,23 @@ public class ChangeProfileController implements Initializable {
          */
         public void init(User user) {   
                 // TODO : Verifier methode getStatistics with Data
-                /*Profile profile = mainController.getIdata().getStatistics();
+                Profile profile = mainController.getIdata().getLocalProfile();
                 nameTitle.setText(profile.getUsername());
-                userAvatar.setImage(profile.getAvatar());
+                if (profile.getAvatar() != null) {
+                    BufferedImage bufferedImage = ((ToolkitImage) profile.getAvatar().getImage()).getBufferedImage();
+                    Image img = SwingFXUtils.toFXImage(bufferedImage, null);
+                    userAvatar.setImage(img);
+                }
                 userName.setText(profile.getUsername());
                 lastName.setText(profile.getLastname());
                 firstName.setText(profile.getName());
-                // Convert Date type to formatted strind
+                // Convert Date type to formatted string
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                birthdate.setValue(LocalDate.parse(df.format(profile.getBirthdate())));
+                if (profile.getBirthdate() != null) birthdate.setValue(LocalDate.parse(df.format(profile.getBirthdate())));
                 numberOfGame.setText(String.valueOf(profile.getGamesPlayed()));
                 numberOfGameWon.setText(String.valueOf(profile.getGamesWon()));
-                numberOfGameLost.setText(String.valueOf(profile.getGamesLost()));*/
+                numberOfGameLost.setText(String.valueOf(profile.getGamesLost()));
+                userPassword.setPromptText("Non modifié");
         }
 
         /**
@@ -164,11 +176,12 @@ public class ChangeProfileController implements Initializable {
          * @param file : image file selected by the user
          */
         private void openFile(File file) {
-                try {
-                        Image selectedImage = new Image("file:" + file.getAbsolutePath());
-                        userAvatar.setImage(selectedImage);
-                } catch (IllegalArgumentException ex) {
-                        Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            try {
+            		avatarPath = file.getAbsolutePath();
+                Image selectedImage = new Image("file:" + avatarPath);
+                userAvatar.setImage(selectedImage);
+            } catch (IllegalArgumentException ex) {
+                	Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 }

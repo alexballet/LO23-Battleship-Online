@@ -31,11 +31,7 @@ public class ProfileRequestAnswerMessage extends Message {
     public String getType() {
         return type;
     }
-
-    /**
-     * Method requesting the needed profile from Data.
-     * @param IData interface with Data.
-     */
+    
 
     /**
      * Unused method for this class.

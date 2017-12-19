@@ -106,4 +106,6 @@ public interface IDataMain {
     void gameToSpec(Game g);
     
     void setPort(int p);
+    
+    public List<User> getListUsers();
 }

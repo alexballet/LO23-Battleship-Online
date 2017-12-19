@@ -31,7 +31,7 @@ public class Profile extends DataUser {
      */
     public Profile(DataUser dUser){
         super(dUser);
-        avatar = new ImageIcon("");;
+        // avatar = new ImageIcon("");
         lastname = new String("");
         name = new String("");
         birthdate = new Date();
@@ -125,7 +125,9 @@ public class Profile extends DataUser {
      * @param path path to image
      */
     public void setAvatar(String path){
-        this.avatar = new ImageIcon(path);
+        if (path != null) {
+        		this.avatar = new ImageIcon(path);
+        }
     }
     
     /**
@@ -247,7 +249,7 @@ public class Profile extends DataUser {
     }
     
     /**
-     * Save profile in a local file
+     * Save new profile in a local file
      */
     public void saveProfile(){
         String filename = Integer.toString(idUser.hashCode());
@@ -263,7 +265,9 @@ public class Profile extends DataUser {
          e.printStackTrace(); 
       }
     }
-    
+    /**
+     * save edited profil
+     */
     public void saveeditedProfile(){
         String filename = Integer.toString(idUser.hashCode());
         filename = filename.concat(".ser");

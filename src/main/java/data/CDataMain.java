@@ -109,9 +109,6 @@ public class CDataMain implements IDataMain {
         return result;
     }
 
-    /**
-     * Adds a new game to the list of games
-     */
     @Override
     public Game newGame(Boolean newClassicType, String newName, 
             Boolean newHumanOpponent, Integer newTimePerShot, Integer newTimeToPlaceBoats,
@@ -142,7 +139,6 @@ public class CDataMain implements IDataMain {
      
      public void setListIps(HashSet Ips){
          controller.getLocalProfile().setIPs(Ips);
-         System.out.println("Test------------" + controller.getLocalUser().getIPs());
          interfaceCom.searchForPlayers();
          controller.getLocalProfile().saveProfile();
      }
@@ -165,5 +161,14 @@ public class CDataMain implements IDataMain {
     @Override
     public void setPort(int p) {
         controller.getLocalProfile().setPort(p);
+    }
+    
+    /**
+     * Get the list of connected users
+     * @return the list of connected users
+     */
+    @Override
+    public List<User> getListUsers() {
+        return controller.getListUsers();
     }
 }

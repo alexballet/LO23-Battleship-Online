@@ -143,11 +143,12 @@ public class NetworkController {
         }
     }
 
-    public void removeFromNetwork(User user) {
+    public void removeFromNetwork(User user, Game game) {
         for (User u : networkState.keySet()) {
             if(user.getIdUser().equals(u.getIdUser())) {
                 networkState.remove(u);
                 dataInterface.removeUser(u);
+                dataInterface.removeGameFromList(game);
                 return;
             }
         }

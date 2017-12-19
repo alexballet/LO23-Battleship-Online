@@ -16,8 +16,8 @@ import lo23.battleship.online.network.COMInterface;
 import guiMain.GuiMainInterface;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.Random;
+import guiTable.GuiTableInterface;
 import structData.Shot;
 import structData.StatusGame;
 
@@ -28,7 +28,10 @@ import structData.StatusGame;
 public class CDataTable implements IDataTable {
     
     private DataController controller;
-    
+   
+    /* ajout ihm-plateau débug   */
+    private GuiTableInterface interfaceTable;
+    /* ajout ihm-plateau débug   */
     private GuiMainInterface interfaceMain;
     private COMInterface interfaceCom;
     
@@ -39,10 +42,18 @@ public class CDataTable implements IDataTable {
         controller = dc;
     }
     
+    /* ajout ihm-plateau débug   */
+    public void setInterfaceTable(GuiTableInterface t) {
+        interfaceTable = t;
+    }
+    /* ajout ihm-plateau débug   */
     public void setInterfaceCom(COMInterface c){
         interfaceCom = c;
     }
 
+    public void setInterfaceMain(GuiMainInterface m) {
+        interfaceMain = m;
+    }
     @Override
     public Boolean exit() {
         //Boolean b = interfaceCom.exit(); Com doit s'occuper la fonction exit
@@ -64,15 +75,48 @@ public class CDataTable implements IDataTable {
     }
 
     @Override
-    public void coordinateShips(List<Boat> listBoat) {
-        controller.getLocalPlayer().setListBoats(listBoat);
-        //TODO : uncomment when integV3 done
-        if(controller.getLocalUser().getIdUser().equals(
-                controller.getLocalGame().getPlayer1().getProfile().getIdUser()))
-                    interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
-        else
-            interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer1());
 
+    // TODO: Mettre les instructions dans le bon sens
+    public void coordinateShips(List<Boat> listBoat) {
+        Boolean myTurn;
+        Boolean p1Start = controller.getLocalGame().getPlayer1Start();
+        controller.getLocalPlayer().setListBoats(listBoat);
+        boolean localPlayerIsPlayer1 = controller.getLocalUser().getIdUser().equals(
+                controller.getLocalGame().getPlayer1().getProfile().getIdUser());
+        boolean localPlayerIsPlayer2 = controller.getLocalUser().getIdUser().equals(
+                controller.getLocalGame().getPlayer2().getProfile().getIdUser());
+        //TODO : uncomment when integV3 done
+        Game myGame = controller.getLocalGame();
+       /* ajout ihm-plateau débug   */
+        if(!myGame.getHumanOpponent())  {
+            interfaceTable.opponentReady(myGame.getPlayer1Start());
+        }else {
+            /* ajout ihm-plateau débug   */
+            if (localPlayerIsPlayer1) {
+                controller.getLocalGame().getPlayer1().setReady(true);
+                interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
+            } else {
+                controller.getLocalGame().getPlayer2().setReady(true);
+                interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer1());
+            }
+        }
+
+        // TODO: Simplifier les conditions (myTurn = p1Start && localPlayerIsPlayer1)
+        if(controller.getLocalGame().getPlayer1().isReady() &&
+                controller.getLocalGame().getPlayer2().isReady())
+        {
+            if (p1Start && localPlayerIsPlayer1) {
+                myTurn = true;
+            } else if (p1Start && localPlayerIsPlayer2) {
+                myTurn = false;
+            } else if (!p1Start && localPlayerIsPlayer2) {
+                myTurn = true;
+            } else /*if ( p1Start == false && p1 == localPlayer )*/ {
+                myTurn = false;
+            }
+
+            interfaceTable.opponentReady(myTurn);
+        }
     }
     
     @Override
@@ -86,7 +130,7 @@ public class CDataTable implements IDataTable {
         Byte x;
         Byte y;
         Byte tampX;
-        Byte tampY;       
+        Byte tampY;    
         
         Integer shootNear;
         
@@ -119,8 +163,8 @@ public class CDataTable implements IDataTable {
                         // If touched a boat
                         if(itr.next().getTouched()){
                             lastShotTouchedSomething = true;
-                            tampX = itr.next().getX();
-                            tampY = itr.next().getY();
+                            tampX = (byte) itr.next().getX();
+                            tampY = (byte) itr.next().getY();
                             shootNear = rn1.nextInt(4);
                             switch (shootNear)
                             {
@@ -149,7 +193,7 @@ public class CDataTable implements IDataTable {
             // Check if a position was already played
             while(itr.hasNext() && shotAlreadyPlayed == false) {
                 
-                if(itr.next().getX().equals(x) && itr.next().getY().equals(y)){
+                if(itr.next().getX() == x && itr.next().getY() == y){
                     shotAlreadyPlayed = true;
                     if(lastShotTouchedSomething){
                         randomShot = true;
@@ -176,5 +220,10 @@ public class CDataTable implements IDataTable {
         Game g = controller.getLocalGame();
         g.setStatus(StatusGame.PLAYING);
         interfaceCom.changeStatusGame(g);
+    }
+    
+    public void gameEnded() {
+        //TODO gérer data fin de partie
+        interfaceMain.openMenuWindow();
     }
 }

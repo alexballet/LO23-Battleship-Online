@@ -15,7 +15,7 @@ import java.util.ListIterator;
 public class Boat implements Serializable{
     static final long serialVersionUID = 1L;
     private BoatType type;
-    private Boolean status;
+    private Boolean isSunk;
     private List<Position> listCases;
     
     
@@ -25,11 +25,24 @@ public class Boat implements Serializable{
      */
     public Boat(){
         type = BoatType.PORTEAVIONS;
-        status = false;
+        isSunk = false;
         this.listCases = new ArrayList();
     }
     
 
+    /**
+     * constructor with parameters
+     * @param typedata : the type of the new boat
+     * @param rotation
+     * @param pos
+     */
+    public Boat(BoatType typedata, Boolean rotation, Position pos){
+        type = typedata;
+        isSunk = false;
+        this.listCases = new ArrayList();
+        this.setListcases(rotation, pos);
+    }
+    
 
     /**
      * constructor with parameters
@@ -39,7 +52,7 @@ public class Boat implements Serializable{
      */
     public Boat(BoatType typedata, Boolean statusdata, List<Position> listCasesdata){
         type = typedata;
-        status = statusdata;
+        isSunk = statusdata;
         listCases = listCasesdata;
     }
     
@@ -55,8 +68,8 @@ public class Boat implements Serializable{
      * Accessor for the status
      * @return the boat's status
      */
-    public Boolean getStatus(){
-        return status;
+    public Boolean getSunk(){
+        return isSunk;
     }
     
     /**
@@ -80,8 +93,8 @@ public class Boat implements Serializable{
      * Mutator for the boat's status
      * @param statusdata : the new boat's status
      */
-    public void setStatus(Boolean statusdata){
-        this.status = statusdata;
+    public void setSunk(Boolean statusdata){
+        this.isSunk = statusdata;
     }
     
     /**
@@ -92,6 +105,17 @@ public class Boat implements Serializable{
         this.listCases = listCasesdata;
     }
     
+    public void setListcases(Boolean rotation, Position pos){
+        for (int i = 0; i < this.type.getNbCases(); i++) {
+            if(rotation) {
+                this.listCases.add(new Position(pos.x, pos.y+i, false));
+            } else {
+                this.listCases.add(new Position(pos.x+i, pos.y, false));
+            }
+            
+        }
+    }
+    
     
     /**
      * Clone method for a boat
@@ -100,7 +124,7 @@ public class Boat implements Serializable{
      */
     public Boat cloneBoat(Boat boatclone){
         type = boatclone.type;
-        status = boatclone.status;
+        isSunk = boatclone.isSunk;
         listCases = boatclone.listCases;
         return this;
    }
@@ -115,37 +139,28 @@ public class Boat implements Serializable{
     
     /**
      * Verify if a position belongs to a boat
-     * @param pos : position to check
+     * @param shot : position to check
      * @return a boolean set to true if the position belongs to a boat
      */
-    public Boolean verifyPosition (Position pos){
-        Boolean isbelonged;
-        isbelonged = false;
+    public Boat updateShot (Position shot){
+        Boolean sunk = true;
         
-       ListIterator<Position> it = this.listCases.listIterator();
-       while(it.hasNext()){
-            Position posboat = it.next();
-            Byte posboatx = posboat.x;
-            Byte posboaty = posboat.y;
-            if ((posboatx.equals(pos.x)) && (posboaty.equals(pos.y))){
-                isbelonged = true;
-                break;
+        for (Position pos : listCases) {
+            int posboatx = pos.x;
+            int posboaty = pos.y;
+            if ((posboatx == shot.x) && (posboaty==shot.y)){
+                pos.setTouched(true);
+                shot.setTouched(true); // voir si utile ?
             }
-       }
-        return isbelonged;
+            if(!pos.getTouched())  {
+                sunk = false;
+            }
+        }
+        this.setSunk(sunk);
+        return this;
         
     }
     
-    
-    /**
-     * If the position belongs to the boat, set this positon touched
-     * @param pos : the position to be verified
-     */
-    public void setTouchedPosition (Position pos){
-        if (this.verifyPosition(pos) == true){
-            pos.touched = true;
-        }
-    }
     
     
     /**
@@ -155,15 +170,15 @@ public class Boat implements Serializable{
     public Boolean verifyBoatStatus(){
         ListIterator<Position> it = this.listCases.listIterator();
         
-        this.status = true;
+        this.isSunk = true;
         while(it.hasNext()){
             Position posboat = it.next();
             if (posboat.touched == false){
-                this.status = false;
+                this.isSunk = false;
                 break;
             }
         }
-        return this.status;
+        return this.isSunk;
     }
     
 }

@@ -51,9 +51,3 @@ public interface IDataTable {
      */
     public void changeStatusGameStarted();
 }
-
-
-
-
-
-

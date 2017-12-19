@@ -19,6 +19,7 @@ import structData.Shot;
 import structData.StatusGame;
 import structData.User;
 import structData.Player;
+import java.util.List;
 
 /**
  *
@@ -151,33 +152,40 @@ public class CDataCom implements IDataCom {
     public void receiveMessage(ChatMessage message) {
         controller.getLocalGame().addMessage(message);
         System.out.println("Message: " + message);
-        System.out.println("interfaceTable: " + interfaceTable);
         interfaceTable.addChatMessage(message);
     }
 
     
     public void receiveReady() {
-
+        //TODO decrasser le code !!! les conditions sont toujours les mêmes donc faire ça proprement
         Boolean myTurn;
         Boolean p1Start = controller.getLocalGame().getPlayer1Start();
         Player localPlayer = controller.getLocalPlayer();
         Player p1 = controller.getLocalGame().getPlayer1();
-        
-        if ( p1Start && p1.equals(localPlayer) ){
-            myTurn = true;
-        }
-        else if ( p1Start && !p1.equals(localPlayer) ){
-            myTurn = false;
-        }
-        else if ( p1Start && !p1.equals(localPlayer) ){
-            myTurn = true;
-        }
-        else /*if ( p1Start == false && p1 == localPlayer )*/{
-            myTurn = false;
+
+        if ( p1Start && p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser()) ) {
+            controller.getLocalGame().getPlayer2().setReady(true);
+        } else {
+            controller.getLocalGame().getPlayer1().setReady(true);
         }
         
-        // TODO : décommenter à l'integ
-        //interfaceTable.opponentReady(myTurn, controller.getLocalGame().getTimePerShot());
+        //TODO REFACTOR
+        if(controller.getLocalGame().getPlayer1().isReady() &&
+                controller.getLocalGame().getPlayer2().isReady())
+        {
+            System.out.println("2 player are ready");
+            if (p1Start && p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
+                myTurn = true;
+            } else if (p1Start && !p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
+                myTurn = false;
+            } else if (p1Start && !p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
+                myTurn = true;
+            } else /*if ( p1Start == false && p1 == localPlayer )*/ {
+                myTurn = false;
+            }
+
+            interfaceTable.opponentReady(myTurn);
+        }
     }
 
 
@@ -185,17 +193,19 @@ public class CDataCom implements IDataCom {
     public void coordinates(Shot s) {
         Boat b = controller.testShot(s);
         interfaceTable.displayOpponentShot(s, b);
-        //interfaceCom.coordinates(s,b); TODO : décommenter quand la fonction sera crée chez COM
+        interfaceCom.coordinates(controller.getOtherPLayer() , s, controller.getLocalGame(), b);
         if (b != null){
-            boolean gameOver = true;            
-            for(int i=0;i<controller.getLocalPlayer().getListBoats().size();i++) {
-                if (!controller.getLocalPlayer().getListBoats().get(i).getStatus()){
+            boolean gameOver = true;
+            Player localPlayer = controller.getLocalPlayer();
+            List<Boat> listboat = localPlayer.getListBoats();
+            for (Boat boat : listboat) {
+                if(!boat.getSunk()) {
                     gameOver = false;
                     break;
                 }
-                i++;
             }
             if (gameOver){
+                System.out.println("GAME OVER");
                 //arreter la partie localPlayer a perdu
                 interfaceTable.displayDefeat();
                 
@@ -205,7 +215,7 @@ public class CDataCom implements IDataCom {
                     pl = controller.getLocalGame().getPlayer2();
                 else
                     pl = controller.getLocalGame().getPlayer1();
-                //interfaceCom.notifyGameWon(pl);
+                interfaceCom.notifyGameWon();
                 
                 controller.getLocalProfile().setGamesLost(controller.getLocalProfile().getGamesLost()+1);
                 controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
@@ -239,8 +249,10 @@ public class CDataCom implements IDataCom {
      */
     
     public void changeStatusGame(Game g) {
-        Game localGame  = controller.getLocalGame();
+       /* Game localGame  = controller.getLocalGame();
         if (localGame != null) controller.removeGameFromList(localGame);
+        controller.updateGameStatus(g);
+        interfaceMain.transmitNewStatus(g);*/
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);
     }

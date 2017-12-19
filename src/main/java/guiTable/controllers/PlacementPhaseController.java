@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
@@ -21,6 +22,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -37,12 +39,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import javafx.scene.text.Text;
 import structData.Boat;
+import structData.Position;
 
 /**
  *
  * @author caioz
  */
-public abstract class PlacementPhaseController extends BaseController{
+public abstract class PlacementPhaseController extends BaseController implements Initializable
+{
        
     @FXML
     private AnchorPane anchorPane;
@@ -87,8 +91,7 @@ public abstract class PlacementPhaseController extends BaseController{
         messageContainer.setVisible(true);
         messageContainer.setText(msg);
         for (String string : param) {
-        System.out.println(string);
-            
+            System.out.println(string); 
         }
     }
     
@@ -113,6 +116,7 @@ public abstract class PlacementPhaseController extends BaseController{
      * @param location
      * @param resources
      */
+    @Override
     public void initialize(URL location, ResourceBundle resources){
         
         FXMLLoader loader;
@@ -173,12 +177,21 @@ public abstract class PlacementPhaseController extends BaseController{
     @FXML
     protected void onValidate() {
         if (!this.isIsValidate()) {
-        this.setIsValidate(true);
-        List<Boat> boats = this.getBoats();
-        timeline.stop();
-        timerLabel.setVisible(false);
-        logMsg("en attente de la validation de l'autre joueur", "");
-        GuiTableController.getInstance().validateBoats(boats);
+            this.setIsValidate(true);
+            
+            List<Boat> boats = new ArrayList<Boat>();
+            for (Map.Entry<Rectangle, BoatDrawing> entry : boatMap.entrySet()) {
+                BoatDrawing myBoatDrawing = entry.getValue();
+                //Boat myBoat = myBoatDrawing.getBoat();
+                boats.add(new Boat(myBoatDrawing.getBoatType(), myBoatDrawing.isRotation(), new Position(myBoatDrawing.getGridCol(), myBoatDrawing.getGridRow(), false)));
+              //  myBoat.setListcases(myBoatDrawing.isRotation(), new Position(myBoatDrawing.getGridCol(), myBoatDrawing.getGridRow(), false));
+               // boats.add(myBoat);
+            }
+            
+            timeline.stop();
+            timerLabel.setVisible(false);
+            logMsg("en attente de la validation de l'autre joueur", "");
+            GuiTableController.getInstance().validateBoats(boats);
         }
     }
     
@@ -186,6 +199,7 @@ public abstract class PlacementPhaseController extends BaseController{
      * Convert the boatMap of type HashMap<Rectangle, BoatDrawing> to List<Boat>
      * @return List<Boat> list of boats
      */
+    /*
     protected List<Boat> getBoats() {
         List<Boat> boats = new ArrayList(this.boatMap.size());
         for(BoatDrawing boatDraw : boatMap.values()) {
@@ -193,7 +207,7 @@ public abstract class PlacementPhaseController extends BaseController{
         }
         
         return boats;
-    }
+    }*/ // potentiellement inutile
     
         
     /**
@@ -317,8 +331,7 @@ public abstract class PlacementPhaseController extends BaseController{
         float positionY = GRID_Y + SPACE + GRID_ELEMENT_SIZE*(rowIndex + offset);
             
         boat.getBoatRectangle().relocate(positionX, positionY);
-        boat.setGridCol(colIndex);
-        boat.setGridRow(rowIndex);
+        boat.setPosition(colIndex, rowIndex);
         if(positionCorrect(boat)) {
            boat.getBoatRectangle().setFill(boat.getActiveColor());            
            logMsg("press R to rotate Boat and DEL to reinitialize boat");

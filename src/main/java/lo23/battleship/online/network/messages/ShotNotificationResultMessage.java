@@ -26,12 +26,9 @@ public class ShotNotificationResultMessage extends Message{
         return type;
     }
 
-    public void process(IDataCom IData){
-        IData.coordinates(shot, boat);
-    }
-
     public void process(IDataCom IData, InetAddress senderAddress){
-
+        
+        IData.coordinates(shot, boat);
     }
 
 
