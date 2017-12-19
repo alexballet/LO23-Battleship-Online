@@ -31,7 +31,7 @@ public class NetworkModuleInterface implements COMInterface {
         return true;
     }
 
-    // TODO ajout envoyer à tous les spectateurs le message (via le game et getListSpectators)
+
     public boolean sendChatMessage(ChatMessage chatMessage, Game g) {
 
         SendTextMessage sendTextMessage = new SendTextMessage(chatMessage);
@@ -52,6 +52,7 @@ public class NetworkModuleInterface implements COMInterface {
 
         return true;
     }
+
     public void getProfile(User userRequested) {
 
         GetProfileRequestMessage getProfileRequestMessage = new GetProfileRequestMessage(dataInterface.getUserProfile());
@@ -257,7 +258,7 @@ public class NetworkModuleInterface implements COMInterface {
             controller.sendMessage(sendNewSpectatorMessage, address);
         }
     }
-    
+
     public void gameQuitSpectator(User spec, Game game) {
 
         // signaler a tout le monde que le spectateur part du game
