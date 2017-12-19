@@ -18,11 +18,9 @@ public class SendNewSpectatorMessage extends Message {
     Player player;
     User spec;
     HashSet<User> listS;
-    public SendNewSpectatorMessage(User s, Player p, HashSet<User> listSpectators) {
+    public SendNewSpectatorMessage(User s) {
         this.type = "SendNewSpectatorMessage";
-        this.player = p;
         this.spec = s;
-        this.listS = listSpectators;
     }
 
     public String getType() {

@@ -38,7 +38,7 @@ public class NetworkModuleInterface implements COMInterface {
 
         HashSet<User> listUsers = g.getListSpectators();
 
-        if (dataInterface.getLocalUser().getIdUser() == g.getPlayer1().getProfile().getIdUser()) {
+        if (dataInterface.getLocalUser().getIdUser().equals(g.getPlayer1().getProfile().getIdUser())) {
             listUsers.add(g.getPlayer2().getProfile());
         } else {
             listUsers.add(g.getPlayer1().getProfile());
@@ -137,7 +137,7 @@ public class NetworkModuleInterface implements COMInterface {
 
         InetAddress destAddress;
 
-        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
+        if (dataInterface.getLocalUser().getIdUser().equals(game.getPlayer1().getProfile().getIdUser())) {
             destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
         } else {
             destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
@@ -196,7 +196,7 @@ public class NetworkModuleInterface implements COMInterface {
 
         InetAddress destAddress;
 
-        if (dataInterface.getLocalUser().getIdUser() == game.getPlayer1().getProfile().getIdUser()) {
+        if (dataInterface.getLocalUser().getIdUser().equals(game.getPlayer1().getProfile().getIdUser())) {
             destAddress = controller.getAddressForUser(game.getPlayer2().getProfile());
         } else {
             destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
@@ -223,25 +223,50 @@ public class NetworkModuleInterface implements COMInterface {
     public void getInfoGameForSpectator(Player player, User spec) {
 
         // spectateur(spec) demande au player(player) de lui filer les infos du game
-
+        InetAddress address = controller.getAddressForUser(player.getProfile());
+        GetInfoGameForSpectatorMessage message =
+                new GetInfoGameForSpectatorMessage(player, spec);
+        controller.sendMessage(message, address);
     }
 
     // TODO à implémenter + ajouter à l'interface quand c'est fait
     public void sendInfoGameForSpectator(Game game, User spec) {
 
         // player(localuser) envoie au spectateur(spec) les infos du game
+        InetAddress address = controller.getAddressForUser(spec);
+        SendInfoGameForSpectatorMessage sendInfoGameForSpectatorMessage =
+                new SendInfoGameForSpectatorMessage(game, spec);
+        controller.sendMessage(sendInfoGameForSpectatorMessage, address);
     }
 
     // TODO à implémenter + ajouter à l'interface quand c'est fait
-    public void SendNewSpectatorMessage(User u, Player p, HashSet<User> listSpectators)  {
-
-        // player1(localuser) envoie à tous (player2 et spectateur) l'arrivée d'un nouveau spectateur
-    }
 
     // TODO à implémenter + ajouter à l'interface quand c'est fait
     public void gameQuitSpectator(User spec, Game game) {
 
         // signaler a tout le monde que le spectateur part du game
+        GameQuitSpectatorMessage gameQuitSpectatorMessage =
+                new GameQuitSpectatorMessage(game, spec);
+        HashSet<User> listSpectators = game.getListSpectators();
+
+
+        User userPlayer1 = game.getPlayer1().getProfile();
+        InetAddress address = controller.getAddressForUser(userPlayer1);
+        System.out.println("Sending gameQuitSpectator to player1 : " + address);
+        controller.sendMessage(gameQuitSpectatorMessage, address);
+
+
+        User userPlayer2 = game.getPlayer1().getProfile();
+        address = controller.getAddressForUser(userPlayer2);
+        System.out.println("Sending gameQuitSpectator to player2 : " + address);
+        controller.sendMessage(gameQuitSpectatorMessage, address);
+
+
+        for(User otherSpec : listSpectators) {
+            address = controller.getAddressForUser(otherSpec);
+            System.out.println("Sending gameQuitSpectator to spectator: " + address);
+            controller.sendMessage(gameQuitSpectatorMessage, address);
+        }
 
     }
 
