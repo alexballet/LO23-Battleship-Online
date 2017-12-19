@@ -37,3 +37,7 @@ doc/*
 /src/JavaFXApplication1/nbproject/private/
 
 *.ser
+
+build.xml
+build.properties
+

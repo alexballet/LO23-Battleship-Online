@@ -6,6 +6,8 @@ import interfacesData.IDataCom;
 import java.io.IOException;
 import java.net.*;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NetworkServer {
 
@@ -42,7 +44,7 @@ public class NetworkServer {
             }
             //listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            Logger.getLogger(NetworkServer.class.getName()).log(Level.SEVERE, null, e);
         } catch (IOException e) {
             System.out.println("------!! Server already opened !!------");
         }
@@ -84,7 +86,7 @@ public class NetworkServer {
         try {
             listener.closeSocket();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(NetworkServer.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 }

@@ -8,6 +8,8 @@ import structData.User;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by xzirva on 17/10/17.
@@ -51,7 +53,7 @@ public class NetworkController {
             if(!networkServer.isOpened())
                 this.networkServer.open();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(NetworkController.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
