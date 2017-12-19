@@ -35,7 +35,7 @@ public class GuiTableController implements GuiTableInterface {
     private GamePhaseController gamePhaseController;
     private CDataTable dataController;
     private ChatController chatController;
-    private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
+    private final String CHAT_FXML_URL = "/fxml/IhmTable/chat.fxml";
     private List<Boat> boats = null;
 
     /**
@@ -82,13 +82,13 @@ public class GuiTableController implements GuiTableInterface {
         PlacementPhaseController controller = loader.getController();
         controller.setPlacementTime(placementTime);
 
-        chatController = controller.fillChatSlot(chatFxmlURL);
+        chatController = controller.fillChatSlot(controller.getChatPane(), CHAT_FXML_URL, ""); // string final message initial
         chatController.setDataController(dataController);
 
     }
 
     @Override
-    public void opponentReady(final Boolean myTurn) {
+    public void opponentReady(final Boolean myTurn, int time) {
     		Runnable command = new Runnable() {
 			@Override
 			public void run() {
@@ -100,10 +100,14 @@ public class GuiTableController implements GuiTableInterface {
 		            gamePhaseController = loader.<GamePhaseController>getController();
 		            gamePhaseController.setMyTurn(myTurn);
 		            gamePhaseController.setMyBoats(boats);
+                            gamePhaseController.setRoundTime(time);
 		        
 		            Scene scene = new Scene(rootLayout);
 		            mainStage.setScene(scene);
 		            mainStage.show();
+                            String conv = chatController.getConversation();
+                            chatController = gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, conv);
+                            chatController.setDataController(dataController);
 		        } catch(IOException e) {
 		            System.err.println("ERROR : "+e.getMessage());
 		        }
@@ -111,9 +115,14 @@ public class GuiTableController implements GuiTableInterface {
 		};
 		Platform.runLater(command);
     }
-
+/*
     @Override
-    public void displayObserverPhase() {
+    public void opponentReady(Boolean myTurn) {
+        this.opponentReady(myTurn, null);
+    }
+*/
+    @Override
+    public void displayObserverPhase(Stage currentStage) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -191,7 +191,7 @@ public class CDataCom implements IDataCom {
                 myTurn = false;
             }
 
-            interfaceTable.opponentReady(myTurn);
+            interfaceTable.opponentReady(myTurn, controller.getLocalGame().getTimePerShot());
         }
     }
 

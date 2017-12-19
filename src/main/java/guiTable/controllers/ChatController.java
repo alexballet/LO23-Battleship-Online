@@ -9,17 +9,22 @@ public class ChatController {
 
     @FXML
     //area dedicated to the conversation
-    private TextArea conversation;
+    private TextArea conversationArea;
     
     @FXML
     //text that we want to send
     private TextField field;
     
     private CDataTable dataController;
+    private String conversation;
     
-    public void init() {
+    
+    public void init(String conv) {
         //initialisation of the chat controller
-        conversation.setEditable(false);
+        this.conversation = conv;
+        conversationArea.setEditable(false);
+        conversationArea.setText(this.conversation);
+        System.out.println("\n FONCTION INIT \n");
     }
 
     public void sendMyMessage() {
@@ -27,21 +32,23 @@ public class ChatController {
         
         //variables
         String message;
-        String currentConversation;
         
         //get the message to send
         message = field.getText();
         
+        //System.out.println("\n"+ "voici mon message : " + message + "\n");
+        //System.out.println( "voici ma conversation : " + conversation + "\n");
+        
         //add this to the conversation
         if(!message.isEmpty())
         {
-            
             //send the message to other users
+            System.out.println("datacontrolleur" + dataController);
             dataController.textMessage(message);
             
             //add this to the conversation
-            currentConversation = conversation.getText();
-            conversation.setText("Moi: " + message + "\n" + currentConversation);
+            conversationArea.setText("Moi: " + message + "\n" + conversation);
+            conversation = conversationArea.getText();
         }
         
         //erase the textfield
@@ -50,16 +57,23 @@ public class ChatController {
     public void receiveAMessage(ChatMessage message) {
         //receive a message
         
-        //variables
-        String currentConversation;
-        
         //add this to the conversation
-        currentConversation = conversation.getText();
-        conversation.setText(message.getProfile().getUsername()+ ": " + message.getContent() + "\n" + currentConversation);
+        conversationArea.setText(message.getProfile().getUsername()+ ": " + message.getContent() + "\n" + conversation);
+        conversation = conversationArea.getText();
+    }
+    
+    public void reloadConversation(){
+        conversationArea.setText("");
+        conversationArea.appendText(conversation);
+        //System.out.println("on reload \n conv : " + conversation);
     }
     
     public void setDataController(CDataTable d) {
         this.dataController = d;
+    }
+
+    public String getConversation() {
+        return this.conversation;
     }
     
 }

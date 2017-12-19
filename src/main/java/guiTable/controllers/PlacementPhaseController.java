@@ -6,7 +6,6 @@
 
 package guiTable.controllers;
 
-
 import guiTable.BoatDrawing;
 import java.net.URL;
 import java.time.LocalTime;
@@ -56,8 +55,6 @@ public abstract class PlacementPhaseController extends BaseController implements
     private Button valider;
     @FXML
     private AnchorPane chatPane;
-    @FXML
-    private AnchorPane profilePane;    
     @FXML
     private Text messageContainer;
         
@@ -119,15 +116,6 @@ public abstract class PlacementPhaseController extends BaseController implements
     @Override
     public void initialize(URL location, ResourceBundle resources){
         
-        FXMLLoader loader;
-//        loader = fillElement(chatPane, "/fxml/IhmTable/chat.fxml" );
-//        ChatController chatController = loader.getController();
-//        chatController.init();
-
-        loader = fillElement(profilePane, "/fxml/IhmTable/profile.fxml" );
-        ProfileController profileController = loader.getController();
-        profileController.init();
-        
         boatMap = new HashMap<>();
         // Initializes the boat set
         initBoatMap();
@@ -157,20 +145,7 @@ public abstract class PlacementPhaseController extends BaseController implements
         valider.setDisable(true);                        
     }
     
-    
-    /**
-    * fillChatSlot() allows external class to fill the chatPane and get the ChatController
-    * @param chatFxmlUrl
-    * @return chatController
-    */        
-    public ChatController fillChatSlot(String chatFxmlUrl){
-        FXMLLoader loader;
-        loader = fillElement(chatPane, chatFxmlUrl );
-        ChatController chatController = loader.getController();
-        chatController.init();
-        return chatController;
-    }
-        
+   
     /**
      * Trigger validation of placement phase
      */
@@ -470,29 +445,31 @@ public abstract class PlacementPhaseController extends BaseController implements
     }
     
     public void setPlacementTime(Integer placementTime){
-        this.timePerShot = LocalTime.MIN.plusSeconds(placementTime);
-        this.time = timePerShot.plusSeconds(placementTime*MULTIPLE_FACTOR_PLACEMENT) ;
-        // update timerLabel
-        timerLabel.setText(time.toString().substring(3));
-        timeline = new Timeline();
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
-                    // KeyFrame event handler                      
-            @Override
-            public void handle(Event event) {
+        if (placementTime != null) {
+            this.timePerShot = LocalTime.MIN.plusSeconds(placementTime);
+            this.time = timePerShot.plusSeconds(placementTime*MULTIPLE_FACTOR_PLACEMENT) ;
+            // update timerLabel
+            timerLabel.setText(time.toString().substring(3));
+            timeline = new Timeline();
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
+                // KeyFrame event handler
+                @Override
+                public void handle(Event event) {
                     // update timerLabel
                     time = time.minusSeconds(1);
                     timerLabel.setText(time.toString().substring(3));
-                if (time.isBefore(LocalTime.MIN.plusSeconds(10))) {
-                    timerLabel.setTextFill(Color.RED);
+                    if (time.isBefore(LocalTime.MIN.plusSeconds(10))) {
+                        timerLabel.setTextFill(Color.RED);
+                    }
+                    if (time.isBefore(LocalTime.MIN.plusSeconds(1)) ) {
+                        timeline.stop();
+                        timeIsOver();
+                    }
                 }
-                if (time.isBefore(LocalTime.MIN.plusSeconds(1)) ) {
-                    timeline.stop();
-                    timeIsOver();
-                }
-            }
-        }));
-        timeline.playFromStart();
+            }));
+            timeline.playFromStart();
+        }
     }
     
     /**
@@ -527,5 +504,9 @@ public abstract class PlacementPhaseController extends BaseController implements
      */
     public void setIsValidate(boolean isValidate) {
         this.isValidate = isValidate;
+    }
+
+    public AnchorPane getChatPane() {
+        return this.chatPane;
     }
 }

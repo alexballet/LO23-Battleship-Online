@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controllers.BelgianPlacementPhaseController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controllers.BelgianPlacementPhaseController">
    <children>
       <MenuBar prefHeight="25.0" prefWidth="812.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -232,8 +232,7 @@
       </Pane>
       
       
-      <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="369.0" prefHeight="230.0" prefWidth="250.0" style="-fx-background-color: grey;" />
-      <AnchorPane fx:id="profilePane" layoutX="550.0" layoutY="272.0" prefHeight="97.0" prefWidth="250.0" style="-fx-background-color: black;" />
+      <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="275.0" prefHeight="324.0" prefWidth="250.0" style="-fx-background-color: grey;" />
    
    </children>
 </AnchorPane>

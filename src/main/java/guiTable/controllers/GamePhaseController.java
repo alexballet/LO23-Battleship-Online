@@ -8,10 +8,16 @@ package guiTable.controllers;
 import guiMain.GuiMainController;
 import guiTable.CaseDrawing;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -20,17 +26,21 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import structData.Boat;
 import structData.Position;
 import structData.Shot;
 
+import static guiTable.controllers.PlacementPhaseController.MULTIPLE_FACTOR_PLACEMENT;
+
 /**
  *
  * @author corentinhembise
  */
-public class GamePhaseController implements Initializable {
+public class GamePhaseController extends BaseController implements Initializable  {
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -61,15 +71,22 @@ public class GamePhaseController implements Initializable {
     private Boolean myTurn;
     
     private List<Boat> boats = null;
-    
+
+    public static final int GRID_ELEMENT_SIZE = 35;
     protected static final int GRID_X = 100;
     protected static final int GRID_Y = 100;
     protected static final int SPACE = 3;
-    public static final int GRID_ELEMENT_SIZE = 35;
     protected static final int NB_CASES_GRID = 10;
-    
+    protected static final int MULTIPLE_FACTOR_PLACEMENT = 7;
+
+    private Timeline timeline;
+    @FXML
+    private Label timerLabel;
+    private LocalTime time;
+
     @Override
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(URL location, ResourceBundle resources){        
+        
         selectedCase = new CaseDrawing(CaseDrawing.Type.SHOT);
 
         for (int i = 0 ; i < NB_CASES_GRID ; i++) {
@@ -82,6 +99,9 @@ public class GamePhaseController implements Initializable {
         
         messageContainer.setVisible(false);
     }
+    
+    
+    
     
     protected EventHandler<MouseEvent> onClickCase() {
         EventHandler<MouseEvent> mousePositionHandler = new EventHandler<MouseEvent>() {
@@ -229,7 +249,42 @@ public class GamePhaseController implements Initializable {
             // Message d'erreur
         }
     }
-    
+
+    public void setRoundTime(Integer roundTime) {
+        if (roundTime != null) {
+            LocalTime timePerShot = LocalTime.MIN.plusSeconds(roundTime);
+            this.time = timePerShot.plusSeconds(roundTime*MULTIPLE_FACTOR_PLACEMENT) ;
+            // update timerLabel
+            timerLabel.setText(time.toString().substring(3));
+            timeline = new Timeline();
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
+                // KeyFrame event handler
+                @Override
+                public void handle(Event event) {
+                    // update timerLabel
+                    time = time.minusSeconds(1);
+                    timerLabel.setText(time.toString().substring(3));
+                    if (time.isBefore(LocalTime.MIN.plusSeconds(10))) {
+                        timerLabel.setTextFill(Color.RED);
+                    }
+                    if (time.isBefore(LocalTime.MIN.plusSeconds(1)) ) {
+                        timeline.stop();
+                        timeIsOver();
+                    }
+                }
+            }));
+            timeline.playFromStart();
+        }
+    }
+
+    /**
+     *
+     */
+    protected void timeIsOver() {
+        // TODO : implements
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     /**
      * Cancel end of game
      */
@@ -267,5 +322,12 @@ public class GamePhaseController implements Initializable {
         logMsg("Defaite !");
         valider.setDisable(true);
         table.setDisable(true);
+    }
+
+    /**
+     * @return the chatPane
+     */
+    public AnchorPane getChatPane() {
+        return chatPane;
     }
 }

@@ -32,6 +32,20 @@ public class BaseController {
        }
        return loader;
     }
+    
+        
+    /**
+    * fillChatSlot() allows external class to fill the chatPane and get the ChatController
+    * @param chatFxmlUrl
+    * @return chatController
+    */        
+    public ChatController fillChatSlot(AnchorPane pane, String chatFxmlUrl, String conversation){
+        FXMLLoader loader;
+        loader = fillElement(pane, chatFxmlUrl );
+        ChatController chatController = loader.getController();
+        chatController.init(conversation);
+        return chatController;
+    }
 }
 
 
