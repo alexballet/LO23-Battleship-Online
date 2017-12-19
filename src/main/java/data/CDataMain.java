@@ -49,9 +49,7 @@ public class CDataMain implements IDataMain {
         controller.getLocalProfile().setLastname(lastName);
         controller.getLocalProfile().setName(firstName);
         controller.getLocalProfile().setBirthdate(birthDate);
-        
         controller.getLocalProfile().saveeditedProfile();
-        
     }
 
     @Override
@@ -79,7 +77,7 @@ public class CDataMain implements IDataMain {
      */
     @Override
     public Profile getLocalProfile() {
-    		return controller.getLocalProfile();
+        return controller.getLocalProfile();
     }
     
     /**
@@ -111,15 +109,12 @@ public class CDataMain implements IDataMain {
         return result;
     }
 
-    /**
-     * Adds a new game to the list of games
-     */
     @Override
     public Game newGame(Boolean newClassicType, String newName, 
-            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newHumanOpponent, Integer newTimePerShot, Integer newTimeToPlaceBoats,
             Boolean newSpectator, Boolean newSpectatorChat) {
     		
-        Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newSpectator, newSpectatorChat, controller.getLocalProfile());
+        Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newTimeToPlaceBoats, newSpectator, newSpectatorChat, controller.getLocalProfile());
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
         controller.setLocalGame(g);
@@ -152,11 +147,20 @@ public class CDataMain implements IDataMain {
     /**
      * Add a spectator in the game
      * @param g : game that the spectator wants to join
+<<<<<<< HEAD
      * @param spec : spectator
+=======
+>>>>>>> 3f5032c5d15b186be83a94e34fa7a94af47215fb
      */
     @Override
-    public void gameToSpec(Game g, User spec){
-        controller.updateSpecList(g, spec);
+    public void gameToSpec(Game g){
+        //TODO : décommenter à l'integ
+        //interfaceCom.getInfoGameForSpectator(g.getPlayer1(), controller.getLocalUser());
+    }
+
+    @Override
+    public void setPort(int p) {
+        controller.getLocalProfile().setPort(p);
     }
     
     /**

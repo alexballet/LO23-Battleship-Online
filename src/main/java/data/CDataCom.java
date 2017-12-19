@@ -8,8 +8,8 @@ package data;
 import guiMain.GuiMainInterface;
 import guiTable.GuiTableInterface;
 import interfacesData.IDataCom;
+import java.util.Date;
 
-import java.util.Set;
 import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
 import structData.ChatMessage;
@@ -19,7 +19,6 @@ import structData.Shot;
 import structData.StatusGame;
 import structData.User;
 import structData.Player;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -50,17 +49,7 @@ public class CDataCom implements IDataCom {
     public void setInterfaceCom(COMInterface c){
         interfaceCom = c;
     }
-
-    
-    public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-    * Returns the current Game
-    * @return the current Game
-    */    
-    
+   
     public Game getCreatedGame() {
         Game g = controller.getLocalGame();
         return g;
@@ -68,6 +57,7 @@ public class CDataCom implements IDataCom {
 
  
     
+    @Override
     public void setGameJoinResponse(Boolean ok, Player player1, Player player2) {
        interfaceMain.setGameJoinResponse(true);
        controller.updateGameData(true, player1, player2);
@@ -78,6 +68,7 @@ public class CDataCom implements IDataCom {
      * @param no : Refuse of the request to join the game
      */
     
+    @Override
     public void setGameJoinResponse(Boolean no){
         interfaceMain.setGameJoinResponse(false);
     }
@@ -87,6 +78,7 @@ public class CDataCom implements IDataCom {
     * @param u : The new user
     */
     
+    @Override
     public void addUserToUserList(User u) {
         controller.addUserToList(u);
         interfaceMain.addUser(u);
@@ -97,6 +89,7 @@ public class CDataCom implements IDataCom {
      * @param profile : the profile of distant user
      */
     
+    @Override
     public void sendStatistics(Profile profile) {
         interfaceMain.sendStatistics(profile);
     }
@@ -105,10 +98,9 @@ public class CDataCom implements IDataCom {
     * Add the player to the game if it is available.
     * @param sender : The player who sends this request
     * @param g : The game that the player wants to join
-    * @return 1 if the parameter game is an avaiable game and add the player 
-    * to this game, 0 if not
     */
     
+    @Override
     public void notifToJoinGame(Profile sender, Game g) {
         Boolean isOk = false;
         for (Game ga: controller.getListGames()) {
@@ -135,6 +127,7 @@ public class CDataCom implements IDataCom {
     * @param g : The new game
     */
     
+    @Override
     public void addNewGameList(Game g) {
         controller.addGameToList(g);
         interfaceMain.addGame(g);
@@ -147,6 +140,7 @@ public class CDataCom implements IDataCom {
     }
 
     
+    @Override
     public void errorPrint(String error) {
         //wait the method errorPrint in GuiTableInterface.java and GuiMainInterface.java
         //Interfacetable.errorPrint(error);
@@ -154,6 +148,7 @@ public class CDataCom implements IDataCom {
     }
 
     
+    @Override
     public void receiveMessage(ChatMessage message) {
         controller.getLocalGame().addMessage(message);
         System.out.println("Message: " + message);
@@ -173,8 +168,6 @@ public class CDataCom implements IDataCom {
         } else {
             controller.getLocalGame().getPlayer1().setReady(true);
         }
-
-        
         
         //TODO REFACTOR
         if(controller.getLocalGame().getPlayer1().isReady() &&
@@ -251,7 +244,7 @@ public class CDataCom implements IDataCom {
     }
     
     /**
-     * Takes a game given as a parameter and updates his status
+     * Takes a game given as a parameter and updates its status
      * @param g : the game which status has been modified
      */
     
@@ -285,7 +278,6 @@ public class CDataCom implements IDataCom {
         controller.removeGameFromList(g);
         interfaceMain.removeGame(g);
     }
-    
     /**
       * Notification that you won, update stats and display win
       */
@@ -297,9 +289,30 @@ public class CDataCom implements IDataCom {
      }
      
      @Override
-     public void notifyToSpecGame(Game g, User spec){
-         
-         controller.updateSpecList(g,spec);
+     public void notifyToSpecGame(User spec){
+         controller.getLocalGame().addSpectators(spec);
      }
+     
+     public void newRequestSpectator(User u){
+         //TODO : décommenter à l'integ
+         //interfaceCom.sendInfoGameForSpectator(controller.getLocalGame(), u);
+         ChatMessage m = new ChatMessage(controller.getLocalUser(), "Le joueur " + u.getUsername() + " a rejoint en spectateur.", new Date());
+         controller.getLocalGame().addMessage(m);
+         interfaceCom.sendChatMessage(m, controller.getLocalGame());
+         
+         //TODO : décommenter à l'integ
+         //interfaceCom.sendNewSpectator(User u, Player p, HashSet<User> listSpectators)
+     }
+
+    @Override
+    public void joinGameSpectator(Game g) {
+        controller.setLocalGame(g);
+        //to finish
+        //interfaceMain.joinGameSpec(Game g); le main doit nous swap dans la partie, on vient de récupérer les données de la partie via le player1
+    }
     
+    @Override
+    public void notifyQuitSpectator(User spec){
+        //interfaceCom.notifyQuitSpectator(spec); A decommenter pdt l'integ
+    }
 }

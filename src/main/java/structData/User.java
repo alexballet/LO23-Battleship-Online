@@ -15,6 +15,7 @@ public class User implements Serializable {
     protected String login;
     protected String username;
     protected HashSet<InetAddress> iPs;
+    protected int port;
     // TODO delete this constructor
     /**
      * Constructor by default
@@ -120,6 +121,14 @@ public class User implements Serializable {
         username = userClone.username;
         iPs = userClone.iPs;
         return this;
+   }
+   
+   public void setPort(int p){
+       port = p;
+   }
+   
+   public int getPort(){
+       return port;
    }
     
 }

@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.Random;
 import guiTable.GuiTableInterface;
 import structData.Shot;
+import structData.StatusGame;
 
 /**
  *
@@ -121,43 +122,108 @@ public class CDataTable implements IDataTable {
     @Override
     public Shot iaShot(){
         
-        Random rn1 = new Random();
-        Random rn2 = new Random();
+        // Three random values
+        Random rn1;
+        Random rn2;
         
-        int x;
-        int y;
+        // Two values for the shot
+        Byte x;
+        Byte y;
+        Byte tampX;
+        Byte tampY;    
         
+        Integer shootNear;
+        
+        Boolean lastShotTouchedSomething = false;
+        Boolean randomShot = false;
+        
+        // Get list of shots
         HashSet<Shot> listShot = controller.getLocalPlayer().getListShots();
-                
+        
+        // Create and set shotAreadyPlayed to false
         Boolean shotAlreadyPlayed = false;
         
         do { 
-            
-            x =  rn1.nextInt(NB_CASES_GRID);
-            y =  rn2.nextInt(NB_CASES_GRID);
+            // Takes two new Randoms
+            rn1 = new Random();
+            rn2 = new Random();
             
             Iterator<Shot> itr;
-            itr = listShot.iterator();
+            itr = listShot.iterator();    
+            
+            // Set x and y with integers using randoms
+            x = (byte) (rn1.nextInt(NB_CASES_GRID/2)*2);
+            y = (byte) (rn2.nextInt(NB_CASES_GRID/2)*2);       
+            
+            if(! randomShot){
+                // Check if the last position played touched a boat
+                while(itr.hasNext()){
+                    // If is the last position played
+                    if (! itr.hasNext()) {
+                        // If touched a boat
+                        if(itr.next().getTouched()){
+                            lastShotTouchedSomething = true;
+                            tampX = (byte) itr.next().getX();
+                            tampY = (byte) itr.next().getY();
+                            shootNear = rn1.nextInt(4);
+                            switch (shootNear)
+                            {
+                              case 1:
+                                tampX = (byte)(tampX+1);
+                                break;
+                              case 2:
+                                tampX = (byte)(tampX-1);
+                                break;
+                              case 3:
+                                tampY = (byte)(tampY+1);
+                                break;
+                              default:
+                                tampY = (byte)(tampY-1);
+                            }
+                            // If out of grid
+                            if(tampX<=NB_CASES_GRID && tampX>=1 && tampY<=NB_CASES_GRID && tampY>=1){
+                                x = tampX;
+                                y = tampY;
+                            }
+                        }
+                    }      
+                }
+            }
+            
+            // Check if a position was already played
             while(itr.hasNext() && shotAlreadyPlayed == false) {
                 
-                if (itr.next().getX()==x && itr.next().getY()==y) {
+                if(itr.next().getX() == x && itr.next().getY() == y){
                     shotAlreadyPlayed = true;
+                    if(lastShotTouchedSomething){
+                        randomShot = true;
+                    }
                 } else {
                     shotAlreadyPlayed = false;
                 }  
             }
             
         } while (shotAlreadyPlayed == true);
-        
+        // Create a Position and the corresponding Shot with x and y
         Position p = new Position(x, y, false);
         Shot s = new Shot(p);
-
+        
         return s;
+    }
+    
+    public Game getLocalGame() {
+        return controller.getLocalGame();
+    }
+    
+    @Override
+    public void changeStatusGameStarted(){ //to be called when boatphase is over
+        Game g = controller.getLocalGame();
+        g.setStatus(StatusGame.PLAYING);
+        interfaceCom.changeStatusGame(g);
     }
     
     public void gameEnded() {
         //TODO gérer data fin de partie
         interfaceMain.openMenuWindow();
     }
-    
 }

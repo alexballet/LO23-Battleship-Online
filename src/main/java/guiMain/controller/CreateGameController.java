@@ -116,7 +116,8 @@ public class CreateGameController implements Initializable{
 		 // Game game = new Game(classicGame, name, oponent, timePerShot, spectators, chat);
 
 		 // Calls interface with data to create new game
-		 Game game = mainController.getIdata().newGame(classicGame, name, oponent, timePerShot, spectators, chat);   
+                 // TODO : voir avec IHM Main à l'integ pour appeler correctement le constructeur
+		 Game game = mainController.getIdata().newGame(classicGame, name, oponent, timePerShot, 0, spectators, chat);   
 
 		 // Open waiting room window 
 		 mainController.openWaitingRoomWindow(game);
