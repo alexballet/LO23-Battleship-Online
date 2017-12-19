@@ -183,12 +183,15 @@ public class ObserverPhaseController implements Initializable {
     }
     
     /**
-    * Shows victory message
+    * Shows victory of one of the  message
     */
-    public void showVictory(){
-        logMsg("Victoire !");
-    }
-    
+    public void showVictory(boolean winner){
+        if(winner){
+            logMsg("Victoire du jouer 1!");
+        } else {                    
+            logMsg("Victoire du jouer 2!");
+        }
+    }    
     
     /**
     * Shows defeat message

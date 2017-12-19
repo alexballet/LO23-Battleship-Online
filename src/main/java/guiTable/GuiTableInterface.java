@@ -46,6 +46,12 @@ public interface GuiTableInterface {
      * @param boat : If filled, indicates this 'boat' is sunk.
      */
     public void displayPlayer2Shot(Shot myShotResult, Boat boat);
+    
+    /**
+     * Displays the victory of one of the players
+     * @param winner 
+     */     
+    public void displayObserverPhaseVictory(boolean winner);   
 
     /**
      * Displays a victory message, and allow player to return to IHM Main.

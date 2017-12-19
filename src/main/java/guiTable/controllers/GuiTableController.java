@@ -132,7 +132,7 @@ public class GuiTableController implements GuiTableInterface {
 		        } catch(IOException e) {
 		            System.err.println("ERROR : "+e.getMessage());
 		        }
-                    }
+			}
 		};
 		Platform.runLater(command);
     }
@@ -165,6 +165,11 @@ public class GuiTableController implements GuiTableInterface {
 			}
 		};
 		Platform.runLater(command);
+    }
+    
+    @Override
+    public void displayObserverPhaseVictory(boolean winner) {
+        observerPhaseController.showVictory(winner);
     }
 
     @Override
