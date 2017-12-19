@@ -228,13 +228,14 @@ public class DataController {
         Boolean gameexist = false;
         
         for (int i = 0; i < listGames.size(); i++) {
-            if (listGames.get(i).getIdGame() == g.getIdGame()){
+            if (listGames.get(i).getIdGame().equals(g.getIdGame())){
                 gameexist = true;
                 listGames.set(i, g);
                 break;
             }
 	}
-        
+
+	    //TODO: Refactor (useless comparison)
         if (gameexist == false){
             listGames.add(g);
         }

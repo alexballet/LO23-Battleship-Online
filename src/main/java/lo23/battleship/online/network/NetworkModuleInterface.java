@@ -117,7 +117,7 @@ public class NetworkModuleInterface implements COMInterface {
         User user = dataInterface.getLocalUser();
         List<InetAddress> ipAddresses = controller.getIPTable();
 
-        DisconnectionMessage disconnection = new DisconnectionMessage(user);
+        DisconnectionMessage disconnection = new DisconnectionMessage(user, dataInterface.getCreatedGame());
 
         for (InetAddress ipAddress : ipAddresses) {
 
