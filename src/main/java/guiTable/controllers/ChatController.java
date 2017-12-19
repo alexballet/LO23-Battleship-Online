@@ -58,6 +58,7 @@ public class ChatController {
         
         //add this to the conversation
         conversationArea.setText(message.getProfile().getUsername()+ ": " + message.getContent() + "\n" + conversation);
+        conversation = conversationArea.getText();
     }
     
     public void reloadConversation(){
