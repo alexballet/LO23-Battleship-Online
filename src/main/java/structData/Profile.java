@@ -124,7 +124,9 @@ public class Profile extends DataUser {
      * @param path path to image
      */
     public void setAvatar(String path){
-        this.avatar = new ImageIcon(path);
+        if (path != null) {
+        		this.avatar = new ImageIcon(path);
+        }
     }
     
     /**

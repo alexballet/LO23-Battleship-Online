@@ -75,6 +75,8 @@ public class ChangeProfileController implements Initializable {
         
         @FXML 
         private Label errorMessage;
+        
+        private String avatarPath;
 
         @Override
         public void initialize(URL location, ResourceBundle resources) {
@@ -128,9 +130,8 @@ public class ChangeProfileController implements Initializable {
                     // Change password if textfield is not empty
                     password = userPassword.getText();
                 }
-                if (!user_name.trim().isEmpty() && !last_name.trim().isEmpty() && !first_name.trim().isEmpty()){    
-                		mainController.getIdata().editProfile(user_name, password, null, last_name, first_name, birth_date);
-                    // mainController.getIdata().editProfile(user_name, password, avatar.toString(), last_name, first_name, birth_date);
+                if (!user_name.trim().isEmpty() && !last_name.trim().isEmpty() && !first_name.trim().isEmpty()){   
+                		mainController.getIdata().editProfile(user_name, password, avatarPath , last_name, first_name, birth_date);
                 }else{
                     errorMessage.setText("Des champs obligatoires ne sont pas remplis");
                     errorMessage.setVisible(true);
@@ -176,7 +177,8 @@ public class ChangeProfileController implements Initializable {
          */
         private void openFile(File file) {
             try {
-                Image selectedImage = new Image("file:" + file.getAbsolutePath());
+            		avatarPath = file.getAbsolutePath();
+                Image selectedImage = new Image("file:" + avatarPath);
                 userAvatar.setImage(selectedImage);
             } catch (IllegalArgumentException ex) {
                 	Logger.getLogger(SignupController.class.getName()).log(Level.SEVERE, null, ex);
