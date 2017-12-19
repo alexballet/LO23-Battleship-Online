@@ -49,7 +49,7 @@ public class CDataMain implements IDataMain {
         controller.getLocalProfile().setLastname(lastName);
         controller.getLocalProfile().setName(firstName);
         controller.getLocalProfile().setBirthdate(birthDate);
-        
+        controller.getLocalProfile().saveeditedProfile();
     }
 
     @Override

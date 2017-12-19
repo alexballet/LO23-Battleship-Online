@@ -10,6 +10,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.io.File;
 /**
  * Profile is a class for the user's profile
  * @author loulou
@@ -261,5 +262,29 @@ public class Profile extends DataUser {
       } catch (Exception e) { 
          e.printStackTrace(); 
       }
+    }
+    
+    public void saveeditedProfile(){
+        String filename = Integer.toString(idUser.hashCode());
+        filename = filename.concat(".ser");
+        String FILE_NAME = filename;
+        File file = new File(FILE_NAME);
+
+    	if(file.delete()){
+    		System.out.println(file.getName() + " is deleted!");
+    	}else{
+    		System.out.println("Delete operation is failed.");
+    	}
+        
+                
+
+        try {
+         FileOutputStream fs = new FileOutputStream(FILE_NAME);
+         ObjectOutputStream os = new ObjectOutputStream(fs);
+         os.writeObject(this); 
+         os.close();
+        } catch (Exception e) { 
+         e.printStackTrace(); 
+        }
     }
 }
