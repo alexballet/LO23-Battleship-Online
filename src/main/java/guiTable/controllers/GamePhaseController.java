@@ -166,16 +166,16 @@ public class GamePhaseController implements Initializable {
         sunkABoat(myTable, boat);
     }
     
-    protected void sunkABoat(GridPane gird, Boat boat) {
+    protected void sunkABoat(GridPane grid, Boat boat) {
         for(Position position : boat.getListCases()) {
             CaseDrawing c = new CaseDrawing(CaseDrawing.Type.SUNK_BOAT);
-            gird.add(c, position.getX(), position.getY());
+            grid.add(c, position.getX(), position.getY());
         }
     }
 
     public void setMyBoats(List<Boat> boats) {
         if (boats == null) {
-            System.err.println("Error : boats is null");
+            System.err.println("Error : boats are null");
         } else {
             for(Boat boat : boats) {
                 for(Position position : boat.getListCases()) {
