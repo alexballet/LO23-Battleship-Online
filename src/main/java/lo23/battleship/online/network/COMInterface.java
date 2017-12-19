@@ -50,7 +50,6 @@ public interface COMInterface {
 
     /**
      * allow an user to join a game
-     * @param user who want to join the game
      * @param g Game <code>user</code> wants to join
      * @return true= message sent, false= message not sent
      */
@@ -68,7 +67,6 @@ public interface COMInterface {
 
     /**
      * allow an user to be disconnected to the network
-     * @param user who want to be disconnected
      * @return true= message sent, false= message not sent
      */
     public boolean askDisconnection();
@@ -93,7 +91,6 @@ public interface COMInterface {
 
     /**
      * search for players who are connected
-     * @param user User that is connecting
      * @return void
      */
     public void searchForPlayers();
@@ -106,7 +103,6 @@ public interface COMInterface {
 
     /**
      * notifies every user to remove the game from their list
-     * @param game Game to delete
      */
     public void notifyGameWon();
 

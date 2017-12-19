@@ -13,7 +13,6 @@ import java.util.Arrays;
  * Message sent when the local user click on one of the disconnection buttons or HMI elements.
  */
 
-                            /* ajouter les méthodes une fois qu'elles seront faites*/
 
 public class DisconnectionMessage extends Message{
 
