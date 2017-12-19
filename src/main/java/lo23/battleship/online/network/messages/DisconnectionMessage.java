@@ -2,6 +2,7 @@ package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
 import lo23.battleship.online.network.NetworkController;
+import structData.Game;
 import structData.User;
 
 import java.net.InetAddress;
@@ -17,14 +18,16 @@ import java.util.Arrays;
 public class DisconnectionMessage extends Message{
 
     User user;
+    Game game;
 
     /**
      * Class constructor.
      * @param userWhoDisconnect is the User class of the player who is disconnecting from the app.
      */
-    public DisconnectionMessage(User userWhoDisconnect){
+    public DisconnectionMessage(User userWhoDisconnect, Game game){
         this.user = userWhoDisconnect;
         this.type = "DisconnectionMessage";
+        this.game = game;
     }
 
     /**
@@ -44,7 +47,7 @@ public class DisconnectionMessage extends Message{
     public void process(IDataCom IData, InetAddress senderAddress){
         System.out.println("User: " + user + " has disconnected");
         NetworkController controller = NetworkController.getInstance();
-        controller.removeFromNetwork(user);
+        controller.removeFromNetwork(user, game);
         System.out.println("Remaining Users:");
         System.out.println(Arrays.toString(controller.getConnectedUsers().toArray()));
         System.out.println(Arrays.toString(controller.getIPTable().toArray()));

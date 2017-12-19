@@ -5,6 +5,7 @@
  */
 package guiTable.controllers;
 
+import guiMain.GuiMainController;
 import guiTable.CaseDrawing;
 import java.net.URL;
 import java.time.LocalTime;
@@ -26,6 +27,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import structData.Boat;
 import structData.Position;
 import structData.Shot;
@@ -46,11 +49,23 @@ public class GamePhaseController implements Initializable {
     @FXML
     private Button valider;
     @FXML
+    private Button exitButton;
+    @FXML
+    private Button yesButton;
+    @FXML
+    private Button noButton;
+    @FXML
     private AnchorPane chatPane;
     @FXML
     private CaseDrawing selectedCase;
     @FXML
     private Label gameState;
+    @FXML
+    private Pane messageContainer;
+    @FXML
+    private Text messageTextContainer;
+    @FXML
+    private Rectangle messageMask;
     
     private Boolean myTurn;
     
@@ -79,6 +94,8 @@ public class GamePhaseController implements Initializable {
                 table.add(pane, i, j);
             }
         }
+        
+        messageContainer.setVisible(false);
     }
     
     protected EventHandler<MouseEvent> onClickCase() {
@@ -111,7 +128,7 @@ public class GamePhaseController implements Initializable {
         Byte colB = Byte.decode(col.toString());
         Byte rowB = Byte.decode(row.toString());
         
-        Position shoot = new Position(colB, rowB, null);
+        Position shoot = new Position(colB, rowB, false);
         GuiTableController.getInstance().validateShot(shoot);
         valider.setDisable(true);
     }
@@ -139,8 +156,8 @@ public class GamePhaseController implements Initializable {
     }
     
     protected void plateShotTo(Shot shot, GridPane gird) {
-        Integer col = shot.getX().intValue();
-        Integer row = shot.getY().intValue();
+        Integer col = shot.getX();
+        Integer row = shot.getY();
         CaseDrawing.Type t;
         if(shot.getTouched()) {
             t = CaseDrawing.Type.TOUCHED;
@@ -164,30 +181,65 @@ public class GamePhaseController implements Initializable {
         sunkABoat(myTable, boat);
     }
     
-    protected void sunkABoat(GridPane gird, Boat boat) {
+    protected void sunkABoat(GridPane grid, Boat boat) {
         for(Position position : boat.getListCases()) {
             CaseDrawing c = new CaseDrawing(CaseDrawing.Type.SUNK_BOAT);
-            gird.add(c, position.getX().intValue(), position.getY().intValue());
+            grid.add(c, position.getX(), position.getY());
         }
     }
 
     public void setMyBoats(List<Boat> boats) {
         if (boats == null) {
-            System.err.println("Error : boats is null");
+            System.err.println("Error : boats are null");
         } else {
             for(Boat boat : boats) {
                 for(Position position : boat.getListCases()) {
                     CaseDrawing c = new CaseDrawing(CaseDrawing.Type.BOAT);
-                    myTable.add(c, position.getX().intValue(), position.getY().intValue());
+                    myTable.add(c, position.getX(), position.getY());
                 }
             }
         }
     }
     
+    
+    /**
+     * log message into interface.
+     * @param msg message to be displayed
+     */
+    public void logMsg(String msg) {
+        messageContainer.setVisible(true);
+        noButton.setVisible(false);
+        yesButton.setVisible(false);
+        messageTextContainer.setText(msg);
+    }
+    
+    /**
+     * log yesNoMessage into interface.
+     * @param msg message to be displayed
+     */
+    public void logYesNoMsg(String msg) {
+        messageContainer.setVisible(true);
+        noButton.setVisible(true);
+        yesButton.setVisible(true);
+        messageTextContainer.setText(msg);
+    }
+    
+    /**
+     * close message when click on it
+     */
     @FXML
-    public void exitGame() {
+    protected void closeMsg() {
+        messageContainer.setVisible(false);
+    }
+    
+    /**
+     * Validate end of game
+     */
+    @FXML
+    protected void yesClicked() {
         if (GuiTableController.getInstance().exitGame()) {
-            // Passer la main à ihm main
+            GuiTableController controller = GuiTableController.getInstance();
+            controller.getDataController().gameEnded();
         } else {
             // Message d'erreur
         }
@@ -227,5 +279,43 @@ public class GamePhaseController implements Initializable {
     protected void timeIsOver() {
         // TODO : implements
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    /**
+     * Cancel end of game
+     */
+    @FXML
+    protected void noClicked() {
+        messageContainer.setVisible(false);
+        exitButton.setDisable(false);
+        valider.setDisable(false);
+        table.setDisable(false);
+    }
+    
+    /*Clicking on exit button will ask the user if he wants to end the game*/
+    @FXML
+    public void exitGame() {
+        valider.setDisable(true);
+        table.setDisable(true);
+        exitButton.setDisable(true);
+        messageContainer.setVisible(true);
+        logYesNoMsg("Voulez-vous vraiment quitter la partie ?");
+    }
+    
+    /**
+    * Shows victory message
+    */
+    public void showVictory(){
+        logMsg("Victoire !");
+        valider.setDisable(true);
+    }
+    
+    
+    /**
+    * Shows defeat message
+    */
+    public void showDefeat(){
+        logMsg("Defaite !");
+        valider.setDisable(true);
+        table.setDisable(true);
     }
 }

@@ -24,13 +24,6 @@ public interface GuiTableInterface {
     
     /**
      * Notifies the IHM Table that the opponent is ready so that it can adapt its views.
-     * @param myTurn specify if it is the local player turn
-     * @param roundTime : Time limitation for each round game, if null, no time round limitation
-     */
-    public void opponentReady(Boolean myTurn, Integer roundTime);
-
-    /**
-     * Notifies the IHM Table that the opponent is ready so that it can adapt its views.
      * Without round time limitation
      * This method exist to avoid BC compatibilities
      * @param myTurn specify if it is the local player turn

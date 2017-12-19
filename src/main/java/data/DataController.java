@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,6 +21,7 @@ import structData.DataUser;
 import structData.Profile;
 import structData.StatusGame;
 import structData.Player;
+import structData.Position;
 import structData.Shot;
 
 /**
@@ -68,6 +70,7 @@ public class DataController {
     public void setInterfaceMain(GuiMainInterface i){
         interfaceMain = i;
         interfaceDataCom.setInterfaceMain(i);
+        interfaceDataTable.setInterfaceMain(i);
     }
         
     public void setInterfaceTable(GuiTableInterface i){
@@ -216,13 +219,26 @@ public class DataController {
             listGames.add(g);
     }
     
+    
     /**
      * Update the status of game and add it into the list of Game
      * @param g : the game which status has been modified
      */
     public void updateGameStatus(Game g){
-        localGame = g;
-        listGames.add(localGame);
+        Boolean gameexist = false;
+        
+        for (int i = 0; i < listGames.size(); i++) {
+            if (listGames.get(i).getIdGame().equals(g.getIdGame())){
+                gameexist = true;
+                listGames.set(i, g);
+                break;
+            }
+	}
+
+	    //TODO: Refactor (useless comparison)
+        if (gameexist == false){
+            listGames.add(g);
+        }
     }
     /**
      * Remove the game
@@ -255,6 +271,9 @@ public class DataController {
         }
         
     }
+    public void updateSpecList(Game g, User spec){
+        g.addSpectators(spec);
+    }
 
     
     /**
@@ -263,6 +282,14 @@ public class DataController {
      */
     public List<Game> getListGames(){
         return listGames;
+    }
+    
+    /**
+     * Get list of Users
+     * @return the list of users
+     */
+    public List<User> getListUsers(){
+        return listUsers;
     }
     
     /**
@@ -309,22 +336,14 @@ public class DataController {
         int i, j;
         boolean boatSunk = true;
         Boat b = null;
-        for (i=0;i<localPlayer.getListBoats().size();i++) { // each boats
-            for (j=0;j<localPlayer.getListBoats().get(i).getListCases().size();j++) { // each positions of the boat
-                if (localPlayer.getListBoats().get(i).verifyPosition(s) == true) {
-                    localPlayer.getListBoats().get(i).getListCases().get(j).setTouched(true);
-                    s.setTouched(true);
-                    b = localPlayer.getListBoats().get(i);
-                }
-                if (localPlayer.getListBoats().get(i).getListCases().get(j).getTouched() == false) // if atmost 1 position is not touched then the boat is not sunk
-                    boatSunk = false;
+        List<Boat> listBoat = localPlayer.getListBoats();
+        for (Boat boat : listBoat) {
+            b = boat.updateShot(s);
+            if(s.getTouched()) {
+                return b;
             }
         }
-        // if a boat has been sunk return this boat
-        if (boatSunk == true)
-            return b;
-        else
-            return null;
+        return null;
     }
     
     public void setListUser(List<User> u){
@@ -333,5 +352,15 @@ public class DataController {
     
     public void setListGame(List<Game> g){
         listGames = g;
+    }
+    
+    public Player getOtherPLayer() {
+        boolean localPlayerIsPlayer1 = getLocalUser().getIdUser().equals(
+                getLocalGame().getPlayer1().getProfile().getIdUser());
+        if (localPlayerIsPlayer1) {
+            return getLocalGame().getPlayer2();
+        } else {
+            return getLocalGame().getPlayer1();
+        }
     }
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import structData.Boat;
 import structData.ChatMessage;
@@ -31,7 +32,7 @@ public class GuiTableController implements GuiTableInterface {
     
     private Boolean classic;
     
-    private GamePhaseController controller;
+    private GamePhaseController gamePhaseController;
     private CDataTable dataController;
     private ChatController chatController;
     private String chatFxmlURL = "/fxml/IhmTable/chat.fxml";
@@ -87,30 +88,35 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void opponentReady(Boolean myTurn, Integer roundTime) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/GamePhase.fxml"));
-
-        try {
-            rootLayout = (AnchorPane) loader.load();
-            controller = loader.<GamePhaseController>getController();
-            controller.setMyTurn(myTurn);
-            controller.setMyBoats(boats);
-            controller.setRoundTime(roundTime);
-
-            Scene scene = new Scene(rootLayout);
-            mainStage.setScene(scene);
-            mainStage.show();
-        } catch(IOException e) {
-            System.err.println("ERROR : "+e.getMessage());
-        }
+    public void opponentReady(final Boolean myTurn) {
+    		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+		        FXMLLoader loader = new FXMLLoader();
+		        loader.setLocation(getClass().getResource("/fxml/IhmTable/GamePhase.fxml"));
+		
+		        try {
+		            rootLayout = (AnchorPane) loader.load();
+		            gamePhaseController = loader.<GamePhaseController>getController();
+		            gamePhaseController.setMyTurn(myTurn);
+		            gamePhaseController.setMyBoats(boats);
+		        
+		            Scene scene = new Scene(rootLayout);
+		            mainStage.setScene(scene);
+		            mainStage.show();
+		        } catch(IOException e) {
+		            System.err.println("ERROR : "+e.getMessage());
+		        }
+			}
+		};
+		Platform.runLater(command);
     }
-
+/*
     @Override
     public void opponentReady(Boolean myTurn) {
         this.opponentReady(myTurn, null);
     }
-
+*/
     @Override
     public void displayObserverPhase() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -118,12 +124,12 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void displayVictory() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gamePhaseController.showVictory();
     }
 
     @Override
     public void displayDefeat() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        gamePhaseController.showDefeat();
     }
 
     @Override
@@ -132,21 +138,33 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void displayMyShotResult(Shot myShotResult, Boat boat) {
-        controller.addShot(myShotResult);
-        if (boat != null){
-            controller.sunckBoat(boat);
-        }
-        controller.setMyTurn(false);
+    public void displayMyShotResult(final Shot myShotResult,final Boat boat) {
+    		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+		        gamePhaseController.addShot(myShotResult);
+		        if (boat != null && boat.getSunk()){
+		            gamePhaseController.sunckBoat(boat);
+		        }
+		        gamePhaseController.setMyTurn(false);
+			}
+		};
+		Platform.runLater(command);
     }
 
     @Override
-    public void displayOpponentShot(Shot opponentShot, Boat boat) {
-        controller.addOpponentShot(opponentShot);
-        if (boat != null){
-            controller.sunkMyBoat(boat);
-        }
-        controller.setMyTurn(true);
+    public void displayOpponentShot(final Shot opponentShot,final Boat boat) {
+    		Runnable command = new Runnable() {
+			@Override
+			public void run() {
+		        gamePhaseController.addOpponentShot(opponentShot);
+		        if (boat != null){
+		            gamePhaseController.sunkMyBoat(boat);
+		        }
+		        gamePhaseController.setMyTurn(true);
+			}
+		};
+		Platform.runLater(command);
     }
 
     @Override
@@ -170,5 +188,10 @@ public class GuiTableController implements GuiTableInterface {
     
     public Boolean exitGame() {
         return dataController.exit();
+    }
+
+    public CDataTable getDataController() {
+        return dataController;
+        
     }
 }

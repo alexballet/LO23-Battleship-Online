@@ -73,11 +73,17 @@ public interface IDataCom {
      */
     public void notifToJoinGame(Profile sender, Game g);
 
-    /**
-     * Adds the game given as a parameter to the list of games.
-     * @param g : The new game
-     */
-    public void addNewGameList(Game g);
+     /**
+      * Adds the game given as a parameter to the list of games.
+      * @param g : The new game
+      */
+     public void addNewGameList(Game g);
+     
+     /**
+      * Removes the game given as a parameter from the list of games.
+      * @param g : game to remove
+      */
+     public void removeGameFromList(Game g);
 
     /**
      * Takes the error message given as a parameter in order to transmit it to 
@@ -98,15 +104,6 @@ public interface IDataCom {
      * his table) so that the shots phase can be displayed
      */
     public void receiveReady();
-
-    /**
-     * Takes a position to transmit it to IHM-Table. Returns a Shot and if a 
-     * boat was sunk, it returns the object Boat
-     * @param p : The position played by the user
-     * @param s (returned) : shot corresponding to the position
-     * @param b (optionnally returned) : The sunk boat
-     */
-    public void coordinate(Position p, Shot s, Boat b);
 
     /**
      * Takes a Shot and in option a Boat to transmit it to IHM-Table
@@ -156,6 +153,13 @@ public interface IDataCom {
      * @param g : Game to remove
      */
     public void removeGame(Game g);
+     
+     /**
+      * Notification that you won, update stats and display win
+      */
+     public void notifiedGameWon();
+     
+     public void notifyToSpecGame(Game g, User spec);
 }
 
 

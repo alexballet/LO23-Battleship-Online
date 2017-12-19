@@ -26,8 +26,9 @@ public class RemoveGameMessage extends Message{
     }
 
     public void process(IDataCom IData){
-        //IData.removeGameFromList(game);
     }
 
-    public void process(IDataCom IData, InetAddress senderAddress){}
+    public void process(IDataCom IData, InetAddress senderAddress){
+        //IData.removeGameFromList(game);
+    }
 }
