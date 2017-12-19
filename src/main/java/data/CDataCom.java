@@ -221,7 +221,7 @@ public class CDataCom implements IDataCom {
                     pl = controller.getLocalGame().getPlayer2();
                 else
                     pl = controller.getLocalGame().getPlayer1();
-                //interfaceCom.notifyGameWon(pl);
+                interfaceCom.notifyGameWon();
                 
                 controller.getLocalProfile().setGamesLost(controller.getLocalProfile().getGamesLost()+1);
                 controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
