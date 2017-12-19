@@ -6,7 +6,6 @@
 
 package guiTable.controllers;
 
-
 import guiTable.BoatDrawing;
 import java.net.URL;
 import java.time.LocalTime;
@@ -56,8 +55,6 @@ public abstract class PlacementPhaseController extends BaseController implements
     private Button valider;
     @FXML
     private AnchorPane chatPane;
-    @FXML
-    private AnchorPane profilePane;    
     @FXML
     private Text messageContainer;
         
@@ -119,15 +116,6 @@ public abstract class PlacementPhaseController extends BaseController implements
     @Override
     public void initialize(URL location, ResourceBundle resources){
         
-        FXMLLoader loader;
-//        loader = fillElement(chatPane, "/fxml/IhmTable/chat.fxml" );
-//        ChatController chatController = loader.getController();
-//        chatController.init();
-
-        loader = fillElement(profilePane, "/fxml/IhmTable/profile.fxml" );
-        ProfileController profileController = loader.getController();
-        profileController.init();
-        
         boatMap = new HashMap<>();
         // Initializes the boat set
         initBoatMap();
@@ -157,20 +145,7 @@ public abstract class PlacementPhaseController extends BaseController implements
         valider.setDisable(true);                        
     }
     
-    
-    /**
-    * fillChatSlot() allows external class to fill the chatPane and get the ChatController
-    * @param chatFxmlUrl
-    * @return chatController
-    */        
-    public ChatController fillChatSlot(String chatFxmlUrl){
-        FXMLLoader loader;
-        loader = fillElement(chatPane, chatFxmlUrl );
-        ChatController chatController = loader.getController();
-        chatController.init();
-        return chatController;
-    }
-        
+   
     /**
      * Trigger validation of placement phase
      */
@@ -529,5 +504,9 @@ public abstract class PlacementPhaseController extends BaseController implements
      */
     public void setIsValidate(boolean isValidate) {
         this.isValidate = isValidate;
+    }
+
+    public AnchorPane getChatPane() {
+        return this.chatPane;
     }
 }

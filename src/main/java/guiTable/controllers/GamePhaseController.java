@@ -17,6 +17,7 @@ import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -39,7 +40,7 @@ import static guiTable.controllers.PlacementPhaseController.MULTIPLE_FACTOR_PLAC
  *
  * @author corentinhembise
  */
-public class GamePhaseController implements Initializable {
+public class GamePhaseController extends BaseController implements Initializable  {
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -84,7 +85,8 @@ public class GamePhaseController implements Initializable {
     private LocalTime time;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(URL location, ResourceBundle resources){        
+        
         selectedCase = new CaseDrawing(CaseDrawing.Type.SHOT);
 
         for (int i = 0 ; i < NB_CASES_GRID ; i++) {
@@ -97,6 +99,9 @@ public class GamePhaseController implements Initializable {
         
         messageContainer.setVisible(false);
     }
+    
+    
+    
     
     protected EventHandler<MouseEvent> onClickCase() {
         EventHandler<MouseEvent> mousePositionHandler = new EventHandler<MouseEvent>() {
@@ -317,5 +322,12 @@ public class GamePhaseController implements Initializable {
         logMsg("Defaite !");
         valider.setDisable(true);
         table.setDisable(true);
+    }
+
+    /**
+     * @return the chatPane
+     */
+    public AnchorPane getChatPane() {
+        return chatPane;
     }
 }

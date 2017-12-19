@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiTable.controllers.GamePhaseController">
    <children>
@@ -377,13 +378,11 @@
             <Button fx:id="valider" disable="true" layoutX="449.0" layoutY="505.0" mnemonicParsing="false" onAction="#validateShot" text="Valider" />
             <Button fx:id="exitButton" layoutX="20.0" layoutY="505.0" mnemonicParsing="false" onAction="#exitGame" text="Quitter" />
             <Label fx:id="gameState" layoutX="50.0" layoutY="27.0" />
-<<<<<<< HEAD
             <Label fx:id="timerLabel" layoutX="211.0" layoutY="14.0" maxWidth="162.0" minWidth="60.0" prefHeight="44.0" prefWidth="162.0">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-=======
             <Pane fx:id="messageContainer" layoutX="102.0" layoutY="470.0" prefHeight="95.0" prefWidth="329.0">
                <children>
                   <Text fx:id="messageTextContainer" layoutX="4.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="321.0" />
@@ -391,9 +390,11 @@
                   <Button fx:id="noButton" layoutX="189.0" layoutY="51.0" mnemonicParsing="false" onAction="#noClicked" text="Non" />
                </children>
             </Pane>
->>>>>>> ihm-plateau
          </children>
       </Pane>
-      <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="274.0" prefHeight="327.0" prefWidth="250.0" />
+      <AnchorPane fx:id="chatPane" layoutX="550.0" layoutY="274.0" prefHeight="327.0" prefWidth="250.0">
+         <children>
+            <AnchorPane id="fullPane" fx:id="chatPane1" prefHeight="327.0" prefWidth="250.0" style="-fx-background-color: grey;" />
+         </children></AnchorPane>
    </children>
 </AnchorPane>
