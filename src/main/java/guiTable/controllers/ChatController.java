@@ -43,6 +43,7 @@ public class ChatController {
         if(!message.isEmpty())
         {
             //send the message to other users
+            System.out.println("datacontrolleur" + dataController);
             dataController.textMessage(message);
             
             //add this to the conversation

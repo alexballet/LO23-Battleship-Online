@@ -106,8 +106,7 @@ public class GuiTableController implements GuiTableInterface {
 		            mainStage.setScene(scene);
 		            mainStage.show();
                             String conv = chatController.getConversation();
-                            gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, conv);
-                            chatController.reloadConversation();
+                            chatController = gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, conv);
                             chatController.setDataController(dataController);
 		        } catch(IOException e) {
 		            System.err.println("ERROR : "+e.getMessage());
