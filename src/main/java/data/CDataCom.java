@@ -157,7 +157,6 @@ public class CDataCom implements IDataCom {
     public void receiveMessage(ChatMessage message) {
         controller.getLocalGame().addMessage(message);
         System.out.println("Message: " + message);
-        System.out.println("interfaceTable: " + interfaceTable);
         interfaceTable.addChatMessage(message);
     }
 
@@ -177,7 +176,7 @@ public class CDataCom implements IDataCom {
 
         
         
-        
+        //TODO REFACTOR
         if(controller.getLocalGame().getPlayer1().isReady() &&
                 controller.getLocalGame().getPlayer2().isReady())
         {
@@ -191,7 +190,6 @@ public class CDataCom implements IDataCom {
             } else /*if ( p1Start == false && p1 == localPlayer )*/ {
                 myTurn = false;
             }
-            //System.out.println("myturn"+ myTurn);
 
             interfaceTable.opponentReady(myTurn);
         }
@@ -200,9 +198,7 @@ public class CDataCom implements IDataCom {
 
 
     public void coordinates(Shot s) {
-        System.out.println("#############COORDINATE####################");
         Boat b = controller.testShot(s);
-        System.out.println("boat " + b);
         interfaceTable.displayOpponentShot(s, b);
         interfaceCom.coordinates(controller.getOtherPLayer() , s, controller.getLocalGame(), b);
         if (b != null){
