@@ -40,11 +40,13 @@ public interface IDataTable {
      */
     public void coordinateShips(List<Boat> listBoat);
 
+    /* Not used because the robot user was abandonned.
     /**
-     * IA that choose a shot. Not used because the robot user was abandonned.
+     * IA that choose a shot. 
      * @return the chosen Shot
-     */
+    
     public Shot iaShot();
+    */
     
     /**
      * transmit to every user that the game is beign played, allow them to spectate

@@ -119,7 +119,8 @@ public class CDataTable implements IDataTable {
         }
     }
     
-    // Not used because the robot user was dropped
+
+    /* Not used because the robot user was dropped
     @Override
     public Shot iaShot(){
         
@@ -207,7 +208,7 @@ public class CDataTable implements IDataTable {
         Shot s = new Shot(p);
         
         return s;
-    }
+    }*/
     
     public Game getLocalGame() {
         return controller.getLocalGame();
