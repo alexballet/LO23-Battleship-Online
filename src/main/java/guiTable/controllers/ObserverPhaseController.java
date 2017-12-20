@@ -5,18 +5,14 @@
  */
 package guiTable.controllers;
 
-import guiMain.GuiMainController;
 import guiTable.CaseDrawing;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -28,15 +24,15 @@ import structData.Shot;
 
 /**
  *
- * @author corentinhembise
+ * @author caiozimmerman
  */
 public class ObserverPhaseController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private GridPane table1;
+    private GridPane table1; //Board of the player 1 (Left Board)
     @FXML
-    private GridPane table2;
+    private GridPane table2; //Board of the player 2 (Right Board)
     @FXML
     private Button exitButton;
     @FXML
@@ -54,8 +50,6 @@ public class ObserverPhaseController implements Initializable {
     @FXML
     private Rectangle messageMask;
     
-    private Boolean turn;
-    
     private List<Boat> boats = null;
     
     protected static final int GRID_X = 100;
@@ -66,35 +60,47 @@ public class ObserverPhaseController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources){          
-        messageContainer.setVisible(false);
+        messageContainer.setVisible(false);  
     }
 
+    /**
+     * Sets the turn of the players and and colors the boards
+     * @param turn ; Boolean that defines the turn. True means player 1, False means player 2
+     */
     public void setTurn(Boolean turn) {
-        this.turn = turn;
-        
-        // Grise le plateau non actif
         if (turn) {
             gameState.setText("Au tour du jouer 1");
-            table1.setStyle("-fx-background-color: #FFFFFF;");
-            table2.setStyle("-fx-background-color: #EEEEEE;");
-        } else {
-            gameState.setText("Au tour du jouer 2");
             table1.setStyle("-fx-background-color: #EEEEEE;");
             table2.setStyle("-fx-background-color: #FFFFFF;");
+        } else {
+            gameState.setText("Au tour du jouer 2");
+            table1.setStyle("-fx-background-color: #FFFFFF;");
+            table2.setStyle("-fx-background-color: #EEEEEE;");
         }
     }
     
-    public void addPlayer1Shot(Shot opponentShot) {
-        //Changer après - le correct c'est dans la branche de courentin
-        plateShotTo(opponentShot, table1);
+    /**
+     * Adds the shot of the player 1 on the player 2's board
+     * @param shot : The shot made by the player 1
+     */
+    public void addPlayer1Shot(Shot shot) {        
+        plateShotTo(shot, table2);
     }
     
-    public void addPlayer2Shot(Shot opponentShot) {
-        //Changer après - le correct c'est dans la branche de courentin
-        plateShotTo(opponentShot, table2);
+    /**
+     * Adds the shot of the player 2 on the player 1's board
+     * @param shot : The shot made by the player 2
+     */
+    public void addPlayer2Shot(Shot shot) {
+        plateShotTo(shot, table1);
     }
     
-    protected void plateShotTo(Shot shot, GridPane gird) {
+    /**
+     * Displays the shot on the selected board
+     * @param shot : The shot made by one of the players
+     * @param grid : The board selected
+     */
+    protected void plateShotTo(Shot shot, GridPane grid) {
         Integer col = shot.getX();
         Integer row = shot.getY();
         CaseDrawing.Type t;
@@ -104,17 +110,30 @@ public class ObserverPhaseController implements Initializable {
             t = CaseDrawing.Type.MISSED;
         }
         CaseDrawing c = new CaseDrawing(t);
-        gird.add(c, col, row);
+        grid.add(c, col, row);
     }
 
+    /**
+     * Sunk one of the player 1's boats
+     * @param boat : The boat to be sunk
+     */
     public void sunkPlayer1Boat(Boat boat) {
         sunkABoat(table1, boat);
     }
-
+    
+    /**
+     * Sunk one of the player 2's boats
+     * @param boat : The boat to be sunk
+     */
     public void sunkPlayer2Boat(Boat boat) {
         sunkABoat(table2, boat);
     }
     
+    /**
+     * Displays a sunk boat
+     * @param grid : The grid where the boat has sunk
+     * @param boat : The boat to be sunk
+     */
     protected void sunkABoat(GridPane grid, Boat boat) {
         for(Position position : boat.getListCases()) {
             CaseDrawing c = new CaseDrawing(CaseDrawing.Type.SUNK_BOAT);
@@ -174,7 +193,9 @@ public class ObserverPhaseController implements Initializable {
         exitButton.setDisable(false);
     }
     
-    /*Clicking on exit button will ask the user if he wants to end the game*/
+    /**
+     * Clicking on exit button will ask the user if he wants to end the game
+     */
     @FXML
     public void exitGame() {
         exitButton.setDisable(true);
@@ -183,20 +204,13 @@ public class ObserverPhaseController implements Initializable {
     }
     
     /**
-    * Shows victory of one of the  message
-    */
+     * Shows victory of one of the  message
+     */
     public void showVictory(boolean winner){
         if(winner){
             logMsg("Victoire du jouer 1!");
         } else {                    
             logMsg("Victoire du jouer 2!");
         }
-    }    
-    
-    /**
-    * Shows defeat message
-    */
-    public void showDefeat(){
-        logMsg("Defaite !");
-    }
+    }      
 }

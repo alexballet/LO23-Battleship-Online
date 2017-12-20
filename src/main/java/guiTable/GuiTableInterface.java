@@ -1,6 +1,8 @@
 package guiTable;
 
 import data.CDataTable;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javafx.stage.Stage;
 import structData.Boat;
 import structData.ChatMessage;
@@ -30,26 +32,30 @@ public interface GuiTableInterface {
     
     /**
      * Displays view where the user can watch a game.
+     * @param currentStage : The stage used by the main window
+     * @param turn : Turn of the players. True 
+     * @param shotsDoneByPlayer1 : All shots done by the player 1 before the entry of the observer.
+     * @param shotsDoneByPlayer2 : All shots done by the player 2 before the entry of the observer.
      */
-    public void displayObserverPhase(final boolean turn);
+    public void displayObserverPhase(Stage currentStage, final boolean turn, LinkedHashMap<Shot,Boat> shotsDoneByPlayer1,LinkedHashMap<Shot,Boat> shotsDoneByPlayer2);
     
     /**
-     * Displays the result of the player 1's shot on the board.
-     * @param opponentShot : The shot sent by the player 1.
+     * Displays the result of the player 1's shot on the player 2's board.
+     * @param shot : The shot sent by the player 1.
      * @param boat : If filled, indicates this 'boat' is sunk.
      */
-    public void displayPlayer1Shot(Shot opponentShot, Boat boat);
+    public void displayPlayer1Shot(Shot shot, Boat boat);
 
     /**
-     * Displays the result of the player 2's shot on the board.
-     * @param myShotResult : The result of the shot sent by the player 2.
+     * Displays the result of the player 2's shot on the player 1's board.
+     * @param shot : The shot sent by the player 2.
      * @param boat : If filled, indicates this 'boat' is sunk.
      */
-    public void displayPlayer2Shot(Shot myShotResult, Boat boat);
+    public void displayPlayer2Shot(Shot shot, Boat boat);
     
     /**
-     * Displays the victory of one of the players
-     * @param winner 
+     * Displays the victory of one of the players in the observer phase
+     * @param winner : Boolean that represents the winner. True if it is the player 1, False if it is the player 2
      */     
     public void displayObserverPhaseVictory(boolean winner);   
 
