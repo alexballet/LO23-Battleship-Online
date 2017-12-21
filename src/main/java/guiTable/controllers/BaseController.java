@@ -18,7 +18,6 @@ public class BaseController {
     * @param paneToFill
     * @param contentAdress
     * @return FXMLLoader
-    * @throws Exception 
     */
     protected FXMLLoader fillElement(AnchorPane paneToFill, String contentAdress) {
        FXMLLoader loader = new FXMLLoader();
@@ -36,7 +35,9 @@ public class BaseController {
         
     /**
     * fillChatSlot() allows external class to fill the chatPane and get the ChatController
+     * @param pane
     * @param chatFxmlUrl
+     * @param conversation
     * @return chatController
     */        
     public ChatController fillChatSlot(AnchorPane pane, String chatFxmlUrl, String conversation){
@@ -46,6 +47,7 @@ public class BaseController {
         chatController.init(conversation);
         return chatController;
     }
+    
 }
 
 

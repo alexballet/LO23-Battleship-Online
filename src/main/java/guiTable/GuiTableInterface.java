@@ -20,7 +20,7 @@ public interface GuiTableInterface {
      * @param placementTime : Time limitation for placement phase, if null, no time limtation
      * @throws Exception 
      */
-    public void displayPlacementPhase(Stage currentStage, Boolean classic, Integer placementTime) throws Exception;
+    public void displayPlacementPhase(Stage currentStage, Boolean classic, int timePerShot) throws Exception;
     
     /**
      * Notifies the IHM Table that the opponent is ready so that it can adapt its views.

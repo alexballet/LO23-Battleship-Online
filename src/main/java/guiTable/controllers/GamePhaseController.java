@@ -5,7 +5,6 @@
  */
 package guiTable.controllers;
 
-import guiMain.GuiMainController;
 import guiTable.CaseDrawing;
 import java.net.URL;
 import java.time.LocalTime;
@@ -17,7 +16,6 @@ import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -34,7 +32,6 @@ import structData.Boat;
 import structData.Position;
 import structData.Shot;
 
-import static guiTable.controllers.PlacementPhaseController.MULTIPLE_FACTOR_PLACEMENT;
 
 /**
  *
@@ -78,6 +75,8 @@ public class GamePhaseController extends BaseController implements Initializable
     protected static final int SPACE = 3;
     protected static final int NB_CASES_GRID = 10;
     protected static final int MULTIPLE_FACTOR_PLACEMENT = 7;
+    private final String  STYLE_MY_TURN = "-fx-background-color: #FFFFFF;";
+    private final String STYLE_OTHER_TURN = "-fx-background-color: #EEEEEE;";
 
     private Timeline timeline;
     @FXML
@@ -143,11 +142,11 @@ public class GamePhaseController extends BaseController implements Initializable
         
         // Grise le plateau non actif
         if (myTurn) {
-            gameState.setText("A votre tour de jouer");
-            table.setStyle("-fx-background-color: #FFFFFF;");
+            logMsg("A votre tour de jouer, cliquer sur une case puis sur le bouton valider");
+            table.setStyle(STYLE_MY_TURN);
         } else {
-            gameState.setText("Au tour de l'adversaire de jouer");
-            table.setStyle("-fx-background-color: #EEEEEE;");
+            logMsg("Au tour de l'adversaire de jouer, merci de patienter");
+            table.setStyle(STYLE_OTHER_TURN);
         }
     }
 
@@ -246,6 +245,7 @@ public class GamePhaseController extends BaseController implements Initializable
             GuiTableController controller = GuiTableController.getInstance();
             controller.getDataController().gameEnded();
         } else {
+            System.err.println("GuiTableController.getInstance().exitGame() renvoi false");
             // Message d'erreur
         }
     }
@@ -253,7 +253,7 @@ public class GamePhaseController extends BaseController implements Initializable
     public void setRoundTime(Integer roundTime) {
         if (roundTime != null) {
             LocalTime timePerShot = LocalTime.MIN.plusSeconds(roundTime);
-            this.time = timePerShot.plusSeconds(roundTime*MULTIPLE_FACTOR_PLACEMENT) ;
+            this.time = timePerShot ;
             // update timerLabel
             timerLabel.setText(time.toString().substring(3));
             timeline = new Timeline();

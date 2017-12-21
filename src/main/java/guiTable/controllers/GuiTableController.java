@@ -36,6 +36,10 @@ public class GuiTableController implements GuiTableInterface {
     private CDataTable dataController;
     private ChatController chatController;
     private final String CHAT_FXML_URL = "/fxml/IhmTable/chat.fxml";
+    private final String CLASSIC_PLACEMENT_URL = "/fxml/IhmTable/ClassicPlacementPhase.fxml";
+    private final String BELGE_PLACEMENT_URL = "/fxml/IhmTable/BelgianPlacementPhase.fxml";
+    private final String GAME_PHASE_URL = "/fxml/IhmTable/GamePhase.fxml";
+    private final String TITLE = "Battleship-Online";
     private List<Boat> boats = null;
 
     /**
@@ -64,19 +68,19 @@ public class GuiTableController implements GuiTableInterface {
     * @throws Exception 
     */
     @Override
-    public void displayPlacementPhase(Stage currentStage, Boolean classic, Integer placementTime) throws Exception {
+    public void displayPlacementPhase(Stage currentStage, Boolean classic, int placementTime) throws Exception {
         this.mainStage = currentStage;
         this.classic = classic;
         
         FXMLLoader loader = new FXMLLoader();
         if(classic) {
-            loader.setLocation(getClass().getResource("/fxml/IhmTable/ClassicPlacementPhase.fxml"));
+            loader.setLocation(getClass().getResource(CLASSIC_PLACEMENT_URL));
         } else {
-            loader.setLocation(getClass().getResource("/fxml/IhmTable/BelgianPlacementPhase.fxml"));
+            loader.setLocation(getClass().getResource(BELGE_PLACEMENT_URL));
         }
         rootLayout = (AnchorPane) loader.load();
         Scene scene = new Scene(rootLayout);
-        mainStage.setTitle("Battleship-Online");
+        mainStage.setTitle(TITLE);
         mainStage.setScene(scene);
         mainStage.show();
         PlacementPhaseController controller = loader.getController();
@@ -88,19 +92,19 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void opponentReady(final Boolean myTurn, int time) {
+    public void opponentReady(final Boolean myTurn, int timePerShot) {
     		Runnable command = new Runnable() {
 			@Override
 			public void run() {
 		        FXMLLoader loader = new FXMLLoader();
-		        loader.setLocation(getClass().getResource("/fxml/IhmTable/GamePhase.fxml"));
+		        loader.setLocation(getClass().getResource(GAME_PHASE_URL));
 		
 		        try {
 		            rootLayout = (AnchorPane) loader.load();
 		            gamePhaseController = loader.<GamePhaseController>getController();
 		            gamePhaseController.setMyTurn(myTurn);
 		            gamePhaseController.setMyBoats(boats);
-                            gamePhaseController.setRoundTime(time);
+                            gamePhaseController.setRoundTime(timePerShot);
 		        
 		            Scene scene = new Scene(rootLayout);
 		            mainStage.setScene(scene);

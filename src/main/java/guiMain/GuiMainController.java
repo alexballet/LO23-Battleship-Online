@@ -255,6 +255,7 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
         
+    @Override
     public void openPlacementPhase(final Game game) {
             try {
                 Runnable command = new Runnable() {
@@ -262,8 +263,7 @@ public class GuiMainController implements GuiMainInterface {
 			public void run() {
                             try {
                                 if (waitingRoomController != null) waitingRoomController.closeWindow();
-                                // NOTE : remplacer game.TimePerShot par game.TimeForPositioning lors de l'integ / quand data aura donné la fonction
-                                GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType(), game.getTimePerShot() ); 
+                                GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType(), game.getTimeToPlaceBoats()); 
                                 
                             } catch (Exception ex) {
                                 Logger.getLogger(GuiMainController.class.getName()).log(Level.SEVERE, null, ex);
