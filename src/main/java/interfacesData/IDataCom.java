@@ -5,16 +5,13 @@
  */
 package interfacesData;
 
-import java.util.HashSet;
 import structData.Boat;
 import structData.Shot;
-import structData.Position;
 import structData.ChatMessage;
 import structData.User;
 import structData.Game;
 import structData.Player;
 import structData.Profile;
-import java.util.Set;
 
 /**
  * Data's interface for Com
