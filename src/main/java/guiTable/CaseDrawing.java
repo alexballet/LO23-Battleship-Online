@@ -32,11 +32,11 @@ public class CaseDrawing extends Label {
                 this.setGraphic(new ImageView(image));
                 break;
             case TOUCHED:
-                image = new Image(getClass().getResourceAsStream("/img/explosion.png"));
+                image = new Image(getClass().getResourceAsStream("/img/explosion.png"), 20, 30, false, false);
                 this.setGraphic(new ImageView(image));
                 break;
             case MISSED:
-                image = new Image(getClass().getResourceAsStream("/img/sea.png"));
+                image = new Image(getClass().getResourceAsStream("/img/sea.png"), 20, 20, false, false);
                 this.setGraphic(new ImageView(image));
                 break;
             case BOAT:
