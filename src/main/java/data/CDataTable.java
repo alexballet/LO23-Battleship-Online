@@ -119,6 +119,8 @@ public class CDataTable implements IDataTable {
         }
     }
     
+
+    /* Not used because the robot user was dropped
     @Override
     public Shot iaShot(){
         
@@ -155,13 +157,11 @@ public class CDataTable implements IDataTable {
             x = (byte) (rn1.nextInt(NB_CASES_GRID/2)*2);
             y = (byte) (rn2.nextInt(NB_CASES_GRID/2)*2);       
             
-            if(! randomShot){
+
                 // Check if the last position played touched a boat
-                while(itr.hasNext()){
-                    // If is the last position played
-                    if (! itr.hasNext()) {
-                        // If touched a boat
-                        if(itr.next().getTouched()){
+                while(!randomShot && itr.hasNext()){
+                    // If is the last position played and if touched a boat
+                    if (! itr.hasNext() && itr.next().getTouched()) {
                             lastShotTouchedSomething = true;
                             tampX = (byte) itr.next().getX();
                             tampY = (byte) itr.next().getY();
@@ -185,8 +185,7 @@ public class CDataTable implements IDataTable {
                                 x = tampX;
                                 y = tampY;
                             }
-                        }
-                    }      
+                         
                 }
             }
             
@@ -209,7 +208,7 @@ public class CDataTable implements IDataTable {
         Shot s = new Shot(p);
         
         return s;
-    }
+    }*/
     
     public Game getLocalGame() {
         return controller.getLocalGame();
