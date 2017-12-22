@@ -12,13 +12,14 @@ import java.util.logging.Logger;
 public class NetworkServer {
 
     //Configuration
-    private int port = 2345;
+    private int port;
     private InetAddress address;
     private int backlog = 100;
     private NetworkListener listener = null;
     private NetworkController networkController;
     private IDataCom dataInterface;
-    public NetworkServer(NetworkController networkController) {
+
+    public NetworkServer(NetworkController networkController, int port)  {
         System.out.println("-----------Initialize Server(Listener)---------");
         this.networkController = networkController;
         try {
@@ -48,6 +49,7 @@ public class NetworkServer {
         } catch (IOException e) {
             System.out.println("------!! Server already opened !!------");
         }
+        this.port = port;
 
     }
 

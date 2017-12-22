@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class NetworkController {
 
     // CONSTANTS
-    private int port = 2345;
+    private int port;
 
     public int getPort() {
         return port;
@@ -45,10 +45,11 @@ public class NetworkController {
         networkInterface = new NetworkModuleInterface(this);
         // Create server
         if (networkServer == null)
-            this.networkServer = new NetworkServer(this);
+            this.networkServer = new NetworkServer(this, port);
     }
 
     public void launchServer() {
+        port = dataInterface.getLocalUser().getPort();
         try {
             if(!networkServer.isOpened())
                 this.networkServer.open();

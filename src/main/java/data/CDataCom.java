@@ -292,16 +292,19 @@ public class CDataCom implements IDataCom {
      public void notifyToSpecGame(User spec){
          controller.getLocalGame().addSpectators(spec);
      }
-     
+
      public void newRequestSpectator(User u){
+         Game game = controller.getLocalGame();
+         interfaceCom.sendInfoGameForSpectator(game, u);
+         ChatMessage m = new ChatMessage(controller.getLocalUser(),
+                 "Le joueur " + u.getUsername() + " a rejoint en spectateur.", new Date());
+         game.addMessage(m);
+
+         interfaceCom.sendChatMessage(m, game);
+
          //TODO : décommenter à l'integ
-         //interfaceCom.sendInfoGameForSpectator(controller.getLocalGame(), u);
-         ChatMessage m = new ChatMessage(controller.getLocalUser(), "Le joueur " + u.getUsername() + " a rejoint en spectateur.", new Date());
-         controller.getLocalGame().addMessage(m);
-         interfaceCom.sendChatMessage(m, controller.getLocalGame());
-         
-         //TODO : décommenter à l'integ
-         //interfaceCom.sendNewSpectator(User u, Player p, HashSet<User> listSpectators)
+
+         //interfaceCom.sendNewSpectator(u, p, game.getListSpectators();
      }
 
     @Override

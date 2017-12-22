@@ -150,12 +150,10 @@ public class CDataMain implements IDataMain {
     /**
      * Add a spectator in the game
      * @param g : game that the spectator wants to join
-
      */
     @Override
     public void gameToSpec(Game g){
-        //TODO : décommenter à l'integ
-        //interfaceCom.getInfoGameForSpectator(g.getPlayer1(), controller.getLocalUser());
+        interfaceCom.getInfoGameForSpectator(g.getPlayer1(), controller.getLocalUser());
     }
 
     @Override

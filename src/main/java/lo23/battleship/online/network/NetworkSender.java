@@ -20,7 +20,6 @@ public class NetworkSender extends Thread{
     private Message message;
 
     public NetworkSender(InetAddress host, int port, Message message) {
-
         this.host = host;
         this.port = port;
         this.message = message;
