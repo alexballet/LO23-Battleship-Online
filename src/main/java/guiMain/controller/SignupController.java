@@ -118,6 +118,7 @@ public class SignupController {
 		System.out.println("Nom " + lastname);
 		System.out.println("Date de Naissance " + birthDate);
 		List<String> ipsStrings = mainController.getIps();
+		int port = mainController.getPort();
 		if (ipsStrings != null && ipsStrings.size() > 0){
 			for (String ip : ipsStrings) {
 				try {
@@ -129,8 +130,8 @@ public class SignupController {
 			}
 		}
 		
-		if (!login.trim().isEmpty() && !password.trim().isEmpty() && !username.trim().isEmpty()){
-			mainController.getIdata().createAccount(login, username, ips, password, null, avatar, lastname, firstname, birthDate);
+		if (!login.trim().isEmpty() && !password.trim().isEmpty() && !username.trim().isEmpty()) {
+			mainController.getIdata().createAccount(login, username, ips, port, password, null, avatar, lastname, firstname, birthDate);
 			mainController.startIHM();
 		}
 		else{

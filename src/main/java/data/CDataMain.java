@@ -55,9 +55,10 @@ public class CDataMain implements IDataMain {
     }
 
     @Override
-    public void createAccount(String login, String username, HashSet ips, String password, List<ContactGroup> contactList, String avatar, String lastname, String firstname, Date birthDate) {
+    public void createAccount(String login, String username, HashSet ips, int port, String password, List<ContactGroup> contactList, String avatar, String lastname, String firstname, Date birthDate) {
         User newUser = new User(login,username);
         newUser.setIPs(ips);
+        newUser.setPort(port);
         
         DataUser newDataUser = new DataUser(newUser,password,contactList);
         
@@ -160,6 +161,7 @@ public class CDataMain implements IDataMain {
     @Override
     public void setPort(int p) {
         controller.getLocalProfile().setPort(p);
+        controller.getLocalProfile().saveProfile();
     }
     
     /**

@@ -44,16 +44,17 @@ public class IpConfigController {
 
 	public void init() {
 		this.initIpsList();
-                // Force the port field to be numeric (integer) only
-                port.textProperty().addListener(new ChangeListener<String>() {
-                        @Override
-                        public void changed(ObservableValue<? extends String> observable, String oldValue, 
-                                String newValue) {
-                                if (!newValue.matches("\\d*")) {
-                                        port.setText(newValue.replaceAll("[^\\d]", ""));
-                                }
-                        }
-		 });
+        // Force the port field to be numeric (integer) only
+        port.textProperty().addListener(new ChangeListener<String>() {
+        		@Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+	            String newValue) {
+	            if (!newValue.matches("\\d*")) {
+	                    port.setText(newValue.replaceAll("[^\\d]", ""));
+	            }
+            }
+        });
+        port.setText(mainController.getPort() + "");
 	}
 	
 	private void initIpsList() {
@@ -91,8 +92,7 @@ public class IpConfigController {
 		mainController.setIps(ipsListView.getItems());
 		
         int num_port = Integer.parseInt(port.getText());
-        /** Decommenter pour l'integration et checker la fonction chez IDataMain **/
-        //mainController.getIdata().setPort(num_port);
+		mainController.setPort(num_port);
         
         ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
 	

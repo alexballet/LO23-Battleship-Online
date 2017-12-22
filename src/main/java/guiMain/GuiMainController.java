@@ -37,6 +37,7 @@ public class GuiMainController implements GuiMainInterface {
 	List<User> playersList;
 	List<Game> gamesList;
 	List<String> ipsList = new ArrayList<String>();
+	int port = 2345;
 
 	private Stage stage;
 	private AnchorPane rootLayout;
@@ -396,6 +397,25 @@ public class GuiMainController implements GuiMainInterface {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setPort(int num_port) {
+		Profile p = idata.getLocalProfile();
+		
+		if ( p != null && p.getIdUser() != null) {
+			idata.setPort(num_port);
+		}
+		
+		this.port = num_port;
+	}
+
+	public int getPort() {
+		Profile p = idata.getLocalProfile();
+		if (p != null && p.getIdUser() != null) {
+			this.port = p.getPort();
+		}
+		
+		return this.port;
 	}
 }
 
