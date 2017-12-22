@@ -24,7 +24,6 @@ public class ChatController {
         this.conversation = conv;
         conversationArea.setEditable(false);
         conversationArea.setText(this.conversation);
-        System.out.println("\n FONCTION INIT \n");
     }
 
     public void sendMyMessage() {
@@ -43,7 +42,6 @@ public class ChatController {
         if(!message.isEmpty())
         {
             //send the message to other users
-            System.out.println("datacontrolleur" + dataController);
             dataController.textMessage(message);
             
             //add this to the conversation
@@ -53,6 +51,7 @@ public class ChatController {
         
         //erase the textfield
         field.setText("");
+        //field.home();
     }
     public void receiveAMessage(ChatMessage message) {
         //receive a message

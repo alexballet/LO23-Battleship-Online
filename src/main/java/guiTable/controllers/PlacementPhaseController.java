@@ -20,7 +20,6 @@ import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -65,12 +64,13 @@ public abstract class PlacementPhaseController extends BaseController implements
     protected static final int NB_CASES_GRID = 10;
     protected static final int RANDOM_ROTATION = 2;
     protected static final int MULTIPLE_FACTOR_PLACEMENT = 7;
+    private final String EXPLAIN_PLACEMENT = "press R to rotate Boat and DEL to reinitialize boat";
     
     protected Timeline timeline;
     @FXML
     protected Label timerLabel;
     protected LocalTime time;
-    private LocalTime timePerShot;
+    private LocalTime timePlacement;
     
     protected boolean rotationIsValide;
     protected BoatDrawing activeBoat;
@@ -157,10 +157,7 @@ public abstract class PlacementPhaseController extends BaseController implements
             List<Boat> boats = new ArrayList<Boat>();
             for (Map.Entry<Rectangle, BoatDrawing> entry : boatMap.entrySet()) {
                 BoatDrawing myBoatDrawing = entry.getValue();
-                //Boat myBoat = myBoatDrawing.getBoat();
                 boats.add(new Boat(myBoatDrawing.getBoatType(), myBoatDrawing.isRotation(), new Position(myBoatDrawing.getGridCol(), myBoatDrawing.getGridRow(), false)));
-              //  myBoat.setListcases(myBoatDrawing.isRotation(), new Position(myBoatDrawing.getGridCol(), myBoatDrawing.getGridRow(), false));
-               // boats.add(myBoat);
             }
             
             timeline.stop();
@@ -219,7 +216,7 @@ public abstract class PlacementPhaseController extends BaseController implements
                             BoatDrawing myboat  = boatMap.get(myRectangle);
                             activeBoat = myboat.setActiveBoat(boatMap);
                             activeBoat.setPlaced(false);
-                            logMsg("press R to rotate Boat and DEL to reinitialize boat");
+                            logMsg(EXPLAIN_PLACEMENT);
                         }
 
                     }
@@ -309,7 +306,7 @@ public abstract class PlacementPhaseController extends BaseController implements
         boat.setPosition(colIndex, rowIndex);
         if(positionCorrect(boat)) {
            boat.getBoatRectangle().setFill(boat.getActiveColor());            
-           logMsg("press R to rotate Boat and DEL to reinitialize boat");
+           logMsg(EXPLAIN_PLACEMENT);
         } else {
            logMsg("invalid position");
            boat.getBoatRectangle().setFill(boat.getBadPlacementColor());
@@ -446,8 +443,8 @@ public abstract class PlacementPhaseController extends BaseController implements
     
     public void setPlacementTime(Integer placementTime){
         if (placementTime != null) {
-            this.timePerShot = LocalTime.MIN.plusSeconds(placementTime);
-            this.time = timePerShot.plusSeconds(placementTime*MULTIPLE_FACTOR_PLACEMENT) ;
+            this.timePlacement = LocalTime.MIN.plusSeconds(placementTime);
+            this.time = timePlacement ;
             // update timerLabel
             timerLabel.setText(time.toString().substring(3));
             timeline = new Timeline();
