@@ -8,7 +8,9 @@ package guiTable.controllers;
 import data.CDataTable;
 import guiTable.GuiTableInterface;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -33,6 +35,7 @@ public class GuiTableController implements GuiTableInterface {
     private Boolean classic;
     
     private GamePhaseController gamePhaseController;
+    private ObserverPhaseController observerPhaseController;
     private CDataTable dataController;
     private ChatController chatController;
     private final String CHAT_FXML_URL = "/fxml/IhmTable/chat.fxml";
@@ -47,8 +50,7 @@ public class GuiTableController implements GuiTableInterface {
      */
     private GuiTableController(){
     }
-    
-    
+        
     /**
      * Entry point for a unique instance of singleton GuiTableController;
      * @return GuiTableController : the singleton GuiTableController.
@@ -125,9 +127,59 @@ public class GuiTableController implements GuiTableInterface {
         this.opponentReady(myTurn, null);
     }
 */
+  
+    public void displayObserverPhase(Stage currentStage, final boolean turn, LinkedHashMap<Shot,Boat> shotsDoneByPlayer1, LinkedHashMap<Shot,Boat> shotsDoneByPlayer2) {
+        this.mainStage = currentStage;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/IhmTable/ObserverPhase.fxml"));
+
+        try {
+            rootLayout = (AnchorPane) loader.load();
+            observerPhaseController = loader.<ObserverPhaseController>getController();
+
+            Scene scene = new Scene(rootLayout);
+            mainStage.setScene(scene);
+            mainStage.show();
+        } catch(IOException e) {
+            System.err.println("ERROR : "+e.getMessage());
+        }
+        //Displays all the shots made before the entry of the observer
+        for(Map.Entry<Shot, Boat> entry : shotsDoneByPlayer1.entrySet()){
+            displayPlayer1Shot(entry.getKey(), entry.getValue());
+        }
+        for(Map.Entry<Shot, Boat> entry : shotsDoneByPlayer2.entrySet()){
+            displayPlayer2Shot(entry.getKey(), entry.getValue());
+        }
+        observerPhaseController.setTurn(turn);
+    }
+    
     @Override
-    public void displayObserverPhase(Stage currentStage) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void displayPlayer1Shot(final Shot shot,final Boat boat) {
+        //Displays a shot
+        observerPhaseController.addPlayer1Shot(shot);
+        //If a boat was sunk, displays the sunk boat
+        if (boat != null && boat.getSunk()){
+            observerPhaseController.sunkPlayer2Boat(boat);
+        }
+        // Changes the turn
+        observerPhaseController.setTurn(false);
+    }
+
+    @Override
+    public void displayPlayer2Shot(final Shot shot,final Boat boat) {
+        //Displays a shot
+        observerPhaseController.addPlayer2Shot(shot);
+        //If a boat was sunk, displays the sunk boat
+        if (boat != null && boat.getSunk()){
+            observerPhaseController.sunkPlayer1Boat(boat);
+        }
+        // Changes the turn
+        observerPhaseController.setTurn(true);
+    }
+    
+    @Override
+    public void displayObserverPhaseVictory(boolean winner) {
+        observerPhaseController.showVictory(winner);
     }
 
     @Override
