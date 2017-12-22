@@ -44,12 +44,13 @@ public class NetworkController {
         networkState = new HashMap<>();
         networkInterface = new NetworkModuleInterface(this);
         // Create server
-        if (networkServer == null)
-            this.networkServer = new NetworkServer(this, port);
     }
 
     public void launchServer() {
         port = dataInterface.getLocalUser().getPort();
+        if (networkServer == null)
+            this.networkServer = new NetworkServer(this, port);
+        this.networkServer.setDataInterface(dataInterface);
         try {
             if(!networkServer.isOpened())
                 this.networkServer.open();
@@ -82,7 +83,6 @@ public class NetworkController {
 
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
-        networkServer.setDataInterface(dataInterface);
         networkInterface.setDataInterface(dataInterface);
     }
 
