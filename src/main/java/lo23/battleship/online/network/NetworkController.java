@@ -40,7 +40,6 @@ public class NetworkController {
     }
 
     private NetworkController() {
-        networkInterface = new NetworkModuleInterface(this);
         networkState = new HashMap<>();
         networkInterface = new NetworkModuleInterface(this);
         // Create server
