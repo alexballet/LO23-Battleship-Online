@@ -37,7 +37,7 @@ public class GuiMainController implements GuiMainInterface {
 	List<User> playersList;
 	List<Game> gamesList;
 	List<String> ipsList = new ArrayList<String>();
-	int port = 2345;
+	int port = Profile.DEFAULT_PORT;
 
 	private Stage stage;
 	private AnchorPane rootLayout;

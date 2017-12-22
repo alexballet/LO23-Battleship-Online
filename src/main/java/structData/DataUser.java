@@ -50,6 +50,7 @@ public class DataUser extends User {
         login = du.login;
         username = du.username;
         iPs = du.iPs;
+        port = du.port;
         
          /*properties of class DataUser*/
         password = du.password;

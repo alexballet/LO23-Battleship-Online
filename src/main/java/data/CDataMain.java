@@ -58,6 +58,7 @@ public class CDataMain implements IDataMain {
     public void createAccount(String login, String username, HashSet ips, int port, String password, List<ContactGroup> contactList, String avatar, String lastname, String firstname, Date birthDate) {
         User newUser = new User(login,username);
         newUser.setIPs(ips);
+        	
         newUser.setPort(port);
         
         DataUser newDataUser = new DataUser(newUser,password,contactList);

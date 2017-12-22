@@ -54,7 +54,7 @@ public class Profile extends DataUser {
      * @param newBirthdate a birthdate
      */
     public Profile(DataUser dUser, String pathToImage, String newLastname, 
-            String newName, Date newBirthdate){
+    					String newName, Date newBirthdate){
         super(dUser);
         if (pathToImage != null && !pathToImage.trim().isEmpty()) {
             avatar = new ImageIcon(pathToImage);

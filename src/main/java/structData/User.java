@@ -10,12 +10,14 @@ import java.io.Serializable;
 import java.net.InetAddress;
 
 public class User implements Serializable {
+	public static final int DEFAULT_PORT = 2345;
+	
     static final long serialVersionUID = 7L;
     protected UUID idUser;
     protected String login;
     protected String username;
     protected HashSet<InetAddress> iPs;
-    protected int port = 2345;
+    protected int port = DEFAULT_PORT;
     // TODO delete this constructor
     /**
      * Constructor by default
@@ -48,6 +50,7 @@ public class User implements Serializable {
         login = u.login;
         username = u.username;
         iPs = u.iPs;
+        port = u.port;
     }
     
     /**
