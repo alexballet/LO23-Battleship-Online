@@ -20,9 +20,11 @@ import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -36,6 +38,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import structData.Boat;
 import structData.Position;
 
@@ -45,6 +49,7 @@ import structData.Position;
  */
 public abstract class PlacementPhaseController extends BaseController implements Initializable
 {
+
        
     @FXML
     private AnchorPane anchorPane;
@@ -95,8 +100,6 @@ public abstract class PlacementPhaseController extends BaseController implements
     protected void closeMsg() {
         messageContainer.setVisible(false);
     }
-    
-    
     /**
      * method to put boat in the boatMap. 
      * method must be override by subclasses.
@@ -142,6 +145,33 @@ public abstract class PlacementPhaseController extends BaseController implements
     }
     
    
+    
+    /*public void displayQuitOpponent() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/fxml/Ihm-main/waitingRoom.fxml"));
+			Parent root = (Parent) loader.load();
+
+			waitingRoomController = loader.getController();
+			waitingRoomController.initData(game);
+
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setTitle("Salle d'attente");
+			stage.setScene(new Scene(root));
+			waitingRoomController.setStage(stage);
+			stage.show();
+
+			stage.setOnCloseRequest((WindowEvent event1) -> {
+				idata.removeGame(game);
+			});
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+    }*/
+    
     /**
      * Trigger validation of placement phase
      */
@@ -162,22 +192,7 @@ public abstract class PlacementPhaseController extends BaseController implements
             GuiTableController.getInstance().validateBoats(boats);
         }
     }
-    
-    /**
-     * Convert the boatMap of type HashMap<Rectangle, BoatDrawing> to List<Boat>
-     * @return List<Boat> list of boats
-     */
-    /*
-    protected List<Boat> getBoats() {
-        List<Boat> boats = new ArrayList(this.boatMap.size());
-        for(BoatDrawing boatDraw : boatMap.values()) {
-            boats.add(boatDraw.getBoat());
-        }
-        
-        return boats;
-    }*/ // potentiellement inutile
-    
-        
+ 
     /**
      * Check if all boats are placed
      * (ie. every boats are on the gird)

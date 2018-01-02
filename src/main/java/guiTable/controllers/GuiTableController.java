@@ -43,6 +43,7 @@ public class GuiTableController implements GuiTableInterface {
     private ObserverPhaseController observerPhaseController;
     private CDataTable dataController;
     private ChatController chatController;
+    private PlacementPhaseController placementPhaseController;
     private final String CHAT_FXML_URL = "/fxml/IhmTable/chat.fxml";
     private final String CLASSIC_PLACEMENT_URL = "/fxml/IhmTable/ClassicPlacementPhase.fxml";
     private final String BELGE_PLACEMENT_URL = "/fxml/IhmTable/BelgianPlacementPhase.fxml";
@@ -94,10 +95,10 @@ public class GuiTableController implements GuiTableInterface {
             dataController.gameEnded();
             mainStage.show();
         });
-        PlacementPhaseController controller = loader.getController();
-        controller.setPlacementTime(placementTime);
+        placementPhaseController = loader.getController();
+        placementPhaseController.setPlacementTime(placementTime);
 
-        chatController = controller.fillChatSlot(controller.getChatPane(), CHAT_FXML_URL, ""); // string final message initial
+        chatController = placementPhaseController.fillChatSlot(placementPhaseController.getChatPane(), CHAT_FXML_URL, ""); // string final message initial
         chatController.setDataController(dataController);
 
     }
@@ -140,53 +141,59 @@ public class GuiTableController implements GuiTableInterface {
   
     @Override
     public void displayObserverPhase(Stage currentStage, Game game) {
-        this.mainStage = currentStage;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/IhmTable/ObserverPhase.fxml"));
-         try {
-            rootLayout = (AnchorPane) loader.load();
-            observerPhaseController = loader.<ObserverPhaseController>getController();
+        Runnable command = new Runnable() {
+			@Override
+			public void run() {
 
-            Scene scene = new Scene(rootLayout);
-            mainStage.setScene(scene);
-            mainStage.show();
-        } catch(IOException e) {
-            System.err.println("ERROR : "+e.getMessage());
-        }
-        HashSet<Shot> listShot1 = game.getPlayer1().getListShots();
-        HashSet<Shot> listShot2 = game.getPlayer2().getListShots();
-        Date time1 = null, time2 = null; // get time off last shot to which player turn it is
+                            mainStage = currentStage;
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(getClass().getResource("/fxml/IhmTable/ObserverPhase.fxml"));
+                             try {
+                                rootLayout = (AnchorPane) loader.load();
+                                observerPhaseController = loader.<ObserverPhaseController>getController();
 
-        // display all shots
-        for (Shot shot : listShot1) {
-            displayObserverShot(shot, 1);
-            time1 = shot.getTime();
-        }
-        for (Shot shot : listShot2) {
-            displayObserverShot(shot, 2);
-            time2 = shot.getTime();
-        }
-        
-        List<Boat> listBoat1 = game.getPlayer1().getListBoats();
-        List<Boat> listBoat2 = game.getPlayer1().getListBoats();
-        //sunk boats
-        listBoat1.forEach((boat) -> {
-            if(boat.getSunk()) {
-                observerPhaseController.sunkPlayerBoat(1, boat);
-            }
-        });
-        listBoat2.forEach((boat) -> {
-            if(boat.getSunk()) {
-                observerPhaseController.sunkPlayerBoat(2, boat);
-            }
-        });
-        boolean turn = true;
-        if (time1!=null && time2 != null) {
-            turn = time1.after(time2);
-        }
-        //set game turn
-        observerPhaseController.setTurn(turn);
-        
+                                Scene scene = new Scene(rootLayout);
+                                mainStage.setScene(scene);
+                                mainStage.show();
+                            } catch(IOException e) {
+                                System.err.println("ERROR : "+e.getMessage());
+                            }
+                            HashSet<Shot> listShot1 = game.getPlayer1().getListShots();
+                            HashSet<Shot> listShot2 = game.getPlayer2().getListShots();
+                            Date time1 = null, time2 = null; // get time off last shot to which player turn it is
+
+                            // display all shots
+                            for (Shot shot : listShot1) {
+                                displayObserverShot(shot, 1);
+                                time1 = shot.getTime();
+                            }
+                            for (Shot shot : listShot2) {
+                                displayObserverShot(shot, 2);
+                                time2 = shot.getTime();
+                            }
+
+                            List<Boat> listBoat1 = game.getPlayer1().getListBoats();
+                            List<Boat> listBoat2 = game.getPlayer1().getListBoats();
+                            //sunk boats
+                            listBoat1.forEach((boat) -> {
+                                if(boat.getSunk()) {
+                                    observerPhaseController.sunkPlayerBoat(1, boat);
+                                }
+                            });
+                            listBoat2.forEach((boat) -> {
+                                if(boat.getSunk()) {
+                                    observerPhaseController.sunkPlayerBoat(2, boat);
+                                }
+                            });
+                            boolean turn = true;
+                            if (time1!=null && time2 != null) {
+                                turn = time1.after(time2);
+                            }
+                            //set game turn
+                            observerPhaseController.setTurn(turn);
+                        }
+        		};
+		Platform.runLater(command);
     }
     
   /*  // à supprimer si l'autre fonctionne
@@ -324,5 +331,14 @@ public class GuiTableController implements GuiTableInterface {
     public CDataTable getDataController() {
         return dataController;
         
+    }
+
+    @Override
+    public void displayRageQuit() {
+        if (placementPhaseController!=null) {
+      //  placementPhaseController.displayQuitOpponent();
+        } else {
+            System.out.println("Erreur inattendu, le placement phase copntroller n'a pas été initialisé");
+        }
     }
 }

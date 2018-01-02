@@ -209,7 +209,7 @@ public class CDataTable implements IDataTable {
     }
     
     public void gameEnded() {
-        //TODO gérer data fin de partie
+        controller.endGame();
         interfaceMain.openMenuWindow();
     }
 

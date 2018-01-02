@@ -100,5 +100,7 @@ public interface GuiTableInterface {
     public void addChatMessage(ChatMessage message);
     
     public void setDataController(CDataTable d);
+    
+    public void displayRageQuit();
 
 }

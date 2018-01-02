@@ -380,4 +380,20 @@ public class DataController {
                 //interfaceMain.removeGame(controller.getLocalGame());
                 //interfaceCom.removeGame(controller.getLocalGame());
     }
+
+    void endGame() {
+        Game game = getLocalGame();
+        switch (game.getStatus()) {
+            
+            case PLAYING :
+                interfaceCom.notifyGameWon();
+                break;
+            case PLAYER1READY :
+            case PLAYER2READY : 
+            case BOATPHASE :
+              //  interfaceCom.quitMessage();
+        } 
+
+
+    }
 }
