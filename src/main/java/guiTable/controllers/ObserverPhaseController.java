@@ -8,12 +8,11 @@ package guiTable.controllers;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import structData.Boat;
 import structData.Shot;
 
@@ -70,7 +69,8 @@ public class ObserverPhaseController extends gameInterface implements Initializa
         this.placeShotTo(shot, tablePlayer.get(player));
     }
     
-    public void exitGame() {
+    @FXML
+    void exitGame(ActionEvent event) {
         messageContainer.setVisible(true);
         logYesNoMsg(EXIT_GAME_MSG);
     }
@@ -79,7 +79,7 @@ public class ObserverPhaseController extends gameInterface implements Initializa
      * Cancel end of game
      */
     @FXML
-    protected void noClicked() {
+    void noClicked(ActionEvent event) {
         messageContainer.setVisible(false);
         exitButton.setDisable(false);
     }

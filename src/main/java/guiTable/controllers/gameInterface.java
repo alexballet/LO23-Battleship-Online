@@ -6,6 +6,7 @@
 package guiTable.controllers;
 
 import guiTable.CaseDrawing;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -111,7 +112,7 @@ public abstract class gameInterface extends BaseController implements Initializa
      * Validate end of game
      */
     @FXML
-    protected void yesClicked() {
+    void yesClicked(ActionEvent event) {
         if (tableController.exitGame()) {
             tableController.getDataController().gameEnded();
         } else {
