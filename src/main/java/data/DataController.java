@@ -22,7 +22,6 @@ import structData.DataUser;
 import structData.Profile;
 import structData.StatusGame;
 import structData.Player;
-import structData.Position;
 import structData.Shot;
 
 /**
@@ -365,6 +364,12 @@ public class DataController {
     public void gameOver() {
         System.out.println("GAME OVER");
         //arreter la partie localPlayer a perdu
+                Game game = getLocalGame();
+        game.setStatus(StatusGame.FINISHED);
+        interfaceCom.changeStatusGame(game);
+        setLocalGame(game);
+
+        
          Runnable command = new Runnable() {
 			@Override
 			public void run() {
@@ -372,6 +377,7 @@ public class DataController {
                             }
         		};
 		Platform.runLater(command);
+
         
         //notify the other player that he has won
         Player pl = getOtherPLayer(); // to know to which player we send the notification : it's the player who is not ourself
@@ -398,6 +404,8 @@ public class DataController {
             case BOATPHASE :
               //  interfaceCom.quitMessage();
         } 
+        removeGameFromList(game);
         interfaceCom.removeGame(game);
+        setLocalGame(null);
     }
 }

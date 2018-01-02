@@ -271,6 +271,12 @@ public class CDataCom implements IDataCom {
       */
     @Override
      public void notifiedGameWon(){
+        	Game game = controller.getLocalGame();
+
+        	game.setStatus(StatusGame.FINISHED);
+        	interfaceCom.changeStatusGame(game);
+        	controller.setLocalGame(game);
+        
          controller.getLocalProfile().setGamesWon(controller.getLocalProfile().getGamesWon()+1);
          controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
          interfaceTable.displayVictory();

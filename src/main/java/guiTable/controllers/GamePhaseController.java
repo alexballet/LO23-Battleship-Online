@@ -59,8 +59,8 @@ public class GamePhaseController extends gameInterface implements Initializable 
   
 
     private Timeline timeline;
-    private LocalTime time;
-    private LocalTime timePerShot;
+    public LocalTime time;
+    public LocalTime timePerShot;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){        
@@ -145,9 +145,7 @@ public class GamePhaseController extends gameInterface implements Initializable 
         if (myTurn) {
             logMsg(MY_TURN_MSG);
             table.setStyle(STYLE_MY_TURN);
-            setRoundTime(timePerShot);
-            timerLabel.setVisible(true);
-            timerLabel.setTextFill(Color.BLACK);
+            setRoundTime();
         } else {
             logMsg(OTHER_TURN_MSG);
             table.setStyle(STYLE_OTHER_TURN);
@@ -200,13 +198,15 @@ public class GamePhaseController extends gameInterface implements Initializable 
         table.setDisable(false);
     }
     
-    public void setRoundTime(LocalTime roundTime) {
-        timePerShot = roundTime;
-        if (roundTime != null) {
+    public void setRoundTime() {
+        
+        if (timePerShot != null) {
             if(timeline != null) {
                 timeline.stop();
             }
-            this.time = roundTime ;
+            this.time = timePerShot ;
+            timerLabel.setVisible(true);
+            timerLabel.setTextFill(Color.BLACK);
             // update timerLabel
             timerLabel.setText(time.toString().substring(3));
             timeline = new Timeline();

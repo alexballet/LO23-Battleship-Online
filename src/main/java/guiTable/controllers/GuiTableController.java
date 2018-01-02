@@ -118,8 +118,9 @@ public class GuiTableController implements GuiTableInterface {
 		            gamePhaseController.setMyTurn(myTurn);
 		            gamePhaseController.setMyBoats(boats);
                             LocalTime localtime = LocalTime.MIN.plusSeconds(timePerShot);
+                            gamePhaseController.timePerShot = localtime;
                             if (myTurn) {
-                            gamePhaseController.setRoundTime(localtime);
+                            gamePhaseController.setRoundTime();
                             }
 		        
 		            Scene scene = new Scene(rootLayout);
