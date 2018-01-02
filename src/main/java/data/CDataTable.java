@@ -95,11 +95,11 @@ public class CDataTable implements IDataTable {
             }
         }
 
+        // TODO: Simplifier les conditions (myTurn = p1Start && localPlayerIsPlayer1)
         if(controller.getLocalGame().getPlayer1().isReady() &&
                 controller.getLocalGame().getPlayer2().isReady())
         {
-            myTurn = !(p1Start ^ localPlayerIsPlayer1); //retourne false si l'un des deux est faux et l'autre vrai
-
+            myTurn = p1Start && localPlayerIsPlayer1;
             interfaceTable.opponentReady(myTurn, myGame.getTimePerShot());
         }
     }
