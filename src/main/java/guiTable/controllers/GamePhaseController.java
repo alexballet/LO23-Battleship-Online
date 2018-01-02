@@ -134,7 +134,9 @@ public class GamePhaseController extends BaseController implements Initializable
         Byte rowB = Byte.decode(row.toString());
         
         Position shoot = new Position(colB, rowB, false);
-        timeline.stop();
+        if(timeline != null) {
+            timeline.stop();
+        }
         timerLabel.setVisible(false);
         GuiTableController.getInstance().validateShot(shoot);
         valider.setDisable(true);
