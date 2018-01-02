@@ -19,7 +19,7 @@ public interface GuiTableInterface {
      * Displays the window where the player will place their ships.
      * @param currentStage current stage to be replaced
      * @param classic specify if it is a classic or belgian game
-     * @param placementTime : Time limitation for placement phase, if null, no time limtation
+     * @param timePerShot : Time limitation for placement phase, if null, no time limtation
      * @throws Exception 
      */
     public void displayPlacementPhase(Stage currentStage, Boolean classic, int timePerShot) throws Exception;

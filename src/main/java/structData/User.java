@@ -36,8 +36,8 @@ public class User implements Serializable {
      */
     public User(String loginData, String usernameData){
         idUser = UUID.randomUUID();
-        login = new String(loginData);
-        username = new String(usernameData);
+        login = loginData;
+        username = usernameData;
         iPs = new HashSet();
     }
     

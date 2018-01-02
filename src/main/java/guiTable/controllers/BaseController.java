@@ -13,6 +13,14 @@ import javafx.scene.layout.AnchorPane;
  * @author raphael
  */
 public class BaseController {
+    
+    
+    public static final int GRID_X = 100;
+    public static final int GRID_Y = 100;
+    public static final int SPACE = 3;
+    public static final int GRID_ELEMENT_SIZE = 35;
+    public static final int NB_CASES_GRID = 10;
+    
     /**
     * Allows to replace pane by another one
     * @param paneToFill

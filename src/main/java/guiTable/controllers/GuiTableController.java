@@ -128,6 +128,7 @@ public class GuiTableController implements GuiTableInterface {
     }
 */
   
+    @Override
     public void displayObserverPhase(Stage currentStage, final boolean turn, LinkedHashMap<Shot,Boat> shotsDoneByPlayer1, LinkedHashMap<Shot,Boat> shotsDoneByPlayer2) {
         this.mainStage = currentStage;
         FXMLLoader loader = new FXMLLoader();

@@ -19,15 +19,6 @@ public class ChatMessage implements Serializable{
     private Date time;
     
     /**
-     * Constructor by default
-     */
-    public ChatMessage() {
-        profile = new User();
-        content = new String("");
-        time = new Date();
-    }
-    
-    /**
      * Constructor with all parameters
      * @param newSender : person who send this message
      * @param newMessage :the message has to be send

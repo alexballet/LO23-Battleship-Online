@@ -57,13 +57,7 @@ public abstract class PlacementPhaseController extends BaseController implements
     @FXML
     private Text messageContainer;
         
-    protected static final int GRID_X = 100;
-    protected static final int GRID_Y = 100;
-    protected static final int SPACE = 3;
-    protected static final int GRID_ELEMENT_SIZE = 35;
-    protected static final int NB_CASES_GRID = 10;
     protected static final int RANDOM_ROTATION = 2;
-    protected static final int MULTIPLE_FACTOR_PLACEMENT = 7;
     private final String EXPLAIN_PLACEMENT = "press R to rotate Boat and DEL to reinitialize boat";
     
     protected Timeline timeline;

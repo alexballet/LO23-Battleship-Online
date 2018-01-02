@@ -67,14 +67,9 @@ public class GamePhaseController extends BaseController implements Initializable
     
     private Boolean myTurn;
     
-    private List<Boat> boats = null;
+    GuiTableController tableController;
+    
 
-    public static final int GRID_ELEMENT_SIZE = 35;
-    protected static final int GRID_X = 100;
-    protected static final int GRID_Y = 100;
-    protected static final int SPACE = 3;
-    protected static final int NB_CASES_GRID = 10;
-    protected static final int MULTIPLE_FACTOR_PLACEMENT = 7;
     private final String  STYLE_MY_TURN = "-fx-background-color: #FFFFFF;";
     private final String STYLE_OTHER_TURN = "-fx-background-color: #EEEEEE;";
 
@@ -95,7 +90,7 @@ public class GamePhaseController extends BaseController implements Initializable
                 table.add(pane, i, j);
             }
         }
-        
+        tableController = GuiTableController.getInstance();
         messageContainer.setVisible(false);
     }
     
@@ -152,14 +147,14 @@ public class GamePhaseController extends BaseController implements Initializable
 
     public void addShot(Shot shot) {
         removeSelectedCase();
-        plateShotTo(shot, table);
+        placeShotTo(shot, table);
     }
     
     protected void removeSelectedCase() {
         table.getChildren().remove(selectedCase);
     }
     
-    protected void plateShotTo(Shot shot, GridPane gird) {
+    protected void placeShotTo(Shot shot, GridPane gird) {
         Integer col = shot.getX();
         Integer row = shot.getY();
         CaseDrawing.Type t;
@@ -178,7 +173,7 @@ public class GamePhaseController extends BaseController implements Initializable
 
     public void addOpponentShot(Shot opponentShot) {
         removeSelectedCase();
-        plateShotTo(opponentShot, myTable);
+        placeShotTo(opponentShot, myTable);
     }
 
     public void sunkMyBoat(Boat boat) {
@@ -241,9 +236,8 @@ public class GamePhaseController extends BaseController implements Initializable
      */
     @FXML
     protected void yesClicked() {
-        if (GuiTableController.getInstance().exitGame()) {
-            GuiTableController controller = GuiTableController.getInstance();
-            controller.getDataController().gameEnded();
+        if (tableController.exitGame()) {
+            tableController.getDataController().gameEnded();
         } else {
             System.err.println("GuiTableController.getInstance().exitGame() renvoi false");
             // Message d'erreur

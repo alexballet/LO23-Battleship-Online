@@ -52,11 +52,6 @@ public class ObserverPhaseController implements Initializable {
     
     private List<Boat> boats = null;
     
-    protected static final int GRID_X = 100;
-    protected static final int GRID_Y = 100;
-    protected static final int SPACE = 3;
-    public static final int GRID_ELEMENT_SIZE = 35;
-    protected static final int NB_CASES_GRID = 10;
     
     @Override
     public void initialize(URL location, ResourceBundle resources){          

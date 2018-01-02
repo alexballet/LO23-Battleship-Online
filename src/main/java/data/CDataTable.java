@@ -14,10 +14,9 @@ import structData.Position;
 import structData.Game;
 import lo23.battleship.online.network.COMInterface;
 import guiMain.GuiMainInterface;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Random;
 import guiTable.GuiTableInterface;
+import java.util.UUID;
+import structData.Player;
 import structData.Shot;
 import structData.StatusGame;
 
@@ -27,11 +26,9 @@ import structData.StatusGame;
  */
 public class CDataTable implements IDataTable {
     
-    private DataController controller;
+    final private DataController controller;
    
-    /* ajout ihm-plateau débug   */
     private GuiTableInterface interfaceTable;
-    /* ajout ihm-plateau débug   */
     private GuiMainInterface interfaceMain;
     private COMInterface interfaceCom;
     
@@ -42,11 +39,9 @@ public class CDataTable implements IDataTable {
         controller = dc;
     }
     
-    /* ajout ihm-plateau débug   */
     public void setInterfaceTable(GuiTableInterface t) {
         interfaceTable = t;
     }
-    /* ajout ihm-plateau débug   */
     public void setInterfaceCom(COMInterface c){
         interfaceCom = c;
     }
@@ -54,6 +49,9 @@ public class CDataTable implements IDataTable {
     public void setInterfaceMain(GuiMainInterface m) {
         interfaceMain = m;
     }
+    /*
+     INTEGV5 FIXME
+    */
     @Override
     public Boolean exit() {
         //Boolean b = interfaceCom.exit(); Com doit s'occuper la fonction exit
@@ -65,7 +63,7 @@ public class CDataTable implements IDataTable {
     public void textMessage(String message) {
         ChatMessage cm = new ChatMessage(controller.getLocalUser(),message,new Date());
         Game g = controller.getLocalGame();
-        interfaceCom.sendChatMessage(cm, g); //décommenter à l'integ
+        interfaceCom.sendChatMessage(cm, g); 
     }
 
     @Override
@@ -80,18 +78,17 @@ public class CDataTable implements IDataTable {
     public void coordinateShips(List<Boat> listBoat) {
         Boolean myTurn;
         Boolean p1Start = controller.getLocalGame().getPlayer1Start();
-        controller.getLocalPlayer().setListBoats(listBoat);
-        boolean localPlayerIsPlayer1 = controller.getLocalUser().getIdUser().equals(
+        Player localPlayer = controller.getLocalPlayer();
+        localPlayer.setListBoats(listBoat);
+        UUID idUser = controller.getLocalUser().getIdUser();
+        boolean localPlayerIsPlayer1 = idUser.equals(
                 controller.getLocalGame().getPlayer1().getProfile().getIdUser());
-        boolean localPlayerIsPlayer2 = controller.getLocalUser().getIdUser().equals(
-                controller.getLocalGame().getPlayer2().getProfile().getIdUser());
-        //TODO : uncomment when integV3 done
+        //boolean localPlayerIsPlayer2 = controller.getLocalUser().getIdUser().equals(
+          //      controller.getLocalGame().getPlayer2().getProfile().getIdUser());
         Game myGame = controller.getLocalGame();
-       /* ajout ihm-plateau débug   */
         if(!myGame.getHumanOpponent())  {
             interfaceTable.opponentReady(myGame.getPlayer1Start(), myGame.getTimePerShot());
         }else {
-            /* ajout ihm-plateau débug   */
             if (localPlayerIsPlayer1) {
                 controller.getLocalGame().getPlayer1().setReady(true);
                 interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
@@ -105,16 +102,20 @@ public class CDataTable implements IDataTable {
         if(controller.getLocalGame().getPlayer1().isReady() &&
                 controller.getLocalGame().getPlayer2().isReady())
         {
+            myTurn = !(p1Start ^ localPlayerIsPlayer1); //retourne false si l'un des deux est faux et l'autre vrai
+                
+            
+            /*
             if (p1Start && localPlayerIsPlayer1) {
                 myTurn = true;
             } else if (p1Start && localPlayerIsPlayer2) {
                 myTurn = false;
             } else if (!p1Start && localPlayerIsPlayer2) {
                 myTurn = true;
-            } else /*if ( p1Start == false && p1 == localPlayer )*/ {
+            } else /*if ( p1Start == false && p1 == localPlayer )*//* {
                 myTurn = false;
             }
-
+*/
             interfaceTable.opponentReady(myTurn, myGame.getTimePerShot());
         }
     }
