@@ -144,6 +144,7 @@ public class GamePhaseController extends BaseController implements Initializable
         if (myTurn) {
             logMsg(MY_TURN_MSG);
             table.setStyle(STYLE_MY_TURN);
+            setRoundTime(time);
         } else {
             logMsg(OTHER_TURN_MSG);
             table.setStyle(STYLE_OTHER_TURN);
