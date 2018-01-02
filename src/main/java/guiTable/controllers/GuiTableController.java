@@ -8,6 +8,7 @@ package guiTable.controllers;
 import data.CDataTable;
 import guiTable.GuiTableInterface;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -97,7 +98,7 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     @Override
-    public void opponentReady(final Boolean myTurn, int timePerShot) {
+    public void opponentReady(final Boolean myTurn, long timePerShot) {
     		Runnable command = new Runnable() {
 			@Override
 			public void run() {
@@ -109,7 +110,8 @@ public class GuiTableController implements GuiTableInterface {
 		            gamePhaseController = loader.<GamePhaseController>getController();
 		            gamePhaseController.setMyTurn(myTurn);
 		            gamePhaseController.setMyBoats(boats);
-                            gamePhaseController.setRoundTime(timePerShot);
+                            LocalTime localtime = LocalTime.MIN.plusSeconds(timePerShot);
+                            gamePhaseController.setRoundTime(localtime);
 		        
 		            Scene scene = new Scene(rootLayout);
 		            mainStage.setScene(scene);

@@ -250,10 +250,9 @@ public class GamePhaseController extends BaseController implements Initializable
         }
     }
 
-    public void setRoundTime(Integer roundTime) {
+    public void setRoundTime(LocalTime roundTime) {
         if (roundTime != null) {
-            LocalTime timePerShot = LocalTime.MIN.plusSeconds(roundTime);
-            this.time = timePerShot ;
+            this.time = roundTime ;
             // update timerLabel
             timerLabel.setText(time.toString().substring(3));
             timeline = new Timeline();
