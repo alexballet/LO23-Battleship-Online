@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.paint.Color;
 import structData.Game;
 
 public class CreateGameController implements Initializable{
@@ -112,15 +113,17 @@ public class CreateGameController implements Initializable{
 			 } 
 		 }
 
-		 // Create new game object
-		 // Game game = new Game(classicGame, name, oponent, timePerShot, spectators, chat);
-
-		 // Calls interface with data to create new game
-                 // TODO : voir avec IHM Main à l'integ pour appeler correctement le constructeur
-		 Game game = mainController.getIdata().newGame(classicGame, name, oponent, timePerShot, timeForPositioning, spectators, chat);   
-
-		 // Open waiting room window 
-		 mainController.openWaitingRoomWindow(game);
+		 if (!name.trim().isEmpty()) {
+			 System.out.println("HERE");
+			 // Calls interface with data to create new game
+			 Game game = mainController.getIdata().newGame(classicGame, name, oponent, timePerShot, timeForPositioning, spectators, chat);   
+			 // Open waiting room window 
+			 mainController.openWaitingRoomWindow(game);
+		 } else {
+			 System.out.println("YO");
+			 errorMessage.setText("Veuillez choisir un nom pour votre partie.");
+			 errorMessage.setTextFill(Color.web("#ff0000"));
+		 }
 	 }
 
 	 /**
