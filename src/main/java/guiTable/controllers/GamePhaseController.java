@@ -64,6 +64,8 @@ public class GamePhaseController extends BaseController implements Initializable
     private Text messageTextContainer;
     @FXML
     private Rectangle messageMask;
+    @FXML
+    private Label timerLabel;
     
     private Boolean myTurn;
     
@@ -79,9 +81,8 @@ public class GamePhaseController extends BaseController implements Initializable
     protected String DEFEAT_MSG = "Defaite !";
 
     private Timeline timeline;
-    @FXML
-    private Label timerLabel;
     private LocalTime time;
+    private LocalTime timePerShot;
 
     @Override
     public void initialize(URL location, ResourceBundle resources){        
@@ -133,6 +134,8 @@ public class GamePhaseController extends BaseController implements Initializable
         Byte rowB = Byte.decode(row.toString());
         
         Position shoot = new Position(colB, rowB, false);
+        timeline.stop();
+        timerLabel.setVisible(false);
         GuiTableController.getInstance().validateShot(shoot);
         valider.setDisable(true);
     }
@@ -144,7 +147,8 @@ public class GamePhaseController extends BaseController implements Initializable
         if (myTurn) {
             logMsg(MY_TURN_MSG);
             table.setStyle(STYLE_MY_TURN);
-            setRoundTime(time);
+            setRoundTime(timePerShot);
+            timerLabel.setVisible(true);
         } else {
             logMsg(OTHER_TURN_MSG);
             table.setStyle(STYLE_OTHER_TURN);
@@ -249,14 +253,25 @@ public class GamePhaseController extends BaseController implements Initializable
             // Message d'erreur
         }
     }
+    
 
     public void setRoundTime(LocalTime roundTime) {
+        timePerShot = roundTime;
         if (roundTime != null) {
+            if(timeline != null) {
+                timeline.stop();
+            }
             this.time = roundTime ;
             // update timerLabel
             timerLabel.setText(time.toString().substring(3));
             timeline = new Timeline();
             timeline.setCycleCount(Timeline.INDEFINITE);
+            
+            timeline.setOnFinished((event) -> {
+                        showDefeat();
+                        yesClicked();
+            });
+            
             timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
                 // KeyFrame event handler
                 @Override
@@ -267,23 +282,12 @@ public class GamePhaseController extends BaseController implements Initializable
                     if (time.isBefore(LocalTime.MIN.plusSeconds(10))) {
                         timerLabel.setTextFill(Color.RED);
                     }
-                    if (time.isBefore(LocalTime.MIN.plusSeconds(1)) ) {
-                        timeline.stop();
-                        timeIsOver();
-                    }
                 }
             }));
             timeline.playFromStart();
         }
     }
 
-    /**
-     *
-     */
-    protected void timeIsOver() {
-        // TODO : implements
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     /**
      * Cancel end of game
      */
