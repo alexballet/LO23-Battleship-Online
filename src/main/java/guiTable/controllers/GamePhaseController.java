@@ -149,6 +149,7 @@ public class GamePhaseController extends BaseController implements Initializable
             table.setStyle(STYLE_MY_TURN);
             setRoundTime(timePerShot);
             timerLabel.setVisible(true);
+            timerLabel.setTextFill(Color.BLACK);
         } else {
             logMsg(OTHER_TURN_MSG);
             table.setStyle(STYLE_OTHER_TURN);
