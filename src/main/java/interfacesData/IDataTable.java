@@ -48,6 +48,8 @@ public interface IDataTable {
     public Shot iaShot();
     */
     
+    public void timerOver();
+    
     /**
      * transmit to every user that the game is beign played, allow them to spectate
      */

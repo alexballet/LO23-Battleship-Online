@@ -82,8 +82,6 @@ public class CDataTable implements IDataTable {
         UUID idUser = controller.getLocalUser().getIdUser();
         boolean localPlayerIsPlayer1 = idUser.equals(
                 controller.getLocalGame().getPlayer1().getProfile().getIdUser());
-        //boolean localPlayerIsPlayer2 = controller.getLocalUser().getIdUser().equals(
-          //      controller.getLocalGame().getPlayer2().getProfile().getIdUser());
         Game myGame = controller.getLocalGame();
         if(!myGame.getHumanOpponent())  {
             interfaceTable.opponentReady(myGame.getPlayer1Start(), myGame.getTimePerShot());
@@ -97,24 +95,11 @@ public class CDataTable implements IDataTable {
             }
         }
 
-        // TODO: Simplifier les conditions (myTurn = p1Start && localPlayerIsPlayer1)
         if(controller.getLocalGame().getPlayer1().isReady() &&
                 controller.getLocalGame().getPlayer2().isReady())
         {
             myTurn = !(p1Start ^ localPlayerIsPlayer1); //retourne false si l'un des deux est faux et l'autre vrai
-                
-            
-            /*
-            if (p1Start && localPlayerIsPlayer1) {
-                myTurn = true;
-            } else if (p1Start && localPlayerIsPlayer2) {
-                myTurn = false;
-            } else if (!p1Start && localPlayerIsPlayer2) {
-                myTurn = true;
-            } else /*if ( p1Start == false && p1 == localPlayer )*//* {
-                myTurn = false;
-            }
-*/
+
             interfaceTable.opponentReady(myTurn, myGame.getTimePerShot());
         }
     }
@@ -224,5 +209,10 @@ public class CDataTable implements IDataTable {
     public void gameEnded() {
         //TODO gérer data fin de partie
         interfaceMain.openMenuWindow();
+    }
+
+    @Override
+    public void timerOver() {
+        controller.gameOver();
     }
 }

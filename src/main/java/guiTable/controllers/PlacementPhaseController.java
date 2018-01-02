@@ -445,22 +445,6 @@ public abstract class PlacementPhaseController extends BaseController implements
             timerLabel.setText(time.toString().substring(3));
             timeline = new Timeline();
             timeline.setCycleCount(Timeline.INDEFINITE);
-            timeline.setOnFinished((event) -> {
-                for(BoatDrawing myBoat : boatMap.values()){
-                    while(!myBoat.isPlaced()){
-                    activeBoat=myBoat;
-                    Random rn = new Random(); 
-                    draw(activeBoat, rn.nextInt(NB_CASES_GRID), rn.nextInt(NB_CASES_GRID));
-                    if(rn.nextInt(RANDOM_ROTATION)==1){
-                        drawRotation(activeBoat);
-                    }                
-                    if(positionCorrect(myBoat)){
-                      this.placeBoat(myBoat);
-                    }
-                }
-               }
-            onValidate();
-            });
             timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
                 // KeyFrame event handler
                 @Override
@@ -471,12 +455,35 @@ public abstract class PlacementPhaseController extends BaseController implements
                     if (time.isBefore(LocalTime.MIN.plusSeconds(10))) {
                         timerLabel.setTextFill(Color.RED);
                     }
+                    if (time.isBefore(LocalTime.MIN.plusSeconds(1)) ) {
+                        timeline.stop();
+                        timeIsOver();
+                }
                 }
             }));
             timeline.playFromStart();
         }
     }
 
+    /**
+     * Places the boats randomly if time's over and there are boats to place
+     */
+    protected void timeIsOver(){
+        for(BoatDrawing myBoat : boatMap.values()){
+            while(!myBoat.isPlaced()){
+                activeBoat=myBoat;
+                Random rn = new Random(); 
+                draw(activeBoat, rn.nextInt(NB_CASES_GRID), rn.nextInt(NB_CASES_GRID));
+                if(rn.nextInt(RANDOM_ROTATION)==1){
+                    drawRotation(activeBoat);
+                }                
+                if(positionCorrect(myBoat)){
+                    this.placeBoat(myBoat);
+                }
+           }
+        }
+        onValidate();
+    }
 
     /**
      * @return the isValidate

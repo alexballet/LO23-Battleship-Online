@@ -205,28 +205,12 @@ public class CDataCom implements IDataCom {
                 }
             }
             if (gameOver){
-                System.out.println("GAME OVER");
-                //arreter la partie localPlayer a perdu
-                interfaceTable.displayDefeat();
-                
-                //notify the other player that he has won
-                Player pl; // to know to which player we send the notification : it's the player who is not ourself
-                if (controller.getLocalGame().getPlayer1() == controller.getLocalPlayer())
-                    pl = controller.getLocalGame().getPlayer2();
-                else
-                    pl = controller.getLocalGame().getPlayer1();
-                interfaceCom.notifyGameWon();
-                
-                controller.getLocalProfile().setGamesLost(controller.getLocalProfile().getGamesLost()+1);
-                controller.getLocalProfile().setGamesPlayed(controller.getLocalProfile().getGamesPlayed()+1);
-                controller.removeGameFromList(controller.getLocalGame()); // Verifier comment est géré la notification que la partie n'existe plus
-                //interfaceMain.removeGame(controller.getLocalGame());
-                //interfaceCom.removeGame(controller.getLocalGame());
+                controller.gameOver();
             }              
             
         }
     }
-
+    
     
     public void coordinates(Shot s, Boat b) {
         controller.getLocalPlayer().addShot(s);
@@ -318,4 +302,5 @@ public class CDataCom implements IDataCom {
     public void notifyQuitSpectator(User spec){
         //interfaceCom.notifyQuitSpectator(spec); A decommenter pdt l'integ
     }
+
 }

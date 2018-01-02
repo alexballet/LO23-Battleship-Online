@@ -29,6 +29,7 @@ import structData.Shot;
  * @author Irvin
  */
 public class DataController {
+
     
     private CDataCom interfaceDataCom;
     private CDataMain interfaceDataMain;
@@ -358,5 +359,25 @@ public class DataController {
         } else {
             return getLocalGame().getPlayer1();
         }
+    }
+    
+    public void gameOver() {
+        System.out.println("GAME OVER");
+                //arreter la partie localPlayer a perdu
+                interfaceTable.displayDefeat();
+                
+                //notify the other player that he has won
+                Player pl; // to know to which player we send the notification : it's the player who is not ourself
+                if (getLocalGame().getPlayer1() == getLocalPlayer())
+                    pl = getLocalGame().getPlayer2();
+                else
+                    pl = getLocalGame().getPlayer1();
+                interfaceCom.notifyGameWon();
+                
+                getLocalProfile().setGamesLost(getLocalProfile().getGamesLost()+1);
+                getLocalProfile().setGamesPlayed(getLocalProfile().getGamesPlayed()+1);
+                removeGameFromList(getLocalGame()); // Verifier comment est géré la notification que la partie n'existe plus
+                //interfaceMain.removeGame(controller.getLocalGame());
+                //interfaceCom.removeGame(controller.getLocalGame());
     }
 }

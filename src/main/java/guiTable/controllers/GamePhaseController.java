@@ -267,12 +267,6 @@ public class GamePhaseController extends BaseController implements Initializable
             timerLabel.setText(time.toString().substring(3));
             timeline = new Timeline();
             timeline.setCycleCount(Timeline.INDEFINITE);
-            
-            timeline.setOnFinished((event) -> {
-                        showDefeat();
-                        yesClicked();
-            });
-            
             timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), new EventHandler() {
                 // KeyFrame event handler
                 @Override
@@ -283,12 +277,23 @@ public class GamePhaseController extends BaseController implements Initializable
                     if (time.isBefore(LocalTime.MIN.plusSeconds(10))) {
                         timerLabel.setTextFill(Color.RED);
                     }
+                    if (time.isBefore(LocalTime.MIN.plusSeconds(1)) ) {
+                        timeline.stop();
+                        timeIsOver();
+                }
                 }
             }));
             timeline.playFromStart();
         }
     }
 
+    /**
+     *
+     */
+    protected void timeIsOver() {
+        showDefeat();
+        //yesClicked();
+    }
     /**
      * Cancel end of game
      */
