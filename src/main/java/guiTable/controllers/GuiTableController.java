@@ -19,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.WindowEvent;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.Game;
@@ -71,6 +72,7 @@ public class GuiTableController implements GuiTableInterface {
     /**
     * this function call an other fxml context and refresh page
     * @param currentStage
+     * @param placementTime
     * @throws Exception 
     */
     @Override
@@ -88,7 +90,10 @@ public class GuiTableController implements GuiTableInterface {
         Scene scene = new Scene(rootLayout);
         mainStage.setTitle(TITLE);
         mainStage.setScene(scene);
-        mainStage.show();
+        mainStage.setOnCloseRequest((WindowEvent event1) -> {
+            dataController.gameEnded();
+            mainStage.show();
+        });
         PlacementPhaseController controller = loader.getController();
         controller.setPlacementTime(placementTime);
 
@@ -115,6 +120,9 @@ public class GuiTableController implements GuiTableInterface {
 		        
 		            Scene scene = new Scene(rootLayout);
 		            mainStage.setScene(scene);
+                            mainStage.setOnCloseRequest((WindowEvent event1) -> {
+                            dataController.gameEnded();
+                            });
 		            mainStage.show();
                             String conv = chatController.getConversation();
                             chatController = gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, conv);
@@ -291,11 +299,6 @@ public class GuiTableController implements GuiTableInterface {
 			}
 		};
 		Platform.runLater(command);
-    }
-
-    @Override
-    public void displayMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

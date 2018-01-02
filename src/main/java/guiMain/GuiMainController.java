@@ -264,6 +264,7 @@ public class GuiMainController implements GuiMainInterface {
 			public void run() {
                             try {
                                 if (waitingRoomController != null) waitingRoomController.closeWindow();
+                                System.out.println("timeplaceboat : " + game.getTimeToPlaceBoats());
                                 GuiTableController.getInstance().displayPlacementPhase( stage, game.getClassicType(), game.getTimeToPlaceBoats()); 
                                 
                             } catch (Exception ex) {
