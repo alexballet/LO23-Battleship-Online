@@ -13,6 +13,9 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.print.attribute.SetOfIntegerSyntax;
+
 import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
 import structData.Game;
@@ -364,6 +367,11 @@ public class DataController {
     public void gameOver() {
         System.out.println("GAME OVER");
         //arreter la partie localPlayer a perdu
+        Game game = getLocalGame();
+        game.setStatus(StatusGame.FINISHED);
+        interfaceCom.changeStatusGame(game);
+        setLocalGame(game);
+        
         interfaceTable.displayDefeat();
         
         //notify the other player that he has won
@@ -391,6 +399,8 @@ public class DataController {
             case BOATPHASE :
               //  interfaceCom.quitMessage();
         } 
+        removeGameFromList(game);
         interfaceCom.removeGame(game);
+        setLocalGame(null);
     }
 }
