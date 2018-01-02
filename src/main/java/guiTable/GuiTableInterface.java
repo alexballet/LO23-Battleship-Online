@@ -98,13 +98,6 @@ public interface GuiTableInterface {
      * @param message : New incoming message to display.
      */
     public void addChatMessage(ChatMessage message);
-
-    /**
-     * Displays an error or notification message in main window.
-     * @param message : Error message to show.
-     */
-    //public void displayMessage(MessageType messageType, String message);
-    public void displayMessage(String message);
     
     public void setDataController(CDataTable d);
 
