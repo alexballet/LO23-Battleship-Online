@@ -185,6 +185,9 @@ public class CDataCom implements IDataCom {
             }
 
             interfaceTable.opponentReady(myTurn, controller.getLocalGame().getTimePerShot());
+            Game g = controller.getLocalGame();
+            g.setStatus(StatusGame.PLAYING);
+            interfaceCom.changeStatusGame(g);
         }
     }
 
@@ -237,6 +240,7 @@ public class CDataCom implements IDataCom {
         if (localGame != null) controller.removeGameFromList(localGame);
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);*/
+    		System.out.println("CDATACOM UPDATE STATUS " + g.getStatus());
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);
     }

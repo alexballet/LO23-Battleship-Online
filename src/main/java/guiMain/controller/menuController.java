@@ -255,6 +255,8 @@ public class menuController implements Initializable{
 	}
 
 	public void updateGameStatus(Game game) {
+		System.out.println("UPDATE GAME " + game.getName());
+		System.out.println("STATUS " + game.getStatus());
 		ObservableList<Game> list =  gamesView.getItems();
 		int i = 0;
 		for (Game g : list){

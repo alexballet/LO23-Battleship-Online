@@ -202,6 +202,7 @@ public class CDataTable implements IDataTable {
     
     @Override
     public void changeStatusGameStarted(){ //to be called when boatphase is over
+    		System.out.println("CHANGE STATUS GAME STARTED");
         Game g = controller.getLocalGame();
         g.setStatus(StatusGame.PLAYING);
         interfaceCom.changeStatusGame(g);
