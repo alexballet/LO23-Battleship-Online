@@ -128,7 +128,7 @@ public interface COMInterface {
      * alert everybody (the other player and the spectator) that there is a new spectator
      * @param u new spectator
      * @param p other player
-     * @param listSpectator list of all actual spectator
+     * @param listSpectator list of all actual spectators
      */
     public void sendNewSpectator(User u, Player p, HashSet<User> listSpectator);
 
@@ -138,4 +138,9 @@ public interface COMInterface {
     * @param game game quit by the spectator (permit to retrieve player and listSpectator)
     */
     public void gameQuitSpectator(User spec, Game game);
+
+    /**
+     * Quit game already launch
+     */
+    public void quitGame();
 }

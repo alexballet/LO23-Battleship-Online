@@ -224,6 +224,14 @@ public class NetworkModuleInterface implements COMInterface {
         }
     }
 
+    public void quitGame() {
+        Game game = dataInterface.getCreatedGame();
+        User otherUser = dataInterface.getOtherPlayer().getProfile();
+        InetAddress address = controller.getAddressForUser(otherUser);
+        RageQuitMessage message = new RageQuitMessage(game);
+        controller.sendMessage(message, address);
+    }
+
 
     public void getInfoGameForSpectator(Player player, User spec) {
 
