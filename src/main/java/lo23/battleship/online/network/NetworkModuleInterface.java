@@ -72,6 +72,7 @@ public class NetworkModuleInterface implements COMInterface {
 
     
     public boolean changeStatusGame(Game game) {
+    		System.out.println("CHANGE STATUS GAME COM " + game.getStatus());
 
         List<InetAddress> ipAddresses = controller.getIPTable();
 

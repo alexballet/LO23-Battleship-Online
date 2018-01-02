@@ -93,8 +93,9 @@ public class GameCell extends ListCell<Game> {
         	    } else {
         	    		joinButtonBox.getChildren().remove(joinButton);
         	    }
-            
+            System.out.println("YOLO "+ game.getStatus());
         	    if (game.getSpectator() && game.getStatus().equals(StatusGame.PLAYING) ) {
+        	    		System.out.println("JE SUIS CENSER AFFCIHER LE BOUTON");
 	    	    		ImageView backgroundLook=new ImageView(new Image("/img/look.png"));
 	    	    		backgroundLook.setFitHeight(20);
 	    	    		backgroundLook.setPreserveRatio(true);
@@ -111,7 +112,7 @@ public class GameCell extends ListCell<Game> {
         	    }
         	    
             
-            setGraphic(hbox);
+            this.setGraphic(hbox);
             
         }
     }

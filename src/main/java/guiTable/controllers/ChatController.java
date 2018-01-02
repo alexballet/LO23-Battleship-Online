@@ -1,9 +1,13 @@
 package guiTable.controllers;
 import data.CDataTable;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import structData.ChatMessage;
+import structData.Game;
+import structData.Player;
+import structData.Profile;
 
 public class ChatController {
 
@@ -15,6 +19,10 @@ public class ChatController {
     //text that we want to send
     private TextField field;
     
+    @FXML
+    //profile area
+    private Label profils;
+    
     private CDataTable dataController;
     private String conversation;
     
@@ -24,6 +32,9 @@ public class ChatController {
         this.conversation = conv;
         conversationArea.setEditable(false);
         conversationArea.setText(this.conversation);
+        
+        //set profile zone
+        doProfileArea();
     }
 
     public void sendMyMessage() {
@@ -73,6 +84,30 @@ public class ChatController {
 
     public String getConversation() {
         return this.conversation;
+    }
+    
+    public void doProfileArea(){   
+        
+        String namePlayer1 = "Player 1";
+        String namePlayer2 = "Player 2";
+        String full = "";
+        
+        Game partie;
+        partie = dataController.getLocalGame(); //INTEGV5
+        
+        Player player1 = partie.getPlayer1();
+        Player player2 = partie.getPlayer2();
+        
+        Profile profilePlayer1 = player1.getProfile();
+        Profile profilePlayer2 = player2.getProfile();
+        
+        namePlayer1 = profilePlayer1.getUsername();
+        namePlayer2 = profilePlayer2.getUsername();
+        
+        //chaine qui comprend les 2 adversaires
+        full = "   " + namePlayer1 + " VS " + namePlayer2;
+        
+        profils.setText(full);
     }
     
 }
