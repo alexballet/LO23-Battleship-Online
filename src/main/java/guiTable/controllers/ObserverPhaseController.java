@@ -21,17 +21,13 @@ import structData.Shot;
  *
  * @author caiozimmerman
  */
-public class ObserverPhaseController extends GamePhaseController implements Initializable {
+public class ObserverPhaseController extends gameInterface implements Initializable {
     @FXML
     private GridPane table1; //Board of the player 1 (Left Board)
     @FXML
     private GridPane table2; //Board of the player 2 (Right Board)
     @FXML
     private Label gameState;
-    @FXML
-    private Pane messageContainer;
-    @FXML
-    private Rectangle messageMask;
     
     private HashMap<Integer, GridPane> tablePlayer; //map to associate grid displayed and player
     
@@ -45,7 +41,7 @@ public class ObserverPhaseController extends GamePhaseController implements Init
         MY_TURN_MSG = "Au tour du joueur 1";
         OTHER_TURN_MSG = "Au tour du joueur 2";
         EXIT_GAME_MSG = "Voulez-vous vraiment quitter l'observation de la partie ?";
-        VICTORY_MSG = "Victoire du joueur 1 !";
+        VICTORY_MSG = "Victoire du joueur 1 bravo !";
         DEFEAT_MSG = "victoire du joueur 2 !";
     }
 
@@ -72,5 +68,19 @@ public class ObserverPhaseController extends GamePhaseController implements Init
 
     void displayShot(Shot shot, int player) {
         this.placeShotTo(shot, tablePlayer.get(player));
+    }
+    
+    public void exitGame() {
+        messageContainer.setVisible(true);
+        logYesNoMsg(EXIT_GAME_MSG);
+    }
+    
+    /**
+     * Cancel end of game
+     */
+    @FXML
+    protected void noClicked() {
+        messageContainer.setVisible(false);
+        exitButton.setDisable(false);
     }
 }

@@ -48,6 +48,7 @@ public class GuiTableController implements GuiTableInterface {
     private final String CLASSIC_PLACEMENT_URL = "/fxml/IhmTable/ClassicPlacementPhase.fxml";
     private final String BELGE_PLACEMENT_URL = "/fxml/IhmTable/BelgianPlacementPhase.fxml";
     private final String GAME_PHASE_URL = "/fxml/IhmTable/GamePhase.fxml";
+    private final String OBSERVER_PHASE_URL = "/fxml/IhmTable/ObserverPhase.fxml";
     private final String TITLE = "Battleship-Online";
     private List<Boat> boats = null;
 
@@ -147,7 +148,7 @@ public class GuiTableController implements GuiTableInterface {
 
                             mainStage = currentStage;
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(getClass().getResource("/fxml/IhmTable/ObserverPhase.fxml"));
+                            loader.setLocation(getClass().getResource(OBSERVER_PHASE_URL));
                              try {
                                 rootLayout = (AnchorPane) loader.load();
                                 observerPhaseController = loader.<ObserverPhaseController>getController();
@@ -189,6 +190,9 @@ public class GuiTableController implements GuiTableInterface {
                             if (time1!=null && time2 != null) {
                                 turn = time1.after(time2);
                             }
+                            System.out.println("turn" + turn);
+                            System.out.println("observerPhase" + observerPhaseController);
+                            
                             //set game turn
                             observerPhaseController.setTurn(turn);
                         }

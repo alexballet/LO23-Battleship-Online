@@ -37,48 +37,26 @@ import structData.Shot;
  *
  * @author corentinhembise
  */
-public class GamePhaseController extends BaseController implements Initializable  {
-    @FXML
-    private AnchorPane anchorPane;
+public class GamePhaseController extends gameInterface implements Initializable  {
+
     @FXML
     private GridPane table;
     @FXML
     private GridPane myTable;
     @FXML
-    private Button valider;
-    @FXML
-    private Button exitButton;
-    @FXML
-    private Button yesButton;
-    @FXML
-    private Button noButton;
-    @FXML
-    private AnchorPane chatPane;
-    @FXML
     private CaseDrawing selectedCase;
     @FXML
     private Label gameState;
     @FXML
-    private Pane messageContainer;
-    @FXML
-    private Text messageTextContainer;
-    @FXML
     private Rectangle messageMask;
+    @FXML
+    private Button valider;
     @FXML
     private Label timerLabel;
     
     private Boolean myTurn;
     
-    GuiTableController tableController;
-    
-
-    protected final String STYLE_MY_TURN = "-fx-background-color: #FFFFFF;";
-    protected final String STYLE_OTHER_TURN = "-fx-background-color: #EEEEEE;";
-    protected String MY_TURN_MSG = "A votre tour de jouer, cliquer sur une case puis sur le bouton valider";
-    protected String OTHER_TURN_MSG = "Au tour de l'adversaire de jouer, merci de patienter";
-    protected String EXIT_GAME_MSG = "Voulez-vous vraiment quitter la partie ?";
-    protected String VICTORY_MSG = "Victoire !";
-    protected String DEFEAT_MSG = "Defaite !";
+  
 
     private Timeline timeline;
     private LocalTime time;
@@ -141,6 +119,23 @@ public class GamePhaseController extends BaseController implements Initializable
         GuiTableController.getInstance().validateShot(shoot);
         valider.setDisable(true);
     }
+    /**
+    * Shows victory message
+    */
+    public void showVictory(){
+        logMsg(VICTORY_MSG);
+        valider.setDisable(true);
+    }
+    
+    
+    /**
+    * Shows defeat message
+    */
+    public void showDefeat(){
+        logMsg(DEFEAT_MSG);
+        valider.setDisable(true);
+        table.setDisable(true);
+    }
 
     public void setMyTurn(Boolean myTurn) {
         this.myTurn = myTurn;
@@ -166,19 +161,7 @@ public class GamePhaseController extends BaseController implements Initializable
     protected void removeSelectedCase() {
         table.getChildren().remove(selectedCase);
     }
-    
-    protected void placeShotTo(Shot shot, GridPane grid) {
-        Integer col = shot.getX();
-        Integer row = shot.getY();
-        CaseDrawing.Type t;
-        if(shot.getTouched()) {
-            t = CaseDrawing.Type.TOUCHED;
-        } else {
-            t = CaseDrawing.Type.MISSED;
-        }
-        CaseDrawing c = new CaseDrawing(t);
-        grid.add(c, col, row);
-    }
+
 
     public void sunckBoat(Boat boat) {
         sunkABoat(table, boat);
@@ -191,13 +174,6 @@ public class GamePhaseController extends BaseController implements Initializable
 
     public void sunkMyBoat(Boat boat) {
         sunkABoat(myTable, boat);
-    }
-    
-    protected void sunkABoat(GridPane grid, Boat boat) {
-        for(Position position : boat.getListCases()) {
-            CaseDrawing c = new CaseDrawing(CaseDrawing.Type.SUNK_BOAT);
-            grid.add(c, position.getX(), position.getY());
-        }
     }
 
     public void setMyBoats(List<Boat> boats) {
@@ -212,52 +188,17 @@ public class GamePhaseController extends BaseController implements Initializable
             }
         }
     }
-    
-    
-    /**
-     * log message into interface.
-     * @param msg message to be displayed
-     */
-    public void logMsg(String msg) {
-        messageContainer.setVisible(true);
-        noButton.setVisible(false);
-        yesButton.setVisible(false);
-        messageTextContainer.setText(msg);
-    }
-    
-    /**
-     * log yesNoMessage into interface.
-     * @param msg message to be displayed
-     */
-    public void logYesNoMsg(String msg) {
-        messageContainer.setVisible(true);
-        noButton.setVisible(true);
-        yesButton.setVisible(true);
-        messageTextContainer.setText(msg);
-    }
-    
-    /**
-     * close message when click on it
+            /**
+     * Cancel end of game
      */
     @FXML
-    protected void closeMsg() {
+    protected void noClicked() {
         messageContainer.setVisible(false);
+        exitButton.setDisable(false);
+        valider.setDisable(false);
+        table.setDisable(false);
     }
     
-    /**
-     * Validate end of game
-     */
-    @FXML
-    protected void yesClicked() {
-        if (tableController.exitGame()) {
-            tableController.getDataController().gameEnded();
-        } else {
-            System.err.println("GuiTableController.getInstance().exitGame() renvoi false");
-            // Message d'erreur
-        }
-    }
-    
-
     public void setRoundTime(LocalTime roundTime) {
         timePerShot = roundTime;
         if (roundTime != null) {
@@ -297,16 +238,6 @@ public class GamePhaseController extends BaseController implements Initializable
         tableController.getDataController().timerOver();
         //yesClicked();
     }
-    /**
-     * Cancel end of game
-     */
-    @FXML
-    protected void noClicked() {
-        messageContainer.setVisible(false);
-        exitButton.setDisable(false);
-        valider.setDisable(false);
-        table.setDisable(false);
-    }
     
     /*Clicking on exit button will ask the user if he wants to end the game*/
     @FXML
@@ -318,24 +249,6 @@ public class GamePhaseController extends BaseController implements Initializable
         logYesNoMsg(EXIT_GAME_MSG);
     }
     
-    /**
-    * Shows victory message
-    */
-    public void showVictory(){
-        logMsg(VICTORY_MSG);
-        valider.setDisable(true);
-    }
-    
-    
-    /**
-    * Shows defeat message
-    */
-    public void showDefeat(){
-        logMsg(DEFEAT_MSG);
-        valider.setDisable(true);
-        table.setDisable(true);
-    }
-
     /**
      * @return the chatPane
      */
