@@ -136,7 +136,7 @@ public class menuController implements Initializable{
 	}
 
 	public void lookGame(Game game) {
-		System.out.println("LOOK GAME " + game.getName());
+		mainController.lookGame(game);
 	}
 
 	public void lookUser(User user) {
