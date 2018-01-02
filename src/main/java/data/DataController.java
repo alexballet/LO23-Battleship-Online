@@ -331,8 +331,7 @@ public class DataController {
      */
     public Boat testShot(Shot s){
         int i, j;
-        boolean boatSunk = true;
-        Boat b = null;
+        Boat b ;
         List<Boat> listBoat = localPlayer.getListBoats();
         for (Boat boat : listBoat) {
             b = boat.updateShot(s);

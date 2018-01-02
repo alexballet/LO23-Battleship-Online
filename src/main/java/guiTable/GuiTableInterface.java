@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import javafx.stage.Stage;
 import structData.Boat;
 import structData.ChatMessage;
+import structData.Game;
 import structData.Shot;
 
 
@@ -36,25 +37,31 @@ public interface GuiTableInterface {
      * Displays view where the user can watch a game.
 
      * @param currentStage : The stage used by the main window
-     * @param turn : Turn of the players. True 
-     * @param shotsDoneByPlayer1 : All shots done by the player 1 before the entry of the observer.
-     * @param shotsDoneByPlayer2 : All shots done by the player 2 before the entry of the observer.
+     * @param game
      */
-    public void displayObserverPhase(Stage currentStage, final boolean turn, LinkedHashMap<Shot,Boat> shotsDoneByPlayer1,LinkedHashMap<Shot,Boat> shotsDoneByPlayer2);
+    public void displayObserverPhase(Stage currentStage, Game game);
     
+        /**
+     * Displays the result of the shot send by player number player.
+     * @param shot : The shot sent by the player 1.
+     * @param player : the player who send the shot
+     */
+    public void displayObserverShot(Shot shot, int player);
+    
+    // a supprimer pendant l'integV5 si fonctionne
     /**
      * Displays the result of the player 1's shot on the player 2's board.
      * @param shot : The shot sent by the player 1.
      * @param boat : If filled, indicates this 'boat' is sunk.
      */
-    public void displayPlayer1Shot(Shot shot, Boat boat);
+   // public void displayPlayer1Shot(Shot shot, Boat boat);
 
     /**
      * Displays the result of the player 2's shot on the player 1's board.
      * @param shot : The shot sent by the player 2.
      * @param boat : If filled, indicates this 'boat' is sunk.
      */
-    public void displayPlayer2Shot(Shot shot, Boat boat);
+   // public void displayPlayer2Shot(Shot shot, Boat boat);
     
     /**
      * Displays the victory of one of the players in the observer phase

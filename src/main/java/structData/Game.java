@@ -8,7 +8,6 @@ import java.util.UUID;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.io.Serializable;
-import java.util.Date;
 /**
  * Game is a class for the user's game
  */
@@ -37,7 +36,7 @@ public class Game implements Serializable{
         idGame = UUID.randomUUID();
         status = StatusGame.WAITINGPLAYER;
         classicType = false;
-        name = new String("");
+        name = "";
         humanOpponent = false;
         timePerShot = 0;
         timeToPlaceBoats = 300;
@@ -57,6 +56,7 @@ public class Game implements Serializable{
      * @param newHumanOpponent a boolean equal to 1 if 
      * the game is between two players and 0 if it is against a bot
      * @param newTimePerShot time per shot
+     * @param newTimeToPlaceBoats
      * @param newSpectator a boolean equal to 1 if spectators are allowed
      * @param newSpectatorChat  a boolean equal to 1 if chat is allowed
      * @param p a Profile
@@ -67,7 +67,7 @@ public class Game implements Serializable{
             Profile p){
         idGame = UUID.randomUUID();
         classicType = newClassicType;
-        name = new String(newName);
+        name = newName;
         humanOpponent = newHumanOpponent;
         if (humanOpponent){
             status = StatusGame.WAITINGPLAYER;
@@ -92,6 +92,7 @@ public class Game implements Serializable{
      * @param newHumanOpponent a boolean equal to 1 if 
      * the game is between two players and 0 if it is against a bot
      * @param newTimePerShot time per shot
+     * @param newTimeToPlaceBoats
      * @param newSpectator a boolean equal to 1 if spectators are allowed
      * @param newSpectatorChat  a boolean equal to 1 if chat is allowed
      * @param p a Profile
@@ -108,7 +109,7 @@ public class Game implements Serializable{
             Boolean p1Start, ArrayList lMsg){
         idGame = UUID.randomUUID();
         classicType = newClassicType;
-        name = new String(newName);
+        name = newName;
         humanOpponent = newHumanOpponent;
         if (humanOpponent){
             status = StatusGame.WAITINGPLAYER;
@@ -144,7 +145,7 @@ public class Game implements Serializable{
     public Game(Game g){
         idGame = g.idGame;
         classicType = g.classicType;
-        name = new String(g.name);
+        name = g.name;
         humanOpponent = g.humanOpponent;
         status = g.status;
         timePerShot = g.timePerShot;
@@ -166,7 +167,7 @@ public class Game implements Serializable{
         
         idGame = g.idGame;
         classicType = g.classicType;
-        name = new String(g.name);
+        name = g.name;
         humanOpponent = g.humanOpponent;
         status = g.status;
         timePerShot = g.timePerShot;

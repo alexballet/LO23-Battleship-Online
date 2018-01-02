@@ -70,8 +70,13 @@ public class GamePhaseController extends BaseController implements Initializable
     GuiTableController tableController;
     
 
-    private final String  STYLE_MY_TURN = "-fx-background-color: #FFFFFF;";
-    private final String STYLE_OTHER_TURN = "-fx-background-color: #EEEEEE;";
+    protected final String STYLE_MY_TURN = "-fx-background-color: #FFFFFF;";
+    protected final String STYLE_OTHER_TURN = "-fx-background-color: #EEEEEE;";
+    protected String MY_TURN_MSG = "A votre tour de jouer, cliquer sur une case puis sur le bouton valider";
+    protected String OTHER_TURN_MSG = "Au tour de l'adversaire de jouer, merci de patienter";
+    protected String EXIT_GAME_MSG = "Voulez-vous vraiment quitter la partie ?";
+    protected String VICTORY_MSG = "Victoire !";
+    protected String DEFEAT_MSG = "Defaite !";
 
     private Timeline timeline;
     @FXML
@@ -137,10 +142,10 @@ public class GamePhaseController extends BaseController implements Initializable
         
         // Grise le plateau non actif
         if (myTurn) {
-            logMsg("A votre tour de jouer, cliquer sur une case puis sur le bouton valider");
+            logMsg(MY_TURN_MSG);
             table.setStyle(STYLE_MY_TURN);
         } else {
-            logMsg("Au tour de l'adversaire de jouer, merci de patienter");
+            logMsg(OTHER_TURN_MSG);
             table.setStyle(STYLE_OTHER_TURN);
         }
     }
@@ -154,7 +159,7 @@ public class GamePhaseController extends BaseController implements Initializable
         table.getChildren().remove(selectedCase);
     }
     
-    protected void placeShotTo(Shot shot, GridPane gird) {
+    protected void placeShotTo(Shot shot, GridPane grid) {
         Integer col = shot.getX();
         Integer row = shot.getY();
         CaseDrawing.Type t;
@@ -164,7 +169,7 @@ public class GamePhaseController extends BaseController implements Initializable
             t = CaseDrawing.Type.MISSED;
         }
         CaseDrawing c = new CaseDrawing(t);
-        gird.add(c, col, row);
+        grid.add(c, col, row);
     }
 
     public void sunckBoat(Boat boat) {
@@ -297,14 +302,14 @@ public class GamePhaseController extends BaseController implements Initializable
         table.setDisable(true);
         exitButton.setDisable(true);
         messageContainer.setVisible(true);
-        logYesNoMsg("Voulez-vous vraiment quitter la partie ?");
+        logYesNoMsg(EXIT_GAME_MSG);
     }
     
     /**
     * Shows victory message
     */
     public void showVictory(){
-        logMsg("Victoire !");
+        logMsg(VICTORY_MSG);
         valider.setDisable(true);
     }
     
@@ -313,7 +318,7 @@ public class GamePhaseController extends BaseController implements Initializable
     * Shows defeat message
     */
     public void showDefeat(){
-        logMsg("Defaite !");
+        logMsg(DEFEAT_MSG);
         valider.setDisable(true);
         table.setDisable(true);
     }

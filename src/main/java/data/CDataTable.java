@@ -73,7 +73,6 @@ public class CDataTable implements IDataTable {
     }
 
     @Override
-
     // TODO: Mettre les instructions dans le bon sens
     public void coordinateShips(List<Boat> listBoat) {
         Boolean myTurn;

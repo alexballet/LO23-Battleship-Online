@@ -8,6 +8,8 @@ package guiTable.controllers;
 import data.CDataTable;
 import guiTable.GuiTableInterface;
 import java.io.IOException;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import structData.Boat;
 import structData.ChatMessage;
+import structData.Game;
 import structData.Position;
 import structData.Shot;
 
@@ -121,13 +124,60 @@ public class GuiTableController implements GuiTableInterface {
 		};
 		Platform.runLater(command);
     }
-/*
-    @Override
-    public void opponentReady(Boolean myTurn) {
-        this.opponentReady(myTurn, null);
-    }
-*/
+
   
+    @Override
+    public void displayObserverPhase(Stage currentStage, Game game) {
+        this.mainStage = currentStage;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/IhmTable/ObserverPhase.fxml"));
+         try {
+            rootLayout = (AnchorPane) loader.load();
+            observerPhaseController = loader.<ObserverPhaseController>getController();
+
+            Scene scene = new Scene(rootLayout);
+            mainStage.setScene(scene);
+            mainStage.show();
+        } catch(IOException e) {
+            System.err.println("ERROR : "+e.getMessage());
+        }
+        HashSet<Shot> listShot1 = game.getPlayer1().getListShots();
+        HashSet<Shot> listShot2 = game.getPlayer2().getListShots();
+        Date time1 = null, time2 = null; // get time off last shot to which player turn it is
+
+        // display all shots
+        for (Shot shot : listShot1) {
+            displayObserverShot(shot, 1);
+            time1 = shot.getTime();
+        }
+        for (Shot shot : listShot2) {
+            displayObserverShot(shot, 2);
+            time2 = shot.getTime();
+        }
+        
+        List<Boat> listBoat1 = game.getPlayer1().getListBoats();
+        List<Boat> listBoat2 = game.getPlayer1().getListBoats();
+        //sunk boats
+        listBoat1.forEach((boat) -> {
+            if(boat.getSunk()) {
+                observerPhaseController.sunkPlayerBoat(1, boat);
+            }
+        });
+        listBoat2.forEach((boat) -> {
+            if(boat.getSunk()) {
+                observerPhaseController.sunkPlayerBoat(2, boat);
+            }
+        });
+        boolean turn = true;
+        if (time1!=null && time2 != null) {
+            turn = time1.after(time2);
+        }
+        //set game turn
+        observerPhaseController.setTurn(turn);
+        
+    }
+    
+  /*  // à supprimer si l'autre fonctionne
     @Override
     public void displayObserverPhase(Stage currentStage, final boolean turn, LinkedHashMap<Shot,Boat> shotsDoneByPlayer1, LinkedHashMap<Shot,Boat> shotsDoneByPlayer2) {
         this.mainStage = currentStage;
@@ -152,8 +202,8 @@ public class GuiTableController implements GuiTableInterface {
             displayPlayer2Shot(entry.getKey(), entry.getValue());
         }
         observerPhaseController.setTurn(turn);
-    }
-    
+    }*/
+    /*
     @Override
     public void displayPlayer1Shot(final Shot shot,final Boat boat) {
         //Displays a shot
@@ -165,7 +215,6 @@ public class GuiTableController implements GuiTableInterface {
         // Changes the turn
         observerPhaseController.setTurn(false);
     }
-
     @Override
     public void displayPlayer2Shot(final Shot shot,final Boat boat) {
         //Displays a shot
@@ -178,9 +227,23 @@ public class GuiTableController implements GuiTableInterface {
         observerPhaseController.setTurn(true);
     }
     
+*/
+    @Override
+    public void displayObserverShot(final Shot shot, int player) {
+        //Displays a shot
+        observerPhaseController.displayShot(shot, player);
+        // Changes the turn
+        observerPhaseController.setTurn(false);
+    }
+
+    
     @Override
     public void displayObserverPhaseVictory(boolean winner) {
-        observerPhaseController.showVictory(winner);
+        if(winner) {
+        observerPhaseController.showVictory();
+        } else {
+        observerPhaseController.showDefeat();
+        }
     }
 
     @Override
