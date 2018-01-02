@@ -12,13 +12,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.ProfilController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.ProfilController">
    <children>
       <GridPane prefHeight="617.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.1103973388672" minWidth="24.210634231567383" prefWidth="79.19758224487305" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.7893657684326" minWidth="10.0" prefWidth="383.976806640625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="430.7828674316406" minWidth="10.0" prefWidth="410.523193359375" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="198.0" minHeight="10.0" prefHeight="189.0" vgrow="SOMETIMES" />
@@ -72,10 +72,10 @@
                         </Label>
                      </children>
                   </TilePane>
-                  <Label fx:id="userName" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="lastName" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label fx:id="firstName" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label fx:id="birthdate" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Label fx:id="userName" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="lastName" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="firstName" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="birthdate" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
             </GridPane>
             <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -99,9 +99,9 @@
                   <Label text="Nombre de parties jouées :" GridPane.rowIndex="1" />
                   <Label text="Nombre de parties gagnées :" GridPane.rowIndex="2" />
                   <Label text="Nombre de parties perdues :" GridPane.rowIndex="3" />
-                  <Label fx:id="numberOfGame" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="numberOfGameWon" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label fx:id="numberOfGameLost" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="numberOfGame" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="numberOfGameWon" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="numberOfGameLost" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">

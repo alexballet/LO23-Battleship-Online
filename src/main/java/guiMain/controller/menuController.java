@@ -265,6 +265,7 @@ public class menuController implements Initializable{
 			}
 			i++;
 		}
+		gamesView.refresh();
 	}
 
 	public void removeGame(Game removedGame) {
