@@ -292,7 +292,7 @@ public class CDataCom implements IDataCom {
 
          //TODO : décommenter à l'integ
 
-         //interfaceCom.sendNewSpectator(u, p, game.getListSpectators();
+         interfaceCom.sendNewSpectator(u, controller.getOtherPLayer(), game.getListSpectators());
      }
 
     @Override
@@ -305,6 +305,10 @@ public class CDataCom implements IDataCom {
     @Override
     public void notifyQuitSpectator(User spec){
         //interfaceCom.notifyQuitSpectator(spec); A decommenter pdt l'integ
+    }
+
+    public Player getOtherPlayer(){
+        return controller.getOtherPLayer();
     }
 
 }

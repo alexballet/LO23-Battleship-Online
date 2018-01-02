@@ -170,5 +170,7 @@ public interface IDataCom {
       * @param spec The spectator who leaves
       */
      public void notifyQuitSpectator(User spec);
+
+     public Player getOtherPlayer();
      
 }
