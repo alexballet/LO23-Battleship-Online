@@ -149,7 +149,7 @@ public class GuiTableController implements GuiTableInterface {
 
                             //mainStage = currentStage;
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(getClass().getResource(GAME_PHASE_URL));
+                            loader.setLocation(getClass().getResource(OBSERVER_PHASE_URL));
                              try {
                                 rootLayout = (AnchorPane) loader.load();
                                 observerPhaseController = loader.getController();

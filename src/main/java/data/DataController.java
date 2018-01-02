@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.application.Platform;
 import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
 import structData.Game;
@@ -364,7 +365,13 @@ public class DataController {
     public void gameOver() {
         System.out.println("GAME OVER");
         //arreter la partie localPlayer a perdu
-        interfaceTable.displayDefeat();
+         Runnable command = new Runnable() {
+			@Override
+			public void run() {
+                            interfaceTable.displayDefeat();
+                            }
+        		};
+		Platform.runLater(command);
         
         //notify the other player that he has won
         Player pl = getOtherPLayer(); // to know to which player we send the notification : it's the player who is not ourself

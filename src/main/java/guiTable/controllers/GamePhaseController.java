@@ -237,7 +237,6 @@ public class GamePhaseController extends gameInterface implements Initializable 
     protected void timeIsOver() {
         showDefeat();
         tableController.getDataController().timerOver();
-        //yesClicked();
     }
     
     /*Clicking on exit button will ask the user if he wants to end the game*/
