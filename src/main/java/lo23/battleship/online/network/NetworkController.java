@@ -150,7 +150,8 @@ public class NetworkController {
             if(user.getIdUser().equals(u.getIdUser())) {
                 networkState.remove(u);
                 dataInterface.removeUser(u);
-                dataInterface.removeGameFromList(game);
+                if(game != null)
+                    dataInterface.removeGameFromList(game);
                 return;
             }
         }

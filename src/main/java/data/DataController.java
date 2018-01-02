@@ -367,11 +367,7 @@ public class DataController {
         interfaceTable.displayDefeat();
         
         //notify the other player that he has won
-        Player pl; // to know to which player we send the notification : it's the player who is not ourself
-        if (getLocalGame().getPlayer1() == getLocalPlayer())
-            pl = getLocalGame().getPlayer2();
-        else
-            pl = getLocalGame().getPlayer1();
+        Player pl = getOtherPLayer(); // to know to which player we send the notification : it's the player who is not ourself
         interfaceCom.notifyGameWon();
         interfaceCom.removeGame(getLocalGame());
         
