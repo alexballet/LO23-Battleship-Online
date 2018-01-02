@@ -417,6 +417,10 @@ public class GuiMainController implements GuiMainInterface {
 		
 		return this.port;
 	}
+
+	public void lookGame(Game game) {
+		GuiTableController.getInstance().displayObserverPhase(stage, game);
+	}
 }
 
 
