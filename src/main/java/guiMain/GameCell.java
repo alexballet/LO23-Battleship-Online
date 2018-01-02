@@ -94,7 +94,7 @@ public class GameCell extends ListCell<Game> {
         	    		joinButtonBox.getChildren().remove(joinButton);
         	    }
             
-        	    if (game.getSpectator()) {
+        	    if (game.getSpectator() && game.getStatus().equals(StatusGame.PLAYING) ) {
 	    	    		ImageView backgroundLook=new ImageView(new Image("/img/look.png"));
 	    	    		backgroundLook.setFitHeight(20);
 	    	    		backgroundLook.setPreserveRatio(true);
