@@ -292,6 +292,7 @@ public class GamePhaseController extends BaseController implements Initializable
      */
     protected void timeIsOver() {
         showDefeat();
+        tableController.getDataController().timerOver();
         //yesClicked();
     }
     /**
