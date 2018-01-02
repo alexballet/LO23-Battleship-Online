@@ -211,6 +211,7 @@ public class menuController implements Initializable{
 		if (isOk) {
 			playersView.getItems().add(user);
 		}
+		playersView.refresh();
 	}
 
 	/** 
@@ -219,6 +220,7 @@ public class menuController implements Initializable{
 	 */
 	public void removeUser(User user){
 		playersView.getItems().remove(user);
+		playersView.refresh();
 	}
 
 
@@ -234,6 +236,7 @@ public class menuController implements Initializable{
 			if (isOk) {
 				gamesView.getItems().add(game);
 			}
+			gamesView.refresh();
 		}
 
 	}
@@ -255,8 +258,6 @@ public class menuController implements Initializable{
 	}
 
 	public void updateGameStatus(Game game) {
-		System.out.println("UPDATE GAME " + game.getName());
-		System.out.println("STATUS " + game.getStatus());
 		ObservableList<Game> list =  gamesView.getItems();
 		int i = 0;
 		for (Game g : list){
@@ -280,5 +281,6 @@ public class menuController implements Initializable{
 		if(toBeRemoved != null) {
 			gamesView.getItems().remove(toBeRemoved);
 		}
+		gamesView.refresh();
 	}
 }
