@@ -32,9 +32,6 @@ public class ChatController {
         this.conversation = conv;
         conversationArea.setEditable(false);
         conversationArea.setText(this.conversation);
-        
-        //set profile zone
-        doProfileArea();
     }
 
     public void sendMyMessage() {
@@ -87,8 +84,8 @@ public class ChatController {
     }
     
     public void doProfileArea(){   
-        
-        String namePlayer1 = "Player 1";
+
+    		String namePlayer1 = "Player 1";
         String namePlayer2 = "Player 2";
         String full = "";
         

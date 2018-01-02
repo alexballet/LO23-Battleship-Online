@@ -100,7 +100,7 @@ public class GuiTableController implements GuiTableInterface {
 
         chatController = placementPhaseController.fillChatSlot(placementPhaseController.getChatPane(), CHAT_FXML_URL, ""); // string final message initial
         chatController.setDataController(dataController);
-
+        chatController.doProfileArea();
     }
 
     @Override
@@ -123,13 +123,14 @@ public class GuiTableController implements GuiTableInterface {
 		        
 		            Scene scene = new Scene(rootLayout);
 		            mainStage.setScene(scene);
-                            mainStage.setOnCloseRequest((WindowEvent event1) -> {
-                            dataController.gameEnded();
-                            });
+                    mainStage.setOnCloseRequest((WindowEvent event1) -> {
+                    		dataController.gameEnded();
+                    });
 		            mainStage.show();
 		            String conv = chatController.getConversation();
                     chatController = gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, conv);
                     chatController.setDataController(dataController);
+                    chatController.doProfileArea();
 		        } catch(IOException e) {
 		            System.err.println("ERROR : "+e.getMessage());
 		        }
