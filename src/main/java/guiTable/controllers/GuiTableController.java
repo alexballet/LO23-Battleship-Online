@@ -41,6 +41,7 @@ public class GuiTableController implements GuiTableInterface {
     
     private GamePhaseController gamePhaseController;
     private ObserverPhaseController observerPhaseController;
+    private ObservationPhase observationControlleur;
     private CDataTable dataController;
     private ChatController chatController;
     private PlacementPhaseController placementPhaseController;
@@ -49,6 +50,7 @@ public class GuiTableController implements GuiTableInterface {
     private final String BELGE_PLACEMENT_URL = "/fxml/IhmTable/BelgianPlacementPhase.fxml";
     private final String GAME_PHASE_URL = "/fxml/IhmTable/GamePhase.fxml";
     private final String OBSERVER_PHASE_URL = "/fxml/IhmTable/ObserverPhase.fxml";
+    private final String OBSERVATION_PHASE_URL = "/fxml/IhmTable/observationPhase.fxml";
     private final String TITLE = "Battleship-Online";
     private List<Boat> boats = null;
 
@@ -148,12 +150,12 @@ public class GuiTableController implements GuiTableInterface {
 			@Override
 			public void run() {
 
-                            //mainStage = currentStage;
+                            mainStage = currentStage;
                             FXMLLoader loader = new FXMLLoader();
                             loader.setLocation(getClass().getResource(OBSERVER_PHASE_URL));
                              try {
                                 rootLayout = (AnchorPane) loader.load();
-                                observerPhaseController = loader.getController();
+                                observationControlleur = loader.getController();
 
                                 Scene scene = new Scene(rootLayout);
                                 mainStage.setScene(scene);
@@ -180,23 +182,23 @@ public class GuiTableController implements GuiTableInterface {
                             //sunk boats
                             listBoat1.forEach((boat) -> {
                                 if(boat.getSunk()) {
-                                    observerPhaseController.sunkPlayerBoat(1, boat);
+                                    observationControlleur.sunkPlayerBoat(1, boat);
                                 }
                             });
                             listBoat2.forEach((boat) -> {
                                 if(boat.getSunk()) {
-                                    observerPhaseController.sunkPlayerBoat(2, boat);
+                                    observationControlleur.sunkPlayerBoat(2, boat);
                                 }
                             });
                             boolean turn = true;
                             if (time1!=null && time2 != null) {
                                 turn = time1.after(time2);
                             }
-                            System.out.println("turn" + turn);
-                            System.out.println("observerPhase" + observerPhaseController);
+                            System.out.println("turn " + turn);
+                            System.out.println("observerPhase " + observationControlleur);
                             
                             //set game turn
-                            observerPhaseController.setTurn(turn);
+                            observationControlleur.setTurn(turn);
                         }
         		};
 		Platform.runLater(command);
