@@ -219,7 +219,6 @@ public class CDataCom implements IDataCom {
     public void coordinates(Shot s, Boat b) {
         controller.updateGameDataPlaying(s, b, true);
         interfaceTable.displayMyShotResult(s, b);
-        System.out.println("Update GameData Playing");
         System.out.println(controller.getLocalPlayerInGame().getListShots().size()
                 + "/" + controller.getOtherPLayer().getListBoats().size());
 
@@ -245,7 +244,6 @@ public class CDataCom implements IDataCom {
         if (localGame != null) controller.removeGameFromList(localGame);
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);*/
-    		System.out.println("CDATACOM UPDATE STATUS " + g.getStatus());
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);
     }
