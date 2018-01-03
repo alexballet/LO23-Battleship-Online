@@ -439,7 +439,7 @@ public class DataController {
     public void recordVictory() {
         Profile localProfile = getLocalProfile();
         localProfile.setGamesWon(localProfile.getGamesWon()+1);
-        localProfile.setGamesPlayed(localProfile-a.getGamesPlayed()+1);
+        localProfile.setGamesPlayed(localProfile.getGamesPlayed()+1);
         localProfile.saveeditedProfile();
     }
 
