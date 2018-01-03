@@ -304,6 +304,7 @@ public class CDataCom implements IDataCom {
          //TODO : décommenter à l'integ
 
          interfaceCom.sendNewSpectator(u, controller.getOtherPLayer(), game.getListSpectators());
+         notifyToSpecGame(u);
      }
 
     @Override

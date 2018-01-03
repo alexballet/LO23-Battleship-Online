@@ -29,6 +29,6 @@ public class GetInfoGameForSpectatorMessage extends Message{
 
     public void process(IDataCom IData, InetAddress senderAddress){
        // TODO decommenter quand dans interface data
-        //IData.newRequestSpectator(spec)
+        IData.newRequestSpectator(spec);
     }
 }
