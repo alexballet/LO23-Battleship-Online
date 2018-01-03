@@ -101,6 +101,8 @@ public class GuiTableController implements GuiTableInterface {
         placementPhaseController = loader.getController();
         if(placementTime>=0) {
             placementPhaseController.setPlacementTime(placementTime);
+        } else {
+            placementPhaseController.timerLabel.setVisible(false);
         }
 
         chatController = placementPhaseController.fillChatSlot(placementPhaseController.getChatPane(), CHAT_FXML_URL, ""); // string final message initial

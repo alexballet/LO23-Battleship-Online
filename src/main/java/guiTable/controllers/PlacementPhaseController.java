@@ -186,7 +186,9 @@ public abstract class PlacementPhaseController extends BaseController implements
                 boats.add(new Boat(myBoatDrawing.getBoatType(), myBoatDrawing.isRotation(), new Position(myBoatDrawing.getGridCol(), myBoatDrawing.getGridRow(), false)));
             }
             
+            if(timeline != null) {
             timeline.stop();
+            }
             timerLabel.setVisible(false);
             logMsg("en attente de la validation de l'autre joueur", "");
             GuiTableController.getInstance().validateBoats(boats);
