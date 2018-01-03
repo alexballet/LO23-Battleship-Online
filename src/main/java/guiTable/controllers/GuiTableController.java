@@ -99,7 +99,11 @@ public class GuiTableController implements GuiTableInterface {
             mainStage.show();
         });
         placementPhaseController = loader.getController();
-        placementPhaseController.setPlacementTime(placementTime);
+        if(placementTime>=0) {
+            placementPhaseController.setPlacementTime(placementTime);
+        } else {
+            placementPhaseController.timerLabel.setVisible(false);
+        }
 
         chatController = placementPhaseController.fillChatSlot(placementPhaseController.getChatPane(), CHAT_FXML_URL, ""); // string final message initial
         chatController.setDataController(dataController);
@@ -119,10 +123,12 @@ public class GuiTableController implements GuiTableInterface {
 		            gamePhaseController = loader.<GamePhaseController>getController();
 		            gamePhaseController.setMyTurn(myTurn);
 		            gamePhaseController.setMyBoats(boats);
-                            LocalTime localtime = LocalTime.MIN.plusSeconds(timePerShot);
-                            gamePhaseController.timePerShot = localtime;
-                            if (myTurn) {
-                            gamePhaseController.setRoundTime();
+                            if(timePerShot>=0) {
+                                LocalTime localtime = LocalTime.MIN.plusSeconds(timePerShot);
+                                gamePhaseController.timePerShot = localtime;
+                                if (myTurn) {
+                                gamePhaseController.setRoundTime();
+                                }
                             }
 		        
 		            Scene scene = new Scene(rootLayout);
