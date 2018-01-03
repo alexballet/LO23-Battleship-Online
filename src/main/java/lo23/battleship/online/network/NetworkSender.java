@@ -1,6 +1,7 @@
 package lo23.battleship.online.network;
 
 import lo23.battleship.online.network.messages.Message;
+import sun.nio.ch.Net;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -18,7 +19,7 @@ public class NetworkSender extends Thread{
     private Socket sock;
     private ObjectOutputStream writer = null;
     private Message message;
-
+    private NetworkController controller = NetworkController.getInstance();
     public NetworkSender(InetAddress host, int port, Message message) {
         this.host = host;
         this.port = port;
@@ -39,6 +40,9 @@ public class NetworkSender extends Thread{
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.out.println("Warning: Unable to reach host: " + host + ":" + port);
+            InetAddress removed = controller.removeUnreachableHost(host);
+            if(removed != null)
+                System.out.println("Has removed unreachable host <" + removed + "> from NetworkState");
         }
     }
 }

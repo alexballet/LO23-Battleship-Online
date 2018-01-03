@@ -341,7 +341,7 @@ public class Game implements Serializable{
     public void setPlayer2(Player p2){
         player2 = p2;
     }
-    
+
     /**
      * Check if a profile belongs to a Game
      * @param p : a profile
