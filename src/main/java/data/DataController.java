@@ -42,7 +42,7 @@ public class DataController {
     //private
         
     private User localUser;
-    private DataUser localDataUser;
+    // private DataUser localDataUser;
     private Game localGame;
     private List<User> listUsers;
     private Profile localProfile;
@@ -131,7 +131,7 @@ public class DataController {
      * @return the local DataUser
      */
     public DataUser getLocalDataUser(){
-        return localDataUser;
+        return (DataUser) localUser;
     }
     
     /**
@@ -157,7 +157,7 @@ public class DataController {
      */
 
     public void setLocalDataUser (DataUser du){
-        localDataUser = du;
+        localUser = du;
     }
     
     /**
@@ -310,7 +310,7 @@ public class DataController {
                     if ((p.getLogin().equals(login)) && (p.getPassword().equals(mdp))){
                         localProfile = p; 
                         localUser = localProfile;
-                        localDataUser = localProfile;
+                        // localDataUser = localProfile;
                         break;
                     }            
                 } catch (Exception e) { 
