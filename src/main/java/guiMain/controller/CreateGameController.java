@@ -98,8 +98,8 @@ public class CreateGameController implements Initializable{
 		 Boolean chat = chatAutorise.isSelected();
 		 Boolean classicGame = classicGameType.isSelected();
 		 Boolean oponent = humanGameAdversaire.isSelected();   
-		 Integer timePerShot = null;
-		 Integer timeForPositioning= null;
+		 int timePerShot = -1;
+		 int timeForPositioning= -1;
 		 
 		 //add try catch exception for default value time per shot
 		 if (!timeDisabled.isSelected()){
@@ -114,13 +114,11 @@ public class CreateGameController implements Initializable{
 		 }
 
 		 if (!name.trim().isEmpty()) {
-			 System.out.println("HERE");
 			 // Calls interface with data to create new game
 			 Game game = mainController.getIdata().newGame(classicGame, name, oponent, timePerShot, timeForPositioning, spectators, chat);   
 			 // Open waiting room window 
 			 mainController.openWaitingRoomWindow(game);
 		 } else {
-			 System.out.println("YO");
 			 errorMessage.setText("Veuillez choisir un nom pour votre partie.");
 			 errorMessage.setTextFill(Color.web("#ff0000"));
 		 }
