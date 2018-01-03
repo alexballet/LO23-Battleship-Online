@@ -355,6 +355,8 @@ public class DataController {
         Boat b ;
         List<Boat> listBoat = localPlayer.getListBoats();
         for (Boat boat : listBoat) {
+            if(boat.getSunk())
+                continue;
             b = boat.updateShot(s);
             if(b.getSunk()) {
                 return b;
