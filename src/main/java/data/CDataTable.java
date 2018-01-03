@@ -217,4 +217,9 @@ public class CDataTable implements IDataTable {
     public void timerOver() {
         controller.gameOver();
     }
+
+    @Override
+    public void getlocalPlayerInGame() {
+        controller.getLocalPlayer();
+    }
 }
