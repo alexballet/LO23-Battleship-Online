@@ -283,14 +283,25 @@ public class DataController {
                 getLocalGame().getPlayer1().getProfile().getIdUser());
     }
 
-    public void updateGameDataPlaying(Shot s, Boat b){
-        localPlayer.addShot(s);
-        Player otherPlayer = getOtherPLayer();
+    public void updateGameDataPlaying(Shot s, Boat b, boolean forLocalPlayer) {
+        Player otherPlayer;
+        Player PlayerWhoMadeShot;
+        if(forLocalPlayer) {
+            System.out.println("Update GameData Playing for Me");
+            otherPlayer = getOtherPLayer();
+            PlayerWhoMadeShot = getLocalPlayerInGame();
+            localPlayer.addShot(s);
+        }
+        else {
+            System.out.println("Update GameData Playing for Opponent");
+            PlayerWhoMadeShot = getOtherPLayer();
+            otherPlayer = getLocalPlayerInGame();
+        }
+
         if(b != null)
             otherPlayer.addBoat(b);
-        Player localPlayerInGame = getLocalPlayerInGame();
-        localPlayerInGame.addShot(s);
-        System.out.println("Update GameData Playing");
+
+        PlayerWhoMadeShot.addShot(s);
     }
 
     
@@ -364,8 +375,6 @@ public class DataController {
         }
         return null;
     }
-
-
     
     public void setListUser(List<User> u){
         listUsers = u;

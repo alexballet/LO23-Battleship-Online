@@ -196,6 +196,7 @@ public class CDataCom implements IDataCom {
     public void coordinates(Shot s) {
         Boat b = controller.testShot(s);
         interfaceTable.displayOpponentShot(s, b);
+        controller.updateGameDataPlaying(s, b, false);
         interfaceCom.coordinates(controller.getOtherPLayer() , s, controller.getLocalGame(), b);
         if (b != null){
             boolean gameOver = true;
@@ -216,7 +217,7 @@ public class CDataCom implements IDataCom {
     
     
     public void coordinates(Shot s, Boat b) {
-        controller.updateGameDataPlaying(s, b);
+        controller.updateGameDataPlaying(s, b, true);
         interfaceTable.displayMyShotResult(s, b);
         System.out.println("Update GameData Playing");
         System.out.println(controller.getLocalPlayerInGame().getListShots().size()
