@@ -216,8 +216,12 @@ public class CDataCom implements IDataCom {
     
     
     public void coordinates(Shot s, Boat b) {
-        controller.getLocalPlayer().addShot(s);
+        controller.updateGameDataPlaying(s, b);
         interfaceTable.displayMyShotResult(s, b);
+        System.out.println("Update GameData Playing");
+        System.out.println(controller.getLocalPlayerInGame().getListShots().size()
+                + "/" + controller.getOtherPLayer().getListBoats().size());
+
     }
     
     /**

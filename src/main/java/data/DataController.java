@@ -6,6 +6,7 @@
  */
 package data;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import guiMain.GuiMainInterface;
 import java.io.File;
 import guiTable.GuiTableInterface;
@@ -237,7 +238,7 @@ public class DataController {
 	}
 
 	    //TODO: Refactor (useless comparison)
-        if (gameexist == false){
+        if (gameexist){
             listGames.add(g);
         }
     }
@@ -262,7 +263,7 @@ public class DataController {
      * @param player2
      */
     public void updateGameData(Boolean ok, Player player1, Player player2){
-        if (ok == true){
+        if (ok){
             localGame.setStatus(StatusGame.BOATPHASE);
             localGame.setPlayer1(player1);
             localGame.setPlayer2(player2);
@@ -272,6 +273,26 @@ public class DataController {
         }
         
     }
+
+    /**
+     * used by the method setGameJoinResponse of CDataCom
+     */
+
+    private boolean isPlayer1() {
+        return getLocalUser().getIdUser().equals(
+                getLocalGame().getPlayer1().getProfile().getIdUser());
+    }
+
+    public void updateGameDataPlaying(Shot s, Boat b){
+        localPlayer.addShot(s);
+        Player otherPlayer = getOtherPLayer();
+        if(b != null)
+            otherPlayer.addBoat(b);
+        Player localPlayerInGame = getLocalPlayerInGame();
+        localPlayerInGame.addShot(s);
+        System.out.println("Update GameData Playing");
+    }
+
     
     /**
      * Get list of Games
@@ -331,17 +352,18 @@ public class DataController {
      * @return a boat if a boat has been sunk
      */
     public Boat testShot(Shot s){
-        int i, j;
         Boat b ;
         List<Boat> listBoat = localPlayer.getListBoats();
         for (Boat boat : listBoat) {
             b = boat.updateShot(s);
-            if(s.getTouched()) {
+            if(b.getSunk()) {
                 return b;
             }
         }
         return null;
     }
+
+
     
     public void setListUser(List<User> u){
         listUsers = u;
@@ -352,12 +374,18 @@ public class DataController {
     }
     
     public Player getOtherPLayer() {
-        boolean localPlayerIsPlayer1 = getLocalUser().getIdUser().equals(
-                getLocalGame().getPlayer1().getProfile().getIdUser());
-        if (localPlayerIsPlayer1) {
+        if (isPlayer1()) {
             return getLocalGame().getPlayer2();
         } else {
             return getLocalGame().getPlayer1();
+        }
+    }
+
+    public Player getLocalPlayerInGame() {
+        if (isPlayer1()) {
+            return getLocalGame().getPlayer1();
+        } else {
+            return getLocalGame().getPlayer2();
         }
     }
     

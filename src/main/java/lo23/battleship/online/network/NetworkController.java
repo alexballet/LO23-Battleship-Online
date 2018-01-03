@@ -162,6 +162,18 @@ public class NetworkController {
         networkServer.close();
     }
 
+    public InetAddress removeUnreachableHost(InetAddress address) {
+
+        for (Map.Entry<User, InetAddress> entry : networkState.entrySet()) {
+
+            if (entry.getValue().equals(address)) {
+                return networkState.remove(entry.getKey());
+            }
+        }
+
+        return null;
+    }
+
     public Set<User> getConnectedUsers() {
         return networkState.keySet();
     }
