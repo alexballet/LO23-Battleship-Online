@@ -169,7 +169,14 @@ public class GuiTableController implements GuiTableInterface {
                             } catch(IOException e) {
                                 System.err.println("ERROR : "+e.getMessage());
                             }
-                            HashSet<Shot> listShot1 = game.getPlayer1().getListShots();
+                        }
+        		};
+		Platform.runLater(command);
+    }
+    
+        @Override
+    public void updateSpectatorGame(Game game) {
+        HashSet<Shot> listShot1 = game.getPlayer1().getListShots();
                             HashSet<Shot> listShot2 = game.getPlayer2().getListShots();
                             Date time1 = null, time2 = null; // get time off last shot to which player turn it is
 
@@ -205,9 +212,6 @@ public class GuiTableController implements GuiTableInterface {
                             
                             //set game turn
                             observationControlleur.setTurn(turn);
-                        }
-        		};
-		Platform.runLater(command);
     }
     
   /*  // à supprimer si l'autre fonctionne

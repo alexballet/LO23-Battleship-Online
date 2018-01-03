@@ -309,8 +309,7 @@ public class CDataCom implements IDataCom {
     @Override
     public void joinGameSpectator(Game g) {
         controller.setLocalGame(g);
-        //to finish
-        //interfaceMain.joinGameSpec(Game g); le main doit nous swap dans la partie, on vient de récupérer les données de la partie via le player1
+        interfaceTable.updateSpectatorGame(g); //le main doit nous swap dans la partie, on vient de récupérer les données de la partie via le player1
     }
     
     @Override
