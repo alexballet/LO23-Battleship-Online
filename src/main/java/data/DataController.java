@@ -422,13 +422,25 @@ public class DataController {
         Player pl = getOtherPLayer(); // to know to which player we send the notification : it's the player who is not ourself
         interfaceCom.notifyGameWon();
         interfaceCom.removeGame(getLocalGame());
-        
-        getLocalProfile().setGamesLost(getLocalProfile().getGamesLost()+1);
-        getLocalProfile().setGamesPlayed(getLocalProfile().getGamesPlayed()+1);
-        removeGameFromList(getLocalGame()); // Verifier comment est géré la notification que la partie n'existe plus
-        
+
+        immediateDefeat();
         //interfaceMain.removeGame(controller.getLocalGame());
         //interfaceCom.removeGame(controller.getLocalGame());
+    }
+
+    public void immediateDefeat() {
+        Profile localProfile = getLocalProfile();
+        localProfile.setGamesLost(localProfile.getGamesLost()+1);
+        localProfile.setGamesPlayed(localProfile.getGamesPlayed()+1);
+        removeGameFromList(getLocalGame()); // Verifier comment est géré la notification que la partie n'existe plus
+        localProfile.saveeditedProfile();
+    }
+
+    public void recordVictory() {
+        Profile localProfile = getLocalProfile();
+        localProfile.setGamesWon(localProfile.getGamesWon()+1);
+        localProfile.setGamesPlayed(localProfile-a.getGamesPlayed()+1);
+        localProfile.saveeditedProfile();
     }
 
     void endGame() {
@@ -436,6 +448,7 @@ public class DataController {
         switch (game.getStatus()) {
             
             case PLAYING :
+                immediateDefeat();
                 interfaceCom.notifyGameWon();
                 break;
             case PLAYER1READY :
