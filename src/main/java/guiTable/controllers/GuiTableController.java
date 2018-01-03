@@ -174,7 +174,7 @@ public class GuiTableController implements GuiTableInterface {
 		Platform.runLater(command);
     }
     
-        @Override
+    @Override
     public void updateSpectatorGame(Game game) {
         HashSet<Shot> listShot1 = game.getPlayer1().getListShots();
                             HashSet<Shot> listShot2 = game.getPlayer2().getListShots();

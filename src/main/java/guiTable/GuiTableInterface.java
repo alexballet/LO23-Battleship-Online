@@ -103,4 +103,6 @@ public interface GuiTableInterface {
     
     public void displayRageQuit();
 
+    public void updateSpectatorGame(Game g);
+
 }
