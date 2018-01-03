@@ -421,6 +421,7 @@ public class GuiMainController implements GuiMainInterface {
 	}
 
 	public void lookGame(Game game) {
+		idata.gameToSpec(game);
 		GuiTableController.getInstance().displayObserverPhase(stage, game);
 	}
 }
