@@ -270,7 +270,7 @@ public class menuController implements Initializable{
 		int i = 0;
 		for (Game g : list){
 			if (game.getIdGame().equals(g.getIdGame())) {
-				gamesView.getItems().remove(i);
+				gamesView.getItems().remove(game);
 				gamesView.getItems().add(i, game);
 			}
 			i++;
