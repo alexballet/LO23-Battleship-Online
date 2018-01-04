@@ -267,13 +267,12 @@ public class menuController implements Initializable{
 
 	public void updateGameStatus(Game game) {
 		ObservableList<Game> list =  gamesView.getItems();
-		int i = 0;
-		for (Game g : list){
-			if (game.getIdGame().equals(g.getIdGame())) {
+		for (int i = 0; i < list.size(); i++){
+			if (game.getIdGame().equals(list.get(i).getIdGame())) {
 				gamesView.getItems().remove(game);
 				gamesView.getItems().add(i, game);
+				break;
 			}
-			i++;
 		}
 		
 	}
