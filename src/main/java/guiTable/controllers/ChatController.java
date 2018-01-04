@@ -1,5 +1,6 @@
 package guiTable.controllers;
 import data.CDataTable;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -32,6 +33,17 @@ public class ChatController {
         this.conversation = conv;
         conversationArea.setEditable(false);
         conversationArea.setText(this.conversation);
+    }
+    
+    /**
+     * créer la conversation à partir de la liste des messages
+     * @param list
+     */
+    public void createConversation(ArrayList<ChatMessage> list) {
+        list.forEach((msg) -> {
+            receiveAMessage(msg);
+        });
+;
     }
 
     public void sendMyMessage() {
