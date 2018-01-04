@@ -62,8 +62,8 @@ public class ObservationPhase {
     protected String MY_TURN_MSG = "A votre tour de jouer, cliquer sur une case puis sur le bouton valider";
     protected String OTHER_TURN_MSG = "Au tour de l'adversaire de jouer, merci de patienter";
     protected String EXIT_GAME_MSG = "Voulez-vous vraiment quitter la partie ?";
-    protected String VICTORY_MSG = "Victoire !";
-    protected String DEFEAT_MSG = "Defaite !";
+    protected String VICTORY_P1_MSG = "Victoire !";
+    protected String VICTORY_P2_MSG = "Defaite !";
     
         
     
@@ -75,8 +75,8 @@ public class ObservationPhase {
         MY_TURN_MSG = "Au tour du joueur 1";
         OTHER_TURN_MSG = "Au tour du joueur 2";
         EXIT_GAME_MSG = "Voulez-vous vraiment quitter l'observation de la partie ?";
-        VICTORY_MSG = "Victoire du joueur 1 bravo !";
-        DEFEAT_MSG = "victoire du joueur 2 !";
+        VICTORY_P1_MSG = "Victoire du joueur 1 bravo !";
+        VICTORY_P2_MSG = "victoire du joueur 2 !";
     }
     
     protected void placeShotTo(Shot shot, GridPane grid) {
@@ -95,18 +95,14 @@ public class ObservationPhase {
         /**
     * Shows victory message
     */
-    public void showVictory(){
-        logMsg(VICTORY_MSG);
+    public void showVictory(int player){
+        if(player == 1) {
+        logMsg(VICTORY_P2_MSG);
+        } else {
+        logMsg(VICTORY_P2_MSG);
+        }
     }
-    
-    
-    /**
-    * Shows defeat message
-    */
-    public void showDefeat(){
-        logMsg(DEFEAT_MSG);
-    }
-    
+
        /**
      * log message into interface.
      * @param msg message to be displayed

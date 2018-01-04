@@ -277,19 +277,15 @@ public class GuiTableController implements GuiTableInterface {
     @Override
     public void displayObserverShot(final Shot shot, int player) {
         //Displays a shot
-        observerPhaseController.displayShot(shot, player);
+        observationControlleur.displayShot(shot, player);
         // Changes the turn
-        observerPhaseController.setTurn(false);
+        observationControlleur.setTurn(false);
     }
 
     
     @Override
-    public void displayObserverPhaseVictory(boolean winner) {
-        if(winner) {
-        observerPhaseController.showVictory();
-        } else {
-        observerPhaseController.showDefeat();
-        }
+    public void displayObserverPhaseVictory(int player) {
+        observationControlleur.showVictory(player);
     }
 
     @Override
