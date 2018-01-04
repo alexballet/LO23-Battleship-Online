@@ -169,10 +169,12 @@ public class GuiTableController implements GuiTableInterface {
                                 mainStage.show();
                                 
                                 //conversation d'abord initialisée vide puis remplie
+                                if(game.getSpectatorChat()) {
                                 chatController = gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, ""); 
                                 chatController.setDataController(dataController);
                                 chatController.createConversation(game.getListMessages());
                                 chatController.doProfileArea();
+                                }
                             } catch(IOException e) {
                                 System.err.println("ERROR : "+e.getMessage());
                             }
@@ -302,7 +304,9 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void addChatMessage(ChatMessage message) {
+        if(chatController!=null) {
         chatController.receiveAMessage(message);
+        }
     }
 
     @Override
