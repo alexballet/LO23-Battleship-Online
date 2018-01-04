@@ -27,7 +27,12 @@ public class SendInfoGameForSpectatorMessage extends Message{
 
 
     public void process(IDataCom IData, InetAddress senderAddress){
-        // TODO decommenter quand dans interface data
-        //IData.joinGameSpectator(game)
+        System.out.println("game : "+ game);
+        System.out.println("player 1 : "+ game.getPlayer1());
+        System.out.println("player 2 : "+ game.getPlayer2());
+        
+        System.out.println("listshot player 1 : "+ game.getPlayer1().getListShots());
+        
+        IData.joinGameSpectator(game);
     }
 }
