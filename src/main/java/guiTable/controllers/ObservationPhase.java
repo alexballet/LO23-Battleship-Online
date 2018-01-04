@@ -77,6 +77,7 @@ public class ObservationPhase {
         EXIT_GAME_MSG = "Voulez-vous vraiment quitter l'observation de la partie ?";
         VICTORY_P1_MSG = "Victoire du joueur 1 bravo !";
         VICTORY_P2_MSG = "victoire du joueur 2 !";
+        tableController = GuiTableController.getInstance();
     }
     
     protected void placeShotTo(Shot shot, GridPane grid) {
