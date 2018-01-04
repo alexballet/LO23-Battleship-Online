@@ -75,11 +75,11 @@ public class ObservationPhase extends BaseController{
         tablePlayer = new HashMap<>();
         tablePlayer.put(1, table1);
         tablePlayer.put(2, table2);
-        MY_TURN_MSG = "Au tour du joueur 1";
-        OTHER_TURN_MSG = "Au tour du joueur 2";
+        MY_TURN_MSG = "Au tour du joueur ";
+        OTHER_TURN_MSG = "Au tour du joueur ";
         EXIT_GAME_MSG = "Voulez-vous vraiment quitter l'observation de la partie ?";
-        VICTORY_P1_MSG = "Victoire du joueur 1 bravo !";
-        VICTORY_P2_MSG = "victoire du joueur 2 !";
+        VICTORY_P1_MSG = "Victoire du joueur ";
+        VICTORY_P2_MSG = "victoire du joueur ";
         tableController = GuiTableController.getInstance();
     }
     
@@ -105,9 +105,9 @@ public class ObservationPhase extends BaseController{
     */
     public void showVictory(int player){
         if(player == 1) {
-        logMsg(VICTORY_P2_MSG);
+        logMsg(VICTORY_P2_MSG + getLblj2());
         } else {
-        logMsg(VICTORY_P1_MSG);
+        logMsg(VICTORY_P1_MSG + getLblj1());
         }
     }
 
