@@ -110,6 +110,8 @@ public class GameCell extends ListCell<Game> {
         	    		lookButtonBox.getChildren().remove(lookButton);
         	    }
         	    
+        	    System.out.println("GAME : " + game.getName() + " -  STATUS : " + game.getStatus() + " - ID " + game.getIdGame());
+        	    
             
             this.setGraphic(hbox);
             

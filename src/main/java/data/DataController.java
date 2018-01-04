@@ -217,8 +217,13 @@ public class DataController {
      * @param g : game to add to the local list
      */
     public void addGameToList(Game g){
-        if(g != null)
-            listGames.add(g);
+        if(g != null) {
+        		boolean isOk = true;
+        		for (Game game : listGames) {
+        			if (game.getIdGame().equals(g.getIdGame())) isOk = false;
+        		}
+        		if (isOk) listGames.add(g);
+        }
     }
     
     
@@ -228,18 +233,12 @@ public class DataController {
      */
     public void updateGameStatus(Game g){
         Boolean gameexist = false;
-        
         for (int i = 0; i < listGames.size(); i++) {
             if (listGames.get(i).getIdGame().equals(g.getIdGame())){
                 gameexist = true;
                 listGames.set(i, g);
                 break;
             }
-	}
-
-	    //TODO: Refactor (useless comparison)
-        if (gameexist){
-            listGames.add(g);
         }
     }
     /**

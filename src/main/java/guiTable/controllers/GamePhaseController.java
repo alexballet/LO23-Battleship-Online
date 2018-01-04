@@ -124,7 +124,7 @@ public class GamePhaseController extends gameInterface implements Initializable 
     */
     public void showVictory(){
         logMsg(VICTORY_MSG);
-        timeline.stop();
+        if (timeline != null) timeline.stop();
         valider.setDisable(true);
     }
     
@@ -134,7 +134,7 @@ public class GamePhaseController extends gameInterface implements Initializable 
     */
     public void showDefeat(){
         logMsg(DEFEAT_MSG);
-        timeline.stop();
+        if (timeline != null) timeline.stop();
         timerLabel.setVisible(false);
         valider.setDisable(true);
         table.setDisable(true);
