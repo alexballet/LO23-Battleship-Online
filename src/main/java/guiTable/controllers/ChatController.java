@@ -102,7 +102,10 @@ public class ChatController {
         String full = "";
         
         Game partie;
-        partie = dataController.getLocalGame(); //INTEGV5
+        partie = dataController.getLocalGame(); 
+        if (partie == null) {
+            partie = dataController.getObserverGame();
+        }
         
         Player player1 = partie.getPlayer1();
         Player player2 = partie.getPlayer2();

@@ -7,6 +7,7 @@ package interfacesData;
 import structData.Position;
 import structData.Boat;
 import java.util.List;
+import structData.Game;
 import structData.Shot;
 
 /**
@@ -55,5 +56,5 @@ public interface IDataTable {
      */
     public void changeStatusGameStarted();
     
-    public void getlocalPlayerInGame();
+    public Game getObserverGame();
 }
