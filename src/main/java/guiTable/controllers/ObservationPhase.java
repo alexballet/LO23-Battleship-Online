@@ -1,12 +1,9 @@
 package guiTable.controllers;
 
 import guiTable.CaseDrawing;
-import java.net.URL;
 import java.util.HashMap;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -55,8 +52,11 @@ public class ObservationPhase extends BaseController{
     @FXML
     private AnchorPane chatPane1;
     @FXML
-      
     protected GuiTableController tableController;
+    @FXML
+    private Label lblj1;
+    @FXML
+    private Label lblj2;
     
     protected final String STYLE_MY_TURN = "-fx-background-color: #FFFFFF;";
     protected final String STYLE_OTHER_TURN = "-fx-background-color: #EEEEEE;";
@@ -163,11 +163,11 @@ public class ObservationPhase extends BaseController{
      */
     public void setTurn(Boolean t) {
         if (t) {
-            gameState.setText("Au tour du joueur 2");
+            gameState.setText("Au tour du joueur " + getLblj2());
             table2.setStyle(STYLE_OTHER_TURN);
             table1.setStyle(STYLE_MY_TURN);
         } else {
-            gameState.setText("Au tour du joueur 1");
+            gameState.setText("Au tour du joueur " + getLblj1());
             table1.setStyle(STYLE_OTHER_TURN);
             table2.setStyle(STYLE_MY_TURN);
         }
@@ -195,6 +195,38 @@ public class ObservationPhase extends BaseController{
     void noClicked(ActionEvent event) {
         messageContainer.setVisible(false);
         exitButton.setDisable(false);
+    }
+
+    public AnchorPane getChatPane() {
+        return chatPane;
+    }
+
+    /**
+     * @return the lblj1
+     */
+    public String getLblj1() {
+        return lblj1.getText();
+    }
+
+    /**
+     * @param lblj1 the lblj1 to set
+     */
+    public void setLblj1(String lblj1) {
+        this.lblj1.setText(lblj1);
+    }
+
+    /**
+     * @return the lblj2
+     */
+    public String getLblj2() {
+        return lblj2.getText();
+    }
+
+    /**
+     * @param lblj2 the lblj2 to set
+     */
+    public void setLblj2(String lblj2) {
+        this.lblj2.setText(lblj2);
     }
 
 }

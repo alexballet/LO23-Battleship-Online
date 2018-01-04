@@ -167,14 +167,10 @@ public class GuiTableController implements GuiTableInterface {
                     Scene scene = new Scene(rootLayout);
                     mainStage.setScene(scene);
                     mainStage.show();
-
-                    //conversation d'abord initialisée vide puis remplie
-                    if (game.getSpectatorChat()) {
-                        chatController = observationControlleur.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, "");
-                        chatController.setDataController(dataController);
-                        chatController.createConversation(game.getListMessages());
-                        chatController.doProfileArea();
-                    }
+                    mainStage.setOnCloseRequest((WindowEvent event1) -> {
+                        dataController.gameEnded();
+                    });
+                    
                 } catch (IOException e) {
                     System.err.println("ERROR : " + e.getMessage());
                 }
@@ -188,6 +184,7 @@ public class GuiTableController implements GuiTableInterface {
         Runnable command = new Runnable() {
             @Override
             public void run() {
+                System.out.println("################################## \n game chat spectator : " + game.getSpectatorChat() + "\n #################################");
                 HashSet<Shot> listShot1 = game.getPlayer1().getListShots();
                 HashSet<Shot> listShot2 = game.getPlayer2().getListShots();
                 Date time1 = null, time2 = null; // get time off last shot to which player turn it is
@@ -221,7 +218,13 @@ public class GuiTableController implements GuiTableInterface {
                 }
                 System.out.println("turn " + turn);
                 System.out.println("observerPhase " + observationControlleur);
-
+                //conversation d'abord initialisée vide puis remplie
+                if (game.getSpectatorChat()) {
+                    chatController = observationControlleur.fillChatSlot(observationControlleur.getChatPane(), CHAT_FXML_URL, "");
+                    chatController.setDataController(dataController);
+                    chatController.createConversation(game.getListMessages());
+                    chatController.doProfileArea();
+                }
                 //set game turn
                 observationControlleur.setTurn(turn);
             }
