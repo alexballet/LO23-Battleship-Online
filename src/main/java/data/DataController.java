@@ -45,6 +45,7 @@ public class DataController {
     private User localUser;
     // private DataUser localDataUser;
     private Game localGame;
+    private Game attendedGame;
     private List<User> listUsers;
     private Profile localProfile;
     private List<Game> listGames;
@@ -204,6 +205,13 @@ public class DataController {
         return localGame;
     }
 
+    /**
+     * Accessor local Game
+     * @return the local Game
+     */
+    public Game getAttendedGame(){
+        return attendedGame;
+    }
     /**
      * Mutator local Game
      * @param g : new local Game
@@ -399,6 +407,14 @@ public class DataController {
             return getLocalGame().getPlayer2();
         }
     }
+
+    public boolean isPlayerOf(Game game) {
+        Profile localProfile = getLocalProfile();
+        Profile profilePlayer1 = game.getPlayer1().getProfile();
+        Profile profilePlayer2 = game.getPlayer1().getProfile();
+        return localProfile.getIdUser().equals(profilePlayer1.getIdUser()) ||
+                localProfile.getIdUser().equals(profilePlayer2.getIdUser());
+    }
     
     public void gameOver() {
         System.out.println("GAME OVER");
@@ -459,5 +475,16 @@ public class DataController {
         removeGameFromList(game);
         interfaceCom.removeGame(game);
         setLocalGame(null);
+    }
+
+    int getPlayerPosition(Player p, Game g) {
+        Profile p1 = g.getPlayer1().getProfile();
+        Profile p2 = g.getPlayer2().getProfile();
+        if(p1.getIdUser().equals(p2.getIdUser())) {
+            return 1;
+        }
+        else {
+            return 2;
+        }
     }
 }

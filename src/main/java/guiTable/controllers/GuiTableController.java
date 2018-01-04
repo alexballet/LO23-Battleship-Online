@@ -275,12 +275,12 @@ public class GuiTableController implements GuiTableInterface {
 
     
     @Override
-    public void displayObserverPhaseVictory(boolean winner) {
-        if(winner) {
-        observerPhaseController.showVictory();
-        } else {
-        observerPhaseController.showDefeat();
-        }
+    public void displayObserverPhaseDefeat(int loserPosition) {
+//        if(loser) {
+//        observerPhaseController.showDefeat();
+//        } else {
+//        observerPhaseController.showVictory();
+//        }
     }
 
     @Override
@@ -358,5 +358,9 @@ public class GuiTableController implements GuiTableInterface {
         } else {
             System.out.println("Erreur inattendu, le placement phase copntroller n'a pas été initialisé");
         }
+    }
+
+    public void sunkPlayerBoat(int i, Boat boat) {
+        observationControlleur.sunkPlayerBoat(i, boat);
     }
 }
