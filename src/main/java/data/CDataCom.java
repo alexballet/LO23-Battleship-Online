@@ -54,7 +54,6 @@ public class CDataCom implements IDataCom {
         Game g = controller.getLocalGame();
         return g;
     }
-
  
     
     @Override
@@ -129,6 +128,7 @@ public class CDataCom implements IDataCom {
     
     @Override
     public void addNewGameList(Game g) {
+    		System.out.println("[DATA] add new game to list - ID : " + g.getIdGame());
         controller.addGameToList(g);
         interfaceMain.addGame(g);
     }
@@ -136,7 +136,7 @@ public class CDataCom implements IDataCom {
     @Override
     public void removeGameFromList(Game g){
         controller.removeGameFromList(g);
-        
+        interfaceMain.removeGame(g);
     }
 
     
@@ -304,6 +304,7 @@ public class CDataCom implements IDataCom {
      @Override
      public void notifyToSpecGame(User spec){
          controller.getLocalGame().addSpectators(spec);
+         System.out.println("ADD NEW SPECTATOR " + spec.getUsername());
      }
 
      public void newRequestSpectator(User u){

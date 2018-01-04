@@ -10,6 +10,7 @@ import guiMain.GameCell;
 import guiMain.GuiMainController;
 import guiMain.PlayerCell;
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
@@ -111,6 +112,12 @@ public class menuController implements Initializable{
 			if (game.doesProfileBelongToGame(local)) games.remove(i);
 			else i++;
 		}
+		
+		System.out.print("[MAIN] INIT GAME LIST VIEW : [");
+		for(Game test: games) {
+			System.out.print(test.getIdGame() + " - ");
+		}
+		System.out.println("]");
 		
 		ObservableList<Game> gamesObservable = FXCollections.observableArrayList(games);
 		gamesView.setItems(gamesObservable);
@@ -225,7 +232,7 @@ public class menuController implements Initializable{
 
 
 	public void addGame(Game game){
-		if (!game.doesProfileBelongToGame(mainController.getIdata().getLocalProfile())) {
+		if (!game.doesProfileBelongToGame(mainController.getIdata().getLocalProfile()) && !game.getStatus().equals(StatusGame.FINISHED)) {
 			Boolean isOk = true;
 			ObservableList<Game> games = gamesView.getItems();
 			for (int i = 0; i < games.size(); i++) {
@@ -234,6 +241,7 @@ public class menuController implements Initializable{
 				}
 			}
 			if (isOk) {
+				System.out.println("[MAIN] ADD GAME - ID : " + game.getIdGame());
 				gamesView.getItems().add(game);
 			}
 			gamesView.refresh();
@@ -262,11 +270,12 @@ public class menuController implements Initializable{
 		int i = 0;
 		for (Game g : list){
 			if (game.getIdGame().equals(g.getIdGame())) {
-				gamesView.getItems().set(i, game);
+				gamesView.getItems().remove(i);
+				gamesView.getItems().add(i, game);
 			}
 			i++;
 		}
-		gamesView.refresh();
+		
 	}
 
 	public void removeGame(Game removedGame) {
