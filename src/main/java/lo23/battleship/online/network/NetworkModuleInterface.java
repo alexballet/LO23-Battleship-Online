@@ -189,6 +189,7 @@ public class NetworkModuleInterface implements COMInterface {
         HashSet<User> listSpectators = game.getListSpectators();
         for(User spec : listSpectators) {
             InetAddress address = controller.getAddressForUser(spec);
+            System.out.println(" ICI : ADRESSE -> " + address.getHostAddress() + " - username " + spec.getUsername());
             controller.sendMessage(gameWonMessageToSpectator, address);
         }
         controller.sendMessage(gameWonMessage, controller.getAddressForUser(winner.getProfile()));
