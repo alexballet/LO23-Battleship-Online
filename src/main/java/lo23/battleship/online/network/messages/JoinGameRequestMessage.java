@@ -22,6 +22,17 @@ public class JoinGameRequestMessage extends Message{
     public JoinGameRequestMessage(Profile senderGame, Game gameSend){
         this.sender = senderGame;
         this.game = gameSend;
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("SHHHHIIIIITTT! - JOIN : " + game.getListSpectators().size());
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
         this.type = "JoinGameRequestMessage";}
 
     /**
@@ -37,6 +48,17 @@ public class JoinGameRequestMessage extends Message{
      * @param IData interface with Data.
      */
     public void process(IDataCom IData, InetAddress senderAddress){
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("SHHHHIIIIITTT! - JOIN PROCESS: " + game.getListSpectators().size());
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
         IData.notifToJoinGame(sender, game);
     }
 

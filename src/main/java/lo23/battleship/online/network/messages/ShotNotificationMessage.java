@@ -27,6 +27,17 @@ public class ShotNotificationMessage extends Message{
     public void process(IDataCom IData, InetAddress senderAddress){
         IData.coordinates(shot);
         System.out.println( "send shot: " + shot.getX() + ";"+ shot.getY());
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("SHHHHIIIIITTT! : " + IData.getCreatedGame().getListSpectators().size());
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
     }
 
 

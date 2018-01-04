@@ -231,7 +231,7 @@ public class CDataCom implements IDataCom {
     }
 
     public void updateAttendedGame(Player p, Shot s, Boat b) {
-                System.out.println("################################################");
+        System.out.println("################################################");
         System.out.println("################################################");
         System.out.println(" shot recu : " + s);
         System.out.println("################################################");
