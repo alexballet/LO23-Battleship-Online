@@ -202,10 +202,12 @@ public class NetworkModuleInterface implements COMInterface {
                     new ShotNotificationResultForSpectatorMessage(destPlayer, resultShot, boat);
         ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, boat);
         HashSet<User> listSpectator = game.getListSpectators();
+        
 
         InetAddress destAddress;
 
         for (User s: listSpectator) {
+            System.out.println("adress user : " + controller.getAddressForUser(s));
             controller.sendMessage(shotNotificationResultMessage, controller.getAddressForUser(s));
         }
 
@@ -214,7 +216,7 @@ public class NetworkModuleInterface implements COMInterface {
         } else {
             destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
         }
-
+        System.out.println("dest ADDR : "+ destAddress);
         controller.sendMessage(shotNotificationResultMessage, destAddress);
 
         return true;
@@ -266,7 +268,7 @@ public class NetworkModuleInterface implements COMInterface {
         SendNewSpectatorMessage sendNewSpectatorMessage =
                 new SendNewSpectatorMessage(u);
         InetAddress otherPlayerAddress = controller.getAddressForUser(p.getProfile());
-        System.out.println("Sending gameQuitSpectator to otherPlayer : " + otherPlayerAddress);
+        System.out.println("Sending sendNewSpectatorMessage to otherPlayer : " + otherPlayerAddress);
         controller.sendMessage(sendNewSpectatorMessage, otherPlayerAddress);
         for(User spec : listSpectators) {
             InetAddress address = controller.getAddressForUser(spec);
