@@ -212,6 +212,10 @@ public class DataController {
     public Game getAttendedGame(){
         return attendedGame;
     }
+    
+    public void setAttendedGame(Game g) {
+        this.attendedGame = g;
+    }
     /**
      * Mutator local Game
      * @param g : new local Game
@@ -459,6 +463,10 @@ public class DataController {
     }
 
     void endGame() {
+        if (attendedGame!=null) { // si on est seulement spectateurs
+            interfaceCom.gameQuitSpectator(localUser, attendedGame);
+            setAttendedGame(null); // on retire le attended game
+        } else {
         Game game = getLocalGame();
         switch (game.getStatus()) {
             
@@ -474,6 +482,7 @@ public class DataController {
         removeGameFromList(game);
         interfaceCom.removeGame(game);
         setLocalGame(null);
+        }
     }
 
     int getPlayerPosition(Player p, Game g) {
