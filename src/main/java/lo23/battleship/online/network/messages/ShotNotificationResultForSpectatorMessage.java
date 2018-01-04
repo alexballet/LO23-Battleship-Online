@@ -31,11 +31,7 @@ public class ShotNotificationResultForSpectatorMessage extends Message{
     }
 
     public void process(IDataCom IData, InetAddress senderAddress){
-        Profile playerProfile = player.getProfile();
-        Profile localProfile = IData.getUserProfile();
-        if(localProfile.getIdUser().equals(playerProfile)) {
             IData.updateAttendedGame(player, shot, boat);
-        }
     }
 
 

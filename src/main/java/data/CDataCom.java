@@ -231,12 +231,20 @@ public class CDataCom implements IDataCom {
     }
 
     public void updateAttendedGame(Player p, Shot s, Boat b) {
+                System.out.println("################################################");
+        System.out.println("################################################");
+        System.out.println(" shot recu : " + s);
+        System.out.println("################################################");
+        System.out.println("################################################");
         Game attendedGame = controller.getAttendedGame();
         int playerPositionInGame = getPlayerPosition(p, attendedGame);
-        if(b != null) // it means it sank
+        System.out.println(" player position " + playerPositionInGame);
+        if(b != null) {// it means it sank
             interfaceTable.sunkPlayerBoat(playerPositionInGame, b);
-        else
+            System.out.println(" sunk " + s);
+        } else {
             interfaceTable.displayObserverShot(s, playerPositionInGame);
+        }
     }
     
     /**

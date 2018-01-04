@@ -289,7 +289,7 @@ public class GuiTableController implements GuiTableInterface {
                 //Displays a shot
                 observationControlleur.displayShot(shot, player);
                 // Changes the turn
-                observationControlleur.setTurn(false);
+                observationControlleur.setTurn(!observationControlleur.turn);
             }
         };
         Platform.runLater(command);
@@ -387,6 +387,12 @@ public class GuiTableController implements GuiTableInterface {
     }
 
     public void sunkPlayerBoat(int i, Boat boat) {
-        observationControlleur.sunkPlayerBoat(i, boat);
+        Runnable command = new Runnable() {
+            @Override
+            public void run() {
+                observationControlleur.sunkPlayerBoat(i, boat);
+            }
+        };
+        Platform.runLater(command);
     }
 }

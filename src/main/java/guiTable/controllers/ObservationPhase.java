@@ -65,24 +65,11 @@ public class ObservationPhase extends BaseController{
     protected String EXIT_GAME_MSG = "Voulez-vous vraiment quitter la partie ?";
     protected String VICTORY_P1_MSG = "Victoire !";
     protected String VICTORY_P2_MSG = "Defaite !";
+    public boolean turn = false;
     
     public HashMap<Integer, GridPane> tablePlayer; //map to associate grid displayed and player
         
     
-    
-    public void initialize(URL location, ResourceBundle resources){          
-        messageContainer.setVisible(false);
-        tablePlayer = new HashMap<>();
-        tablePlayer.put(1, table1);
-        tablePlayer.put(2, table2);
-        MY_TURN_MSG = "Au tour du joueur 1";
-        OTHER_TURN_MSG = "Au tour du joueur 2";
-        EXIT_GAME_MSG = "Voulez-vous vraiment quitter l'observation de la partie ?";
-        VICTORY_P1_MSG = "Victoire du joueur 1 bravo !";
-        VICTORY_P2_MSG = "victoire du joueur 2 !";
-        tableController = GuiTableController.getInstance();
-    }
-
     void init() {
         messageContainer.setVisible(false);  
         tablePlayer = new HashMap<>();
@@ -172,10 +159,10 @@ public class ObservationPhase extends BaseController{
 
     /**
      * Sets the turn of the players and and colors the boards
-     * @param turn ; Boolean that defines the turn. True means player 1, False means player 2
+     * @param t ; Boolean that defines the turn. True means player 1, False means player 2
      */
-    public void setTurn(Boolean turn) {
-        if (turn) {
+    public void setTurn(Boolean t) {
+        if (t) {
             gameState.setText("Au tour du joueur 1");
             table1.setStyle(STYLE_OTHER_TURN);
             table2.setStyle(STYLE_MY_TURN);
@@ -184,7 +171,7 @@ public class ObservationPhase extends BaseController{
             table1.setStyle(STYLE_MY_TURN);
             table2.setStyle(STYLE_OTHER_TURN);
         }
-        
+        turn = t;
     }
     
     public void sunkPlayerBoat(int i, Boat boat) {

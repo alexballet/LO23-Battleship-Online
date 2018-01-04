@@ -97,7 +97,7 @@ public class ChatController {
     
     public void doProfileArea(){   
 
-    		String namePlayer1 = "Player 1";
+        String namePlayer1 = "Player 1";
         String namePlayer2 = "Player 2";
         String full = "";
         

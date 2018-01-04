@@ -487,8 +487,7 @@ public class DataController {
 
     int getPlayerPosition(Player p, Game g) {
         Profile p1 = g.getPlayer1().getProfile();
-        Profile p2 = g.getPlayer2().getProfile();
-        if(p1.getIdUser().equals(p2.getIdUser())) {
+        if(p1.getIdUser().equals(p.getProfile().getIdUser())) {
             return 1;
         }
         else {
