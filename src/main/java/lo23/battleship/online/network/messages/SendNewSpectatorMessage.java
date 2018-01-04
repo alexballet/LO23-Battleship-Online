@@ -31,5 +31,17 @@ public class SendNewSpectatorMessage extends Message {
     public void process(IDataCom IData, InetAddress senderAddress){
         // TODO decommenter quand dans interface data
         IData.notifyToSpecGame(spec);
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("SHHHHIIIIITTT! : " + IData.getCreatedGame().getListSpectators().size());
+        System.out.println("NEWWWWWWWW: SPEC: " + spec.getUsername());
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
+        System.out.println("############################################");
     }
 }

@@ -311,6 +311,18 @@ public class CDataCom implements IDataCom {
      
      @Override
      public void notifyToSpecGame(User spec){
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("SHHHHIIIIITTT! : " + controller.getLocalGame().getListSpectators().size());
+         System.out.println("NEWWWWWWWW: SPEC FROM OTHER PLAYER: " + spec.getUsername());
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
          controller.getLocalGame().addSpectators(spec);
          System.out.println("ADD NEW SPECTATOR " + spec.getUsername());
      }
@@ -324,7 +336,18 @@ public class CDataCom implements IDataCom {
 
          interfaceCom.sendChatMessage(m, game);
 
-         //TODO : décommenter à l'integ
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("SHHHHIIIIITTT! : " + controller.getLocalGame().getListSpectators().size());
+         System.out.println("NEWWWWWWWW: SPEC FIRST: " + u.getUsername());
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
+         System.out.println("############################################");
 
          interfaceCom.sendNewSpectator(u, controller.getOtherPLayer(), game.getListSpectators());
          notifyToSpecGame(u);

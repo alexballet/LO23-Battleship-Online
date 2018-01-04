@@ -15,7 +15,7 @@ public class GameWonMessageToSpectator extends Message{
     Player player;
 
     public GameWonMessageToSpectator(Player p){
-        this.type = "GameWonMessage";
+        this.type = "GameWonMessageToSpectator";
         this.player = p;
     }
 
