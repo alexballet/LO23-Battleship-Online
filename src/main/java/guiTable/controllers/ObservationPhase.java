@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -16,7 +17,7 @@ import structData.Boat;
 import structData.Position;
 import structData.Shot;
 
-public class ObservationPhase extends BaseController {
+public class ObservationPhase extends BaseController implements Initializable {
 
     @FXML
     private AnchorPane anchorPane;
@@ -65,6 +66,7 @@ public class ObservationPhase extends BaseController {
     protected String VICTORY_P1_MSG = "Victoire !";
     protected String VICTORY_P2_MSG = "Defaite !";
     
+    public HashMap<Integer, GridPane> tablePlayer; //map to associate grid displayed and player
         
     
     
@@ -147,7 +149,7 @@ public class ObservationPhase extends BaseController {
         }
     }
     
-    private HashMap<Integer, GridPane> tablePlayer; //map to associate grid displayed and player
+    
     
 
     /**

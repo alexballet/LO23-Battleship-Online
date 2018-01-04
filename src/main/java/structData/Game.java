@@ -126,6 +126,11 @@ public class Game implements Serializable{
         spectator = newSpectator;
         spectatorChat = newSpectatorChat;
         if (spectator == true) {
+        System.out.println("################################################");
+        System.out.println("################################################");
+        System.out.println("nombre de spectateur [constructeur] : " + lS);
+        System.out.println("################################################");
+        System.out.println("################################################");
             listSpectators = lS;
         }
         else {
@@ -135,7 +140,7 @@ public class Game implements Serializable{
         player1 = p1;
         player1Start = p1Start;
         listMessages = lMsg;
-        System.out.println("nombre de spectateur [constructeur] : " + listSpectators.size());
+
     }
 
     
