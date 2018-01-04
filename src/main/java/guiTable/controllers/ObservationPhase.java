@@ -105,9 +105,9 @@ public class ObservationPhase extends BaseController{
     */
     public void showVictory(int player){
         if(player == 1) {
-        logMsg(VICTORY_P1_MSG);
-        } else {
         logMsg(VICTORY_P2_MSG);
+        } else {
+        logMsg(VICTORY_P1_MSG);
         }
     }
 
@@ -163,13 +163,13 @@ public class ObservationPhase extends BaseController{
      */
     public void setTurn(Boolean t) {
         if (t) {
+            gameState.setText("Au tour du joueur 2");
+            table2.setStyle(STYLE_OTHER_TURN);
+            table1.setStyle(STYLE_MY_TURN);
+        } else {
             gameState.setText("Au tour du joueur 1");
             table1.setStyle(STYLE_OTHER_TURN);
             table2.setStyle(STYLE_MY_TURN);
-        } else {
-            gameState.setText("Au tour du joueur 2");
-            table1.setStyle(STYLE_MY_TURN);
-            table2.setStyle(STYLE_OTHER_TURN);
         }
         turn = t;
     }
