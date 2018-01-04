@@ -35,11 +35,11 @@ public class GuiTableController implements GuiTableInterface {
 
     private AnchorPane rootLayout;
     private static GuiTableController INSTANCE = null;
-    
+
     private Stage mainStage;
-    
+
     private Boolean classic;
-    
+
     private GamePhaseController gamePhaseController;
     private ObserverPhaseController observerPhaseController;
     private ObservationPhase observationControlleur;
@@ -58,35 +58,35 @@ public class GuiTableController implements GuiTableInterface {
     /**
      * Private constructor for GuiTableController.
      */
-    private GuiTableController(){
+    private GuiTableController() {
     }
-        
+
     /**
      * Entry point for a unique instance of singleton GuiTableController;
+     *
      * @return GuiTableController : the singleton GuiTableController.
      */
-    public static GuiTableController getInstance()
-    {
-        if (INSTANCE == null)
-        { 
-            INSTANCE = new GuiTableController();	
+    public static GuiTableController getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new GuiTableController();
         }
         return INSTANCE;
     }
-    
+
     /**
-    * this function call an other fxml context and refresh page
-    * @param currentStage
+     * this function call an other fxml context and refresh page
+     *
+     * @param currentStage
      * @param placementTime
-    * @throws Exception 
-    */
+     * @throws Exception
+     */
     @Override
     public void displayPlacementPhase(Stage currentStage, Boolean classic, int placementTime) throws Exception {
         this.mainStage = currentStage;
         this.classic = classic;
-        
+
         FXMLLoader loader = new FXMLLoader();
-        if(classic) {
+        if (classic) {
             loader.setLocation(getClass().getResource(CLASSIC_PLACEMENT_URL));
         } else {
             loader.setLocation(getClass().getResource(BELGE_PLACEMENT_URL));
@@ -100,7 +100,7 @@ public class GuiTableController implements GuiTableInterface {
             mainStage.show();
         });
         placementPhaseController = loader.getController();
-        if(placementTime>=0) {
+        if (placementTime >= 0) {
             placementPhaseController.setPlacementTime(placementTime);
         } else {
             placementPhaseController.timerLabel.setVisible(false);
@@ -113,118 +113,123 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void opponentReady(final Boolean myTurn, long timePerShot) {
-    		Runnable command = new Runnable() {
-			@Override
-			public void run() {
-		        FXMLLoader loader = new FXMLLoader();
-		        loader.setLocation(getClass().getResource(GAME_PHASE_URL));
-		
-		        try {
-		            rootLayout = (AnchorPane) loader.load();
-		            gamePhaseController = loader.<GamePhaseController>getController();
-		            gamePhaseController.setMyTurn(myTurn);
-		            gamePhaseController.setMyBoats(boats);
-                            if(timePerShot>=0) {
-                                LocalTime localtime = LocalTime.MIN.plusSeconds(timePerShot);
-                                gamePhaseController.timePerShot = localtime;
-                                if (myTurn) {
-                                gamePhaseController.setRoundTime();
-                                }
-                            }
-		        
-		            Scene scene = new Scene(rootLayout);
-		            mainStage.setScene(scene);
-                            mainStage.setOnCloseRequest((WindowEvent event1) -> {
-                    		dataController.gameEnded();
-                            });
-		            mainStage.show();
-		            String conv = chatController.getConversation();
-                            chatController = gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, conv);
-                            chatController.setDataController(dataController);
-                            chatController.doProfileArea();
-		        } catch(IOException e) {
-		            System.err.println("ERROR : "+e.getMessage());
-		        }
-			}
-		};
-		Platform.runLater(command);
+        Runnable command = new Runnable() {
+            @Override
+            public void run() {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource(GAME_PHASE_URL));
+
+                try {
+                    rootLayout = (AnchorPane) loader.load();
+                    gamePhaseController = loader.<GamePhaseController>getController();
+                    gamePhaseController.setMyTurn(myTurn);
+                    gamePhaseController.setMyBoats(boats);
+                    if (timePerShot >= 0) {
+                        LocalTime localtime = LocalTime.MIN.plusSeconds(timePerShot);
+                        gamePhaseController.timePerShot = localtime;
+                        if (myTurn) {
+                            gamePhaseController.setRoundTime();
+                        }
+                    }
+
+                    Scene scene = new Scene(rootLayout);
+                    mainStage.setScene(scene);
+                    mainStage.setOnCloseRequest((WindowEvent event1) -> {
+                        dataController.gameEnded();
+                    });
+                    mainStage.show();
+                    String conv = chatController.getConversation();
+                    chatController = gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, conv);
+                    chatController.setDataController(dataController);
+                    chatController.doProfileArea();
+                } catch (IOException e) {
+                    System.err.println("ERROR : " + e.getMessage());
+                }
+            }
+        };
+        Platform.runLater(command);
     }
 
-  
     @Override
     public void displayObserverPhase(Stage currentStage, Game game) {
         Runnable command = new Runnable() {
-			@Override
-			public void run() {
-                            System.out.println("DÉBUT DE LA PHASE D'OBSERVATION");
-                            mainStage = currentStage;
-                            FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(getClass().getResource(OBSERVER_PHASE_URL));
-                             try {
-                                rootLayout = (AnchorPane) loader.load();
-                                observationControlleur = loader.getController();
-                                observationControlleur.tableController = GuiTableController.getInstance();
-                                observationControlleur.init();
-                                Scene scene = new Scene(rootLayout);
-                                mainStage.setScene(scene);
-                                mainStage.show();
-                                
-                                //conversation d'abord initialisée vide puis remplie
-                                if(game.getSpectatorChat()) {
-                                chatController = observationControlleur.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, "");
-                                chatController.setDataController(dataController);
-                                chatController.createConversation(game.getListMessages());
-                                chatController.doProfileArea();
-                                }
-                            } catch(IOException e) {
-                                System.err.println("ERROR : "+e.getMessage());
-                            }
-                        }
-        		};
-		Platform.runLater(command);
+            @Override
+            public void run() {
+                System.out.println("DÉBUT DE LA PHASE D'OBSERVATION");
+                mainStage = currentStage;
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource(OBSERVER_PHASE_URL));
+                try {
+                    rootLayout = (AnchorPane) loader.load();
+                    observationControlleur = loader.getController();
+                    observationControlleur.tableController = GuiTableController.getInstance();
+                    observationControlleur.init();
+                    Scene scene = new Scene(rootLayout);
+                    mainStage.setScene(scene);
+                    mainStage.show();
+
+                    //conversation d'abord initialisée vide puis remplie
+                    if (game.getSpectatorChat()) {
+                        chatController = observationControlleur.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, "");
+                        chatController.setDataController(dataController);
+                        chatController.createConversation(game.getListMessages());
+                        chatController.doProfileArea();
+                    }
+                } catch (IOException e) {
+                    System.err.println("ERROR : " + e.getMessage());
+                }
+            }
+        };
+        Platform.runLater(command);
     }
-    
+
     @Override
     public void updateSpectatorGame(Game game) {
-        HashSet<Shot> listShot1 = game.getPlayer1().getListShots();
-                            HashSet<Shot> listShot2 = game.getPlayer2().getListShots();
-                            Date time1 = null, time2 = null; // get time off last shot to which player turn it is
+        Runnable command = new Runnable() {
+            @Override
+            public void run() {
+                HashSet<Shot> listShot1 = game.getPlayer1().getListShots();
+                HashSet<Shot> listShot2 = game.getPlayer2().getListShots();
+                Date time1 = null, time2 = null; // get time off last shot to which player turn it is
 
-                            // display all shots
-                            for (Shot shot : listShot1) {
-                                displayObserverShot(shot, 1);
-                                time1 = shot.getTime();
-                            }
-                            for (Shot shot : listShot2) {
-                                displayObserverShot(shot, 2);
-                                time2 = shot.getTime();
-                            }
+                // display all shots
+                for (Shot shot : listShot1) {
+                    displayObserverShot(shot, 1);
+                    time1 = shot.getTime();
+                }
+                for (Shot shot : listShot2) {
+                    displayObserverShot(shot, 2);
+                    time2 = shot.getTime();
+                }
 
-                            List<Boat> listBoat1 = game.getPlayer1().getListBoats();
-                            List<Boat> listBoat2 = game.getPlayer1().getListBoats();
-                            //sunk boats
-                            listBoat1.forEach((boat) -> {
-                                if(boat.getSunk()) {
-                                    observationControlleur.sunkPlayerBoat(1, boat);
-                                }
-                            });
-                            listBoat2.forEach((boat) -> {
-                                if(boat.getSunk()) {
-                                    observationControlleur.sunkPlayerBoat(2, boat);
-                                }
-                            });
-                            boolean turn = true;
-                            if (time1!=null && time2 != null) {
-                                turn = time1.after(time2);
-                            }
-                            System.out.println("turn " + turn);
-                            System.out.println("observerPhase " + observationControlleur);
-                            
-                            //set game turn
-                            observationControlleur.setTurn(turn);
+                List<Boat> listBoat1 = game.getPlayer1().getListBoats();
+                List<Boat> listBoat2 = game.getPlayer1().getListBoats();
+                //sunk boats
+                listBoat1.forEach((boat) -> {
+                    if (boat.getSunk()) {
+                        observationControlleur.sunkPlayerBoat(1, boat);
+                    }
+                });
+                listBoat2.forEach((boat) -> {
+                    if (boat.getSunk()) {
+                        observationControlleur.sunkPlayerBoat(2, boat);
+                    }
+                });
+                boolean turn = true;
+                if (time1 != null && time2 != null) {
+                    turn = time1.after(time2);
+                }
+                System.out.println("turn " + turn);
+                System.out.println("observerPhase " + observationControlleur);
+
+                //set game turn
+                observationControlleur.setTurn(turn);
+            }
+        };
+        Platform.runLater(command);
     }
-    
-  /*  // à supprimer si l'autre fonctionne
+
+    /*  // à supprimer si l'autre fonctionne
     @Override
     public void displayObserverPhase(Stage currentStage, final boolean turn, LinkedHashMap<Shot,Boat> shotsDoneByPlayer1, LinkedHashMap<Shot,Boat> shotsDoneByPlayer2) {
         this.mainStage = currentStage;
@@ -250,7 +255,7 @@ public class GuiTableController implements GuiTableInterface {
         }
         observerPhaseController.setTurn(turn);
     }*/
-    /*
+ /*
     @Override
     public void displayPlayer1Shot(final Shot shot,final Boat boat) {
         //Displays a shot
@@ -274,19 +279,32 @@ public class GuiTableController implements GuiTableInterface {
         observerPhaseController.setTurn(true);
     }
     
-*/
+     */
     @Override
     public void displayObserverShot(final Shot shot, int player) {
-        //Displays a shot
-        observationControlleur.displayShot(shot, player);
-        // Changes the turn
-        observationControlleur.setTurn(false);
+        Runnable command = new Runnable() {
+            @Override
+            public void run() {
+
+                //Displays a shot
+                observationControlleur.displayShot(shot, player);
+                // Changes the turn
+                observationControlleur.setTurn(false);
+            }
+        };
+        Platform.runLater(command);
     }
 
-    
     @Override
     public void displayObserverPhaseVictory(int winner) {
-        observationControlleur.showVictory(winner);
+        Runnable command = new Runnable() {
+            @Override
+            public void run() {
+
+                observationControlleur.showVictory(winner);
+            }
+        };
+        Platform.runLater(command);
     }
 
     @Override
@@ -301,68 +319,68 @@ public class GuiTableController implements GuiTableInterface {
 
     @Override
     public void addChatMessage(ChatMessage message) {
-        if(chatController!=null) {
-        chatController.receiveAMessage(message);
+        if (chatController != null) {
+            chatController.receiveAMessage(message);
         }
     }
 
     @Override
-    public void displayMyShotResult(final Shot myShotResult,final Boat boat) {
-    		Runnable command = new Runnable() {
-			@Override
-			public void run() {
-		        gamePhaseController.addShot(myShotResult);
-		        if (boat != null && boat.getSunk()){
-		            gamePhaseController.sunckBoat(boat);
-		        }
-		        gamePhaseController.setMyTurn(false);
-			}
-		};
-		Platform.runLater(command);
+    public void displayMyShotResult(final Shot myShotResult, final Boat boat) {
+        Runnable command = new Runnable() {
+            @Override
+            public void run() {
+                gamePhaseController.addShot(myShotResult);
+                if (boat != null && boat.getSunk()) {
+                    gamePhaseController.sunckBoat(boat);
+                }
+                gamePhaseController.setMyTurn(false);
+            }
+        };
+        Platform.runLater(command);
     }
 
     @Override
-    public void displayOpponentShot(final Shot opponentShot,final Boat boat) {
-    		Runnable command = new Runnable() {
-			@Override
-			public void run() {
-		        gamePhaseController.addOpponentShot(opponentShot);
-		        if (boat != null && boat.getSunk()){
-		            gamePhaseController.sunkMyBoat(boat);
-		        }
-		        gamePhaseController.setMyTurn(true);
-			}
-		};
-		Platform.runLater(command);
+    public void displayOpponentShot(final Shot opponentShot, final Boat boat) {
+        Runnable command = new Runnable() {
+            @Override
+            public void run() {
+                gamePhaseController.addOpponentShot(opponentShot);
+                if (boat != null && boat.getSunk()) {
+                    gamePhaseController.sunkMyBoat(boat);
+                }
+                gamePhaseController.setMyTurn(true);
+            }
+        };
+        Platform.runLater(command);
     }
 
     @Override
     public void setDataController(CDataTable data) {
         this.dataController = data;
     }
-    
+
     public void validateBoats(List<Boat> boats) {
         this.boats = boats;
         dataController.coordinateShips(boats);
     }
-    
+
     public void validateShot(Position pos) {
         dataController.coordinate(pos);
     }
-    
+
     public Boolean exitGame() {
         return dataController.exit();
     }
 
     public CDataTable getDataController() {
         return dataController;
-        
+
     }
 
     @Override
     public void displayRageQuit() {
-        if (placementPhaseController!=null) {
-      //  placementPhaseController.displayQuitOpponent();
+        if (placementPhaseController != null) {
+            //  placementPhaseController.displayQuitOpponent();
         } else {
             System.out.println("Erreur inattendu, le placement phase copntroller n'a pas été initialisé");
         }

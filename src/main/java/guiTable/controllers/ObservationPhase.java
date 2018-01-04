@@ -71,7 +71,8 @@ public class ObservationPhase extends BaseController{
     
     
     public void initialize(URL location, ResourceBundle resources){          
-        messageContainer.setVisible(false);  
+        messageContainer.setVisible(false);
+        tablePlayer = new HashMap<>();
         tablePlayer.put(1, table1);
         tablePlayer.put(2, table2);
         MY_TURN_MSG = "Au tour du joueur 1";
@@ -84,6 +85,7 @@ public class ObservationPhase extends BaseController{
 
     void init() {
         messageContainer.setVisible(false);  
+        tablePlayer = new HashMap<>();
         tablePlayer.put(1, table1);
         tablePlayer.put(2, table2);
         MY_TURN_MSG = "Au tour du joueur 1";
