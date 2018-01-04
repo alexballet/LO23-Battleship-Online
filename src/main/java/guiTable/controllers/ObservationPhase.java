@@ -16,7 +16,7 @@ import structData.Boat;
 import structData.Position;
 import structData.Shot;
 
-public class ObservationPhase {
+public class ObservationPhase extends BaseController {
 
     @FXML
     private AnchorPane anchorPane;

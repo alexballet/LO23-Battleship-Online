@@ -198,7 +198,7 @@ public class NetworkModuleInterface implements COMInterface {
 
 
     public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat) {
-        ShotNotificationResultForSpectatorMessage messageToSpectatorss =
+        ShotNotificationResultForSpectatorMessage messageToSpectators =
                     new ShotNotificationResultForSpectatorMessage(destPlayer, resultShot, boat);
         ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, boat);
         HashSet<User> listSpectator = game.getListSpectators();
@@ -206,9 +206,9 @@ public class NetworkModuleInterface implements COMInterface {
 
         InetAddress destAddress;
 
-        for (User s: listSpectator) {
+        for (User s : listSpectator) {
             System.out.println("adress user : " + controller.getAddressForUser(s));
-            controller.sendMessage(shotNotificationResultMessage, controller.getAddressForUser(s));
+            controller.sendMessage(messageToSpectators, controller.getAddressForUser(s));
         }
 
         if (dataInterface.getLocalUser().getIdUser().equals(game.getPlayer1().getProfile().getIdUser())) {

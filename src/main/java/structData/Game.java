@@ -282,7 +282,7 @@ public class Game implements Serializable{
      * @param lS a HashSet
      */
     public void setListSpectators(HashSet<User> lS){
-        if (this.spectator == true) {
+        if (this.spectator) {
             this.listSpectators = lS;
         }       
     }

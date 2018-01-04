@@ -170,7 +170,7 @@ public class GuiTableController implements GuiTableInterface {
                                 
                                 //conversation d'abord initialisée vide puis remplie
                                 if(game.getSpectatorChat()) {
-                                chatController = gamePhaseController.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, ""); 
+                                chatController = observationControlleur.fillChatSlot(gamePhaseController.getChatPane(), CHAT_FXML_URL, "");
                                 chatController.setDataController(dataController);
                                 chatController.createConversation(game.getListMessages());
                                 chatController.doProfileArea();
