@@ -135,6 +135,7 @@ public class Game implements Serializable{
         player1 = p1;
         player1Start = p1Start;
         listMessages = lMsg;
+        System.out.println("nombre de spectateur [constructeur] : " + listSpectators.size());
     }
 
     
@@ -300,6 +301,7 @@ public class Game implements Serializable{
      */
     public void addSpectators(User spectator){
         listSpectators.add(spectator);
+        System.out.println("nombre de spectateur actuel : " + listSpectators.size());
     }
     
      /**
