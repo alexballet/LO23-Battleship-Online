@@ -17,7 +17,7 @@ import structData.Boat;
 import structData.Position;
 import structData.Shot;
 
-public class ObservationPhase extends BaseController implements Initializable {
+public class ObservationPhase extends BaseController{
 
     @FXML
     private AnchorPane anchorPane;
@@ -80,6 +80,22 @@ public class ObservationPhase extends BaseController implements Initializable {
         VICTORY_P1_MSG = "Victoire du joueur 1 bravo !";
         VICTORY_P2_MSG = "victoire du joueur 2 !";
         tableController = GuiTableController.getInstance();
+    }
+
+    void init() {
+        messageContainer.setVisible(false);  
+        tablePlayer.put(1, table1);
+        tablePlayer.put(2, table2);
+        MY_TURN_MSG = "Au tour du joueur 1";
+        OTHER_TURN_MSG = "Au tour du joueur 2";
+        EXIT_GAME_MSG = "Voulez-vous vraiment quitter l'observation de la partie ?";
+        VICTORY_P1_MSG = "Victoire du joueur 1 bravo !";
+        VICTORY_P2_MSG = "victoire du joueur 2 !";
+        tableController = GuiTableController.getInstance();
+    }
+    
+    public void setTableController(GuiTableController c) {
+        tableController = c;
     }
     
     protected void placeShotTo(Shot shot, GridPane grid) {

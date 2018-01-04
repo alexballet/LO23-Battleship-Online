@@ -156,7 +156,7 @@ public class GuiTableController implements GuiTableInterface {
         Runnable command = new Runnable() {
 			@Override
 			public void run() {
-
+                            System.out.println("DÉBUT DE LA PHASE D'OBSERVATION");
                             mainStage = currentStage;
                             FXMLLoader loader = new FXMLLoader();
                             loader.setLocation(getClass().getResource(OBSERVER_PHASE_URL));
@@ -164,6 +164,7 @@ public class GuiTableController implements GuiTableInterface {
                                 rootLayout = (AnchorPane) loader.load();
                                 observationControlleur = loader.getController();
                                 observationControlleur.tableController = GuiTableController.getInstance();
+                                observationControlleur.init();
                                 Scene scene = new Scene(rootLayout);
                                 mainStage.setScene(scene);
                                 mainStage.show();
