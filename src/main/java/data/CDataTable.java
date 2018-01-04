@@ -63,6 +63,9 @@ public class CDataTable implements IDataTable {
     public void textMessage(String message) {
         ChatMessage cm = new ChatMessage(controller.getLocalUser(),message,new Date());
         Game g = controller.getLocalGame();
+        if(g == null) {
+            g = controller.getAttendedGame();
+        }
         interfaceCom.sendChatMessage(cm, g); 
     }
 
@@ -95,7 +98,6 @@ public class CDataTable implements IDataTable {
             }
         }
 
-        // TODO: Simplifier les conditions (myTurn = p1Start && localPlayerIsPlayer1)
         if(controller.getLocalGame().getPlayer1().isReady() &&
                 controller.getLocalGame().getPlayer2().isReady())
         {

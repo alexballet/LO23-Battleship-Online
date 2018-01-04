@@ -378,12 +378,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <Label layoutX="91.0" layoutY="41.0" prefHeight="29.0" prefWidth="111.0" text="Joueur 1">
+            <Label fx:id="lblj1" layoutX="91.0" layoutY="41.0" prefHeight="29.0" prefWidth="111.0" text="Joueur 1">
                <font>
                   <Font size="23.0" />
                </font>
             </Label>
-            <Label layoutX="365.0" layoutY="46.0" prefHeight="29.0" prefWidth="111.0" text="Joueur 2">
+            <Label fx:id="lblj2" layoutX="365.0" layoutY="46.0" prefHeight="29.0" prefWidth="111.0" text="Joueur 2">
                <font>
                   <Font size="23.0" />
                </font>
