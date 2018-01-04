@@ -67,7 +67,7 @@ public interface GuiTableInterface {
      * Displays the victory of one of the players in the observer phase
      * @param loserPosition : inr that represents the loser position. True if it is the player 1, False if it is the player 2
      */
-    public void displayObserverPhaseDefeat(int loserPosition);
+    public void displayObserverPhaseVictory(int winner);
 
     /**
      * Displays a victory message, and allow player to return to IHM Main.

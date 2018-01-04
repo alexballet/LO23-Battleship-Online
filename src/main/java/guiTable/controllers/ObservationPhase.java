@@ -97,7 +97,7 @@ public class ObservationPhase {
     */
     public void showVictory(int player){
         if(player == 1) {
-        logMsg(VICTORY_P2_MSG);
+        logMsg(VICTORY_P1_MSG);
         } else {
         logMsg(VICTORY_P2_MSG);
         }

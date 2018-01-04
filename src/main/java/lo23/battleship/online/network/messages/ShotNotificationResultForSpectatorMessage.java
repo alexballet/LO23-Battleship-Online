@@ -20,11 +20,10 @@ public class ShotNotificationResultForSpectatorMessage extends Message{
     Player player;
     boolean gameOver;
 
-    public ShotNotificationResultForSpectatorMessage(Player p, Shot s, Boat b, boolean gameOver) {
+    public ShotNotificationResultForSpectatorMessage(Player p, Shot s, Boat b) {
         this.shot = s;
         this.boat = b;
         this.player = p;
-        this.gameOver = gameOver;
         this.type = "ShotNotificationResultForSpectatorMessage";}
 
     public String getType() {
@@ -35,7 +34,7 @@ public class ShotNotificationResultForSpectatorMessage extends Message{
         Profile playerProfile = player.getProfile();
         Profile localProfile = IData.getUserProfile();
         if(localProfile.getIdUser().equals(playerProfile)) {
-            IData.updateAttendedGame(player, shot, boat, gameOver);
+            IData.updateAttendedGame(player, shot, boat);
         }
     }
 

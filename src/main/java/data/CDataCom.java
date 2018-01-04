@@ -224,19 +224,19 @@ public class CDataCom implements IDataCom {
                 + "/" + controller.getOtherPLayer().getListBoats().size());
 
     }
+    public void notifyAttendedGameWon(Player p) {
+        Game attendedGame = controller.getAttendedGame();
+        int playerPositionInGame = getPlayerPosition(p, attendedGame);
+        interfaceTable.displayObserverPhaseVictory(playerPositionInGame);
+    }
 
-    public void updateAttendedGame(Player p, Shot s, Boat b, boolean gameOver) {
+    public void updateAttendedGame(Player p, Shot s, Boat b) {
         Game attendedGame = controller.getAttendedGame();
         int playerPositionInGame = getPlayerPosition(p, attendedGame);
         if(b != null) // it means it sank
             interfaceTable.sunkPlayerBoat(playerPositionInGame, b);
         else
             interfaceTable.displayObserverShot(s, playerPositionInGame);
-
-        if(gameOver) {
-            interfaceTable.displayObserverPhaseDefeat(playerPositionInGame);
-        }
-
     }
     
     /**

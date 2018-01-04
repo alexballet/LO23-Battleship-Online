@@ -172,6 +172,8 @@ public interface IDataCom {
 
      public Player getOtherPlayer();
 
-     public void updateAttendedGame(Player p, Shot s, Boat b, boolean gameOver);
+     public void updateAttendedGame(Player p, Shot s, Boat b);
+
+    public void notifyAttendedGameWon(Player p);
 
 }

@@ -284,8 +284,8 @@ public class GuiTableController implements GuiTableInterface {
 
     
     @Override
-    public void displayObserverPhaseDefeat(int loserPosition) {
-        observationControlleur.showVictory(loserPosition);
+    public void displayObserverPhaseVictory(int winner) {
+        observationControlleur.showVictory(winner);
     }
 
     @Override
