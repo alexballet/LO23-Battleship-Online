@@ -113,12 +113,6 @@ public class menuController implements Initializable{
 			else i++;
 		}
 		
-		System.out.print("[MAIN] INIT GAME LIST VIEW : [");
-		for(Game test: games) {
-			System.out.print(test.getIdGame() + " - ");
-		}
-		System.out.println("]");
-		
 		ObservableList<Game> gamesObservable = FXCollections.observableArrayList(games);
 		gamesView.setItems(gamesObservable);
 		gamesView.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>() { 
@@ -241,7 +235,6 @@ public class menuController implements Initializable{
 				}
 			}
 			if (isOk) {
-				System.out.println("[MAIN] ADD GAME - ID : " + game.getIdGame());
 				gamesView.getItems().add(game);
 			}
 			gamesView.refresh();
@@ -268,13 +261,14 @@ public class menuController implements Initializable{
 	public void updateGameStatus(Game game) {
 		ObservableList<Game> list =  gamesView.getItems();
 		for (int i = 0; i < list.size(); i++){
-			if (game.getIdGame().equals(list.get(i).getIdGame())) {
-				gamesView.getItems().remove(game);
+			Game g = list.get(i);
+			if (game.getIdGame().equals(g.getIdGame())) {
+				gamesView.getItems().remove(g);
 				gamesView.getItems().add(i, game);
 				break;
 			}
 		}
-		
+		gamesView.refresh();
 	}
 
 	public void removeGame(Game removedGame) {

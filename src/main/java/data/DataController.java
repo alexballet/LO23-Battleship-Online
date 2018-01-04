@@ -244,15 +244,14 @@ public class DataController {
      * @param g : the game which status has been modified
      */
     public void updateGameStatus(Game g){
-        Boolean gameexist = false;
         for (int i = 0; i < listGames.size(); i++) {
             if (listGames.get(i).getIdGame().equals(g.getIdGame())){
-                gameexist = true;
                 listGames.set(i, g);
                 break;
             }
         }
     }
+
     /**
      * Remove the game
      * @param g : game has to be remove
