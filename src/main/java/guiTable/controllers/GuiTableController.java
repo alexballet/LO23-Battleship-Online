@@ -163,7 +163,7 @@ public class GuiTableController implements GuiTableInterface {
                              try {
                                 rootLayout = (AnchorPane) loader.load();
                                 observationControlleur = loader.getController();
-
+                                observationControlleur.tableController = GuiTableController.getInstance();
                                 Scene scene = new Scene(rootLayout);
                                 mainStage.setScene(scene);
                                 mainStage.show();
