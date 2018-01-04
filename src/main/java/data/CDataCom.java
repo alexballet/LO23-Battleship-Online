@@ -218,9 +218,24 @@ public class CDataCom implements IDataCom {
     
     public void coordinates(Shot s, Boat b) {
         controller.updateGameDataPlaying(s, b, true);
+        
         interfaceTable.displayMyShotResult(s, b);
         System.out.println(controller.getLocalPlayerInGame().getListShots().size()
                 + "/" + controller.getOtherPLayer().getListBoats().size());
+
+    }
+
+    public void updateAttendedGame(Player p, Shot s, Boat b, boolean gameOver) {
+        Game attendedGame = controller.getAttendedGame();
+        int playerPositionInGame = getPlayerPosition(p, attendedGame);
+        if(b != null) // it means it sank
+            interfaceTable.sunkPlayerBoat(playerPositionInGame, b);
+        else
+            interfaceTable.displayObserverShot(s, playerPositionInGame);
+
+        if(gameOver) {
+            interfaceTable.displayObserverPhaseDefeat(playerPositionInGame);
+        }
 
     }
     
@@ -322,4 +337,7 @@ public class CDataCom implements IDataCom {
         return controller.getOtherPLayer();
     }
 
+    public int getPlayerPosition(Player p, Game g) {
+        return controller.getPlayerPosition(p, g);
+    }
 }

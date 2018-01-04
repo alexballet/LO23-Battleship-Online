@@ -24,7 +24,6 @@ public interface IDataCom {
      */
     public Game getCreatedGame();
 
-
     /**
      * The distant user has accepted or not the request to join the game and the 
      * method updateGameData will be used to update the game data
@@ -172,5 +171,7 @@ public interface IDataCom {
      public void notifyQuitSpectator(User spec);
 
      public Player getOtherPlayer();
-     
+
+     public void updateAttendedGame(Player p, Shot s, Boat b, boolean gameOver);
+
 }

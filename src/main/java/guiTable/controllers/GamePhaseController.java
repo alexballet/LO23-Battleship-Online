@@ -181,12 +181,12 @@ public class GamePhaseController extends gameInterface implements Initializable 
         if (boats == null) {
             System.err.println("Error : boats are null");
         } else {
-            for(Boat boat : boats) {
-                for(Position position : boat.getListCases()) {
+            boats.forEach((boat) -> {
+                boat.getListCases().forEach((position) -> {
                     CaseDrawing c = new CaseDrawing(CaseDrawing.Type.BOAT);
                     myTable.add(c, position.getX(), position.getY());
-                }
-            }
+                });
+            });
         }
     }
             /**
@@ -198,6 +198,9 @@ public class GamePhaseController extends gameInterface implements Initializable 
         exitButton.setDisable(false);
         valider.setDisable(false);
         table.setDisable(false);
+        if(waitExit) {
+            logMsg(waitMsg);
+        }
     }
     
     public void setRoundTime() {
