@@ -61,8 +61,8 @@ public class ObserverPhaseController extends gameInterface implements Initializa
         
     }
     
-    public void sunkPlayerBoat(int i, Boat boat) {
-        sunkABoat(tablePlayer.get(i), boat);
+    public void sunkPlayerBoat(int player, Boat boat) {
+        sunkABoat(tablePlayer.get(player), boat);
     }
 
     void displayShot(Shot shot, int player) {

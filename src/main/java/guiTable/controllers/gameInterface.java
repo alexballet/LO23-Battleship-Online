@@ -48,6 +48,8 @@ public abstract class gameInterface extends BaseController implements Initializa
     protected String EXIT_GAME_MSG = "Voulez-vous vraiment quitter la partie ?";
     protected String VICTORY_MSG = "Victoire !";
     protected String DEFEAT_MSG = "Defaite !";
+    protected boolean waitExit;
+    protected String waitMsg;
     
         
     protected void placeShotTo(Shot shot, GridPane grid) {
@@ -83,10 +85,14 @@ public abstract class gameInterface extends BaseController implements Initializa
      * @param msg message to be displayed
      */
     public void logMsg(String msg) {
+        if(!noButton.isVisible()) {
         messageContainer.setVisible(true);
         noButton.setVisible(false);
         yesButton.setVisible(false);
         messageTextContainer.setText(msg);
+        } else {
+            waitExit = true;
+        }
     }
     
     /**

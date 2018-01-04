@@ -73,7 +73,7 @@ public class CDataMain implements IDataMain {
 
     @Override
     public void getStatistics(Profile p) {
-        //demander à l'interface de la com
+        //demander à l'interface de la com WHAT THE FUCK ????
     }
     
     /*
