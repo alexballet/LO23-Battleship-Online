@@ -36,7 +36,7 @@ public class NetworkModuleInterface implements COMInterface {
 
         SendTextMessage sendTextMessage = new SendTextMessage(chatMessage);
 
-        HashSet<User> listUsers = g.getListSpectators();
+        HashSet<User> listUsers = (HashSet<User>) g.getListSpectators().clone();
 
         if (dataInterface.getLocalUser().getIdUser().equals(g.getPlayer1().getProfile().getIdUser())) {
             listUsers.add(g.getPlayer2().getProfile());

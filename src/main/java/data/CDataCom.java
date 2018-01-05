@@ -329,6 +329,8 @@ public class CDataCom implements IDataCom {
      }
 
      public void newRequestSpectator(User u){
+         System.out.println("********************** -    *****************" +
+                 controller.getLocalGame().getListSpectators().toArray()[0]);
          Game game = controller.getLocalGame();
          interfaceCom.sendInfoGameForSpectator(game, u);
          ChatMessage m = new ChatMessage(controller.getLocalUser(),
