@@ -219,8 +219,8 @@ public class GuiTableController implements GuiTableInterface {
                 System.out.println("turn " + turn);
                 System.out.println("observerPhase " + observationControlleur);
                 //conversation d'abord initialisée vide puis remplie
-                observationControlleur.setLblj1(game.getPlayer1().getProfile().getName());
-                observationControlleur.setLblj2(game.getPlayer2().getProfile().getName());
+                observationControlleur.setLblj1("grille de " + game.getPlayer2().getProfile().getName());
+                observationControlleur.setLblj2("grille de " + game.getPlayer1().getProfile().getName());
                 
                 if (game.getSpectatorChat()) {
                     chatController = observationControlleur.fillChatSlot(observationControlleur.getChatPane(), CHAT_FXML_URL, "");
