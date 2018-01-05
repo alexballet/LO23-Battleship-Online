@@ -105,6 +105,7 @@ public abstract class gameInterface extends BaseController implements Initializa
         noButton.setVisible(true);
         yesButton.setVisible(true);
         messageTextContainer.setText(msg);
+        waitExit = true;
     }
     
     

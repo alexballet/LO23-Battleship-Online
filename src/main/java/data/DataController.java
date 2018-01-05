@@ -420,9 +420,13 @@ public class DataController {
         System.out.println("GAME OVER");
         //arreter la partie localPlayer a perdu
                 Game game = getLocalGame();
-        game.setStatus(StatusGame.FINISHED);
-        interfaceCom.changeStatusGame(game);
-        setLocalGame(game);
+                try {
+                game.setStatus(StatusGame.FINISHED);
+                interfaceCom.changeStatusGame(game);
+                 setLocalGame(game);
+                } catch (NullPointerException e) {
+                    // le jeu est déjà supprimé
+                }
 
         
          Runnable command = new Runnable() {
@@ -471,8 +475,8 @@ public class DataController {
             interfaceCom.sendChatMessage(m, getAttendedGame());
             setAttendedGame(null); // on retire le attended game
         } else if(game != null){
+            System.out.println("GAME : " + game.getStatus() );
         switch (game.getStatus()) {
-            
             case PLAYING :
                 User u = getLocalUser();
                 String msg = " a quitté la partie en tant que joueur";
@@ -480,8 +484,8 @@ public class DataController {
                 ChatMessage m = new ChatMessage(u,
                         msg, new Date());
                 interfaceCom.sendChatMessage(m, getLocalGame());
-                immediateDefeat();
                 interfaceCom.notifyGameWon();
+                immediateDefeat();
                 break;
             case PLAYER1READY :
             case PLAYER2READY : 

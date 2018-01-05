@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structData;
 import java.util.UUID;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.io.Serializable;
+
 /**
  * Game is a class for the user's game
  */
@@ -86,7 +82,7 @@ public class Game implements Serializable{
     }
     
     /**
-     * Constructor with all parameters
+     * Second constructor with all parameters
      * @param newClassicType the game type
      * @param newName the game's name
      * @param newHumanOpponent a boolean equal to 1 if 
@@ -165,7 +161,7 @@ public class Game implements Serializable{
     }
     
     /**
-     * Method to copy a Game
+     * Method to copy a Game : Clone method
      * @param g a Game to copy
      * @return a copied Game
      */
@@ -358,6 +354,10 @@ public class Game implements Serializable{
         return ((this.player1 != null && this.player1.compareProfileToPlayer(p)) || (this.player2 != null && this.player2.compareProfileToPlayer(p)));
     }
     
+    /**
+     * Accessor for timeToPlaceBoats
+     * @return the time to place boats
+     */
     public int getTimeToPlaceBoats(){
         return timeToPlaceBoats;
     }

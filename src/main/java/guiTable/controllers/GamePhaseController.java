@@ -199,6 +199,7 @@ public class GamePhaseController extends gameInterface implements Initializable 
         valider.setDisable(false);
         table.setDisable(false);
         if(waitExit) {
+            waitExit = false;
             logMsg(waitMsg);
         }
     }
