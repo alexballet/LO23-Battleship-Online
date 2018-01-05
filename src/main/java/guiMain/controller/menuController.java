@@ -5,6 +5,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+
 import guiMain.GameCell;
 import guiMain.GuiMainController;
 import guiMain.PlayerCell;
@@ -20,9 +23,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 import structData.*;
@@ -42,6 +47,10 @@ public class menuController implements Initializable{
 	private Button optionButton;
 	@FXML 
 	private Button modifyProfileButton;
+	@FXML 
+	private Button refreshButton;
+	@FXML
+	private Label warningLabel;
 
 	public void setMainController (GuiMainController c) {
 		mainController = c;
@@ -165,7 +174,20 @@ public class menuController implements Initializable{
 		mainController.startIHM();
 	}
 
-
+	@FXML
+	private void refresh(){
+		String login = mainController.getIdata().getLocalProfile().getLogin();
+		String password = mainController.getIdata().getLocalProfile().getPassword();
+		try {
+			mainController.getIdata().connection(login, password);
+		} catch (UnknownHostException e) {
+			warningLabel.setText("Raffraichissement impossible");
+			warningLabel.setTextFill(Color.web("#ff0000"));
+		}
+		this.initUserList();
+		this.initGamesList();
+	}
+	
 	/**
 	 * Use the createGame Button as a way to start the displayPlacementPhase method from a guiTableController. 
 	 * To be removed for integration.

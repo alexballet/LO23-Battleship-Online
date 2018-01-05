@@ -178,6 +178,8 @@ public class NetworkController {
         return networkState.keySet();
     }
     public void clearNetwork() {
+    	System.out.println("Clear Network");
         networkState.clear();
+        System.out.println(networkState.values());
     }
 }

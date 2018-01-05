@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.menuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.menuController">
    <children>
       <GridPane prefHeight="617.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -87,7 +87,15 @@
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <HBox alignment="CENTER" GridPane.rowIndex="2" />
+                                    <HBox alignment="CENTER" GridPane.rowIndex="2">
+                                       <children>
+                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="300.0" text="Revoir une partie">
+                                             <font>
+                                                <Font size="20.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </HBox>
                                  </children>
                               </GridPane>
                               <HBox alignment="CENTER">
@@ -111,17 +119,35 @@
                                                 <Image url="@../../img/option.png" />
                                              </image></ImageView>
 													</graphic>
+                                       <VBox.margin>
+                                          <Insets top="2.0" />
+                                       </VBox.margin>
 												</Button>
+                                    <Button fx:id="disconnectionButton" layoutX="10.0" layoutY="63.0" mnemonicParsing="false" onAction="#disconnection" prefHeight="46.0" prefWidth="81.0">
+                                       <graphic>
+                                          <ImageView fitHeight="45.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="false">
+                                             <image>
+                                                <Image url="@../../img/logout.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets top="2.0" />
+                                       </VBox.margin>
+                                    </Button>
 												<fx:define>
 													<Image fx:id="btnDisconnect" url="@../../img/logout.png" />
 												</fx:define>
-												<Button fx:id="disconnectionButton" mnemonicParsing="false" onAction="#disconnection" prefHeight="46.0" prefWidth="81.0">
+												<Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refresh" prefHeight="46.0" prefWidth="81.0">
 													<graphic>
-														<ImageView fitHeight="45.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="false">
+														<ImageView fitHeight="45.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="false">
                                              <image>
-                                                <Image url="@../../img/logout.png" />
+                                                <Image url="@../../img/refresh.png" />
                                              </image></ImageView>
 													</graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="2.0" top="2.0" />
+                                       </VBox.margin>
 												</Button>
 											</children>
 										</VBox>
