@@ -13,17 +13,11 @@ import guiTable.GuiTableInterface;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javafx.application.Platform;
 import lo23.battleship.online.network.COMInterface;
-import structData.Boat;
-import structData.Game;
-import structData.User;
-import structData.DataUser;
-import structData.Profile;
-import structData.StatusGame;
-import structData.Player;
-import structData.Shot;
+import structData.*;
 
 /**
  *
@@ -467,13 +461,25 @@ public class DataController {
 
     void endGame() {
         Game game = getLocalGame();
-        if (attendedGame!=null) { // si on est seulement spectateurs
+        if (attendedGame != null) { // si on est seulement spectateurs
             interfaceCom.gameQuitSpectator(localUser, attendedGame);
+            User u = getLocalUser();
+            String msg = " a quitté la partie en tant que spectateur";
+            interfaceCom.sendInfoGameForSpectator(game, u);
+            ChatMessage m = new ChatMessage(u,
+                    msg, new Date());
+            interfaceCom.sendChatMessage(m, getAttendedGame());
             setAttendedGame(null); // on retire le attended game
         } else if(game != null){
         switch (game.getStatus()) {
             
             case PLAYING :
+                User u = getLocalUser();
+                String msg = " a quitté la partie en tant que joueur";
+                interfaceCom.sendInfoGameForSpectator(game, u);
+                ChatMessage m = new ChatMessage(u,
+                        msg, new Date());
+                interfaceCom.sendChatMessage(m, getLocalGame());
                 immediateDefeat();
                 interfaceCom.notifyGameWon();
                 break;

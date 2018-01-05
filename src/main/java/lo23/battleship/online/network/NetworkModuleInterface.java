@@ -40,7 +40,11 @@ public class NetworkModuleInterface implements COMInterface {
 
         if (dataInterface.getLocalUser().getIdUser().equals(g.getPlayer1().getProfile().getIdUser())) {
             listUsers.add(g.getPlayer2().getProfile());
+        }
+        else if(dataInterface.getLocalUser().getIdUser().equals(g.getPlayer1().getProfile().getIdUser())) {
+            listUsers.add(g.getPlayer1().getProfile());
         } else {
+            listUsers.add(g.getPlayer2().getProfile());
             listUsers.add(g.getPlayer1().getProfile());
         }
 
