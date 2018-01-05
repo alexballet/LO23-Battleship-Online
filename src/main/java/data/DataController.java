@@ -507,4 +507,15 @@ public class DataController {
             return 2;
         }
     }
+
+    void clearData() {
+        localUser = null;
+        // private DataUser localDataUser;
+        localGame = null;
+        attendedGame = null;
+        listUsers = null;
+        localProfile = null;
+        listGames = null;
+        localPlayer = null;
+    }
 }
