@@ -39,6 +39,7 @@ public class DataUser extends User {
      * @param du : a new object of the class DataUser
      */
     public DataUser(DataUser du){
+    		super(du);
         /*properties of class User*/
         idUser = du.idUser;
         login = du.login;
