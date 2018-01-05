@@ -34,12 +34,13 @@ public class DataUser extends User {
         listContacts = listContactsdata;
     }
     
+    // TO DO check if is used and delete
     /**
-     * Constructor for the class Profile who is "son" of the class User
+     * Constructor for the class DataUser
      * @param du : a new object of the class DataUser
      */
     public DataUser(DataUser du){
-    		super(du);
+        super(du);
         /*properties of class User*/
         idUser = du.idUser;
         login = du.login;
