@@ -117,7 +117,6 @@ public class CDataCom implements IDataCom {
                 }
             }
         }
-        System.out.println("CDataCom isok " + isOk);
         interfaceCom.notifyJoinGameResponse(isOk, sender, controller.getLocalGame());
         interfaceMain.openPlacementPhase(controller.getLocalGame());
     }
@@ -129,7 +128,6 @@ public class CDataCom implements IDataCom {
     
     @Override
     public void addNewGameList(Game g) {
-    		System.out.println("[DATA] add new game to list - ID : " + g.getIdGame());
         controller.addGameToList(g);
         interfaceMain.addGame(g);
     }
@@ -159,7 +157,6 @@ public class CDataCom implements IDataCom {
         } catch(NullPointerException e) {
             return;
         }
-        System.out.println("Message: " + message);
         interfaceTable.addChatMessage(message);
     }
 
@@ -180,7 +177,6 @@ public class CDataCom implements IDataCom {
         if(controller.getLocalGame().getPlayer1().isReady() &&
                 controller.getLocalGame().getPlayer2().isReady())
         {
-            System.out.println("2 player are ready");
             if (p1Start && p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
                 myTurn = true;
             } else if (p1Start && !p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
@@ -238,17 +234,10 @@ public class CDataCom implements IDataCom {
     }
 
     public void updateAttendedGame(Player p, Shot s, Boat b) {
-        System.out.println("################################################");
-        System.out.println("################################################");
-        System.out.println(" shot recu : " + s);
-        System.out.println("################################################");
-        System.out.println("################################################");
         Game attendedGame = controller.getAttendedGame();
         int playerPositionInGame = getPlayerPosition(p, attendedGame);
-        System.out.println(" player position " + playerPositionInGame);
         if(b != null) {// it means it sank
             interfaceTable.sunkPlayerBoat(playerPositionInGame, b);
-            System.out.println(" sunk " + s);
         } else {
             interfaceTable.displayObserverShot(s, playerPositionInGame);
         }
@@ -319,19 +308,17 @@ public class CDataCom implements IDataCom {
      @Override
      public void notifyToSpecGame(User spec){
 
-         System.out.println("############################################");
          controller.getLocalGame().addSpectators(spec);
-         System.out.println("ADD NEW SPECTATOR " + spec.getUsername());
      }
 
      public void newRequestSpectator(User u){
          Game game = controller.getLocalGame();
-         System.out.println("HELLO! : " + controller.getLocalGame().getListSpectators().size());
+         String msg = "Le joueur " + u.getUsername() + " a rejoint en spectateur.";
          interfaceCom.sendInfoGameForSpectator(game, u);
          ChatMessage m = new ChatMessage(controller.getLocalUser(),
-                 "Le joueur " + u.getUsername() + " a rejoint en spectateur.", new Date());
+                 msg, new Date());
          game.addMessage(m);
-
+         controller.getInterfaceDataTable().textMessage(msg);
          interfaceCom.sendChatMessage(m, game);
          interfaceCom.sendNewSpectator(u, controller.getOtherPLayer(), game.getListSpectators());
          notifyToSpecGame(u);
