@@ -177,5 +177,7 @@ public class NetworkController {
     public Set<User> getConnectedUsers() {
         return networkState.keySet();
     }
-
+    public void clearNetwork() {
+        networkState.clear();
+    }
 }

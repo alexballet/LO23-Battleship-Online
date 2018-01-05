@@ -564,9 +564,9 @@ public class DataController {
         // private DataUser localDataUser;
         localGame = null;
         attendedGame = null;
-        listUsers = null;
-        localProfile = null;
-        listGames = null;
+        listUsers.clear();
+        listGames.clear();
         localPlayer = null;
+        interfaceCom.clearNetwork();
     }
 }

@@ -307,5 +307,8 @@ public class NetworkModuleInterface implements COMInterface {
         }
 
     }
+    public void clearNetwork() {
+        controller.clearNetwork();
+    }
 
 }

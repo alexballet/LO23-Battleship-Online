@@ -143,4 +143,6 @@ public interface COMInterface {
      * Quit game already launch
      */
     public void quitGame();
+
+    public void clearNetwork();
 }
