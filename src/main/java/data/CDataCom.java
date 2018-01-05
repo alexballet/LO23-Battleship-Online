@@ -109,6 +109,7 @@ public class CDataCom implements IDataCom {
                     ga.setStatus(StatusGame.BOATPHASE);
                     Player p = new Player(sender);
                     ga.setPlayer2(p);
+                    controller.getLocalGame().setPlayer2(p);
                     interfaceCom.changeStatusGame(ga);
                     g = ga;
                 }else{
@@ -117,8 +118,8 @@ public class CDataCom implements IDataCom {
             }
         }
         System.out.println("CDataCom isok " + isOk);
-        interfaceCom.notifyJoinGameResponse(isOk, sender, g);
-        interfaceMain.openPlacementPhase(g);
+        interfaceCom.notifyJoinGameResponse(isOk, sender, controller.getLocalGame());
+        interfaceMain.openPlacementPhase(controller.getLocalGame());
     }
 
     /**
