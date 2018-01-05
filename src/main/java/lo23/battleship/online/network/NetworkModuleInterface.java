@@ -203,7 +203,6 @@ public class NetworkModuleInterface implements COMInterface {
                     new ShotNotificationResultForSpectatorMessage(destPlayer, resultShot, boat);
         ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, boat);
         HashSet<User> listSpectator = game.getListSpectators();
-        
 
         InetAddress destAddress;
 

@@ -350,7 +350,8 @@ public class CDataCom implements IDataCom {
          System.out.println("############################################");
          System.out.println("############################################");
          System.out.println("############################################");
-
+         notifyToSpecGame(u);
+         
          interfaceCom.sendNewSpectator(u, controller.getOtherPLayer(), game.getListSpectators());
      }
 
