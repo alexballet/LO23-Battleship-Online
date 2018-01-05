@@ -164,12 +164,12 @@ public class ObservationPhase extends BaseController{
     public void setTurn(Boolean t) {
         if (t) {
             gameState.setText("Au tour du joueur " + getLblj2());
-            table2.setStyle(STYLE_OTHER_TURN);
-            table1.setStyle(STYLE_MY_TURN);
-        } else {
-            gameState.setText("Au tour du joueur " + getLblj1());
             table1.setStyle(STYLE_OTHER_TURN);
             table2.setStyle(STYLE_MY_TURN);
+        } else {
+            gameState.setText("Au tour du joueur " + getLblj1());
+            table2.setStyle(STYLE_OTHER_TURN);
+            table1.setStyle(STYLE_MY_TURN);
         }
         turn = t;
     }
