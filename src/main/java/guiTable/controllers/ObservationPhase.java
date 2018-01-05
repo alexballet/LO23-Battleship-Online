@@ -68,6 +68,8 @@ public class ObservationPhase extends BaseController{
     public boolean turn = false;
     
     public HashMap<Integer, GridPane> tablePlayer; //map to associate grid displayed and player
+    private boolean waitExit = false;
+    private String waitMsg;
         
     
     void init() {
@@ -116,10 +118,15 @@ public class ObservationPhase extends BaseController{
      * @param msg message to be displayed
      */
     public void logMsg(String msg) {
+        if(!waitExit) {
         messageContainer.setVisible(true);
         noButton.setVisible(false);
         yesButton.setVisible(false);
         messageTextContainer.setText(msg);
+        } else {
+            waitExit = true;
+            waitMsg = msg;
+        }
     }
     
     /**
@@ -131,6 +138,7 @@ public class ObservationPhase extends BaseController{
         noButton.setVisible(true);
         yesButton.setVisible(true);
         messageTextContainer.setText(msg);
+        waitExit = true;
     }
     
     
@@ -195,6 +203,10 @@ public class ObservationPhase extends BaseController{
     void noClicked(ActionEvent event) {
         messageContainer.setVisible(false);
         exitButton.setDisable(false);
+        if(waitExit) {
+            waitExit = false;
+            logMsg(waitMsg);
+        }
     }
 
     public AnchorPane getChatPane() {
