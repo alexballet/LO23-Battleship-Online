@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structData;
 
 /**
  * BoatType is an emumerate of all the types of boats and numbur of cases associated.
- * @author lola
  */
 public enum BoatType {
     PORTEAVIONS("porte-avions", 5), 
@@ -27,6 +21,7 @@ public enum BoatType {
         this.nbCases = nbCases;
     }
     /**
+     * Accessor for the boat's name
      * @return the name
      */
     public String getName() {
@@ -34,7 +29,8 @@ public enum BoatType {
     }
 
     /**
-     * @return the nbCases
+     * Accessor for the boat's nbCases
+     * @return the nbCases : the number of the boat's number of cases
      */
     public int getNbCases() {
         return nbCases;

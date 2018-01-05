@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structData;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +15,7 @@ public class Boat implements Serializable{
     
     
     /**
-     * constructor by default
+     * Constructor by default
      * status = false means that the boat isn't sunk
      */
     public Boat(){
@@ -31,10 +26,10 @@ public class Boat implements Serializable{
     
 
     /**
-     * constructor with parameters
+     * Constructor with parameters
      * @param typedata : the type of the new boat
-     * @param rotation
-     * @param pos
+     * @param rotation : is the boat is rotated
+     * @param pos : the boat's position
      */
     public Boat(BoatType typedata, Boolean rotation, Position pos){
         type = typedata;
@@ -45,7 +40,7 @@ public class Boat implements Serializable{
     
 
     /**
-     * constructor with parameters
+     * Constructor with parameters
      * @param typedata : the type of the new boat
      * @param statusdata : the status of the new boat
      * @param listCasesdata  : the list of positions of the new boat
@@ -80,9 +75,8 @@ public class Boat implements Serializable{
         return listCases;
     }
     
-    //mutator
     /**
-     * 
+     * Mutator for Type
      * @param typedata : the new value of the type of the boat
      */
     public void setType(BoatType typedata){
@@ -105,6 +99,11 @@ public class Boat implements Serializable{
         this.listCases = listCasesdata;
     }
     
+    /**
+     * Mutator for listcases : the list of cases
+     * @param rotation if the boat is rotated or not
+     * @param pos the boat's position
+     */
     public void setListcases(Boolean rotation, Position pos){
         for (int i = 0; i < this.type.getNbCases(); i++) {
             if(rotation) {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * DataUser class
+ * DataUser class : inherits from User
  */
 public class DataUser extends User {
     protected String password;
@@ -34,7 +34,6 @@ public class DataUser extends User {
         listContacts = listContactsdata;
     }
     
-    // TO DO check if is used and delete
     /**
      * Constructor for the class DataUser
      * @param du : a new object of the class DataUser
