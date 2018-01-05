@@ -296,13 +296,16 @@ public class CDataCom implements IDataCom {
     @Override
      public void notifiedGameWon(){
         Game game = controller.getLocalGame();
-
+        try {
         game.setStatus(StatusGame.FINISHED);
         interfaceCom.changeStatusGame(game);
         controller.setLocalGame(game);
 
         interfaceTable.displayVictory();
         controller.recordVictory();
+        } catch (NullPointerException e) {
+            //jeu déjà supprimé
+        }
      }
 
 
