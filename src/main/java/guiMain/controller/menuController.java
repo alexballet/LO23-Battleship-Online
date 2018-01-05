@@ -202,7 +202,7 @@ public class menuController implements Initializable{
 	 * @param user : user to add to the list.
 	 */
 	public void addUser(User user){
-		Boolean isOk = true;
+		boolean isOk = true;
 		ObservableList<User> users = playersView.getItems();
 		for (int i = 0; i < users.size(); i++) {
 			if (users.get(i).getIdUser().equals(user.getIdUser())) {
