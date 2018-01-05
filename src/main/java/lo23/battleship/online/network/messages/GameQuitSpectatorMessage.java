@@ -26,8 +26,6 @@ public class GameQuitSpectatorMessage extends Message{
 
 
     public void process(IDataCom IData, InetAddress senderAddress){
-        // TODO avoir la méthode de data à appeler
-        // methode de data à appeler
-        //IData.notifyQuitSpectator(User spec);
+        IData.notifyQuitSpectator(spec);
     }
 }
