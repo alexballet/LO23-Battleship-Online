@@ -86,9 +86,7 @@ public class CDataTable implements IDataTable {
         boolean localPlayerIsPlayer1 = idUser.equals(
                 controller.getLocalGame().getPlayer1().getProfile().getIdUser());
         Game myGame = controller.getLocalGame();
-        if(!myGame.getHumanOpponent())  {
-            interfaceTable.opponentReady(myGame.getPlayer1Start(), myGame.getTimePerShot());
-        }else {
+
             if (localPlayerIsPlayer1) {
                 controller.getLocalGame().getPlayer1().setReady(true);
                 interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer2());
@@ -96,11 +94,12 @@ public class CDataTable implements IDataTable {
                 controller.getLocalGame().getPlayer2().setReady(true);
                 interfaceCom.notifyReady(controller.getLocalUser(), controller.getLocalGame().getPlayer1());
             }
-        }
+        
 
         if(controller.getLocalGame().getPlayer1().isReady() &&
                 controller.getLocalGame().getPlayer2().isReady())
         {
+            controller.getLocalGame().setStatus(StatusGame.PLAYING);
             myTurn = !(p1Start ^ localPlayerIsPlayer1); //retourne false si l'un des deux est faux et l'autre vrai
 
             interfaceTable.opponentReady(myTurn, myGame.getTimePerShot());
