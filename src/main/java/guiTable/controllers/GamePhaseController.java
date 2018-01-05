@@ -112,19 +112,16 @@ public class GamePhaseController extends gameInterface implements Initializable 
         GuiTableController.getInstance().validateShot(shoot);
         valider.setDisable(true);
     }
-    /**
-    * Shows victory message
-    */
+
+    @Override
     public void showVictory(){
         logMsg(VICTORY_MSG);
         if (timeline != null) timeline.stop();
         valider.setDisable(true);
     }
-    
-    
-    /**
-    * Shows defeat message
-    */
+
+
+    @Override
     public void showDefeat(){
         logMsg(DEFEAT_MSG);
         if (timeline != null) timeline.stop();
@@ -133,6 +130,10 @@ public class GamePhaseController extends gameInterface implements Initializable 
         table.setDisable(true);
     }
 
+    /**
+     *
+     * @param myTurn
+     */
     public void setMyTurn(Boolean myTurn) {
         this.myTurn = myTurn;
         
@@ -147,29 +148,51 @@ public class GamePhaseController extends gameInterface implements Initializable 
         }
     }
 
+    /**
+     * Add a shot
+     * @param shot
+     */
     public void addShot(Shot shot) {
         removeSelectedCase();
         placeShotTo(shot, table);
     }
-    
+
+    /**
+     * Remove the selected case
+     */
     protected void removeSelectedCase() {
         table.getChildren().remove(selectedCase);
     }
 
-
+    /**
+     * Sunk a boat
+     * @param boat
+     */
     public void sunckBoat(Boat boat) {
         sunkABoat(table, boat);
     }
 
+    /**
+     * Add the opponent shot
+     * @param opponentShot
+     */
     public void addOpponentShot(Shot opponentShot) {
         removeSelectedCase();
         placeShotTo(opponentShot, myTable);
     }
 
+    /**
+     * Sunk my boat
+     * @param boat
+     */
     public void sunkMyBoat(Boat boat) {
         sunkABoat(myTable, boat);
     }
 
+    /**
+     * Set my boats
+     * @param boats
+     */
     public void setMyBoats(List<Boat> boats) {
         if (boats == null) {
             System.err.println("Error : boats are null");
@@ -182,7 +205,8 @@ public class GamePhaseController extends gameInterface implements Initializable 
             });
         }
     }
-            /**
+
+    /**
      * Cancel end of game
      */
     @FXML
@@ -196,7 +220,10 @@ public class GamePhaseController extends gameInterface implements Initializable 
             logMsg(waitMsg);
         }
     }
-    
+
+    /**
+     * Set the round time
+     */
     public void setRoundTime() {
         
         if (timePerShot != null) {
@@ -231,7 +258,7 @@ public class GamePhaseController extends gameInterface implements Initializable 
     }
 
     /**
-     *
+     * Notify that the time is over
      */
     protected void timeIsOver() {
         showDefeat();
@@ -249,6 +276,7 @@ public class GamePhaseController extends gameInterface implements Initializable 
     }
     
     /**
+     * Get the chat pane
      * @return the chatPane
      */
     public AnchorPane getChatPane() {

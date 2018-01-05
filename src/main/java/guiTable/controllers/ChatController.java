@@ -1,6 +1,7 @@
 package guiTable.controllers;
 import data.CDataTable;
-import java.util.ArrayList;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -26,8 +27,11 @@ public class ChatController {
     
     private CDataTable dataController;
     private String conversation;
-    
-    
+
+    /**
+     *
+     * @param conv the previous conversation
+     */
     public void init(String conv) {
         //initialisation of the chat controller
         this.conversation = conv;
@@ -39,11 +43,8 @@ public class ChatController {
      * créer la conversation à partir de la liste des messages
      * @param list
      */
-    public void createConversation(ArrayList<ChatMessage> list) {
-        list.forEach((msg) -> {
-            receiveAMessage(msg);
-        });
-;
+    public void createConversation(List<ChatMessage> list) {
+        list.forEach(this::receiveAMessage);
     }
 
     public void sendMyMessage() {
@@ -54,10 +55,7 @@ public class ChatController {
         
         //get the message to send
         message = field.getText();
-        
-        //System.out.println("\n"+ "voici mon message : " + message + "\n");
-        //System.out.println( "voici ma conversation : " + conversation + "\n");
-        
+
         //add this to the conversation
         if(!message.isEmpty())
         {
@@ -71,36 +69,46 @@ public class ChatController {
         
         //erase the textfield
         field.setText("");
-        //field.home();
     }
+
+    /**
+     * Receive a message
+     * @param message
+     */
     public void receiveAMessage(ChatMessage message) {
-        //receive a message
-        
         //add this to the conversation
         conversationArea.setText(message.getProfile().getUsername()+ ": " + message.getContent() + "\n" + conversation);
         conversation = conversationArea.getText();
     }
-    
+
+    /**
+     * Reload the conversation
+     */
     public void reloadConversation(){
         conversationArea.setText("");
         conversationArea.appendText(conversation);
-        //System.out.println("on reload \n conv : " + conversation);
     }
-    
+
+    /**
+     * Set the data controller
+     * @param d
+     */
     public void setDataController(CDataTable d) {
         this.dataController = d;
     }
 
+    /**
+     *
+     * @return get the current conversation
+     */
     public String getConversation() {
         return this.conversation;
     }
-    
-    public void doProfileArea(){   
 
-        String namePlayer1 = "Player 1";
-        String namePlayer2 = "Player 2";
-        String full = "";
-        
+    /**
+     * Paint the design area
+     */
+    public void doProfileArea(){
         Game partie;
         partie = dataController.getLocalGame(); 
         if (partie == null) {
@@ -112,12 +120,12 @@ public class ChatController {
         
         Profile profilePlayer1 = player1.getProfile();
         Profile profilePlayer2 = player2.getProfile();
-        
-        namePlayer1 = profilePlayer1.getUsername();
-        namePlayer2 = profilePlayer2.getUsername();
+
+        String namePlayer1 = profilePlayer1.getUsername();
+        String namePlayer2 = profilePlayer2.getUsername();
         
         //chaine qui comprend les 2 adversaires
-        full = "   " + namePlayer1 + " VS " + namePlayer2;
+        String full = "   " + namePlayer1 + " VS " + namePlayer2;
         
         profils.setText(full);
     }

@@ -45,22 +45,7 @@ public interface GuiTableInterface {
      * @param player : the player who send the shot
      */
     public void displayObserverShot(Shot shot, int player);
-    
-    // a supprimer pendant l'integV5 si fonctionne
-    /**
-     * Displays the result of the player 1's shot on the player 2's board.
-     * @param shot : The shot sent by the player 1.
-     * @param boat : If filled, indicates this 'boat' is sunk.
-     */
-   // public void displayPlayer1Shot(Shot shot, Boat boat);
 
-    /**
-     * Displays the result of the player 2's shot on the player 1's board.
-     * @param shot : The shot sent by the player 2.
-     * @param boat : If filled, indicates this 'boat' is sunk.
-     */
-   // public void displayPlayer2Shot(Shot shot, Boat boat);
-    
     /**
      * Displays the victory of one of the players in the observer phase
      * @param winner the position of the winner
@@ -96,13 +81,29 @@ public interface GuiTableInterface {
      * @param message : New incoming message to display.
      */
     public void addChatMessage(ChatMessage message);
-    
+
+    /**
+     * Set the data controller
+     * @param d the data controller
+     */
     public void setDataController(CDataTable d);
-    
+
+    /**
+     * Display a rage quit message
+     */
     public void displayRageQuit();
 
+    /**
+     * Update the spectator game
+     * @param g the game tu update
+     */
     public void updateSpectatorGame(Game g);
 
+    /**
+     * Sunk the player boat
+     * @param i
+     * @param boat
+     */
     public void sunkPlayerBoat(int i, Boat boat);
 
 }
