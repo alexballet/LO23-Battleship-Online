@@ -19,6 +19,8 @@ public class SendInfoGameForSpectatorMessage extends Message{
         this.type = "SendInfoGameForSpectatorMessage";
         this.game = g;
         this.spec = s;
+        
+        System.out.println("SEND INFO GAME FOR SPEC " + g.getPlayer2());
     }
 
     public String getType() {
