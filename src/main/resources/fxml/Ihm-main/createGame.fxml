@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.CreateGameController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.CreateGameController">
    <children>
       <GridPane layoutX="295.0" layoutY="195.0" prefHeight="617.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -86,10 +86,9 @@
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <RadioButton fx:id="humanGameAdversaire" mnemonicParsing="false" text="Humain">
+                        <RadioButton fx:id="humanGameAdversaire" mnemonicParsing="false" selected="true" text="Humain">
                            <toggleGroup>
                               <ToggleGroup fx:id="gameAdversaire" />
                            </toggleGroup>
@@ -97,7 +96,6 @@
                               <Insets top="5.0" />
                            </GridPane.margin>
                         </RadioButton>
-                        <RadioButton fx:id="robotGameAdversaire" mnemonicParsing="false" selected="true" text="Robot" toggleGroup="$gameAdversaire" GridPane.rowIndex="1" />
                      </children>
                   </GridPane>
                   <Label text="Autoriser" GridPane.rowIndex="3" />

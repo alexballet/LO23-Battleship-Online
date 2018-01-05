@@ -38,9 +38,6 @@ public class CreateGameController implements Initializable{
 	private ToggleGroup gameAdversaire;
 
 	@FXML
-	private RadioButton robotGameAdversaire;
-
-	@FXML
 	private CheckBox spectatorsAutorise;
 
 	@FXML
