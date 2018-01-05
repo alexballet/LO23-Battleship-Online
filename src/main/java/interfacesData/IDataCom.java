@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfacesData;
 
 import structData.Boat;
@@ -15,7 +10,6 @@ import structData.Profile;
 
 /**
  * Data's interface for Com
- * @author Lucie
  */
 public interface IDataCom {
     /**
@@ -170,10 +164,31 @@ public interface IDataCom {
       */
      public void notifyQuitSpectator(User spec);
 
+    /**
+     * Accessor for the game's other player
+     * @return the other player
+     */
      public Player getOtherPlayer();
 
+     /**
+      * Update attended in a game
+      * @param p a player
+      * @param s a shot 
+      * @param b a boat
+      */
      public void updateAttendedGame(Player p, Shot s, Boat b);
 
+    /**
+     * Notify when a player won a game
+     * @param p the player
+     */
     public void notifyAttendedGameWon(Player p);
 
+    /**
+     * Accessor for a player's position
+     * @param p player
+     * @param g game
+     * @return the player's position
+     */
+    public int getPlayerPosition(Player p, Game g);
 }

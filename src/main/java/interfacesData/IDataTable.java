@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfacesData;
 import structData.Position;
 import structData.Boat;
 import java.util.List;
 import structData.Game;
-import structData.Shot;
 
 /**
  * Data's interface for IHM-Table
@@ -52,9 +46,18 @@ public interface IDataTable {
     public void timerOver();
     
     /**
-     * transmit to every user that the game is beign played, allow them to spectate
+     * Transmit to every user that the game is beign played, allow them to spectate
      */
     public void changeStatusGameStarted();
     
+    /**
+     *  Accessor for the observed game
+     * @return the game observed
+     */
     public Game getObserverGame();
+    
+    /**
+     * To end a game
+     */
+    public void gameEnded();
 }

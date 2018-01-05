@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import interfacesData.IDataTable;
@@ -21,8 +16,7 @@ import structData.Shot;
 import structData.StatusGame;
 
 /**
- *
- * @author Irvin
+ * Data's interface for Table
  */
 public class CDataTable implements IDataTable {
     
@@ -39,24 +33,33 @@ public class CDataTable implements IDataTable {
         controller = dc;
     }
     
+    /**
+     * Set the table's interface
+     * @param t Table interface
+     */
     public void setInterfaceTable(GuiTableInterface t) {
         interfaceTable = t;
     }
+    
+    /**
+     * Set the com's interface
+     * @param c interface com
+     */
     public void setInterfaceCom(COMInterface c){
         interfaceCom = c;
     }
 
+    /**
+     * Set the main's interface
+     * @param m interface main
+     */
     public void setInterfaceMain(GuiMainInterface m) {
         interfaceMain = m;
     }
-    /*
-     INTEGV5 FIXME
-    */
+    
     @Override
     public Boolean exit() {
-        //Boolean b = interfaceCom.exit(); Com doit s'occuper la fonction exit
-        //return b;
-        return true; //delete, si Com a fini exit
+        return true;
     }
 
     @Override
@@ -76,7 +79,6 @@ public class CDataTable implements IDataTable {
     }
 
     @Override
-    // TODO: Mettre les instructions dans le bon sens
     public void coordinateShips(List<Boat> listBoat) {
         Boolean myTurn;
         Boolean p1Start = controller.getLocalGame().getPlayer1Start();
@@ -209,6 +211,7 @@ public class CDataTable implements IDataTable {
         interfaceCom.changeStatusGame(g);
     }
     
+    @Override
     public void gameEnded() {
         controller.endGame();
         interfaceMain.openMenuWindow();
@@ -219,6 +222,7 @@ public class CDataTable implements IDataTable {
         controller.gameOver();
     }
     
+    @Override
     public Game getObserverGame(){
         return controller.getAttendedGame();
     } 
