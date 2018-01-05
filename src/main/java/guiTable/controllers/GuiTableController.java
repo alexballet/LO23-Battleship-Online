@@ -108,7 +108,7 @@ public class GuiTableController implements GuiTableInterface {
 
         chatController = placementPhaseController.fillChatSlot(placementPhaseController.getChatPane(), CHAT_FXML_URL, ""); // string final message initial
         chatController.setDataController(dataController);
-        chatController.doProfileArea();
+        //chatController.doProfileArea();
     }
 
     @Override

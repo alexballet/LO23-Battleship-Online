@@ -337,10 +337,16 @@ public class CDataCom implements IDataCom {
     @Override
     public void notifyQuitSpectator(User spec){
         Game game = controller.getAttendedGame();
-        HashSet<User> listSpec = game.getListSpectators();
-        System.out.println("Removing Spectator: " + spec.getUsername());
-        listSpec.remove(spec);
-        System.out.println("Remaining spectators: " + listSpec.size());
+        HashSet<User> listSpec;
+        try {
+            listSpec = game.getListSpectators();
+            System.out.println("Removing Spectator: " + spec.getUsername());
+            listSpec.remove(spec);
+            System.out.println("Remaining spectators: " + listSpec.size());
+            
+        }catch (NullPointerException e){
+            System.out.println("jeu détruit");
+        }
     }
 
     public Player getOtherPlayer(){
