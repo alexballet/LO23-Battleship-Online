@@ -19,6 +19,8 @@ import structData.Shot;
 import structData.StatusGame;
 import structData.User;
 import structData.Player;
+
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -345,7 +347,11 @@ public class CDataCom implements IDataCom {
     
     @Override
     public void notifyQuitSpectator(User spec){
-        //interfaceCom.notifyQuitSpectator(spec); A decommenter pdt l'integ
+        Game game = controller.getAttendedGame();
+        HashSet<User> listSpec = game.getListSpectators();
+        System.out.println("Removing Spectator: " + spec.getUsername());
+        listSpec.remove(spec);
+        System.out.println("Remaining spectators: " + listSpec.size());
     }
 
     public Player getOtherPlayer(){
