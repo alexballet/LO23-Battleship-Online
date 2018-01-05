@@ -151,12 +151,18 @@ public class CDataCom implements IDataCom {
     
     @Override
     public void receiveMessage(ChatMessage message) {
-        controller.getLocalGame().addMessage(message);
+        Game game = controller.getLocalGame();
+        if(game == null)
+            game = controller.getAttendedGame();
+        try {
+            game.addMessage(message);
+        } catch(NullPointerException e) {
+            return;
+        }
         System.out.println("Message: " + message);
         interfaceTable.addChatMessage(message);
     }
 
-    
     public void receiveReady() {
         //TODO decrasser le code !!! les conditions sont toujours les mêmes donc faire ça proprement
         Boolean myTurn;
