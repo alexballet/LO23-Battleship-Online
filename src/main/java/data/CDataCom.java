@@ -322,7 +322,7 @@ public class CDataCom implements IDataCom {
          ChatMessage m = new ChatMessage(controller.getLocalUser(),
                  msg, new Date());
          game.addMessage(m);
-         controller.getInterfaceDataTable().textMessage(msg);
+         controller.getTableInterface().addChatMessage(m);
          interfaceCom.sendChatMessage(m, game);
          interfaceCom.sendNewSpectator(u, controller.getOtherPLayer(), game.getListSpectators());
          notifyToSpecGame(u);

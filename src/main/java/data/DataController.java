@@ -84,6 +84,10 @@ public class DataController {
         /* ajout ihm-plateau débug   */
     }
     
+    public GuiTableInterface getTableInterface() {
+        return interfaceTable;
+    }
+    
     /**
      * Mutator for interfaceCom
      * @param i : new interfaceCom
