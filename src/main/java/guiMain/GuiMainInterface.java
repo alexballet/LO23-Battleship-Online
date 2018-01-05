@@ -3,7 +3,6 @@ import structData.*;
 
 /**
  * GUI Main Interface
- * @author aureliedigeon
  */
 public interface GuiMainInterface {
 	 /**
@@ -42,7 +41,7 @@ public interface GuiMainInterface {
 	 */
 	public void setGameJoinResponse(boolean isOk);
         
-        public void openPlacementPhase(Game game);
+    public void openPlacementPhase(Game game);
 	
 	/**
 	  * Remove the game passed as a parameter to the list of users.
@@ -50,4 +49,8 @@ public interface GuiMainInterface {
 	  */
 	public void removeGame(Game game);
 	
+	/**
+	 * To open the menu window
+	 */
+	public void openMenuWindow();
 }

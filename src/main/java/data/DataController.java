@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package data;
 
 import guiMain.GuiMainInterface;
@@ -11,22 +7,17 @@ import guiTable.GuiTableInterface;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javafx.application.Platform;
 import lo23.battleship.online.network.COMInterface;
-import structData.Boat;
-import structData.Game;
-import structData.User;
-import structData.DataUser;
-import structData.Profile;
-import structData.StatusGame;
-import structData.Player;
-import structData.Shot;
+import structData.*;
 
 /**
- *
- * @author Irvin
+ * Data's controller
  */
 public class DataController {
+
     
     private CDataCom interfaceDataCom;
     private CDataMain interfaceDataMain;
@@ -39,8 +30,8 @@ public class DataController {
     //private
         
     private User localUser;
-    private DataUser localDataUser;
     private Game localGame;
+    private Game attendedGame;
     private List<User> listUsers;
     private Profile localProfile;
     private List<Game> listGames;
@@ -50,15 +41,12 @@ public class DataController {
      * DataController
      */
     public DataController(){
-        //localUser = new User(); //test
         interfaceDataCom = new CDataCom(this);
         interfaceDataMain = new CDataMain(this);
         interfaceDataTable = new CDataTable(this);
         
         listUsers = new ArrayList<User>();
         listGames = new ArrayList<Game>();
-        //localDataUser = new DataUser(localUser);
-        //localProfile = new Profile(localDataUser);
     }
     
     /**
@@ -68,11 +56,27 @@ public class DataController {
     public void setInterfaceMain(GuiMainInterface i){
         interfaceMain = i;
         interfaceDataCom.setInterfaceMain(i);
+        interfaceDataTable.setInterfaceMain(i);
     }
         
+    /**
+     * Set the table's interface
+     * @param i table's interface
+     */
     public void setInterfaceTable(GuiTableInterface i){
         interfaceTable = i;
         interfaceDataCom.setInterfaceTable(i);
+        /* ajout ihm-plateau débug   */
+        interfaceDataTable.setInterfaceTable(i);
+        /* ajout ihm-plateau débug   */
+    }
+    
+    /**
+     * Accessor for table's interface
+     * @return table's interface
+     */
+    public GuiTableInterface getTableInterface() {
+        return interfaceTable;
     }
     
     /**
@@ -124,7 +128,7 @@ public class DataController {
      * @return the local DataUser
      */
     public DataUser getLocalDataUser(){
-        return localDataUser;
+        return (DataUser) localUser;
     }
     
     /**
@@ -143,14 +147,13 @@ public class DataController {
         localUser = u;
     }
     
-
     /**
      * Mutator for local DataUser
      * @param du : new DataUser
      */
 
     public void setLocalDataUser (DataUser du){
-        localDataUser = du;
+        localUser = du;
     }
     
     /**
@@ -161,10 +164,18 @@ public class DataController {
         localProfile = p;
     }
     
+    /**
+     * Mutator for local player
+     * @param p locla player to set
+     */
     public void setLocalPlayer(Player p){
         localPlayer = p;
     }
     
+    /**
+     * Accessor for local player
+     * @return the local player
+     */
     public Player getLocalPlayer(){
         return localPlayer;
     }
@@ -186,7 +197,6 @@ public class DataController {
         //comparer les UUID de u et des objets de listUser et enlever l'user si présent
         listUsers.remove(u);
     }
-    
 
     /**
     * Accessor local Game
@@ -196,6 +206,21 @@ public class DataController {
         return localGame;
     }
 
+    /**
+     * Accessor local Game
+     * @return the local Game
+     */
+    public Game getAttendedGame(){
+        return attendedGame;
+    }
+    
+    /**
+     * Mutator for the attended game
+     * @param g attended game
+     */
+    public void setAttendedGame(Game g) {
+        this.attendedGame = g;
+    }
     /**
      * Mutator local Game
      * @param g : new local Game
@@ -209,18 +234,29 @@ public class DataController {
      * @param g : game to add to the local list
      */
     public void addGameToList(Game g){
-        if(g != null)
-            listGames.add(g);
+        if(g != null) {
+        		boolean isOk = true;
+        		for (Game game : listGames) {
+        			if (game.getIdGame().equals(g.getIdGame())) isOk = false;
+        		}
+        		if (isOk) listGames.add(g);
+        }
     }
+    
     
     /**
      * Update the status of game and add it into the list of Game
      * @param g : the game which status has been modified
      */
     public void updateGameStatus(Game g){
-        localGame = g;
-        listGames.add(localGame);
+        for (int i = 0; i < listGames.size(); i++) {
+            if (listGames.get(i).getIdGame().equals(g.getIdGame())){
+                listGames.set(i, g);
+                break;
+            }
+        }
     }
+
     /**
      * Remove the game
      * @param g : game has to be remove
@@ -236,13 +272,13 @@ public class DataController {
     }
     
      /**
-     * used by the method setGameJoinResponse of CDataCom
+     * Used by the method setGameJoinResponse of CDataCom
      * @param ok 
      * @param player1
      * @param player2
      */
     public void updateGameData(Boolean ok, Player player1, Player player2){
-        if (ok == true){
+        if (ok){
             localGame.setStatus(StatusGame.BOATPHASE);
             localGame.setPlayer1(player1);
             localGame.setPlayer2(player2);
@@ -253,6 +289,41 @@ public class DataController {
         
     }
 
+    /**
+     * Used by the method setGameJoinResponse of CDataCom
+     */
+    private boolean isPlayer1() {
+        return getLocalUser().getIdUser().equals(
+                getLocalGame().getPlayer1().getProfile().getIdUser());
+    }
+
+    /**
+     *  To update the game's data when players are playing
+     * @param s shot
+     * @param b boat
+     * @param forLocalPlayer if used by the locla player or not
+     */
+    public void updateGameDataPlaying(Shot s, Boat b, boolean forLocalPlayer) {
+        Player otherPlayer;
+        Player PlayerWhoMadeShot;
+        if(forLocalPlayer) {
+            System.out.println("Update GameData Playing for Me");
+            otherPlayer = getOtherPLayer();
+            PlayerWhoMadeShot = getLocalPlayerInGame();
+            localPlayer.addShot(s);
+        }
+        else {
+            System.out.println("Update GameData Playing for Opponent");
+            PlayerWhoMadeShot = getOtherPLayer();
+            otherPlayer = getLocalPlayerInGame();
+        }
+
+        if(b != null)
+            otherPlayer.addBoat(b);
+
+        PlayerWhoMadeShot.addShot(s);
+    }
+
     
     /**
      * Get list of Games
@@ -260,6 +331,14 @@ public class DataController {
      */
     public List<Game> getListGames(){
         return listGames;
+    }
+    
+    /**
+     * Get list of Users
+     * @return the list of users
+     */
+    public List<User> getListUsers(){
+        return listUsers;
     }
     
     /**
@@ -279,10 +358,11 @@ public class DataController {
                     ObjectInputStream ois = new ObjectInputStream(fis);
                     Profile p = (Profile) ois.readObject();
                     ois.close();
+                    fis.close();
                     if ((p.getLogin().equals(login)) && (p.getPassword().equals(mdp))){
                         localProfile = p; 
-                        localUser = new User(localProfile);
-                        localDataUser = new DataUser(localProfile);
+                        localUser = localProfile;
+                        // localDataUser = localProfile;
                         break;
                     }            
                 } catch (Exception e) { 
@@ -303,24 +383,190 @@ public class DataController {
      * @return a boat if a boat has been sunk
      */
     public Boat testShot(Shot s){
-        int i, j;
-        boolean boatSunk = true;
-        Boat b = null;
-        for (i=0;i<localPlayer.getListBoats().size();i++) { // each boats
-            for (j=0;j<localPlayer.getListBoats().get(i).getListCases().size();j++) { // each positions of the boat
-                if (localPlayer.getListBoats().get(i).verifyPosition(s) == true) {
-                    localPlayer.getListBoats().get(i).getListCases().get(j).setTouched(true);
-                    s.setTouched(true);
-                    b = localPlayer.getListBoats().get(i);
-                }
-                if (localPlayer.getListBoats().get(i).getListCases().get(j).getTouched() == false) // if atmost 1 position is not touched then the boat is not sunk
-                    boatSunk = false;
+        Boat b ;
+        List<Boat> listBoat = localPlayer.getListBoats();
+        for (Boat boat : listBoat) {
+            if(boat.getSunk())
+                continue;
+            b = boat.updateShot(s);
+            if(b.getSunk()) {
+                return b;
             }
         }
-        // if a boat has been sunk return this boat
-        if (boatSunk == true)
-            return b;
-        else
-            return null;
+        return null;
+    }
+    
+    /**
+     * Mutator for list of users
+     * @param u list of users
+     */
+    public void setListUser(List<User> u){
+        listUsers = u;
+    }
+    
+    /**
+     * Mutator for list of games
+     * @param g list of games
+     */
+    public void setListGame(List<Game> g){
+        listGames = g;
+    }
+    
+    /**
+     * Accessor for local player
+     * @return the local player
+     */
+    public Player getOtherPLayer() {
+        if (isPlayer1()) {
+            return getLocalGame().getPlayer2();
+        } else {
+            return getLocalGame().getPlayer1();
+        }
+    }
+
+    /**
+     * Accessor for the local player in the game
+     * @return the player
+     */
+    public Player getLocalPlayerInGame() {
+        if (isPlayer1()) {
+            return getLocalGame().getPlayer1();
+        } else {
+            return getLocalGame().getPlayer2();
+        }
+    }
+
+    /**
+     * To know if the is local player belongs to the game
+     * @param game game to test
+     * @return a boolean indicating if the is player belongs to the game
+     */
+    public boolean isPlayerOf(Game game) {
+        Profile localProfile = getLocalProfile();
+        Profile profilePlayer1 = game.getPlayer1().getProfile();
+        Profile profilePlayer2 = game.getPlayer1().getProfile();
+        return localProfile.getIdUser().equals(profilePlayer1.getIdUser()) ||
+                localProfile.getIdUser().equals(profilePlayer2.getIdUser());
+    }
+    
+    /**
+     * When game is over
+     */
+    public void gameOver() {
+        System.out.println("GAME OVER");
+        //arreter la partie localPlayer a perdu
+                Game game = getLocalGame();
+                try {
+                game.setStatus(StatusGame.FINISHED);
+                interfaceCom.changeStatusGame(game);
+                 setLocalGame(game);
+                } catch (NullPointerException e) {
+                    // le jeu est déjà supprimé
+                }
+
+        
+         Runnable command = new Runnable() {
+			@Override
+			public void run() {
+                            interfaceTable.displayDefeat();
+                            }
+        		};
+		Platform.runLater(command);
+
+        
+        //notify the other player that he has won
+        Player pl = getOtherPLayer(); // to know to which player we send the notification : it's the player who is not ourself
+        interfaceCom.notifyGameWon();
+        interfaceCom.removeGame(getLocalGame());
+
+        immediateDefeat();
+        //interfaceMain.removeGame(controller.getLocalGame());
+        //interfaceCom.removeGame(controller.getLocalGame());
+    }
+
+    /**
+     * When immediate defeat
+     */
+    public void immediateDefeat() {
+        Profile localProfile = getLocalProfile();
+        localProfile.setGamesLost(localProfile.getGamesLost()+1);
+        localProfile.setGamesPlayed(localProfile.getGamesPlayed()+1);
+        removeGameFromList(getLocalGame()); // Verifier comment est géré la notification que la partie n'existe plus
+        localProfile.saveeditedProfile();
+    }
+
+    /**
+     * To record victory
+     */
+    public void recordVictory() {
+        Profile localProfile = getLocalProfile();
+        localProfile.setGamesWon(localProfile.getGamesWon()+1);
+        localProfile.setGamesPlayed(localProfile.getGamesPlayed()+1);
+        localProfile.saveeditedProfile();
+    }
+
+    /**
+     * To end the game
+     */
+    void endGame() {
+        Game game = getLocalGame();
+        if (attendedGame != null) { // si on est seulement spectateurs
+            interfaceCom.gameQuitSpectator(localUser, attendedGame);
+            User u = getLocalUser();
+            String msg = " a quitté la partie en tant que spectateur";
+            interfaceCom.sendInfoGameForSpectator(game, u);
+            ChatMessage m = new ChatMessage(u,
+                    msg, new Date());
+            interfaceCom.sendChatMessage(m, getAttendedGame());
+            setAttendedGame(null); // on retire le attended game
+        } else if(game != null){
+            System.out.println("GAME : " + game.getStatus() );
+        switch (game.getStatus()) {
+            case PLAYING :
+                User u = getLocalUser();
+                String msg = " a quitté la partie en tant que joueur";
+                interfaceCom.sendInfoGameForSpectator(game, u);
+                ChatMessage m = new ChatMessage(u,
+                        msg, new Date());
+                interfaceCom.sendChatMessage(m, getLocalGame());
+                interfaceCom.notifyGameWon();
+                immediateDefeat();
+                break;
+            case PLAYER1READY :
+            case PLAYER2READY : 
+            case BOATPHASE :
+              //  interfaceCom.quitMessage();
+        } 
+        removeGameFromList(game);
+        interfaceCom.removeGame(game);
+        setLocalGame(null);
+        }
+    }
+
+    /**
+     * Accessor for the player's position in a game (first or second player)
+     * @param p player
+     * @param g game
+     * @return an integer indicating the player's position
+     */
+    int getPlayerPosition(Player p, Game g) {
+        Profile p1 = g.getPlayer1().getProfile();
+        if(p1.getIdUser().equals(p.getProfile().getIdUser())) {
+            return 1;
+        }
+        else {
+            return 2;
+        }
+    }
+
+    void clearData() {
+        localUser = null;
+        // private DataUser localDataUser;
+        localGame = null;
+        attendedGame = null;
+        listUsers.clear();
+        listGames.clear();
+        localPlayer = null;
+        interfaceCom.clearNetwork();
     }
 }

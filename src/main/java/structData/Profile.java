@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structData;
 
 import java.util.Date;
@@ -10,9 +5,14 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Profile is a class for the user's profile
- * @author loulou
  */
 public class Profile extends DataUser {
     private ImageIcon avatar;
@@ -30,7 +30,7 @@ public class Profile extends DataUser {
      */
     public Profile(DataUser dUser){
         super(dUser);
-        avatar = new ImageIcon("");;
+        // avatar = new ImageIcon("");
         lastname = new String("");
         name = new String("");
         birthdate = new Date();
@@ -49,7 +49,7 @@ public class Profile extends DataUser {
      * @param newBirthdate a birthdate
      */
     public Profile(DataUser dUser, String pathToImage, String newLastname, 
-            String newName, Date newBirthdate){
+    					String newName, Date newBirthdate){
         super(dUser);
         if (pathToImage != null && !pathToImage.trim().isEmpty()) {
             avatar = new ImageIcon(pathToImage);
@@ -124,7 +124,9 @@ public class Profile extends DataUser {
      * @param path path to image
      */
     public void setAvatar(String path){
-        this.avatar = new ImageIcon(path);
+        if (path != null) {
+        		this.avatar = new ImageIcon(path);
+        }
     }
     
     /**
@@ -137,6 +139,7 @@ public class Profile extends DataUser {
     
     /**
      * Accessor for the image from avatar
+     * @return 
      * @return an avatar as an image
      */
     public Image getImage(){
@@ -199,6 +202,22 @@ public class Profile extends DataUser {
     public int getGamesPlayed(){
         return this.gamesPlayed;
     }
+    
+    /**
+     * Mutator for gamesWon
+     * @param nb the number of games won as an integer
+     */
+    public void setGamesWon(int nb){
+        this.gamesWon = nb;
+    }
+    /**
+     * Accessor for gamesWon
+     * @return the number of games won as an integer
+     */
+    public int getGamesWon(){
+        return this.gamesWon;
+    }
+    
     /**
      * Mutator for gamesLost
      * @param nb the number of games lost as an integer
@@ -229,7 +248,7 @@ public class Profile extends DataUser {
     }
     
     /**
-     * Save profile in a local file
+     * Save new profile in a local file
      */
     public void saveProfile(){
         String filename = Integer.toString(idUser.hashCode());
@@ -240,9 +259,43 @@ public class Profile extends DataUser {
          ObjectOutputStream os = new ObjectOutputStream(fs);
          os.writeObject(this); 
          os.close();
+         fs.close();
       } catch (Exception e) { 
-         e.printStackTrace(); 
+         Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, e);
       }
     }
     
+    /**
+     * Safe clean of file
+    */
+    public boolean cleanUp(File file) throws IOException{
+        Files.delete(file.toPath());
+        return true;
+    }
+    
+    /**
+     * Save edited profil
+     */
+    public void saveeditedProfile() {
+        String filename = Integer.toString(idUser.hashCode());
+        filename = filename.concat(".ser");
+        File file = new File(filename);
+        try {
+            if(cleanUp(file)){
+                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, file.getName() + " is deleted!");
+            }else{
+                Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, "Delete operation is failed.");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Profile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            FileOutputStream fs = new FileOutputStream(filename);
+            try (ObjectOutputStream os = new ObjectOutputStream(fs)) {
+                os.writeObject(this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

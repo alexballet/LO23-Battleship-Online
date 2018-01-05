@@ -33,7 +33,7 @@ DOXYFILE_ENCODING      = UTF-8
 # The default value is: My Project.
 
 #!!!! À CHANGER SI NOM CHANGE
-PROJECT_NAME           = battle-cheap 
+PROJECT_NAME           = Battleship-Online
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -46,7 +46,7 @@ PROJECT_NUMBER         =
 # quick idea about the purpose of the project. Keep the description short.
 
 #!!!! à remplir
-PROJECT_BRIEF          = 
+PROJECT_BRIEF          = "Documentation du projet Battleship-Online"
 
 # With the PROJECT_LOGO tag one can specify a logo or an icon that is included
 # in the documentation. The maximum height of the logo should not exceed 55

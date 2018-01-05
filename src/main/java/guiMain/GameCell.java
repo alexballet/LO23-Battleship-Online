@@ -62,6 +62,7 @@ public class GameCell extends ListCell<Game> {
    }
     
    
+        @Override
    protected void updateItem(final Game game, boolean empty) {
         super.updateItem(game, empty);
         setText(null);
@@ -93,8 +94,8 @@ public class GameCell extends ListCell<Game> {
         	    } else {
         	    		joinButtonBox.getChildren().remove(joinButton);
         	    }
-            
-        	    if (game.getSpectator()) {
+
+        	    if (game.getSpectator() && game.getStatus().equals(StatusGame.PLAYING) ) {
 	    	    		ImageView backgroundLook=new ImageView(new Image("/img/look.png"));
 	    	    		backgroundLook.setFitHeight(20);
 	    	    		backgroundLook.setPreserveRatio(true);
@@ -110,8 +111,10 @@ public class GameCell extends ListCell<Game> {
         	    		lookButtonBox.getChildren().remove(lookButton);
         	    }
         	    
+        	    System.out.println("GAME : " + game.getName() + " -  STATUS : " + game.getStatus() + " - ID " + game.getIdGame());
+        	    
             
-            setGraphic(hbox);
+            this.setGraphic(hbox);
             
         }
     }

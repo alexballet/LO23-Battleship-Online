@@ -1,31 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import guiMain.GuiMainInterface;
 import guiTable.GuiTableInterface;
 import interfacesData.IDataCom;
+import java.util.Date;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 import lo23.battleship.online.network.COMInterface;
 import structData.Boat;
 import structData.ChatMessage;
 import structData.Game;
-import structData.Position;
 import structData.Profile;
 import structData.Shot;
 import structData.StatusGame;
 import structData.User;
 import structData.Player;
 
+import java.util.HashSet;
+import java.util.List;
+
 /**
- *
- * @author Irvin
+ * CDataCom : interface of Data for Com
  */
 public class CDataCom implements IDataCom {
     
@@ -51,23 +45,14 @@ public class CDataCom implements IDataCom {
     public void setInterfaceCom(COMInterface c){
         interfaceCom = c;
     }
-
-    @Override
-    public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-    * Returns the current Game
-    * @return the current Game
-    */    
+   
     @Override
     public Game getCreatedGame() {
         Game g = controller.getLocalGame();
         return g;
     }
-
  
+    
     @Override
     public void setGameJoinResponse(Boolean ok, Player player1, Player player2) {
        interfaceMain.setGameJoinResponse(true);
@@ -78,6 +63,7 @@ public class CDataCom implements IDataCom {
      * The distance user has refused the request to join the game 
      * @param no : Refuse of the request to join the game
      */
+    
     @Override
     public void setGameJoinResponse(Boolean no){
         interfaceMain.setGameJoinResponse(false);
@@ -87,6 +73,7 @@ public class CDataCom implements IDataCom {
     * After an user has connected, this user will be added to the list of user
     * @param u : The new user
     */
+    
     @Override
     public void addUserToUserList(User u) {
         controller.addUserToList(u);
@@ -97,6 +84,7 @@ public class CDataCom implements IDataCom {
      * Sends the profile of a distant user to the local user 
      * @param profile : the profile of distant user
      */
+    
     @Override
     public void sendStatistics(Profile profile) {
         interfaceMain.sendStatistics(profile);
@@ -106,9 +94,8 @@ public class CDataCom implements IDataCom {
     * Add the player to the game if it is available.
     * @param sender : The player who sends this request
     * @param g : The game that the player wants to join
-    * @return 1 if the parameter game is an avaiable game and add the player 
-    * to this game, 0 if not
     */
+    
     @Override
     public void notifToJoinGame(Profile sender, Game g) {
         Boolean isOk = false;
@@ -119,6 +106,7 @@ public class CDataCom implements IDataCom {
                     ga.setStatus(StatusGame.BOATPHASE);
                     Player p = new Player(sender);
                     ga.setPlayer2(p);
+                    controller.getLocalGame().setPlayer2(p);
                     interfaceCom.changeStatusGame(ga);
                     g = ga;
                 }else{
@@ -126,71 +114,143 @@ public class CDataCom implements IDataCom {
                 }
             }
         }
-        System.out.println("CDataCom isok " + isOk);
-        interfaceCom.notifyJoinGameResponse(isOk, sender, g);
-        interfaceMain.openPlacementPhase(g);
+        interfaceCom.notifyJoinGameResponse(isOk, sender, controller.getLocalGame());
+        interfaceMain.openPlacementPhase(controller.getLocalGame());
     }
 
     /**
     * Adds the game given as a parameter to the list of games.
     * @param g : The new game
     */
+    
     @Override
     public void addNewGameList(Game g) {
         controller.addGameToList(g);
         interfaceMain.addGame(g);
     }
-
+    
     @Override
-    public void errorPrint(String error) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removeGameFromList(Game g){
+        controller.removeGameFromList(g);
+        interfaceMain.removeGame(g);
     }
 
+    
+    @Override
+    public void errorPrint(String error) {
+        //wait the method errorPrint in GuiTableInterface.java and GuiMainInterface.java
+        //Interfacetable.errorPrint(error);
+        //InterfaceMain.errorPrint(error);
+    }
+
+    
     @Override
     public void receiveMessage(ChatMessage message) {
-        controller.getLocalGame().addMessage(message);
+        Game game = controller.getLocalGame();
+        if(game == null)
+            game = controller.getAttendedGame();
+        try {
+            game.addMessage(message);
+        } catch(NullPointerException e) {
+            return;
+        }
         interfaceTable.addChatMessage(message);
     }
 
     @Override
     public void receiveReady() {
-                Boolean myTurn;
+        //TODO decrasser le code !!! les conditions sont toujours les mêmes donc faire ça proprement
+        Boolean myTurn;
         Boolean p1Start = controller.getLocalGame().getPlayer1Start();
         Player localPlayer = controller.getLocalPlayer();
         Player p1 = controller.getLocalGame().getPlayer1();
-        
-        if ( p1Start == true && p1 == localPlayer ){
-            myTurn = true;
-        }
-        else if ( p1Start == true && p1 != localPlayer ){
-            myTurn = false;
-        }
-        else if ( p1Start == false && p1 != localPlayer ){
-            myTurn = true;
-        }
-        else /*if ( p1Start == false && p1 == localPlayer )*/{
-            myTurn = false;
+
+        if ( p1Start && p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser()) ) {
+            controller.getLocalGame().getPlayer2().setReady(true);
+        } else {
+            controller.getLocalGame().getPlayer1().setReady(true);
         }
         
-        interfaceTable.opponentReady(myTurn);
+        //TODO REFACTOR
+        if(controller.getLocalGame().getPlayer1().isReady() &&
+                controller.getLocalGame().getPlayer2().isReady())
+        {
+            if (p1Start && p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
+                myTurn = true;
+            } else if (p1Start && !p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
+                myTurn = false;
+            } else myTurn = p1Start && !p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser()); /*if ( p1Start == false && p1 == localPlayer )*/ 
+
+            interfaceTable.opponentReady(myTurn, controller.getLocalGame().getTimePerShot());
+            Game g = controller.getLocalGame();
+            g.setStatus(StatusGame.PLAYING);
+            interfaceCom.changeStatusGame(g);
+        }
     }
+
+
 
     @Override
     public void coordinates(Shot s) {
         Boat b = controller.testShot(s);
         interfaceTable.displayOpponentShot(s, b);
-        //interfaceCom.coordinates(s,b); TODO : décommenter quand la fonction sera crée chez COM
+        controller.updateGameDataPlaying(s, b, false);
+        interfaceCom.coordinates(controller.getOtherPLayer() , s, controller.getLocalGame(), b);
+        if (b != null){
+            boolean gameOver = true;
+            Player localPlayer = controller.getLocalPlayer();
+            List<Boat> listboat = localPlayer.getListBoats();
+            for (Boat boat : listboat) {
+                if(!boat.getSunk()) {
+                    gameOver = false;
+                    break;
+                }
+            }
+            if (gameOver){
+                controller.gameOver();
+            }              
+            
+        }
+    }
+    
+    
+    @Override
+    public void coordinates(Shot s, Boat b) {
+        controller.updateGameDataPlaying(s, b, true);
+        
+        interfaceTable.displayMyShotResult(s, b);
+        System.out.println(controller.getLocalPlayerInGame().getListShots().size()
+                + "/" + controller.getOtherPLayer().getListBoats().size());
+
+    }
+    
+    /**
+     * Notify when a player won a game
+     * @param p the player
+     */
+    @Override
+    public void notifyAttendedGameWon(Player p) {
+        Game attendedGame = controller.getAttendedGame();
+        int playerPositionInGame = getPlayerPosition(p, attendedGame);
+        interfaceTable.displayObserverPhaseVictory(playerPositionInGame);
     }
 
     @Override
-    public void coordinates(Shot s, Boat b) {
-        interfaceTable.displayMyShotResult(s, b);
+    public void updateAttendedGame(Player p, Shot s, Boat b) {
+        Game attendedGame = controller.getAttendedGame();
+        int playerPositionInGame = getPlayerPosition(p, attendedGame);
+        if(b != null) {// it means it sank
+            interfaceTable.sunkPlayerBoat(playerPositionInGame, b);
+        } else {
+            interfaceTable.displayObserverShot(s, playerPositionInGame);
+        }
     }
     
     /**
      * Returns the local user's profile
      * @return the local user's profile
      */
+    
     @Override
     public Profile getUserProfile() {
         Profile localProfile = controller.getLocalProfile();
@@ -198,20 +258,25 @@ public class CDataCom implements IDataCom {
     }
     
     /**
-     * Takes a game given as a parameter and updates his status
+     * Takes a game given as a parameter and updates its status
      * @param g : the game which status has been modified
      */
+    
     @Override
     public void changeStatusGame(Game g) {
-        Game localGame  = controller.getLocalGame();
+       /* Game localGame  = controller.getLocalGame();
         if (localGame != null) controller.removeGameFromList(localGame);
+        controller.updateGameStatus(g);
+        interfaceMain.transmitNewStatus(g);*/
         controller.updateGameStatus(g);
         interfaceMain.transmitNewStatus(g);
     }
+    
     @Override
     public User getLocalUser(){
         return controller.getLocalUser();
     }
+    
     
     @Override
     public void setLocalGame(Game g){
@@ -219,21 +284,108 @@ public class CDataCom implements IDataCom {
         interfaceMain.openPlacementPhase(g);
     }
     
+    
     @Override
     public void removeUser(User u){
         controller.removeUserFromList(u);
         interfaceMain.removeUser(u);
     }
     
+    
     @Override
     public void removeGame(Game g){
         controller.removeGameFromList(g);
         interfaceMain.removeGame(g);
     }
+    /**
+      * Notification that you won, update stats and display win
+      */
+    @Override
+     public void notifiedGameWon(){
+        Game game = controller.getLocalGame();
+        try {
+        game.setStatus(StatusGame.FINISHED);
+        interfaceCom.changeStatusGame(game);
+        controller.setLocalGame(game);
 
-	@Override
-	public void coordinate(Position p, Shot s, Boat b) {
-		// TODO Auto-generated method stub
-		
-	}
+        interfaceTable.displayVictory();
+        controller.recordVictory();
+        } catch (NullPointerException e) {
+            //jeu déjà supprimé
+        }
+     }
+
+
+     
+     @Override
+     public void notifyToSpecGame(User spec){
+         if(spec != null) {
+             controller.getLocalGame().addSpectators(spec);
+             System.out.println("ADD NEW SPECTATOR " + spec.getUsername());
+         }
+     }
+
+     
+    @Override
+     public void newRequestSpectator(User u){
+         Game game = controller.getLocalGame();
+         String msg = "Le joueur " + u.getUsername() + " a rejoint en spectateur.";
+         interfaceCom.sendInfoGameForSpectator(game, u);
+         ChatMessage m = new ChatMessage(controller.getLocalUser(),
+                 msg, new Date());
+         game.addMessage(m);
+         controller.getTableInterface().addChatMessage(m);
+         interfaceCom.sendChatMessage(m, game);
+         interfaceCom.sendNewSpectator(u, controller.getOtherPLayer(), game.getListSpectators());
+         notifyToSpecGame(u);
+     }
+
+     /**
+      * For a User to join a game as a spectator
+      * @param g the game
+      */
+    @Override
+    public void joinGameSpectator(Game g) {
+        controller.setAttendedGame(g);
+        interfaceTable.updateSpectatorGame(g); //le main doit nous swap dans la partie, on vient de récupérer les données de la partie via le player1
+    }
+    
+    /**
+     * Notifies everybody when a spectator quitted the game
+     * @param spec the spectator that quitted
+     */
+    @Override
+    public void notifyQuitSpectator(User spec){
+        Game game = controller.getAttendedGame();
+        HashSet<User> listSpec;
+        try {
+            listSpec = game.getListSpectators();
+            System.out.println("Removing Spectator: " + spec.getUsername());
+            listSpec.remove(spec);
+            System.out.println("Remaining spectators: " + listSpec.size());
+            
+        }catch (NullPointerException e){
+            System.out.println("jeu détruit");
+        }
+    }
+
+    /**
+     * Accessor for the game's other player
+     * @return the other player
+     */
+    @Override
+    public Player getOtherPlayer(){
+        return controller.getOtherPLayer();
+    }
+
+    /**
+     * Accessor for a player's position
+     * @param p player
+     * @param g game
+     * @return the player's position
+     */
+    @Override
+    public int getPlayerPosition(Player p, Game g) {
+        return controller.getPlayerPosition(p, g);
+    }
 }

@@ -1,35 +1,71 @@
 package guiTable;
 
+import data.CDataTable;
 import javafx.stage.Stage;
 import structData.Boat;
 import structData.ChatMessage;
+import structData.Game;
 import structData.Shot;
 
 
 /**
  * Interface for the Ihm Table team
- * @author corentinhembise
  */
 public interface GuiTableInterface {
     
     /**
      * Displays the window where the player will place their ships.
-     * @param currentStage 
-     * @param classic 
+     * @param currentStage current stage to be replaced
+     * @param classic specify if it is a classic or belgian game
+     * @param timePerShot : Time limitation for placement phase, if null, no time limtation
      * @throws Exception 
      */
-    public void displayPlacementPhase(Stage currentStage, Boolean classic) throws Exception;
-
+    public void displayPlacementPhase(Stage currentStage, Boolean classic, int timePerShot) throws Exception;
+    
     /**
      * Notifies the IHM Table that the opponent is ready so that it can adapt its views.
-     * @param myTurn 
+     * Without round time limitation
+     * This method exist to avoid BC compatibilities
+     * @param myTurn specify if it is the local player turn
+     * @param time the time
      */
-    public void opponentReady(Boolean myTurn);
+    public void opponentReady(Boolean myTurn, long time);
     
     /**
      * Displays view where the user can watch a game.
+
+     * @param currentStage : The stage used by the main window
+     * @param game
      */
-    public void displayObserverPhase();
+    public void displayObserverPhase(Stage currentStage, Game game);
+    
+        /**
+     * Displays the result of the shot send by player number player.
+     * @param shot : The shot sent by the player 1.
+     * @param player : the player who send the shot
+     */
+    public void displayObserverShot(Shot shot, int player);
+    
+    // a supprimer pendant l'integV5 si fonctionne
+    /**
+     * Displays the result of the player 1's shot on the player 2's board.
+     * @param shot : The shot sent by the player 1.
+     * @param boat : If filled, indicates this 'boat' is sunk.
+     */
+   // public void displayPlayer1Shot(Shot shot, Boat boat);
+
+    /**
+     * Displays the result of the player 2's shot on the player 1's board.
+     * @param shot : The shot sent by the player 2.
+     * @param boat : If filled, indicates this 'boat' is sunk.
+     */
+   // public void displayPlayer2Shot(Shot shot, Boat boat);
+    
+    /**
+     * Displays the victory of one of the players in the observer phase
+     * @param winner the position of the winner
+     */
+    public void displayObserverPhaseVictory(int winner);
 
     /**
      * Displays a victory message, and allow player to return to IHM Main.
@@ -60,13 +96,13 @@ public interface GuiTableInterface {
      * @param message : New incoming message to display.
      */
     public void addChatMessage(ChatMessage message);
+    
+    public void setDataController(CDataTable d);
+    
+    public void displayRageQuit();
 
-    /**
-     * Displays an error or notification message in main window.
-     * @param messageType : Error type to show
-     * @param message : Error message to show.
-     */
-    //public void displayMessage(MessageType messageType, String message);
-    public void displayMessage(String message);
+    public void updateSpectatorGame(Game g);
+
+    public void sunkPlayerBoat(int i, Boat boat);
 
 }

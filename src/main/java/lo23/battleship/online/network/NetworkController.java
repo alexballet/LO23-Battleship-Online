@@ -8,6 +8,8 @@ import structData.User;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by xzirva on 17/10/17.
@@ -16,7 +18,7 @@ import java.util.*;
 public class NetworkController {
 
     // CONSTANTS
-    private int port = 2345;
+    private int port;
 
     public int getPort() {
         return port;
@@ -38,20 +40,21 @@ public class NetworkController {
     }
 
     private NetworkController() {
-        networkInterface = new NetworkModuleInterface(this);
         networkState = new HashMap<>();
         networkInterface = new NetworkModuleInterface(this);
-        // Launch server
-        this.launchServer();
+        // Create server
     }
 
     public void launchServer() {
-        if (networkServer != null) return;
-        this.networkServer = new NetworkServer(this);
+        port = dataInterface.getLocalUser().getPort();
+        if (networkServer == null)
+            this.networkServer = new NetworkServer(this, port);
+        this.networkServer.setDataInterface(dataInterface);
         try {
-            this.networkServer.open();
+            if(!networkServer.isOpened())
+                this.networkServer.open();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
         }
     }
 
@@ -79,7 +82,6 @@ public class NetworkController {
 
     public void setDataInterface(IDataCom IData) {
         this.dataInterface = IData;
-        networkServer.setDataInterface(dataInterface);
         networkInterface.setDataInterface(dataInterface);
     }
 
@@ -143,18 +145,41 @@ public class NetworkController {
         }
     }
 
-    public void removeFromNetwork(User user) {
+    public void removeFromNetwork(User user, Game game) {
         for (User u : networkState.keySet()) {
             if(user.getIdUser().equals(u.getIdUser())) {
                 networkState.remove(u);
                 dataInterface.removeUser(u);
+                if(game != null)
+                    dataInterface.removeGameFromList(game);
                 return;
             }
         }
     }
 
+    public void closeListener() {
+        networkState.clear();
+        networkServer.close();
+    }
+
+    public InetAddress removeUnreachableHost(InetAddress address) {
+
+        for (Map.Entry<User, InetAddress> entry : networkState.entrySet()) {
+
+            if (entry.getValue().equals(address)) {
+                return networkState.remove(entry.getKey());
+            }
+        }
+
+        return null;
+    }
+
     public Set<User> getConnectedUsers() {
         return networkState.keySet();
     }
-
+    public void clearNetwork() {
+    	System.out.println("Clear Network");
+        networkState.clear();
+        System.out.println(networkState.values());
+    }
 }

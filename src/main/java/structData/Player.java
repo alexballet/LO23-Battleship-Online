@@ -1,22 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structData;
 import java.util.HashSet;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 /**
- *
- * @author loulou
+ * Player is a class for players in a game
  */
 public class Player implements Serializable{
+    static final long serialVersionUID = 5L;
     private Profile profile;
     private List<Boat> listBoats;
     private HashSet<Shot> listShots;
-    
+    private boolean ready;
+
     /**
      * Constructor by default 
      * @param dUser : the parent class DataUser of the profile of the new player
@@ -25,19 +21,36 @@ public class Player implements Serializable{
         profile = new Profile(dUser);
         listBoats = new ArrayList();
         listShots = new HashSet();
+         ready = false;
     }
     
     /**
-     * 
+     * Constructor for a Player
      * @param dUser : the parent class DataUser of the profil of the new player
      */
     public Player(Profile p) {
         profile = p;
         listBoats = new ArrayList();
         listShots = new HashSet();
+        ready = false;
     }
-    
-    /*constructor with parameters*/
+
+    /**
+     * Accessor for ready
+     * @return a boolean that is true if the player is ready to play
+     */
+    public boolean isReady() {
+        return ready;
+    }
+
+    /**
+     * Mutator for ready
+     * @param value : the ready value
+     */
+    public void setReady(boolean value) {
+        ready = value;
+    }
+
     /**
      * Constructor with parameters
      * @param p : the profile of the new player
@@ -124,6 +137,7 @@ public class Player implements Serializable{
      * Add a new shot to the list of shots
      * @param newShot : the new shot to be added into the list of boats
      */
+    
     public void addShot (Shot newShot){
         listShots.add(newShot);
     }
@@ -139,4 +153,3 @@ public class Player implements Serializable{
     }
    
 }
-

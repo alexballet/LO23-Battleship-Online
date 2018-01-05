@@ -6,17 +6,20 @@ import interfacesData.IDataCom;
 import java.io.IOException;
 import java.net.*;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NetworkServer {
 
     //Configuration
-    private int port = 2345;
+    private int port;
     private InetAddress address;
     private int backlog = 100;
     private NetworkListener listener = null;
     private NetworkController networkController;
     private IDataCom dataInterface;
-    public NetworkServer(NetworkController networkController) {
+
+    public NetworkServer(NetworkController networkController, int port)  {
         System.out.println("-----------Initialize Server(Listener)---------");
         this.networkController = networkController;
         try {
@@ -40,17 +43,18 @@ public class NetworkServer {
                 }
                 if(address != null) break;
             }
+            //listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
         } catch (IOException e) {
             System.out.println("------!! Server already opened !!------");
         }
+        this.port = port;
 
     }
 
     public void setDataInterface(IDataCom IData) {
         dataInterface = IData;
-        listener.setDataInterface(dataInterface);
     }
 
     //Open and run server
@@ -59,6 +63,7 @@ public class NetworkServer {
         //A different thread to run the server
         System.out.println("-----------Open Server(Listener)---------");
         listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
+        listener.setDataInterface(dataInterface);
         System.out.println(listener.getServerSocketIPAddress().toString());
         listener.start();
 
@@ -72,15 +77,18 @@ public class NetworkServer {
      * Close server
      * Turn isRunning into false
      * */
+
+    public boolean isOpened() {
+        if(listener == null) return false;
+        return listener.isRunning;
+    }
     public void close() {
 
         System.out.println("-----------Close Server(Listener)---------");
-        listener.setIsRunning(false);
-
         try {
             listener.closeSocket();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
         }
     }
 }

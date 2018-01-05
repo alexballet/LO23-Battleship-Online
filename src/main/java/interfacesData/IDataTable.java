@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfacesData;
 import structData.Position;
 import structData.Boat;
-import structData.ChatMessage;
-import java.util.Date;
 import java.util.List;
+import structData.Game;
 
 /**
  * Data's interface for IHM-Table
@@ -41,10 +35,29 @@ public interface IDataTable {
      */
     public void coordinateShips(List<Boat> listBoat);
 
+    /* Not used because the robot user was abandonned.
+    /**
+     * IA that choose a shot. 
+     * @return the chosen Shot
+    
+    public Shot iaShot();
+    */
+    
+    public void timerOver();
+    
+    /**
+     * Transmit to every user that the game is beign played, allow them to spectate
+     */
+    public void changeStatusGameStarted();
+    
+    /**
+     *  Accessor for the observed game
+     * @return the game observed
+     */
+    public Game getObserverGame();
+    
+    /**
+     * To end a game
+     */
+    public void gameEnded();
 }
-
-
-
-
-
-

@@ -5,6 +5,8 @@ import static javafx.application.Application.launch;
 
 import data.DataController;
 import guiMain.GuiMainController;
+import guiTable.GuiTableInterface;
+import guiTable.controllers.GuiTableController;
 import javafx.stage.Stage;
 import lo23.battleship.online.network.NetworkController;
 
@@ -18,12 +20,14 @@ public class MainApp extends Application {
 		NetworkController networkController = NetworkController.getInstance();
 		DataController dataController = new DataController();
 		GuiMainController guiMainController = new GuiMainController(stage);
+		GuiTableInterface guiTableController = GuiTableController.getInstance();
 		networkController.setDataInterface(dataController.getInterfaceDataCom());
 		guiMainController.setIdata(dataController.getInterfaceDataMain());
 		dataController.setInterfaceCom(networkController.getCOMInterface());
 		dataController.setInterfaceMain(guiMainController);
-
-
+		dataController.setInterfaceTable(guiTableController);
+		guiTableController.setDataController(dataController.getInterfaceDataTable());
+                
 		guiMainController.startIHM();
 
 	}
