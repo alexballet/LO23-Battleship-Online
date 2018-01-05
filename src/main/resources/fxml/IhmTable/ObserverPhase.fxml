@@ -132,7 +132,7 @@
                </rowConstraints>
             </GridPane>
             <Button fx:id="exitButton" layoutX="20.0" layoutY="505.0" mnemonicParsing="false" onAction="#exitGame" text="Quitter" />
-            <Label fx:id="gameState" layoutX="250.0" layoutY="20.0" />
+            <Label fx:id="gameState" layoutX="134.0" layoutY="366.0" prefHeight="30.0" prefWidth="278.0" />
             <Pane fx:id="messageContainer" layoutX="102.0" layoutY="470.0" prefHeight="95.0" prefWidth="329.0">
                <children>
                   <Text fx:id="messageTextContainer" layoutX="4.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="321.0" />
@@ -378,7 +378,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="lblj2" layoutX="386.0" layoutY="27.0" text="Joueur 2">
+            <Label fx:id="lblj2" layoutX="329.0" layoutY="36.0" text="Joueur 2">
                <font>
                   <Font size="24.0" />
                </font>
