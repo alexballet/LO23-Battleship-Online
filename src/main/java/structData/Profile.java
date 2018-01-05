@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structData;
 
 import java.util.Date;
@@ -15,9 +10,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 /**
  * Profile is a class for the user's profile
- * @author loulou
  */
 public class Profile extends DataUser {
     private ImageIcon avatar;
@@ -279,7 +274,7 @@ public class Profile extends DataUser {
     }
     
     /**
-     * save edited profil
+     * Save edited profil
      */
     public void saveeditedProfile() {
         String filename = Integer.toString(idUser.hashCode());

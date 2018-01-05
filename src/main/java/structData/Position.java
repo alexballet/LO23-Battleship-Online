@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structData;
-
 import java.io.Serializable;
+
 /**
  * Position is a class of a position in a table.
  */
@@ -26,8 +21,8 @@ public class Position implements Serializable{
     
     /**
      * Position : constructor with all parameters
-     * @param newX x
-     * @param newY y 
+     * @param newX x coordinate
+     * @param newY y coordinate
      * @param newTouched boolean equal to 1 if the position is touched
      */
     public Position(int newX, int newY, Boolean newTouched){
@@ -35,9 +30,10 @@ public class Position implements Serializable{
         y = newY;
         touched = newTouched;
     }
-    
+
     /**
      * Position : constructor with a Position
+     * @param p a Position
      */
     public Position(Position p){
  

@@ -30,13 +30,17 @@ public class NetworkSender extends Thread{
     public void run() {
 
         try {
-            System.out.println("ouverture de la socket : " + host + "  " + port);
-            sock = new Socket(host, port);
-            writer = new ObjectOutputStream(sock.getOutputStream());
-            String timeStamps = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM).format(new Date());
-            System.out.println("Message " + message.getType() + " sent to " + sock.getInetAddress() + " at " + timeStamps);
-            writer.writeObject(message);
-            sock.close();
+            if(host == null) {
+                System.out.println("Host null");
+            } else {
+                System.out.println("ouverture de la socket : " + host + "  " + port);
+                sock = new Socket(host, port);
+                writer = new ObjectOutputStream(sock.getOutputStream());
+                String timeStamps = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM).format(new Date());
+                System.out.println("Message " + message.getType() + " sent to " + sock.getInetAddress() + " at " + timeStamps);
+                writer.writeObject(message);
+                sock.close();
+            }
         } catch (IOException e) {
             System.out.println(e.getMessage());
             System.out.println("Warning: Unable to reach host: " + host + ":" + port);

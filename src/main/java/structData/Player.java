@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structData;
 import java.util.HashSet;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 /**
- *
- * @author loulou
+ * Player is a class for players in a game
  */
 public class Player implements Serializable{
     static final long serialVersionUID = 5L;
@@ -31,7 +25,7 @@ public class Player implements Serializable{
     }
     
     /**
-     * 
+     * Constructor for a Player
      * @param dUser : the parent class DataUser of the profil of the new player
      */
     public Player(Profile p) {
@@ -41,17 +35,22 @@ public class Player implements Serializable{
         ready = false;
     }
 
+    /**
+     * Accessor for ready
+     * @return a boolean that is true if the player is ready to play
+     */
     public boolean isReady() {
         return ready;
     }
 
+    /**
+     * Mutator for ready
+     * @param value : the ready value
+     */
     public void setReady(boolean value) {
         ready = value;
     }
 
-
-    
-    /*constructor with parameters*/
     /**
      * Constructor with parameters
      * @param p : the profile of the new player

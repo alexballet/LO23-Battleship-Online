@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package structData;
 import java.util.HashSet;
 import java.util.UUID;
 import java.io.Serializable;
 import java.net.InetAddress;
 
+/**
+ * Class User
+ */
 public class User implements Serializable {
 	public static final int DEFAULT_PORT = 2345;
 	
@@ -18,16 +17,6 @@ public class User implements Serializable {
     protected String username;
     protected HashSet<InetAddress> iPs;
     protected int port = DEFAULT_PORT;
-    // TODO delete this constructor
-    /**
-     * Constructor by default
-     */
-    public User(){
-        idUser = UUID.randomUUID();
-        login = new String("");
-        username = new String("");
-        iPs = new HashSet();
-    }
     
     /**
      * Constructor with parameters
@@ -117,7 +106,6 @@ public class User implements Serializable {
      * @return the user who has called this method to clone all the 
      *         information of the userClone
      */
-    
    public User cloneUser(User userClone){
         idUser = userClone.idUser;
         login = userClone.login;
@@ -126,10 +114,18 @@ public class User implements Serializable {
         return this;
    }
    
+   /**
+    * Mutator for the port
+    * @param p : port
+    */
    public void setPort(int p){
        port = p;
    }
    
+   /**
+    * Accessor for the User's port
+    * @return the User's port
+    */
    public int getPort(){
        return port;
    }
