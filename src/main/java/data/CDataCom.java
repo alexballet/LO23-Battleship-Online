@@ -320,10 +320,10 @@ public class CDataCom implements IDataCom {
      
      @Override
      public void notifyToSpecGame(User spec){
-
-         System.out.println("############################################");
-         controller.getLocalGame().addSpectators(spec);
-         System.out.println("ADD NEW SPECTATOR " + spec.getUsername());
+         if(spec != null) {
+             controller.getLocalGame().addSpectators(spec);
+             System.out.println("ADD NEW SPECTATOR " + spec.getUsername());
+         }
      }
 
      public void newRequestSpectator(User u){
