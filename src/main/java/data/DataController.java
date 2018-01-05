@@ -84,6 +84,10 @@ public class DataController {
         /* ajout ihm-plateau débug   */
     }
     
+    public GuiTableInterface getTableInterface() {
+        return interfaceTable;
+    }
+    
     /**
      * Mutator for interfaceCom
      * @param i : new interfaceCom
@@ -462,11 +466,11 @@ public class DataController {
     }
 
     void endGame() {
+        Game game = getLocalGame();
         if (attendedGame!=null) { // si on est seulement spectateurs
             interfaceCom.gameQuitSpectator(localUser, attendedGame);
             setAttendedGame(null); // on retire le attended game
-        } else {
-        Game game = getLocalGame();
+        } else if(game != null){
         switch (game.getStatus()) {
             
             case PLAYING :

@@ -32,15 +32,6 @@ public class CreateGameController implements Initializable{
 	private RadioButton belgiumGameType;
 
 	@FXML
-	private RadioButton humanGameAdversaire;
-
-	@FXML
-	private ToggleGroup gameAdversaire;
-
-	@FXML
-	private RadioButton robotGameAdversaire;
-
-	@FXML
 	private CheckBox spectatorsAutorise;
 
 	@FXML
@@ -97,7 +88,7 @@ public class CreateGameController implements Initializable{
 		 Boolean spectators = spectatorsAutorise.isSelected();
 		 Boolean chat = chatAutorise.isSelected();
 		 Boolean classicGame = classicGameType.isSelected();
-		 Boolean oponent = humanGameAdversaire.isSelected();   
+		 Boolean oponent = true; // humain    
 		 int timePerShot = -1;
 		 int timeForPositioning= -1;
 		 
