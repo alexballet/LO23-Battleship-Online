@@ -1,12 +1,6 @@
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import guiMain.GuiMainInterface;
 import java.io.File;
 import guiTable.GuiTableInterface;
@@ -20,8 +14,7 @@ import lo23.battleship.online.network.COMInterface;
 import structData.*;
 
 /**
- *
- * @author Irvin
+ * Data's controller
  */
 public class DataController {
 
@@ -37,7 +30,6 @@ public class DataController {
     //private
         
     private User localUser;
-    // private DataUser localDataUser;
     private Game localGame;
     private Game attendedGame;
     private List<User> listUsers;
@@ -49,15 +41,12 @@ public class DataController {
      * DataController
      */
     public DataController(){
-        //localUser = new User(); //test
         interfaceDataCom = new CDataCom(this);
         interfaceDataMain = new CDataMain(this);
         interfaceDataTable = new CDataTable(this);
         
         listUsers = new ArrayList<User>();
         listGames = new ArrayList<Game>();
-        //localDataUser = new DataUser(localUser);
-        //localProfile = new Profile(localDataUser);
     }
     
     /**
@@ -70,6 +59,10 @@ public class DataController {
         interfaceDataTable.setInterfaceMain(i);
     }
         
+    /**
+     * Set the table's interface
+     * @param i table's interface
+     */
     public void setInterfaceTable(GuiTableInterface i){
         interfaceTable = i;
         interfaceDataCom.setInterfaceTable(i);
@@ -78,6 +71,10 @@ public class DataController {
         /* ajout ihm-plateau débug   */
     }
     
+    /**
+     * Accessor for table's interface
+     * @return table's interface
+     */
     public GuiTableInterface getTableInterface() {
         return interfaceTable;
     }
@@ -150,7 +147,6 @@ public class DataController {
         localUser = u;
     }
     
-
     /**
      * Mutator for local DataUser
      * @param du : new DataUser
@@ -168,10 +164,18 @@ public class DataController {
         localProfile = p;
     }
     
+    /**
+     * Mutator for local player
+     * @param p locla player to set
+     */
     public void setLocalPlayer(Player p){
         localPlayer = p;
     }
     
+    /**
+     * Accessor for local player
+     * @return the local player
+     */
     public Player getLocalPlayer(){
         return localPlayer;
     }
@@ -193,7 +197,6 @@ public class DataController {
         //comparer les UUID de u et des objets de listUser et enlever l'user si présent
         listUsers.remove(u);
     }
-    
 
     /**
     * Accessor local Game
@@ -211,6 +214,10 @@ public class DataController {
         return attendedGame;
     }
     
+    /**
+     * Mutator for the attended game
+     * @param g attended game
+     */
     public void setAttendedGame(Game g) {
         this.attendedGame = g;
     }
@@ -265,7 +272,7 @@ public class DataController {
     }
     
      /**
-     * used by the method setGameJoinResponse of CDataCom
+     * Used by the method setGameJoinResponse of CDataCom
      * @param ok 
      * @param player1
      * @param player2
@@ -283,14 +290,19 @@ public class DataController {
     }
 
     /**
-     * used by the method setGameJoinResponse of CDataCom
+     * Used by the method setGameJoinResponse of CDataCom
      */
-
     private boolean isPlayer1() {
         return getLocalUser().getIdUser().equals(
                 getLocalGame().getPlayer1().getProfile().getIdUser());
     }
 
+    /**
+     *  To update the game's data when players are playing
+     * @param s shot
+     * @param b boat
+     * @param forLocalPlayer if used by the locla player or not
+     */
     public void updateGameDataPlaying(Shot s, Boat b, boolean forLocalPlayer) {
         Player otherPlayer;
         Player PlayerWhoMadeShot;
@@ -384,14 +396,26 @@ public class DataController {
         return null;
     }
     
+    /**
+     * Mutator for list of users
+     * @param u list of users
+     */
     public void setListUser(List<User> u){
         listUsers = u;
     }
     
+    /**
+     * Mutator for list of games
+     * @param g list of games
+     */
     public void setListGame(List<Game> g){
         listGames = g;
     }
     
+    /**
+     * Accessor for local player
+     * @return the local player
+     */
     public Player getOtherPLayer() {
         if (isPlayer1()) {
             return getLocalGame().getPlayer2();
@@ -400,6 +424,10 @@ public class DataController {
         }
     }
 
+    /**
+     * Accessor for the local player in the game
+     * @return the player
+     */
     public Player getLocalPlayerInGame() {
         if (isPlayer1()) {
             return getLocalGame().getPlayer1();
@@ -408,6 +436,11 @@ public class DataController {
         }
     }
 
+    /**
+     * To know if the is local player belongs to the game
+     * @param game game to test
+     * @return a boolean indicating if the is player belongs to the game
+     */
     public boolean isPlayerOf(Game game) {
         Profile localProfile = getLocalProfile();
         Profile profilePlayer1 = game.getPlayer1().getProfile();
@@ -416,6 +449,9 @@ public class DataController {
                 localProfile.getIdUser().equals(profilePlayer2.getIdUser());
     }
     
+    /**
+     * When game is over
+     */
     public void gameOver() {
         System.out.println("GAME OVER");
         //arreter la partie localPlayer a perdu
@@ -448,6 +484,9 @@ public class DataController {
         //interfaceCom.removeGame(controller.getLocalGame());
     }
 
+    /**
+     * When immediate defeat
+     */
     public void immediateDefeat() {
         Profile localProfile = getLocalProfile();
         localProfile.setGamesLost(localProfile.getGamesLost()+1);
@@ -456,6 +495,9 @@ public class DataController {
         localProfile.saveeditedProfile();
     }
 
+    /**
+     * To record victory
+     */
     public void recordVictory() {
         Profile localProfile = getLocalProfile();
         localProfile.setGamesWon(localProfile.getGamesWon()+1);
@@ -463,6 +505,9 @@ public class DataController {
         localProfile.saveeditedProfile();
     }
 
+    /**
+     * To end the game
+     */
     void endGame() {
         Game game = getLocalGame();
         if (attendedGame != null) { // si on est seulement spectateurs
@@ -498,6 +543,12 @@ public class DataController {
         }
     }
 
+    /**
+     * Accessor for the player's position in a game (first or second player)
+     * @param p player
+     * @param g game
+     * @return an integer indicating the player's position
+     */
     int getPlayerPosition(Player p, Game g) {
         Profile p1 = g.getPlayer1().getProfile();
         if(p1.getIdUser().equals(p.getProfile().getIdUser())) {

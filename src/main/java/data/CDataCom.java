@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import guiMain.GuiMainInterface;
@@ -24,8 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- *
- * @author Irvin
+ * CDataCom : interface of Data for Com
  */
 public class CDataCom implements IDataCom {
     
@@ -52,6 +46,7 @@ public class CDataCom implements IDataCom {
         interfaceCom = c;
     }
    
+    @Override
     public Game getCreatedGame() {
         Game g = controller.getLocalGame();
         return g;
@@ -162,6 +157,7 @@ public class CDataCom implements IDataCom {
         interfaceTable.addChatMessage(message);
     }
 
+    @Override
     public void receiveReady() {
         //TODO decrasser le code !!! les conditions sont toujours les mêmes donc faire ça proprement
         Boolean myTurn;
@@ -183,11 +179,7 @@ public class CDataCom implements IDataCom {
                 myTurn = true;
             } else if (p1Start && !p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
                 myTurn = false;
-            } else if (p1Start && !p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser())) {
-                myTurn = true;
-            } else /*if ( p1Start == false && p1 == localPlayer )*/ {
-                myTurn = false;
-            }
+            } else myTurn = p1Start && !p1.getProfile().getIdUser().equals(localPlayer.getProfile().getIdUser()); /*if ( p1Start == false && p1 == localPlayer )*/ 
 
             interfaceTable.opponentReady(myTurn, controller.getLocalGame().getTimePerShot());
             Game g = controller.getLocalGame();
@@ -198,6 +190,7 @@ public class CDataCom implements IDataCom {
 
 
 
+    @Override
     public void coordinates(Shot s) {
         Boat b = controller.testShot(s);
         interfaceTable.displayOpponentShot(s, b);
@@ -221,6 +214,7 @@ public class CDataCom implements IDataCom {
     }
     
     
+    @Override
     public void coordinates(Shot s, Boat b) {
         controller.updateGameDataPlaying(s, b, true);
         
@@ -229,12 +223,19 @@ public class CDataCom implements IDataCom {
                 + "/" + controller.getOtherPLayer().getListBoats().size());
 
     }
+    
+    /**
+     * Notify when a player won a game
+     * @param p the player
+     */
+    @Override
     public void notifyAttendedGameWon(Player p) {
         Game attendedGame = controller.getAttendedGame();
         int playerPositionInGame = getPlayerPosition(p, attendedGame);
         interfaceTable.displayObserverPhaseVictory(playerPositionInGame);
     }
 
+    @Override
     public void updateAttendedGame(Player p, Shot s, Boat b) {
         Game attendedGame = controller.getAttendedGame();
         int playerPositionInGame = getPlayerPosition(p, attendedGame);
@@ -250,6 +251,7 @@ public class CDataCom implements IDataCom {
      * @return the local user's profile
      */
     
+    @Override
     public Profile getUserProfile() {
         Profile localProfile = controller.getLocalProfile();
         return localProfile;
@@ -260,6 +262,7 @@ public class CDataCom implements IDataCom {
      * @param g : the game which status has been modified
      */
     
+    @Override
     public void changeStatusGame(Game g) {
        /* Game localGame  = controller.getLocalGame();
         if (localGame != null) controller.removeGameFromList(localGame);
@@ -269,23 +272,27 @@ public class CDataCom implements IDataCom {
         interfaceMain.transmitNewStatus(g);
     }
     
+    @Override
     public User getLocalUser(){
         return controller.getLocalUser();
     }
     
     
+    @Override
     public void setLocalGame(Game g){
         controller.setLocalGame(g);
         interfaceMain.openPlacementPhase(g);
     }
     
     
+    @Override
     public void removeUser(User u){
         controller.removeUserFromList(u);
         interfaceMain.removeUser(u);
     }
     
     
+    @Override
     public void removeGame(Game g){
         controller.removeGameFromList(g);
         interfaceMain.removeGame(g);
@@ -318,6 +325,8 @@ public class CDataCom implements IDataCom {
          }
      }
 
+     
+    @Override
      public void newRequestSpectator(User u){
          Game game = controller.getLocalGame();
          String msg = "Le joueur " + u.getUsername() + " a rejoint en spectateur.";
@@ -331,12 +340,20 @@ public class CDataCom implements IDataCom {
          notifyToSpecGame(u);
      }
 
+     /**
+      * For a User to join a game as a spectator
+      * @param g the game
+      */
     @Override
     public void joinGameSpectator(Game g) {
         controller.setAttendedGame(g);
         interfaceTable.updateSpectatorGame(g); //le main doit nous swap dans la partie, on vient de récupérer les données de la partie via le player1
     }
     
+    /**
+     * Notifies everybody when a spectator quitted the game
+     * @param spec the spectator that quitted
+     */
     @Override
     public void notifyQuitSpectator(User spec){
         Game game = controller.getAttendedGame();
@@ -352,10 +369,22 @@ public class CDataCom implements IDataCom {
         }
     }
 
+    /**
+     * Accessor for the game's other player
+     * @return the other player
+     */
+    @Override
     public Player getOtherPlayer(){
         return controller.getOtherPLayer();
     }
 
+    /**
+     * Accessor for a player's position
+     * @param p player
+     * @param g game
+     * @return the player's position
+     */
+    @Override
     public int getPlayerPosition(Player p, Game g) {
         return controller.getPlayerPosition(p, g);
     }

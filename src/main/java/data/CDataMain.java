@@ -5,9 +5,7 @@
  */
 package data;
 
-import interfacesData.IDataCom;
 import interfacesData.IDataMain;
-import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
 import lo23.battleship.online.network.COMInterface;
@@ -126,7 +124,7 @@ public class CDataMain implements IDataMain {
         System.out.println("############################################");
         System.out.println("############################################");
         System.out.println("############################################");
-        System.out.println("SHHHHIIIIITTT! - JOIN NEW GAME LOCAL BEFORE SET: " + g.getListSpectators().size());
+        System.out.println("JOIN NEW GAME LOCAL BEFORE SET: " + g.getListSpectators().size());
         System.out.println("############################################");
         System.out.println("############################################");
         System.out.println("############################################");
@@ -140,7 +138,7 @@ public class CDataMain implements IDataMain {
         System.out.println("############################################");
         System.out.println("############################################");
         System.out.println("############################################");
-        System.out.println("SHHHHIIIIITTT! - JOIN NEW GAME LOCAL: " + controller.getLocalGame().getListSpectators().size());
+        System.out.println("JOIN NEW GAME LOCAL: " + controller.getLocalGame().getListSpectators().size());
         System.out.println("############################################");
         System.out.println("############################################");
         System.out.println("############################################");
@@ -150,22 +148,27 @@ public class CDataMain implements IDataMain {
         return g;
     }
     
+    @Override
     public void removeGame(Game g){
         interfaceCom.removeGame(g);
     }
 
+    @Override
     public List<Game> getGames() {
         return controller.getListGames();
     }
 
+    @Override
     public void setLocalGame(Game g){
         controller.setLocalGame(g);
     }
     
+    @Override
      public void getProfile(User u){
          interfaceCom.getProfile(u);
      }
      
+    @Override
      public void setListIps(HashSet Ips){
          controller.getLocalProfile().setIPs(Ips);
          interfaceCom.searchForPlayers();
