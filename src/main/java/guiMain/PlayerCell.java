@@ -1,7 +1,6 @@
 package guiMain;
 
 import javafx.scene.control.ListCell;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import data.DataController;
 import guiMain.controller.ChangeProfileController;
 
 import guiMain.controller.CreateGameController;
@@ -94,6 +93,7 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
 
+        @Override
 	public void removeGame(final Game removedGame) {
 		if (removedGame != null) {
 			Runnable command = new Runnable() {
@@ -159,6 +159,7 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
 
+        @Override
 	public void openMenuWindow(){
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/menu.fxml"));

@@ -62,6 +62,7 @@ public class GameCell extends ListCell<Game> {
    }
     
    
+        @Override
    protected void updateItem(final Game game, boolean empty) {
         super.updateItem(game, empty);
         setText(null);

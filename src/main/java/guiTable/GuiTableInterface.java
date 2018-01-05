@@ -1,8 +1,6 @@
 package guiTable;
 
 import data.CDataTable;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import javafx.stage.Stage;
 import structData.Boat;
 import structData.ChatMessage;
@@ -12,7 +10,6 @@ import structData.Shot;
 
 /**
  * Interface for the Ihm Table team
- * @author corentinhembise
  */
 public interface GuiTableInterface {
     
@@ -30,6 +27,7 @@ public interface GuiTableInterface {
      * Without round time limitation
      * This method exist to avoid BC compatibilities
      * @param myTurn specify if it is the local player turn
+     * @param time the time
      */
     public void opponentReady(Boolean myTurn, long time);
     
@@ -65,7 +63,7 @@ public interface GuiTableInterface {
     
     /**
      * Displays the victory of one of the players in the observer phase
-     * @param loserPosition : inr that represents the loser position. True if it is the player 1, False if it is the player 2
+     * @param winner the position of the winner
      */
     public void displayObserverPhaseVictory(int winner);
 
