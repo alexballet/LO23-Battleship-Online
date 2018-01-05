@@ -1,8 +1,6 @@
 package lo23.battleship.online.network;
 
 import lo23.battleship.online.network.messages.Message;
-import sun.nio.ch.Net;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;

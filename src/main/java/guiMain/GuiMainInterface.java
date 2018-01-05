@@ -3,7 +3,6 @@ import structData.*;
 
 /**
  * GUI Main Interface
- * @author aureliedigeon
  */
 public interface GuiMainInterface {
 	 /**
@@ -51,7 +50,7 @@ public interface GuiMainInterface {
 	public void removeGame(Game game);
 	
 	/**
-	 * 
+	 * To open the menu window
 	 */
 	public void openMenuWindow();
 }

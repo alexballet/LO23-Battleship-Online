@@ -3,7 +3,6 @@ package lo23.battleship.online.network.messages;
 import interfacesData.IDataCom;
 import structData.Boat;
 import structData.Player;
-import structData.Profile;
 import structData.Shot;
 
 import java.net.InetAddress;

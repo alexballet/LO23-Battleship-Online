@@ -16,8 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by xzirva on 17/10/17.
- * TODO: To be completed
+ * NetworkListener
  */
 public class NetworkListener extends Thread {
 

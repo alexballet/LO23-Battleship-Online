@@ -1,20 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package guiTable.controllers;
 
 import data.CDataTable;
 import guiTable.GuiTableInterface;
 import java.io.IOException;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -28,8 +20,7 @@ import structData.Position;
 import structData.Shot;
 
 /**
- *
- * @author Raphael
+ * GuiTableController
  */
 public class GuiTableController implements GuiTableInterface {
 

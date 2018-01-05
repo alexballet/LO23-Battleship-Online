@@ -4,13 +4,11 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import guiMain.GameCell;
 import guiMain.GuiMainController;
 import guiMain.PlayerCell;
 import java.util.List;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package guiTable.controllers;
 
 import guiTable.CaseDrawing;
@@ -27,15 +22,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import structData.Boat;
 import structData.Position;
 import structData.Shot;
 
 
 /**
- *
- * @author corentinhembise
+ * GamePhaseController
  */
 public class GamePhaseController extends gameInterface implements Initializable  {
 

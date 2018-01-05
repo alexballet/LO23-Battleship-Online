@@ -7,7 +7,6 @@ import java.util.HashSet;
 
 /**
  * Data interface
- * @author xzirva
  */
 
 
@@ -84,6 +83,7 @@ public interface COMInterface {
 
     /**
      * send a shot result to a player on the right game
+     * @param destPlayer destination player
      * @param game where the ships are
      * @param resultShot result of the shot
      * @param boat optional
@@ -93,8 +93,6 @@ public interface COMInterface {
 
     /**
      * search for players who are connected
-     * @param user User that is connecting
-     * @return void
      */
     public void searchForPlayers();
 
@@ -106,7 +104,6 @@ public interface COMInterface {
 
     /**
      * notifies every user to remove the game from their list
-     * @param game Game to delete
      */
     public void notifyGameWon();
 

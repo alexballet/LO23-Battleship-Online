@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package guiTable.controllers;
 
 import guiTable.CaseDrawing;
@@ -19,8 +14,7 @@ import structData.Position;
 import structData.Shot;
 
 /**
- *
- * @author oiseauroch
+ * gameInterface
  */
 public abstract class gameInterface extends BaseController implements Initializable {
     
@@ -128,7 +122,4 @@ public abstract class gameInterface extends BaseController implements Initializa
             // Message d'erreur
         }
     }
-    
-
-
 }
