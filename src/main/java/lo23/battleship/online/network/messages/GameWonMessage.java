@@ -1,9 +1,7 @@
 package lo23.battleship.online.network.messages;
 
 import interfacesData.IDataCom;
-import structData.Game;
 import structData.Player;
-import structData.User;
 import java.net.InetAddress;
 
 /**
