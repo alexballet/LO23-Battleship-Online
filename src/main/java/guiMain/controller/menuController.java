@@ -178,6 +178,7 @@ public class menuController implements Initializable{
 	private void refresh(){
 		String login = mainController.getIdata().getLocalProfile().getLogin();
 		String password = mainController.getIdata().getLocalProfile().getPassword();
+		mainController.getIdata().clear();
 		try {
 			mainController.getIdata().connection(login, password);
 		} catch (UnknownHostException e) {

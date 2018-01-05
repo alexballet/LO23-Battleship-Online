@@ -118,4 +118,6 @@ public interface IDataMain {
     void setPort(int p);
     
     public List<User> getListUsers();
+
+    public void clear();
 }
