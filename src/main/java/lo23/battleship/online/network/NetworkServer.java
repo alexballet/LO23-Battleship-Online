@@ -11,15 +11,14 @@ import java.util.logging.Logger;
 
 public class NetworkServer {
 
-    //Configuration
     private int port;
     private InetAddress address;
-    private int backlog = 100;
+    private static int backlog = 100;
     private NetworkListener listener = null;
     private NetworkController networkController;
     private IDataCom dataInterface;
 
-    public NetworkServer(NetworkController networkController, int port)  {
+    NetworkServer(NetworkController networkController, int port)  {
         System.out.println("-----------Initialize Server(Listener)---------");
         this.networkController = networkController;
         try {
@@ -43,7 +42,6 @@ public class NetworkServer {
                 }
                 if(address != null) break;
             }
-            //listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
         } catch (UnknownHostException e) {
             Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
         } catch (IOException e) {
@@ -53,7 +51,7 @@ public class NetworkServer {
 
     }
 
-    public void setDataInterface(IDataCom IData) {
+    void setDataInterface(IDataCom IData) {
         dataInterface = IData;
     }
 
@@ -69,19 +67,20 @@ public class NetworkServer {
 
     }
 
-    public InetAddress getIpAddress() {
+    InetAddress getIpAddress() {
         return listener.getServerSocketIPAddress();
     }
 
+
+    boolean isOpened() {
+        if(listener == null) return false;
+        return listener.isRunning;
+    }
     /**
      * Close server
      * Turn isRunning into false
      * */
 
-    public boolean isOpened() {
-        if(listener == null) return false;
-        return listener.isRunning;
-    }
     public void close() {
 
         System.out.println("-----------Close Server(Listener)---------");
