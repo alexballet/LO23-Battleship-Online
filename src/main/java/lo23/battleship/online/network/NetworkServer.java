@@ -74,7 +74,7 @@ public class NetworkServer {
 
     boolean isOpened() {
         if(listener == null) return false;
-        return listener.isRunning;
+        return listener.getIsRunning();
     }
     /**
      * Close server

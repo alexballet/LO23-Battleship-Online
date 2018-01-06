@@ -7,9 +7,18 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-//  {"Connect", "Ready", "Disconnect", "Chat", "RageQuit"};
-
+/**
+ * This class implements network senders. Network senders are threads (Thread) responsible
+ * of sending message though the network. They use socket and output streams to connect to the
+ * destination host and send the serialized message.
+ * @see Socket
+ * @see java.lang.Thread
+ * @see ObjectOutputStream
+ * @see Message
+ * */
 public class NetworkSender extends Thread{
 
     private InetAddress host;
@@ -18,33 +27,50 @@ public class NetworkSender extends Thread{
     private ObjectOutputStream writer = null;
     private Message message;
     private NetworkController controller = NetworkController.getInstance();
-    public NetworkSender(InetAddress host, int port, Message message) {
+
+    /**
+     * Allocates a new {@code NetworkSender} object.
+     * @param host : {@code InetAddress}
+     *             destination host of the message
+     * @param port : {@code int}
+     *             host's port on which the message sent
+     * @param message : {@code Message}
+     *                message to be sent
+     * */
+    NetworkSender(InetAddress host, int port, Message message) {
         this.host = host;
         this.port = port;
         this.message = message;
     }
 
-    //New thread to process request
+    /**
+     * <p>
+     * Overriding java.lang.Thread run method
+     * Connect to <strong>host</strong> on port <strong>port</strong> and
+     * send <strong>message</strong> through an output stream.
+     * </p>
+     * */
+    @Override
     public void run() {
-
         try {
             if(host == null) {
                 System.out.println("Host null");
             } else {
-                System.out.println("ouverture de la socket : " + host + "  " + port);
+
+                String debug = "\n" + "Connecting to " + host + ":" + port;
+                Logger.getLogger("mainLogger").log(Level.INFO, debug);
                 sock = new Socket(host, port);
                 writer = new ObjectOutputStream(sock.getOutputStream());
                 String timeStamps = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM).format(new Date());
-                System.out.println("Message " + message.getType() + " sent to " + sock.getInetAddress() + " at " + timeStamps);
+                Logger.getLogger("mainLogger").log(Level.FINE,"Message " + message.getType() + " sent to " + sock.getInetAddress() + " at " + timeStamps);
                 writer.writeObject(message);
                 sock.close();
             }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Warning: Unable to reach host: " + host + ":" + port);
+            Logger.getLogger("mainLogger").log(Level.SEVERE, "Warning: Unable to reach host: " + host + ":" + port, e.getMessage());
             InetAddress removed = controller.removeUnreachableHost(host);
             if(removed != null)
-                System.out.println("Has removed unreachable host <" + removed + "> from NetworkState");
+                Logger.getLogger("mainLogger").log(Level.WARNING,"Removed unreachable host <" + removed + "> from NetworkState");
         }
     }
 }

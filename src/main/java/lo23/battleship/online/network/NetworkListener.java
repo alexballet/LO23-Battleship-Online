@@ -29,21 +29,41 @@ import java.util.logging.Logger;
  * Plus it extends Thread class so that it is run asynchronously from the
  * thread of the main application.
  */
-
 public class NetworkListener extends Thread {
 
     private ServerSocket serverSocket = null;
-    boolean isRunning;
+    private boolean isRunning;
     private IDataCom dataInterface;
     private ObjectInputStream reader;
     private NetworkServer server;
+
+    /**
+     * Allocates a new {@code NetworkListener} object.
+     * @param server : {@code NetworkServer}
+     *             NetworkServer instance encapsulating NetworkListener
+     * @param socket : {@code ServerSocket}
+     *               socket receiving network message
+     * */
     NetworkListener(NetworkServer server, ServerSocket socket) {
         this.server = server;
         this.serverSocket = socket;
     }
 
+    /**
+     * Sets isRunning with a new value
+     * @param newValue : {@code boolean}
+     *                 new value of isRunning
+     * */
     void setIsRunning (boolean newValue) {
         isRunning = newValue;
+    }
+
+    /**
+     * Returns a boolean indicating if the listener is running
+     * @return isRunning : {@code boolean}
+     * */
+    boolean getIsRunning() {
+        return isRunning;
     }
 
     @Override
@@ -55,7 +75,6 @@ public class NetworkListener extends Thread {
                 Socket client = serverSocket.accept();
 
                 //request accepted --> New thread to process it
-                System.out.println("NEW MESSAGE RECEIVED");
                 reader = new ObjectInputStream(client.getInputStream());
 
                 //Waiting for client request
@@ -63,13 +82,14 @@ public class NetworkListener extends Thread {
                 InetSocketAddress remote = (InetSocketAddress) client.getRemoteSocketAddress();
 
                 //Displaying info about request
-                String debug = "Thread : " + Thread.currentThread().getName() + ". ";
+                String debug = "\n" + "NEW MESSAGE RECEIVED" + "\n";
+                debug += "Thread : " + Thread.currentThread().getName() + ". ";
                 debug += "Sender : " + remote.getAddress().getHostAddress() + ".";
                 debug += "Port : " + remote.getPort() + ".\n";
                 debug += "\t -> Request Content : " + request + "\n";
                 String timeStamps = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.MEDIUM).format(new Date());
                 debug += "\n Request Received at " + timeStamps;
-                System.err.println("\n" + debug);
+                Logger.getLogger("mainLogger").log(Level.INFO, debug);
 
                 if (request != null) {
                     request.process(dataInterface, remote.getAddress());
@@ -84,7 +104,8 @@ public class NetworkListener extends Thread {
 
 
     /**
-     * @return server socket IP address as InetAddress Object
+     * Returns server socket IP address as InetAddress Object
+     * @return the server socket host : {@code InetAddress}
      * */
     InetAddress getServerSocketIPAddress() {
         return serverSocket.getInetAddress();
@@ -92,7 +113,7 @@ public class NetworkListener extends Thread {
 
     void closeSocket() throws IOException {
         try {
-            this.isRunning = false;
+            setIsRunning(false);
             Logger.getLogger("mainLogger").log(Level.WARNING, "Closing Listener serverSocket");
             serverSocket.close();
         } catch(IOException e) {
@@ -102,7 +123,7 @@ public class NetworkListener extends Thread {
 
     /**
      * Read and deserialize object of type Message transferred through the network
-     * @return object of class Message
+     * @return the read message : {@code Message}
      */
     private Message read() throws IOException{
         Message message = null;
@@ -114,7 +135,12 @@ public class NetworkListener extends Thread {
         return message;
     }
 
-    public void setDataInterface(IDataCom IData) {
+    /**
+     * Sets the IDataCom interface instance.
+     * @param IData : {@code IDataCom}
+     *              instance of IDataCom interface
+     * */
+    void setDataInterface(IDataCom IData) {
         dataInterface = IData;
     }
 }
