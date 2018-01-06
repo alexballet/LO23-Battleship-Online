@@ -111,7 +111,7 @@ public class NetworkListener extends Thread {
         return serverSocket.getInetAddress();
     }
 
-    void closeSocket() throws IOException {
+    void closeSocket() {
         try {
             setIsRunning(false);
             Logger.getLogger("mainLogger").log(Level.WARNING, "Closing Listener serverSocket");
