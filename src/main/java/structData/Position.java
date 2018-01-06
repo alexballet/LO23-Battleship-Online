@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structData;
-
 import java.io.Serializable;
+
 /**
  * Position is a class of a position in a table.
  */
 public class Position implements Serializable{
-    protected Byte x;
-    protected Byte y;
+    static final long serialVersionUID = 6L;
+    protected int x;
+    protected int y;
     protected Boolean touched;
     
     /**
@@ -25,18 +21,19 @@ public class Position implements Serializable{
     
     /**
      * Position : constructor with all parameters
-     * @param newX x
-     * @param newY y 
+     * @param newX x coordinate
+     * @param newY y coordinate
      * @param newTouched boolean equal to 1 if the position is touched
      */
-    public Position(Byte newX, Byte newY, Boolean newTouched){
+    public Position(int newX, int newY, Boolean newTouched){
         x = newX;
         y = newY;
         touched = newTouched;
     }
-    
+
     /**
      * Position : constructor with a Position
+     * @param p a Position
      */
     public Position(Position p){
  
@@ -64,14 +61,14 @@ public class Position implements Serializable{
      * Mutator for x
      * @param x the position's x
      */
-    public void setX(Byte x){
+    public void setX(int x){
         this.x = x;
     }
     /**
      * Accessor for x
-     * @return the position's x as a Byte
+     * @return the position's x as a int
      */
-    public Byte getX(){
+    public int getX(){
         return this.x;
     }
     
@@ -79,14 +76,14 @@ public class Position implements Serializable{
      * Mutator for y
      * @param y the position's y
      */
-    public void setY(Byte y){
+    public void setY(int y){
         this.y = y;
     }
     /**
      * Accessor for y
-     * @return the position's y as a Byte
+     * @return the position's y as a int
      */
-    public Byte getY(){
+    public int getY(){
         return this.y;
     }
     

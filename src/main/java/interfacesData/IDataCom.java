@@ -1,43 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package interfacesData;
 
 import structData.Boat;
 import structData.Shot;
-import structData.Position;
 import structData.ChatMessage;
 import structData.User;
 import structData.Game;
 import structData.Player;
 import structData.Profile;
-import java.util.Set;
-import java.util.List;
 
 /**
  * Data's interface for Com
- * @author Lucie
  */
 public interface IDataCom {
-    /**
-     * Sends known user's IP table to new user and the current game if the new user is playing a game
-     * @param withGame : if (withGame==true) return the game the user is playing
-     * @param iPs (returned) : ipadresses known by local user to send to send to a new user
-     * @param dataGame (returned) : the game the user is playing
-     */
-    // TODO Change void to struct containing a Set and DataGame
-    public void getIPTableAdresses(Boolean withGame, Set iPs, Game dataGame);
-
-
-    // TODO Create method to return current user game if exists : getCurrentUserGame
     /**
      * Returns the current Game
      * @return the current Game
      */
     public Game getCreatedGame();
-
 
     /**
      * The distant user has accepted or not the request to join the game and the 
@@ -47,7 +26,7 @@ public interface IDataCom {
      * @param player2 : The player who joins the game
      */
     public void setGameJoinResponse(Boolean ok, Player player1, Player player2);
-     
+
     /**
      * The distance user has refused the request to join the game
      * @param no : Refuse of the request to join the game
@@ -74,11 +53,17 @@ public interface IDataCom {
      */
     public void notifToJoinGame(Profile sender, Game g);
 
-    /**
-     * Adds the game given as a parameter to the list of games.
-     * @param g : The new game
-     */
-    public void addNewGameList(Game g);
+     /**
+      * Adds the game given as a parameter to the list of games.
+      * @param g : The new game
+      */
+     public void addNewGameList(Game g);
+     
+     /**
+      * Removes the game given as a parameter from the list of games.
+      * @param g : game to remove
+      */
+     public void removeGameFromList(Game g);
 
     /**
      * Takes the error message given as a parameter in order to transmit it to 
@@ -99,15 +84,6 @@ public interface IDataCom {
      * his table) so that the shots phase can be displayed
      */
     public void receiveReady();
-
-    /**
-     * Takes a position to transmit it to IHM-Table. Returns a Shot and if a 
-     * boat was sunk, it returns the object Boat
-     * @param p : The position played by the user
-     * @param s (returned) : shot corresponding to the position
-     * @param b (optionnally returned) : The sunk boat
-     */
-    public void coordinate(Position p, Shot s, Boat b);
 
     /**
      * Takes a Shot and in option a Boat to transmit it to IHM-Table
@@ -157,6 +133,62 @@ public interface IDataCom {
      * @param g : Game to remove
      */
     public void removeGame(Game g);
+     
+     /**
+      * Notification that you won, update stats and display win
+      */
+     public void notifiedGameWon();
+     
+
+      /**
+      * Notify that a new spectator has joined the game
+      * @param spec New spectator
+      */
+     public void notifyToSpecGame(User spec);
+     
+     /**
+      * A new spectator want to join the game, he need to get the informations of the game
+      * @param u The spectator who want to come
+      */
+     public void newRequestSpectator(User u);
+     
+     /**
+      * The spectator receives the informations of the game that he wants to join
+      * @param g The joined game
+      */
+     public void joinGameSpectator(Game g);
+     
+     /**
+      * Notif everyone when a spectator leaves
+      * @param spec The spectator who leaves
+      */
+     public void notifyQuitSpectator(User spec);
+
+    /**
+     * Accessor for the game's other player
+     * @return the other player
+     */
+     public Player getOtherPlayer();
+
+     /**
+      * Update attended in a game
+      * @param p a player
+      * @param s a shot 
+      * @param b a boat
+      */
+     public void updateAttendedGame(Player p, Shot s, Boat b);
+
+    /**
+     * Notify when a player won a game
+     * @param p the player
+     */
+    public void notifyAttendedGameWon(Player p);
+
+    /**
+     * Accessor for a player's position
+     * @param p player
+     * @param g game
+     * @return the player's position
+     */
+    public int getPlayerPosition(Player p, Game g);
 }
-
-

@@ -1,21 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package guiTable.controllers;
 
 import guiTable.BoatDrawing;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.shape.Rectangle;
 import structData.BoatType;
 
 /**
  * implementation of placement controller for belgian phase
- * @author caioz
  */
-public class BelgianPlacementPhaseController extends PlacementPhaseController implements Initializable{
+public class BelgianPlacementPhaseController extends PlacementPhaseController {
     
     @FXML
     protected Rectangle cuirasseRectangle;

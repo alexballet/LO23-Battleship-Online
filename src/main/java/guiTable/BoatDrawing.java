@@ -1,36 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package guiTable;
 
-import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import structData.Boat;
 import structData.BoatType;
-import structData.Position;
 
 /**
- *
- * @author caioz
+ * Boat drawing : class to draw a boat
  */
 public class BoatDrawing{
     
     private boolean active;
     private boolean rotation;
-    private Boat boat;
+   // private Boat boat;
     private Rectangle boatRectangle;
     private BoatType boatType;
     private Integer gridRow;
     private Integer gridCol;
-    private boolean placed;
+    private Boolean placed;
     
     //not supposed to change
     final private double initialLayoutX;
@@ -48,9 +36,10 @@ public class BoatDrawing{
     public BoatDrawing(BoatType boatType, Rectangle boatRectangle) {
         this.active = false;
         this.rotation = false;
-        this.boat = new Boat(boatType, false, new ArrayList<Position>()); //Will change when boat will be correct
+       // this.boat = new Boat(boatType, false, new ArrayList<Position>());
         this.boatRectangle = boatRectangle;
         this.boatType = boatType;
+        this.placed = false;
         
         this.initialLayoutX = boatRectangle.getLayoutX();
         this.initialLayoutY = boatRectangle.getLayoutY();   
@@ -73,13 +62,13 @@ public class BoatDrawing{
         this.rotation = rotation;
     }
 
-    public Boat getBoat() {
-        return boat;
-    }
+ //   public Boat getBoat() {
+   //     return boat;
+   // }
 
-    public void setBoat(Boat boat) {
-        this.boat = boat;
-    }
+  //  public void setBoat(Boat boat) {
+  //      this.boat = boat;
+  //  }
 
     public Rectangle getBoatRectangle() {
         return boatRectangle;
@@ -102,16 +91,8 @@ public class BoatDrawing{
         return gridRow;
     }
 
-    public void setGridRow(Integer gridRow) {
-        this.gridRow = gridRow;
-    }
-
     public Integer getGridCol() {
         return gridCol;
-    }
-
-    public void setGridCol(Integer gridCol) {
-        this.gridCol = gridCol;
     }
 
     public BoatType getBoatType() {
@@ -123,11 +104,7 @@ public class BoatDrawing{
     }
 
     public boolean isPlaced() {
-        return placed;
-    }
-
-    public void setPlaced(boolean placed) {
-        this.placed = placed;
+        return this.placed;
     }
 
     /**
@@ -156,8 +133,7 @@ public class BoatDrawing{
      * Reiniciates the boat, meaning that it has returned to its original position.
      */
     public void reinit() {
-        this.setGridCol(null);
-        this.setGridRow(null);
+        this.setPosition(null, null);
         this.setActive(false);
         this.setRotation(false);
         this.setPlaced(false);
@@ -175,5 +151,33 @@ public class BoatDrawing{
         rectangle.setMouseTransparent(true);
         rectangle.setFill(getActiveColor());
         return this; 
+    }
+
+    public void setPosition(Integer colIndex, Integer rowIndex) {
+        this.gridCol = colIndex;
+        this.gridRow = rowIndex;
+    }
+    
+    public void setPlaced(Boolean bool) {
+       /* if (placed) {
+            int toIncrement, fixed;
+            if (!this.isRotation()) {
+                toIncrement = this.gridCol;
+                fixed = this.gridRow;
+                for(int i = toIncrement; i < (toIncrement + this.boatType.getNbCases());i++) {
+                    Position p = new Position(i, fixed, null);
+                    boat.addPosition(p);
+                }
+            } else {
+                toIncrement = this.gridRow;
+                fixed = this.gridCol;
+                for(int i = toIncrement; i < (toIncrement + this.boatType.getNbCases());i++) {
+                    boat.addPosition(new Position(fixed, i, null));
+                }
+            }
+        } else {
+            boat.setListcases(new ArrayList<Position>());
+        }*/
+       this.placed = bool;
     }
 }

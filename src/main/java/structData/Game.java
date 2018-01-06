@@ -1,23 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structData;
 import java.util.UUID;
 import java.util.HashSet;
 import java.util.ArrayList;
 import java.io.Serializable;
+
 /**
  * Game is a class for the user's game
  */
 public class Game implements Serializable{
+    static final long serialVersionUID = 4L;
     private UUID idGame;
     private StatusGame status;
     private Boolean classicType;
     private String name;
     private Boolean humanOpponent;
-    private int timePerShot;
+    private Integer timePerShot;
+    private Integer timeToPlaceBoats;
     private Boolean spectator;
     private Boolean spectatorChat;
     private HashSet<User> listSpectators;
@@ -34,14 +32,15 @@ public class Game implements Serializable{
         idGame = UUID.randomUUID();
         status = StatusGame.WAITINGPLAYER;
         classicType = false;
-        name = new String("");
+        name = "";
         humanOpponent = false;
         timePerShot = 0;
+        timeToPlaceBoats = 300;
         spectator = false;
         spectatorChat = false;
         listSpectators = new HashSet();
         player1 = new Player(p);
-        player2 = new Player(p);
+        player2 = null;
         player1Start = false;
         listMessages = new ArrayList();
     }
@@ -53,22 +52,18 @@ public class Game implements Serializable{
      * @param newHumanOpponent a boolean equal to 1 if 
      * the game is between two players and 0 if it is against a bot
      * @param newTimePerShot time per shot
+     * @param newTimeToPlaceBoats
      * @param newSpectator a boolean equal to 1 if spectators are allowed
      * @param newSpectatorChat  a boolean equal to 1 if chat is allowed
      * @param p a Profile
-     * @param lS a Hashset
-     * @param p1 a Player
-     * @param p2 a Player
-     * @param p1Start a Boolean
-     * @param lMsg an ArrayList
      */
     public Game(Boolean newClassicType, String newName, 
-            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newHumanOpponent, Integer newTimePerShot, Integer newTimeToPlaceBoats,
             Boolean newSpectator, Boolean newSpectatorChat,
             Profile p){
         idGame = UUID.randomUUID();
         classicType = newClassicType;
-        name = new String(newName);
+        name = newName;
         humanOpponent = newHumanOpponent;
         if (humanOpponent){
             status = StatusGame.WAITINGPLAYER;
@@ -76,6 +71,7 @@ public class Game implements Serializable{
             status = StatusGame.WAITINGBOT;
         }
         timePerShot = newTimePerShot;
+        timeToPlaceBoats = newTimeToPlaceBoats;
         spectator = newSpectator;
         spectatorChat = newSpectatorChat;
         listSpectators = new HashSet();
@@ -86,12 +82,13 @@ public class Game implements Serializable{
     }
     
     /**
-     * Constructor with all parameters
+     * Second constructor with all parameters
      * @param newClassicType the game type
      * @param newName the game's name
      * @param newHumanOpponent a boolean equal to 1 if 
      * the game is between two players and 0 if it is against a bot
      * @param newTimePerShot time per shot
+     * @param newTimeToPlaceBoats
      * @param newSpectator a boolean equal to 1 if spectators are allowed
      * @param newSpectatorChat  a boolean equal to 1 if chat is allowed
      * @param p a Profile
@@ -102,23 +99,34 @@ public class Game implements Serializable{
      * @param lMsg an ArrayList
      */
     public Game(Boolean newClassicType, String newName, 
-            Boolean newHumanOpponent, int newTimePerShot, 
+            Boolean newHumanOpponent, Integer newTimePerShot,  Integer newTimeToPlaceBoats,
             Boolean newSpectator, Boolean newSpectatorChat,
             Profile p, HashSet lS, Player p1, Player p2,
             Boolean p1Start, ArrayList lMsg){
         idGame = UUID.randomUUID();
         classicType = newClassicType;
-        name = new String(newName);
+        name = newName;
         humanOpponent = newHumanOpponent;
         if (humanOpponent){
             status = StatusGame.WAITINGPLAYER;
+            player2 = p2;
         }else{
             status = StatusGame.WAITINGBOT;
+            User u = new User("Bot", "Bot");
+            DataUser dU= new DataUser(u);
+            Player pBot = new Player(dU);
+            player2 = pBot;
         }
         timePerShot = newTimePerShot;
+        timeToPlaceBoats = newTimeToPlaceBoats;
         spectator = newSpectator;
         spectatorChat = newSpectatorChat;
         if (spectator == true) {
+        System.out.println("################################################");
+        System.out.println("################################################");
+        System.out.println("nombre de spectateur [constructeur] : " + lS);
+        System.out.println("################################################");
+        System.out.println("################################################");
             listSpectators = lS;
         }
         else {
@@ -126,49 +134,9 @@ public class Game implements Serializable{
         }
             
         player1 = p1;
-        player2 = p2;
         player1Start = p1Start;
         listMessages = lMsg;
-    }
 
-    /**
-     * Constructor without list of spectators
-     * @param newClassicType the game type
-     * @param newName the game's name
-     * @param newHumanOpponent a boolean equal to 1 if 
-     * the game is between two players and 0 if it is against a bot
-     * @param newTimePerShot time per shot
-     * @param newSpectator a boolean equal to 1 if spectators are allowed
-     * @param newSpectatorChat  a boolean equal to 1 if chat is allowed
-     * @param p a Profile
-     * @param p1 a Player
-     * @param p2 a Player
-     * @param p1Start a Boolean
-     * @param lMsg an ArrayList
-     */
-    public Game(Boolean newClassicType, String newName, 
-            Boolean newHumanOpponent, int newTimePerShot, 
-            Boolean newSpectator, Boolean newSpectatorChat,
-            Profile p, Player p1, Player p2,
-            Boolean p1Start, ArrayList lMsg){
-        idGame = UUID.randomUUID();
-        classicType = newClassicType;
-        name = new String(newName);
-        humanOpponent = newHumanOpponent;
-        if (humanOpponent){
-            status = StatusGame.WAITINGPLAYER;
-        }else{
-            status = StatusGame.WAITINGBOT;
-        }
-        timePerShot = newTimePerShot;
-        spectator = newSpectator;
-        spectatorChat = newSpectatorChat;
-        listSpectators = new HashSet(); 
-            
-        player1 = p1;
-        player2 = p2;
-        player1Start = p1Start;
-        listMessages = lMsg;
     }
 
     
@@ -179,7 +147,7 @@ public class Game implements Serializable{
     public Game(Game g){
         idGame = g.idGame;
         classicType = g.classicType;
-        name = new String(g.name);
+        name = g.name;
         humanOpponent = g.humanOpponent;
         status = g.status;
         timePerShot = g.timePerShot;
@@ -193,7 +161,7 @@ public class Game implements Serializable{
     }
     
     /**
-     * Method to copy a Game
+     * Method to copy a Game : Clone method
      * @param g a Game to copy
      * @return a copied Game
      */
@@ -201,7 +169,7 @@ public class Game implements Serializable{
         
         idGame = g.idGame;
         classicType = g.classicType;
-        name = new String(g.name);
+        name = g.name;
         humanOpponent = g.humanOpponent;
         status = g.status;
         timePerShot = g.timePerShot;
@@ -315,7 +283,7 @@ public class Game implements Serializable{
      * @param lS a HashSet
      */
     public void setListSpectators(HashSet<User> lS){
-        if (this.spectator == true) {
+        if (this.spectator) {
             this.listSpectators = lS;
         }       
     }
@@ -334,6 +302,7 @@ public class Game implements Serializable{
      */
     public void addSpectators(User spectator){
         listSpectators.add(spectator);
+        System.out.println("nombre de spectateur actuel : " + listSpectators.size());
     }
     
      /**
@@ -375,7 +344,7 @@ public class Game implements Serializable{
     public void setPlayer2(Player p2){
         player2 = p2;
     }
-    
+
     /**
      * Check if a profile belongs to a Game
      * @param p : a profile
@@ -383,5 +352,13 @@ public class Game implements Serializable{
      */
     public Boolean doesProfileBelongToGame(Profile p){
         return ((this.player1 != null && this.player1.compareProfileToPlayer(p)) || (this.player2 != null && this.player2.compareProfileToPlayer(p)));
+    }
+    
+    /**
+     * Accessor for timeToPlaceBoats
+     * @return the time to place boats
+     */
+    public int getTimeToPlaceBoats(){
+        return timeToPlaceBoats;
     }
 }

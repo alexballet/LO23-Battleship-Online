@@ -33,9 +33,11 @@ BattleShipLO23/nbproject/private/
 tmp/*
 
 doc/*
-<<<<<<< HEAD
+classes/
 /src/JavaFXApplication1/nbproject/private/
-=======
 
 *.ser
->>>>>>> integV2
+
+build.xml
+build.properties
+

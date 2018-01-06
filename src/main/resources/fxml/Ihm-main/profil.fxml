@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.ProfilController">
+   <children>
+      <GridPane prefHeight="617.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.1103973388672" minWidth="24.210634231567383" prefWidth="79.19758224487305" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="633.7893657684326" minWidth="10.0" prefWidth="383.976806640625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="430.7828674316406" minWidth="10.0" prefWidth="410.523193359375" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="198.0" minHeight="10.0" prefHeight="189.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="520.0" minHeight="10.0" prefHeight="215.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="239.0" minHeight="10.0" prefHeight="213.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TilePane alignment="TOP_CENTER" GridPane.columnSpan="3">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="109.0" text="Profil de" textAlignment="CENTER" TilePane.alignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <TilePane.margin>
+                        <Insets top="10.0" />
+                     </TilePane.margin>
+                  </Label>
+                  <Label fx:id="nameTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="29.0" prefWidth="159.0" text="&lt; personne &gt;" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <TilePane.margin>
+                        <Insets top="10.0" />
+                     </TilePane.margin>
+                  </Label>
+               </children>
+            </TilePane>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Date de naissance :" GridPane.rowIndex="4" />
+                  <Label text="Prénom :" GridPane.rowIndex="3" />
+                  <Label text="Nom :" GridPane.rowIndex="2" />
+                  <Label text="Username :" GridPane.rowIndex="1" />
+                  <TilePane alignment="CENTER_LEFT" GridPane.columnSpan="2">
+                     <children>
+                        <Label text="Informations">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </TilePane>
+                  <Label fx:id="userName" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="lastName" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="firstName" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label fx:id="birthdate" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
+            </GridPane>
+            <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="60.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Statistiques">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Nombre de parties jouées :" GridPane.rowIndex="1" />
+                  <Label text="Nombre de parties gagnées :" GridPane.rowIndex="2" />
+                  <Label text="Nombre de parties perdues :" GridPane.rowIndex="3" />
+                  <Label fx:id="numberOfGame" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label fx:id="numberOfGameWon" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="numberOfGameLost" text="Chargement..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fx:id="userAvatar" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></ImageView>
+               </children>
+            </VBox>
+            <Button fx:id="backButton" alignment="CENTER" mnemonicParsing="false" onAction="#backToTheMenu" prefHeight="27.0" prefWidth="84.0" text="Retour" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

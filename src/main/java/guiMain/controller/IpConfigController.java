@@ -5,6 +5,8 @@ import java.util.regex.Pattern;
 
 import guiMain.GuiMainController;
 import guiMain.IpCell;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,6 +31,9 @@ public class IpConfigController {
 	
 	@FXML
 	private Button validateButton;
+        
+    @FXML 
+    private TextField port;
 
 	
 	
@@ -39,6 +44,17 @@ public class IpConfigController {
 
 	public void init() {
 		this.initIpsList();
+        // Force the port field to be numeric (integer) only
+        port.textProperty().addListener(new ChangeListener<String>() {
+        		@Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+	            String newValue) {
+	            if (!newValue.matches("\\d*")) {
+	                    port.setText(newValue.replaceAll("[^\\d]", ""));
+	            }
+            }
+        });
+        port.setText(mainController.getPort() + "");
 	}
 	
 	private void initIpsList() {
@@ -67,13 +83,19 @@ public class IpConfigController {
 				&& !ipsListView.getItems().contains(ipToAdd)
 				&& pattern.matcher(ipToAdd).matches()) {
 			ipsListView.getItems().add(ipTextField.getText());
+			ipTextField.clear();
 		}
 	}
 
 	@FXML
 	private void validate(ActionEvent event){
-		System.out.println("Ips " + ipsListView.getItems());
 		mainController.setIps(ipsListView.getItems());
-		((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
-	}
+		
+        int num_port = Integer.parseInt(port.getText());
+		mainController.setPort(num_port);
+        
+        ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+	
+    	}
+        
 }

@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package structData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author loulou
+ * DataUser class : inherits from User
  */
 public class DataUser extends User {
     protected String password;
@@ -41,15 +35,17 @@ public class DataUser extends User {
     }
     
     /**
-     * Constructor for the class Profile who is "son" of the class User
+     * Constructor for the class DataUser
      * @param du : a new object of the class DataUser
      */
-    public DataUser (DataUser du){
+    public DataUser(DataUser du){
+        super(du);
         /*properties of class User*/
         idUser = du.idUser;
         login = du.login;
         username = du.username;
         iPs = du.iPs;
+        port = du.port;
         
          /*properties of class DataUser*/
         password = du.password;
