@@ -14,10 +14,8 @@ import java.util.logging.Logger;
  * This class implements network senders. Network senders are threads (Thread) responsible
  * of sending message though the network. They use socket and output streams to connect to the
  * destination host and send the serialized message.
- * @see Socket
  * @see java.lang.Thread
- * @see ObjectOutputStream
- * @see Message
+
  * */
 public class NetworkSender extends Thread{
 

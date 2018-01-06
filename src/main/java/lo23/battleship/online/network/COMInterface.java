@@ -13,26 +13,26 @@ import java.util.HashSet;
 
 public interface COMInterface {
     /**
-     * Notify if a player is ready or not
+     * Notifies if a player is ready or not
      * @param user player who is notify
      * */
     void notifyReady(User user, Player playerToNotify);
 
     /**
-     * Send a chat message
+     * Sends a chat message
      * @param chatMessage message send
      * @param g : game related to the message
      */
     void sendChatMessage(ChatMessage chatMessage, Game g);
 
     /**
-     * allow to view an user profile
+     * Retrieves an user profile
      * @param user : User of which local user asks for profile
      */
     void getProfile(User user);
 
     /**
-     * update game object
+     * Update game object (containing game.status)
      * @param game : Game of which the status changed
      */
     void changeStatusGame(Game game);
