@@ -6,7 +6,8 @@ import java.util.HashSet;
 
 
 /**
- * Data interface
+ * The COMInterface compiles the services offered by the network package.
+ * It should be implemented by the actual class which will be use to call those services
  */
 
 
@@ -14,46 +15,39 @@ public interface COMInterface {
     /**
      * Notify if a player is ready or not
      * @param user player who is notify
-     * @return true= message sent, false= message not sent
      * */
-    public boolean notifyReady(User user, Player playerToNotify);
+    void notifyReady(User user, Player playerToNotify);
 
     /**
      * Send a chat message
      * @param chatMessage message send
      * @param g : game related to the message
-     * @return true= message sent, false= message not sent
      */
-    public boolean sendChatMessage(ChatMessage chatMessage, Game g);
+    void sendChatMessage(ChatMessage chatMessage, Game g);
 
     /**
      * allow to view an user profile
-     * @param user
-     * @return the profile(statistics) of the user
+     * @param user : User of which local user asks for profile
      */
-    public void getProfile(User user);
+    void getProfile(User user);
 
     /**
      * update game object
-     * @param game
-     * @return true= message sent, false= message not sent
+     * @param game : Game of which the status changed
      */
-    public boolean changeStatusGame(Game game);
+    void changeStatusGame(Game game);
 
     /**
      * notify a new game
      * @param g : newly created game with one player
-     * @return true= message sent, false= message not sent
      */
-    public boolean notifyNewGame(Game g);
+    void notifyNewGame(Game g);
 
     /**
      * allow an user to join a game
-     * @param user who want to join the game
-     * @param g Game <code>user</code> wants to join
-     * @return true= message sent, false= message not sent
+     * @param g Game the local user wants to join
      */
-    public boolean joinGame(Game g);
+    void joinGame(Game g);
 
     /**
      * allow an user to join a game
@@ -61,25 +55,24 @@ public interface COMInterface {
 
      * @param user who asked to join the game
      * @param g Game <code>user</code> joined if isOk
-     * @return true= message sent, false= message not sent
      */
-    public boolean notifyJoinGameResponse(Boolean isOk, Profile user, Game g);
+    void notifyJoinGameResponse(boolean isOk, Profile user, Game g);
 
     /**
      * allow an user to be disconnected to the network
-     * @param user who want to be disconnected
-     * @return true= message sent, false= message not sent
      */
-    public boolean askDisconnection();
+    void askDisconnection();
 
     /**
      * send a shot from a player on the right game
-     * @param player who send the shot
-     * @param g where the ships are
-     * @param shot where the player shot
-     * @return true= message sent, false= message not sent
+     * @param player : {@code Player}
+     *               who send the shot
+     * @param g : {@code Game}
+     *          where the ships are
+     * @param shot : {@code Shot}
+     *             where the player shot
      */
-    public boolean sendShot(Player player, Game g, Shot shot);
+    void sendShot(Player player, Game g, Shot shot);
 
     /**
      * send a shot result to a player on the right game
@@ -87,39 +80,38 @@ public interface COMInterface {
      * @param game where the ships are
      * @param resultShot result of the shot
      * @param boat optional
-     * @return true= message sent, false= message not sent
      */
-    public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat);
+    void coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat);
 
     /**
-     * search for players who are connected
+     * Initiates network discovery. Search for players who are connected
      */
-    public void searchForPlayers();
+    void searchForPlayers();
 
     /**
      * notifies every user to remove the game from their list
      * @param game Game to delete
      */
-    public void removeGame(Game game);
+    void removeGame(Game game);
 
     /**
      * notifies every user to remove the game from their list
      */
-    public void notifyGameWon();
+    void notifyGameWon();
 
     /**
      * spectator send a request to a player in order to have the game informations
      * @param player player game
      * @param spec spectator who ask for request
      */
-    public void getInfoGameForSpectator(Player player, User spec);
+    void getInfoGameForSpectator(Player player, User spec);
 
     /**
      * player send the game to the spectator after his request
      * @param game game send to the spectator
      * @param spec spectator who want to see the game
      */
-    public void sendInfoGameForSpectator(Game game, User spec);
+    void sendInfoGameForSpectator(Game game, User spec);
 
     /**
      * alert everybody (the other player and the spectator) that there is a new spectator
@@ -127,19 +119,22 @@ public interface COMInterface {
      * @param p other player
      * @param listSpectator list of all actual spectators
      */
-    public void sendNewSpectator(User u, Player p, HashSet<User> listSpectator);
+    void sendNewSpectator(User u, Player p, HashSet<User> listSpectator);
 
     /**
     * alert everybody that the spectator quit the game
     * @param spec spectator who quit the game
     * @param game game quit by the spectator (permit to retrieve player and listSpectator)
     */
-    public void gameQuitSpectator(User spec, Game game);
+    void gameQuitSpectator(User spec, Game game);
 
     /**
      * Quit game already launch
      */
-    public void quitGame();
+    void quitGame();
 
-    public void clearNetwork();
+    /**
+     * Clears network state : removes all players from local user list of connected players
+     * */
+    void clearNetwork();
 }
