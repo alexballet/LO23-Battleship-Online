@@ -9,7 +9,7 @@ import java.net.InetAddress;
 
 /**
  * ShotNotificationMessage,descendant class Message, receive shot with result on boat.
- * @author Lejeune Lola
+ * @author COM Module
  */
 
 

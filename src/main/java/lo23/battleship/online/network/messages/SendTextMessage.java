@@ -8,6 +8,7 @@ import java.net.InetAddress;
  * Network message class, extends Message class.
  * Textual message sent/received by the local user to/from a distant user.
  * Note: sent and received because this is the same attribute.
+ * @author COM Module
  */
 
 public class SendTextMessage extends Message{

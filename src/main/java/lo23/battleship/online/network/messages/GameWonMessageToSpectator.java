@@ -7,7 +7,7 @@ import java.net.InetAddress;
 
 /**
  * GameWonMessage,descendant class Message, notify the player if he win.
- * @author Lejeune Lola
+ * @author COM Module
  */
 
 public class GameWonMessageToSpectator extends Message{

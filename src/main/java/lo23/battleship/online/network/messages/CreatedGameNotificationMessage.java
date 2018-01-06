@@ -36,19 +36,7 @@ public class CreatedGameNotificationMessage extends Message{
      * @param senderAddress sender IP address.
      */
     public void process(IDataCom IData, InetAddress senderAddress){
-
         System.out.println("Game received " + game.getName() + " from " + game.getPlayer1().getProfile().getLogin());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("SHHHHIIIIITTT! : " + game.getListSpectators().size());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
         IData.addNewGameList(game);
     }
 

@@ -8,7 +8,7 @@ import java.net.InetAddress;
 
 /**
  * SendInfoGameForSpectatorMessage,descendant class Message, localuser send the game to the spectator.
- * @author Lejeune Lola
+ * @author COM Module
  */
 
 public class SendInfoGameForSpectatorMessage extends Message{

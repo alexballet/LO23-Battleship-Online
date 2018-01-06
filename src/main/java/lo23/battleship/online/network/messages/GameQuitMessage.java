@@ -6,7 +6,7 @@ import structData.Game;
 import java.net.InetAddress;
 
 /**
- * Created by xzirva on 04/12/17.
+ * @author COM Module
  */
 public class GameQuitMessage extends Message{
     private Game game;

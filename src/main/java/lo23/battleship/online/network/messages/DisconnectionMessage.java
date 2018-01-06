@@ -11,9 +11,8 @@ import java.util.Arrays;
 /**
  * Network message class, extends from Message class.
  * Message sent when the local user click on one of the disconnection buttons or HMI elements.
+ * @author COM Module
  */
-
-                            /* ajouter les méthodes une fois qu'elles seront faites*/
 
 public class DisconnectionMessage extends Message{
 

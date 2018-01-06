@@ -7,7 +7,7 @@ import java.net.InetAddress;
 
 /**
  * NotifyReadyMessage,descendant class Message, the away user is ready to play. Send the information to Data.
- * @author Lejeune Lola
+ * @author COM Module
  */
 
 

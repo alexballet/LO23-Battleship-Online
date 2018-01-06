@@ -175,7 +175,6 @@ public class GuiTableController implements GuiTableInterface {
         Runnable command = new Runnable() {
             @Override
             public void run() {
-                System.out.println("################################## \n game chat spectator : " + game.getSpectatorChat() + "\n #################################");
                 HashSet<Shot> listShot1 = game.getPlayer1().getListShots();
                 HashSet<Shot> listShot2 = game.getPlayer2().getListShots();
                 Date time1 = null, time2 = null; // get time off last shot to which player turn it is

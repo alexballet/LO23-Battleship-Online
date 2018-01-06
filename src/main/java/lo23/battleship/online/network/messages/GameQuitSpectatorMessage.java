@@ -8,7 +8,7 @@ import java.net.InetAddress;
 
 /**
  * GameQuitSpectatorMessage,descendant class Message, spectator quit a game.
- * @author Lejeune Lola
+ * @author COM Module
  */
 
 public class GameQuitSpectatorMessage extends Message{

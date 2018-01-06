@@ -8,7 +8,7 @@ import java.net.InetAddress;
 
 /**
  * GetInfoGameForSpectatorMessage,descendant class Message, spectator ask the game.
- * @author Lejeune Lola
+ * @author COM Module
  */
 
 public class GetInfoGameForSpectatorMessage extends Message{

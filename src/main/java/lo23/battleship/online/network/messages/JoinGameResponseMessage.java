@@ -11,6 +11,7 @@ import java.net.InetAddress;
  * Network message class, extends Message class.
  * Message sent when the local player notify the distant player whether the local game is available for the distant
  * player willing to join it, or not.
+ * @author COM Module
  */
 public class JoinGameResponseMessage extends Message{
 

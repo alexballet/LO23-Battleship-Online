@@ -7,6 +7,7 @@ import java.net.InetAddress;
 /**
  * Network message class, extends Message class.
  * Message sent to Data when an game is updated.
+ * @author COM Module
  */
 
 public class UpdateGameMessage extends Message{

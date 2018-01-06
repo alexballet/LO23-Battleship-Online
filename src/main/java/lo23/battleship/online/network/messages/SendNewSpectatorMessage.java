@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 /**
  * SendNewSpectatorMessage,descendant class Message, notify everybody there is a new spectator.
- * @author Lejeune Lola
+ * @author COM Module
  */
 
 public class SendNewSpectatorMessage extends Message {
@@ -29,19 +29,6 @@ public class SendNewSpectatorMessage extends Message {
 
 
     public void process(IDataCom IData, InetAddress senderAddress){
-        // TODO decommenter quand dans interface data
         IData.notifyToSpecGame(spec);
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("SHHHHIIIIITTT! : " + IData.getCreatedGame().getListSpectators().size());
-        System.out.println("NEWWWWWWWW: SPEC: " + spec.getUsername());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
     }
 }

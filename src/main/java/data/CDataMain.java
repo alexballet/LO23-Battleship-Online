@@ -118,32 +118,9 @@ public class CDataMain implements IDataMain {
             Boolean newSpectator, Boolean newSpectatorChat) {
     		
         Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newTimeToPlaceBoats, newSpectator, newSpectatorChat, controller.getLocalProfile());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("JOIN NEW GAME LOCAL BEFORE SET: " + g.getListSpectators().size());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
         controller.setLocalGame(g);
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("JOIN NEW GAME LOCAL: " + controller.getLocalGame().getListSpectators().size());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-
         return g;
     }
     

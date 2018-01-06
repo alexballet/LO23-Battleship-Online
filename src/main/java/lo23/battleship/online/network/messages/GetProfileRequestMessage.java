@@ -9,6 +9,7 @@ import java.net.InetAddress;
 /**
  * Network message class, extends Message class.
  * Message sent when the local player wants to see the profile page of another player.
+ * @author COM Module
  */
 public class GetProfileRequestMessage extends Message {
 

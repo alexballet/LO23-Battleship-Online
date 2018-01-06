@@ -46,10 +46,9 @@ public class ConnectionRequestMessage extends Message {
 
         if(IData.getLocalUser() == null) // if user's machine is connected but user is not!
             return;
-        //dataInterface.getIPTableAdresses();
+
         System.out.println("New message received from: " + senderAddress);
         System.out.println("Message Type: " + type);
-        // TODO getCurrentUserGame
 
         NetworkController controller = NetworkController.getInstance();
 

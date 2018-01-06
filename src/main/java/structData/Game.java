@@ -121,12 +121,7 @@ public class Game implements Serializable{
         timeToPlaceBoats = newTimeToPlaceBoats;
         spectator = newSpectator;
         spectatorChat = newSpectatorChat;
-        if (spectator == true) {
-        System.out.println("################################################");
-        System.out.println("################################################");
-        System.out.println("nombre de spectateur [constructeur] : " + lS);
-        System.out.println("################################################");
-        System.out.println("################################################");
+        if (spectator) {
             listSpectators = lS;
         }
         else {

@@ -8,6 +8,7 @@ import interfacesData.IDataCom;
 
 /**
  * Abstract network class, implements Serializable.
+ * @author COM Module
  */
 public abstract class Message implements Serializable {
 
