@@ -91,7 +91,6 @@ public class CDataMain implements IDataMain {
 
     @Override
     public Boolean connection(String login, String password) throws UnknownHostException {
-        controller.clearData();
         Boolean result = false;
         controller.reloadSavedProfile(login, password);
         if(controller.getLocalProfile() != null){
@@ -165,5 +164,8 @@ public class CDataMain implements IDataMain {
     @Override
     public List<User> getListUsers() {
         return controller.getListUsers();
+    }
+    public void clear() {
+        controller.clearData();
     }
 }

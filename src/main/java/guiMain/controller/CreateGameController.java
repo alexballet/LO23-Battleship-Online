@@ -19,39 +19,29 @@ import javafx.scene.paint.Color;
 import structData.Game;
 
 public class CreateGameController implements Initializable{
+	
 	@FXML
 	private TextField gameName;
-
 	@FXML
 	private RadioButton classicGameType;
-
 	@FXML
 	private ToggleGroup gameType;
-
 	@FXML
 	private RadioButton belgiumGameType;
-
 	@FXML
 	private CheckBox spectatorsAutorise;
-
 	@FXML
-	private CheckBox chatAutorise;
-	
+	private CheckBox chatAutorise;	
 	@FXML
 	private CheckBox timeDisabled;
-
 	@FXML
-	private TextField positioningTime;
-	
+	private TextField positioningTime;	
 	@FXML
 	private TextField reflectionTime;
-
 	@FXML
 	private Label errorMessage;
-
 	@FXML
 	private Button createGame;
-
 	@FXML
 	private Button returnButton;
 
@@ -62,19 +52,19 @@ public class CreateGameController implements Initializable{
 	 * @param url
 	 * @param rb
 	 */
-	 @Override
-	 public void initialize(URL url, ResourceBundle rb) {
-		 // Force the reflectionTime field to be numeric (integer) only
-		 reflectionTime.textProperty().addListener(new ChangeListener<String>() {
-			 @Override
-			 public void changed(ObservableValue<? extends String> observable, String oldValue, 
-					 String newValue) {
-				 if (!newValue.matches("\\d*")) {
-					 reflectionTime.setText(newValue.replaceAll("[^\\d]", ""));
-				 }
-			 }
-		 });
-	 }    
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		// Add a listener to check reflection time textfield
+		reflectionTime.textProperty().addListener(new ChangeListener<String>() {
+                        @Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                                if (!newValue.matches("\\d*")) {
+                                        // Force the reflectionTime field to be numeric (integer) only
+					reflectionTime.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+		});
+	}    
 
 	 /**
 	  * Get form data and calls IDataMain to create new game 
@@ -110,6 +100,7 @@ public class CreateGameController implements Initializable{
 			 // Open waiting room window 
 			 mainController.openWaitingRoomWindow(game);
 		 } else {
+                         // Required fields are empty
 			 errorMessage.setText("Veuillez choisir un nom pour votre partie.");
 			 errorMessage.setTextFill(Color.web("#ff0000"));
 		 }
@@ -124,13 +115,21 @@ public class CreateGameController implements Initializable{
 		 mainController.openMenuWindow();
 	 }
 	 
+         /**
+          * Disable time choice
+          * @param event : #timeDisabled checkbox select
+          */
 	 @FXML
 	 void timerDisable(ActionEvent event){
 		 boolean isSelected = timeDisabled.isSelected();
 		 positioningTime.setDisable(isSelected);
 		 reflectionTime.setDisable(isSelected);
 	 }
-
+         
+         /**
+          * Set main controller 
+          * @param c 
+          */
 	 public void setMainController (GuiMainController c) {
 		 mainController = c;
 	 }

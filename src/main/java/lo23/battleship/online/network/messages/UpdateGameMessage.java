@@ -5,17 +5,21 @@ import interfacesData.IDataCom;
 import java.net.InetAddress;
 
 /**
- * Network message class, extends Message class.
- * Message sent to Data when an game is updated.
+ * This class implements the message sent by the local user to other users
+ * when a game (namely the status of the game) has changed.
+ *
+ * @see Message
+ * @author COM Module
  */
 
 public class UpdateGameMessage extends Message{
 
-    Game gameUpdate;
+    private Game gameUpdate;
 
     /**
-     * Class constructor.
-     * @param game is the Game which has been updated.
+     * Allocates a new {@code UpdateGameMessage} object
+     * @param game : {@code Message}
+     *             game which has been updated.
      */
     public UpdateGameMessage(Game game){
         this.gameUpdate = game;
@@ -31,11 +35,13 @@ public class UpdateGameMessage extends Message{
     }
 
     /**
-     * Method providing the updated game to Data.
-     * @param IData interface with Data.
+     * Provides the updated game to Data.
+     * @param IData : {@code IDataCom}
+     *              instance of IDataCom interface.
+     * @param senderAddress : {@code InetAddress}
+     *                      sender's IP address
      */
     public void process(IDataCom IData, InetAddress senderAddress) {
-        System.out.println("game: "+ gameUpdate);
         IData.changeStatusGame(gameUpdate);
     }
 

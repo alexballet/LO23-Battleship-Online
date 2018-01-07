@@ -137,4 +137,6 @@ public interface IDataMain {
      * @return the local list of users
      */
     public List<User> getListUsers();
+
+    public void clear();
 }

@@ -9,23 +9,40 @@ import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This class implements the network server. The network server is an encapsulation of
+ * the network listener. It is responsible of opening the network listener with the right IP address
+ * and closing the network listener when needed.
+ *
+ * @see NetworkListener
+ * @see IDataCom
+ * */
 public class NetworkServer {
 
-    //Configuration
     private int port;
     private InetAddress address;
-    private int backlog = 100;
+    private static int backlog = 100;
     private NetworkListener listener = null;
     private NetworkController networkController;
     private IDataCom dataInterface;
 
-    public NetworkServer(NetworkController networkController, int port)  {
+    /**
+     * Allocates a new {@code NetworkServer} object.
+     * Finds the right IP address to use as host of the listener
+     *
+     * @param networkController : {@code NetworkController}
+     *                         instance of NetworkController class
+     * @param port : {@code int}
+     *             port on which the server (and the listener) is (are) opened
+     * */
+    NetworkServer(NetworkController networkController, int port)  {
         System.out.println("-----------Initialize Server(Listener)---------");
         this.networkController = networkController;
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
             while (interfaces.hasMoreElements()) {
                 NetworkInterface iface = interfaces.nextElement();
+
                 // filters out 127.0.0.1 and inactive interfaces
                 if (iface.isLoopback() || !iface.isUp())
                     continue;
@@ -34,8 +51,10 @@ public class NetworkServer {
                 while(addresses.hasMoreElements()) {
                     InetAddress addr = addresses.nextElement();
 
-                    // *EDIT*
+                    //avoid IPv6 local address
                     if (addr instanceof Inet6Address) continue;
+
+                    //get the first non-default address (different than loopback address)
                     if(!addr.getHostAddress().equals(Inet4Address.getLocalHost().toString())) {
                         address = addr;
                         break;
@@ -43,52 +62,58 @@ public class NetworkServer {
                 }
                 if(address != null) break;
             }
-            //listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
         } catch (UnknownHostException e) {
-            Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
+            Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e.getMessage());
         } catch (IOException e) {
-            System.out.println("------!! Server already opened !!------");
+            Logger.getLogger("mainLogger").log(Level.WARNING ,"Server already opened!");
         }
         this.port = port;
 
     }
 
-    public void setDataInterface(IDataCom IData) {
+    /**
+     * Sets IDataCom interface with the right IDataCom interface instance
+     * @param IData : {@code IDataCom}
+     *              instance of IDataCom interface
+     * */
+    void setDataInterface(IDataCom IData) {
         dataInterface = IData;
     }
 
-    //Open and run server
+    /**
+     * Opens listener on <strong>address</strong> and the <strong>port</strong>
+     * */
     public void open() throws IOException {
-
         //A different thread to run the server
-        System.out.println("-----------Open Server(Listener)---------");
+        Logger.getLogger("mainLogger").log(Level.INFO, "Opening Server(and Listener accordingly)");
         listener = new NetworkListener(this, new ServerSocket(port, backlog, address));
         listener.setDataInterface(dataInterface);
-        System.out.println(listener.getServerSocketIPAddress().toString());
+        Logger.getLogger("mainLogger").log(Level.INFO, "Starting Listener on " + listener.getServerSocketIPAddress().toString());
         listener.start();
 
     }
 
-    public InetAddress getIpAddress() {
+    /**
+     * Returns server (and thus listener) host IP address
+     * @return {@code InetAddress}
+     * */
+    InetAddress getIpAddress() {
         return listener.getServerSocketIPAddress();
     }
 
     /**
-     * Close server
-     * Turn isRunning into false
+     * Returns a boolean indicating if the server (and thus the listener) is opened (listening)
+     * @return {@code boolean}
      * */
-
-    public boolean isOpened() {
+    boolean isOpened() {
         if(listener == null) return false;
-        return listener.isRunning;
+        return listener.getIsRunning();
     }
-    public void close() {
 
-        System.out.println("-----------Close Server(Listener)---------");
-        try {
-            listener.closeSocket();
-        } catch (IOException e) {
-            Logger.getLogger("mainLogger").log(Level.SEVERE, "an exception was thrown", e);
-        }
+    /**
+     * Close server (and listener accordingly)
+     * */
+    public void close() {
+        listener.closeSocket();
     }
 }

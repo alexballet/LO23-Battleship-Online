@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.menuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="guiMain.controller.menuController">
    <children>
       <GridPane prefHeight="617.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -87,15 +87,7 @@
                                           </Button>
                                        </children>
                                     </HBox>
-                                    <HBox alignment="CENTER" GridPane.rowIndex="2">
-                                       <children>
-                                          <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="300.0" text="Revoir une partie">
-                                             <font>
-                                                <Font size="20.0" />
-                                             </font>
-                                          </Button>
-                                       </children>
-                                    </HBox>
+                                    <HBox alignment="CENTER" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
                               <HBox alignment="CENTER">

@@ -23,8 +23,9 @@ public class CreatedGameNotificationMessage extends Message{
     }
 
     /**
-     * Message type getter. Implementation of an abstract method.
-     * @return type, this is the message type.
+     * Returns the type of the message.
+     * Implementation of an abstract method.
+     * @return type : {@code String}
      */
     public String getType() {
         return type;
@@ -36,19 +37,7 @@ public class CreatedGameNotificationMessage extends Message{
      * @param senderAddress sender IP address.
      */
     public void process(IDataCom IData, InetAddress senderAddress){
-
         System.out.println("Game received " + game.getName() + " from " + game.getPlayer1().getProfile().getLogin());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("SHHHHIIIIITTT! : " + game.getListSpectators().size());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
         IData.addNewGameList(game);
     }
 

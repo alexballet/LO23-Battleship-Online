@@ -7,39 +7,43 @@ import structData.Shot;
 import java.net.InetAddress;
 
 /**
- * ShotNotificationMessage,descendant class Message, send shot.
- * @author Lejeune Lola
+ * This class implements the message sent by the local user (player) when he shots.
+ *
+ * @see Message
+ * @author COM Module
  */
 
 public class ShotNotificationMessage extends Message{
-        Shot shot;
+    private Shot shot;
 
+    /**
+     * Allocates a new {@code ShotNotificationMessage} object
+     * @param s : {@code Shot}
+     *          the shot of the local user(player)
+     * */
     public ShotNotificationMessage(Shot s) {
         this.shot = s;
-        this.type = "ShotNotificationMessage";}
+        this.type = "ShotNotificationMessage";
+    }
 
+    /**
+     * Returns the type of the message.
+     * Implementation of an abstract method.
+     * @return type : {@code String}
+     */
     public String getType() {
         return type;
     }
 
-    public void process(IDataCom IData){}
-
+    /**
+     * Method providing the shot to data package interface
+     * to process the shot(missed, touched or sunk boat)
+     * @param IData : {@code IDataCom}
+     *              instance of IDataCom interface.
+     * @param senderAddress : {@code InetAddress}
+     *                      sender's IP address
+     */
     public void process(IDataCom IData, InetAddress senderAddress){
         IData.coordinates(shot);
-        System.out.println( "send shot: " + shot.getX() + ";"+ shot.getY());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("SHHHHIIIIITTT! : " + IData.getCreatedGame().getListSpectators().size());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
     }
-
-
-
 }

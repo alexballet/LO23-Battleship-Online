@@ -6,13 +6,21 @@ import structData.Game;
 import structData.User;
 
 import java.net.InetAddress;
-import java.util.Arrays;
 import java.util.List;
 
 /**
- * Network message class, extends from Message class.
- * Message sent to provide the list of known IP addresses after receiving a ConnectionRequestMessage from a distant user.
+ * This class implements the message which is sent when
+ * when a user disconnects from the application.
+ *
+ * The user who wants to disconnect sends this message to all connected users.
+ *
+ * This class extends the abstract Message and implements the two abstract methods:
+ * <code>getType</code> and <code>process</code>
+ *
+ * @see Message
+ * @author COM Module
  */
+
 public class ConnectionEstablishedMessage extends Message {
     private User sender;
     private List<InetAddress> ipAdressesTable;
@@ -25,7 +33,7 @@ public class ConnectionEstablishedMessage extends Message {
      * @param game is the game the sender has created, if he has created a game. Thus, the receiver can fill its
      *             displayed game list once connected to the P2P network.
      */
-    public ConnectionEstablishedMessage(User sender, List<InetAddress> ipTable, Game game) {
+    ConnectionEstablishedMessage(User sender, List<InetAddress> ipTable, Game game) {
         ipAdressesTable = ipTable;
         createdGame = game;
         this.sender = sender;
@@ -41,29 +49,20 @@ public class ConnectionEstablishedMessage extends Message {
     }
 
     /**
-     * Unused method for this class.
-     * @param IData interface with Data.
-     */
-    public void process(IDataCom IData) { }
-
-    /**
-     * Method updating the NetworkController and class members accordingly to the message sent.
+     * Updates the network state using the NetworkController
+     * and the list of connected users using the IDataCom interface.
+     * Then sends a <code>ConnectionRequestMessage</code> to the IP Addresses that the local user
+     * does not know and a {@code ConnectionEstablishedMessage} to the users the sender of the
+     * {@code ConnectionEstablishedMessage} does not know
      * @param IData interface with Data.
      * @param senderAddress sender IP address.
      */
     public void process(IDataCom IData, InetAddress senderAddress) {
-        System.out.println("New message received from: " + senderAddress);
-        System.out.println("Message Type: " + type);
-
         NetworkController controller = NetworkController.getInstance();
         controller.addToNetwork(sender, senderAddress, createdGame);
 
         User user = IData.getLocalUser();
         List<InetAddress> filteredAddresses = controller.filterUnknownIPAddresses(ipAdressesTable);
-
-        System.out.println("Network State: " + Arrays.toString(controller.getIPTable().toArray()));
-        System.out.println("(Unknown) Filtered addresses: " + Arrays.toString(filteredAddresses.toArray())
-         + "\n to " + senderAddress);
 
         for(InetAddress ipAddress : filteredAddresses) {
             ConnectionRequestMessage connectionRequestMessage =
@@ -78,8 +77,7 @@ public class ConnectionEstablishedMessage extends Message {
         // sender is part of the unknown addresses for users in my network
 
         List<InetAddress> ipAddressesToNotify = controller.filterKnownIPAddressesToNotify(ipAdressesTable);
-        System.out.println("(Known) Filtered addresses: " + Arrays.toString(ipAddressesToNotify.toArray())
-                + "\n to " + senderAddress);
+
         for(InetAddress ipAddress : ipAddressesToNotify) {
             ConnectionEstablishedMessage connectionEstablishedMessage =
                     new ConnectionEstablishedMessage(user, controller.getIPTable(), null);

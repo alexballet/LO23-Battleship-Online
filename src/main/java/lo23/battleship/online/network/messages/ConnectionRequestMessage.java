@@ -30,8 +30,9 @@ public class ConnectionRequestMessage extends Message {
     }
 
     /**
-     * Message type getter. Implementation of an abstract method.
-     * @return type, this is the message type.
+     * Returns the type of the message.
+     * Implementation of an abstract method.
+     * @return type : {@code String}
      */
     public String getType() {
         return type;
@@ -46,10 +47,9 @@ public class ConnectionRequestMessage extends Message {
 
         if(IData.getLocalUser() == null) // if user's machine is connected but user is not!
             return;
-        //dataInterface.getIPTableAdresses();
+
         System.out.println("New message received from: " + senderAddress);
         System.out.println("Message Type: " + type);
-        // TODO getCurrentUserGame
 
         NetworkController controller = NetworkController.getInstance();
 

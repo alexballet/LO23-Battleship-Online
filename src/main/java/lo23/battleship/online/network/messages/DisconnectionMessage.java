@@ -9,11 +9,17 @@ import java.net.InetAddress;
 import java.util.Arrays;
 
 /**
- * Network message class, extends from Message class.
- * Message sent when the local user click on one of the disconnection buttons or HMI elements.
+ * This class implements the message which is sent when
+ * when a user disconnects from the application.
+ *
+ * The user who wants to disconnect sends this message to all connected users.
+ *
+ * This class extends the abstract Message and implements the two abstract methods:
+ * <code>getType</code> and <code>process</code>
+ *
+ * @see Message
+ * @author COM Module
  */
-
-                            /* ajouter les méthodes une fois qu'elles seront faites*/
 
 public class DisconnectionMessage extends Message{
 
@@ -21,8 +27,9 @@ public class DisconnectionMessage extends Message{
     Game game;
 
     /**
-     * Class constructor.
-     * @param userWhoDisconnect is the User class of the player who is disconnecting from the app.
+     * Allocates a new {@code DisconnectionMessage} object.
+     * @param userWhoDisconnect {@code User}:
+     *                                     the user is disconnecting from the application.
      */
     public DisconnectionMessage(User userWhoDisconnect, Game game){
         this.user = userWhoDisconnect;
@@ -31,8 +38,9 @@ public class DisconnectionMessage extends Message{
     }
 
     /**
-     * Message type getter. Implementation of an abstract method.
-     * @return type, this is the message type.
+     * Returns the type of the message.
+     * Implementation of an abstract method.
+     * @return type : {@code String}
      */
     public String getType() {
         return type;
@@ -40,9 +48,12 @@ public class DisconnectionMessage extends Message{
 
 
     /**
-     * Method updating the NetworkController with the disconnecting user.
-     * @param IData interface with Data.
-     * @param senderAddress sender IP address.
+     * Updates the network state and the list of connected users using data package interface
+     * and the NetworkController : removes the disconnected user from those 2 collections
+     * @param IData : {@code IDataCom}
+     *              instance of IDataCom interface.
+     * @param senderAddress : {@code InetAddress}
+     *                      sender's IP address
      */
     public void process(IDataCom IData, InetAddress senderAddress){
         System.out.println("User: " + user + " has disconnected");
