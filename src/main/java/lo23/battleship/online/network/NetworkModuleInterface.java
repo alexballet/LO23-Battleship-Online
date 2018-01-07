@@ -206,15 +206,6 @@ public class NetworkModuleInterface implements COMInterface {
     }
 
     @Override
-    public void quitGame() {
-        Game game = dataInterface.getCreatedGame();
-        User otherUser = dataInterface.getOtherPlayer().getProfile();
-        InetAddress address = controller.getAddressForUser(otherUser);
-        RageQuitMessage message = new RageQuitMessage(game);
-        controller.sendMessage(message, address);
-    }
-
-    @Override
     public void getInfoGameForSpectator(Player player, User spec) {
 
         InetAddress address = controller.getAddressForUser(player.getProfile());

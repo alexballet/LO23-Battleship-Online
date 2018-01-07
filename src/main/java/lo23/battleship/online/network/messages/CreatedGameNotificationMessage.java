@@ -23,8 +23,9 @@ public class CreatedGameNotificationMessage extends Message{
     }
 
     /**
-     * Message type getter. Implementation of an abstract method.
-     * @return type, this is the message type.
+     * Returns the type of the message.
+     * Implementation of an abstract method.
+     * @return type : {@code String}
      */
     public String getType() {
         return type;

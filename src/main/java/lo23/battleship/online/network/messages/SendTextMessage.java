@@ -5,19 +5,20 @@ import structData.ChatMessage;
 import java.net.InetAddress;
 
 /**
- * Network message class, extends Message class.
- * Textual message sent/received by the local user to/from a distant user.
- * Note: sent and received because this is the same attribute.
+ * This class implements textual messages sent/received by
+ * the local user to/from a distant user.
+ *
+ * @see Message
  * @author COM Module
  */
-
 public class SendTextMessage extends Message{
 
     ChatMessage message;
 
     /**
-     * Class constructor.
-     * @param m textual message needed to be sent.
+     * Allocates a new {@code SendTextMessage} object
+     * @param m : {@code ChatMessage}:
+     *          textual message to send.
      */
     public SendTextMessage(ChatMessage m){
         this.type = "SendTextMessage";
@@ -25,23 +26,20 @@ public class SendTextMessage extends Message{
     }
 
     /**
-     * Message type getter. Implementation of an abstract method.
-     * @return type, this is the message type.
+     * Returns the type of the message.
+     * Implementation of an abstract method.
+     * @return type : {@code String}
      */
     public String getType() {
         return type;
     }
 
     /**
-     * Unused method for this class.
-     * @param IData interface with Data.
-     */
-    public void process(IDataCom IData){}
-
-    /**
-     * Method providing the textual message to Data.
-     * @param IData interface with Data.
-     * @param senderAddress sender IP address.
+     * Method providing the textual message to data package interface.
+     * @param IData : {@code IDataCom}
+     *              instance of IDataCom interface.
+     * @param senderAddress : {@code InetAddress}
+     *                      sender's IP address
      */
     public void process(IDataCom IData, InetAddress senderAddress){
         IData.receiveMessage(message);

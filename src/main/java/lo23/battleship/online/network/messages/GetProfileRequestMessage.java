@@ -7,42 +7,47 @@ import structData.User;
 import java.net.InetAddress;
 
 /**
- * Network message class, extends Message class.
- * Message sent when the local player wants to see the profile page of another player.
+ * This class implements the message which is sent when
+ * when a user wants to see the profile(including statistics) of an other user.
+ *
+ * This class extends the abstract Message and implements the two abstract methods:
+ * <code>getType</code> and <code>process</code>
+ *
+ * @see Message
  * @author COM Module
  */
 public class GetProfileRequestMessage extends Message {
-
     User userRequester;
 
     /**
-     * Class constructor.
-     * @param requester is the User class who requested the profile which need to be seen.
+     * Allocates a new {@code GetProfileRequestMessage} object.
+     * @param requester : {@code User} :
+     *                 the user who requested to see the profile.
      */
     public GetProfileRequestMessage(User requester){
         this.userRequester = requester;
-        this.type = "JoinGameRequest";}
+        this.type = "JoinGameRequest";
+    }
 
     /**
-     * Message type getter. Implementation of an abstract method.
-     * @return type, this is the message type.
+     * Returns the type of the message.
+     * Implementation of an abstract method.
+     * @return type : {@code String}
      */
     public String getType() {
         return type;
     }
 
     /**
-     * Method requesting the profile from Data.
-     * @param IData interface with Data.
-     * @param senderAddress sender IP address.
+     * Sends a response to the user asking for the local user profile(user receiving this message)
+     * using IDataCom interface
+     * @param IData : {@code IDataCom}
+     *              instance of IDataCom interface.
+     * @param senderAddress : {@code InetAddress}
+     *                      sender's IP address
      */
     public void process(IDataCom IData, InetAddress senderAddress){
-
         ProfileRequestAnswerMessage profileRequestAnswer = new ProfileRequestAnswerMessage(IData.getUserProfile());
-
         NetworkController.getInstance().sendMessage(profileRequestAnswer, senderAddress);
     }
-
-
-
 }

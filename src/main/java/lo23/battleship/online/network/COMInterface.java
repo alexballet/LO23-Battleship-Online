@@ -129,11 +129,6 @@ public interface COMInterface {
     void gameQuitSpectator(User spec, Game game);
 
     /**
-     * Quit game already launch
-     */
-    void quitGame();
-
-    /**
      * Clears network state : removes all players from local user list of connected players
      * */
     void clearNetwork();
