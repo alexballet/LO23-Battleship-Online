@@ -15,6 +15,11 @@ import javafx.util.Callback;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+/**
+*
+* This class implements the controller of the Ip Configuration page
+* @author IHM-Main module
+*/
 @SuppressWarnings("restriction")
 public class IpConfigController {
 
@@ -22,26 +27,28 @@ public class IpConfigController {
 	
 	@FXML 
 	private ListView<String> ipsListView;
-	
 	@FXML
 	private TextField ipTextField;
-	
 	@FXML
 	private Button addButton;
-	
 	@FXML
-	private Button validateButton;
-        
+	private Button validateButton;    
     @FXML 
     private TextField port;
 
 	
 	
-	
+	 /**
+     * Set GuiMainController mainController  
+     * @param c : GuiMainController
+     */
 	public void setMainController (GuiMainController c) {
 		mainController = c;
 	}
 
+	/**
+	 *  Called at initialization
+	 */
 	public void init() {
 		this.initIpsList();
         // Force the port field to be numeric (integer) only
@@ -57,9 +64,11 @@ public class IpConfigController {
         port.setText(mainController.getPort() + "");
 	}
 	
+	/**
+	 *  Initialize the Ips list with the already available Ips
+	 */
 	private void initIpsList() {
-		/* Ajouter l'initialisation avec les ips déjà présentes */
-		/* Dans les paramètres du compte */
+		
 		ObservableList<String> ipsObservable = FXCollections.observableArrayList(new ArrayList<String>());
 		if (mainController.getIps() != null)
 			ipsObservable.setAll(mainController.getIps());
@@ -73,12 +82,19 @@ public class IpConfigController {
 		});
 	}
 
+	/** 
+	 * Access an Ip to the list view
+	 */
 	@FXML
 	private void addIp(){
+		// Get the string from the Ip TextField
 		String ipToAdd = ipTextField.getText();
+		
+		// Set the matching pattern of an Ip address
 		Pattern pattern = Pattern.compile(
 		        "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
 		
+		// Check if the new ip is not null, is not redundant and match the Ip string pattern
 		if (ipToAdd != null
 				&& !ipsListView.getItems().contains(ipToAdd)
 				&& pattern.matcher(ipToAdd).matches()) {
@@ -87,6 +103,10 @@ public class IpConfigController {
 		}
 	}
 
+    /**
+     * Set the new Ip List and close the current window
+     * @param event : #validateButton
+     */
 	@FXML
 	private void validate(ActionEvent event){
 		mainController.setIps(ipsListView.getItems());
@@ -94,6 +114,7 @@ public class IpConfigController {
         int num_port = Integer.parseInt(port.getText());
 		mainController.setPort(num_port);
         
+		// Add the close event when validating
         ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
 	
     	}

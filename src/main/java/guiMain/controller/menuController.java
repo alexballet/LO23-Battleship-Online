@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-
 import guiMain.GameCell;
 import guiMain.GuiMainController;
 import guiMain.PlayerCell;
@@ -32,7 +30,13 @@ import javafx.util.Callback;
 
 import structData.*;
 
-
+/**
+*
+* This class call the lobby view and enable interaction
+* between button and method.
+*
+* @author IHM-Main module
+*/
 public class menuController implements Initializable{
 
 	private GuiMainController mainController;
@@ -52,16 +56,19 @@ public class menuController implements Initializable{
 	@FXML
 	private Label warningLabel;
 
+	
+	 /**
+     * Set GuiMainController mainController  
+     * @param c : GuiMainController
+     */
 	public void setMainController (GuiMainController c) {
 		mainController = c;
 	}
 
 	/**
 	 *  Init listView configuration
-	 *  UserTest à remplacer par User lorsque les getter/setter seront dispo
 	 */
 	public void init() {
-		//randomListUser();
 		this.initUserList();
 		this.initGamesList();
 		
@@ -73,28 +80,6 @@ public class menuController implements Initializable{
 	 * Initialise the user list in the main GUI
 	 */
 	private void initUserList() {
-		/*
-        ObservableList<User> playersObservable = FXCollections.observableList(new ArrayList<User>());
-        playersView.setItems(playersObservable);
-
-        playersView.setCellFactory(new Callback<ListView<User>, ListCell<User>>(){
-
-            @Override
-            public ListCell<User> call(ListView<User> p) {
-                ListCell<User> cell = new ListCell<User>(){
-                    @Override
-                    protected void updateItem(User t, boolean bln) {
-                        super.updateItem(t, bln);
-                            if (t != null) {
-                                setText(t.getLogin() + "  :  " +  t.getUsername());
-                            }
-                        }
-                    };
-                    return cell;
-                }
-            });
-		 */
-		
 		final menuController controller = this;
 		List<User> users = mainController.getIdata().getListUsers();
 		ObservableList<User> playersObservable = FXCollections.observableArrayList(users);
@@ -107,7 +92,10 @@ public class menuController implements Initializable{
 			} 
 		});
 	}
-
+	
+	/** 
+	 * Init the game list and attach it to an observable list.
+	 */
 	private void initGamesList() {
 		final menuController controller = this;
 
@@ -130,6 +118,9 @@ public class menuController implements Initializable{
 		});
 	}
 	
+	/** 
+	 * Display the user's avatar on the view. 
+	 */
 	private void setImage(){
 		ImageIcon icon = mainController.getIdata().getLocalProfile().getAvatar();
 		BufferedImage bi = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
@@ -139,14 +130,26 @@ public class menuController implements Initializable{
 		avatarImage.setImage(SwingFXUtils.toFXImage(bi, null));
 	}
 
+	/** 
+	 * Access game as player.
+	 * @param game : game to access.
+	 */
 	public void joinGame(Game game) {
 		mainController.askJoinGame(game);
 	}
 
+	/** 
+	 * Access game as spectator.
+	 * @param game : game to access.
+	 */
 	public void lookGame(Game game) {
 		mainController.lookGame(game);
 	}
 
+	/** 
+	 * Display profile of others users
+	 * @param user : user's profil to display.
+	 */
 	public void lookUser(User user) {
 		mainController.openProfileWindow(user);
 	}
@@ -154,26 +157,25 @@ public class menuController implements Initializable{
 
 	/**
 	 *  	Access to option windows
-	 *  	Actuellement, dans le cadre d'un test, permet de tester l'ajout d'utilisateurs
 	 */
 	@FXML
 	private void option(){
 		mainController.openConfigWindow();
 	}
+	
 
-	@FXML
-	private void displayProfil(User user) {
-		// Display profile of others users
-		mainController.openProfileWindow(user);
-	}
-
-
+	/** 
+	 * Send disconnection message to other users and display the login view.
+	 */
 	@FXML
 	private void disconnection(){
 		mainController.getIdata().askDisconnection();
 		mainController.startIHM();
 	}
 
+	/** 
+	 * Explicit ask to receive informations again.
+	 */
 	@FXML
 	private void refresh(){
 		String login = mainController.getIdata().getLocalProfile().getLogin();
@@ -188,24 +190,6 @@ public class menuController implements Initializable{
 		this.initUserList();
 		this.initGamesList();
 	}
-	
-	/**
-	 * Use the createGame Button as a way to start the displayPlacementPhase method from a guiTableController. 
-	 * To be removed for integration.
-	 */        
-	@FXML
-	private void createGame(){
-
-		/*   try{
-                GuiTableController.getInstance().displayPlacementPhase( this.currentStage, false ); // use boolean to specifie classic type or not
-            }
-            catch(Exception e){
-                System.err.println(e.getMessage());
-            }*/
-
-	}
-
-
 
 	/**
 	 * Display changeProfile window
@@ -245,7 +229,10 @@ public class menuController implements Initializable{
 		playersView.refresh();
 	}
 
-
+	/** 
+	 * Add the game passed as a parameter to the list of games.
+	 * @param game : game to add to the list.
+	 */
 	public void addGame(Game game){
 		if (!game.doesProfileBelongToGame(mainController.getIdata().getLocalProfile()) && !game.getStatus().equals(StatusGame.FINISHED)) {
 			Boolean isOk = true;
@@ -274,11 +261,11 @@ public class menuController implements Initializable{
 		mainController.openCreateGameWindow();
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		//
-	}
-
+	/** 
+	 * Update the game passed as a parameter in the list of games.
+	 * @param game : user to game in the list.
+	 */
+	
 	public void updateGameStatus(Game game) {
 		ObservableList<Game> list =  gamesView.getItems();
 		for (int i = 0; i < list.size(); i++){
@@ -292,6 +279,11 @@ public class menuController implements Initializable{
 		gamesView.refresh();
 	}
 
+	/** 
+	 * Remove the game passed as a parameter to the list of games.
+	 * @param game : game to remove to the list.
+	 */
+	
 	public void removeGame(Game removedGame) {
 		ObservableList<Game> list =  gamesView.getItems();
 		Game toBeRemoved = null;
@@ -305,5 +297,13 @@ public class menuController implements Initializable{
 			gamesView.getItems().remove(toBeRemoved);
 		}
 		gamesView.refresh();
+	}
+
+	/** 
+	 * Unused but necessary method.
+	 */
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
 	}
 }
