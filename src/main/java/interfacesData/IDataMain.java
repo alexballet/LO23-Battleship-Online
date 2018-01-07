@@ -47,13 +47,7 @@ public interface IDataMain {
     void createAccount(String login, String username, HashSet ips, int port, 
             String password, List<ContactGroup> contactList, String avatar, 
             String lastname, String firstname, Date birthDate);
-    
-    /**
-     * Returns the statistics of an user via his profile
-     * @param p the profile
-     */
-    public void getStatistics(Profile p);
-    
+        
     /**
      * Returns the profile of an user
      * @param u the user
@@ -101,12 +95,29 @@ public interface IDataMain {
      * @param g : Game to remove
      */
     public void removeGame(Game g);
+    
+    /**
+     * 
+     * @return the local list of games
+     */
     public List<Game> getGames();
 
-	Profile getLocalProfile();
-
+    /**
+     * 
+     * @return the local profile
+     */
+    Profile getLocalProfile();
+    
+    /**
+     * Set the local game
+     * @param g : game to set
+     */
     public void setLocalGame(Game g);
     
+    /**
+     * Set the list of IP adress
+     * @param Ips : list of IP
+     */
     public void setListIps(HashSet Ips);
 
     /**
@@ -115,8 +126,16 @@ public interface IDataMain {
      */
     void gameToSpec(Game g);
     
+    /**
+     * Set the port
+     * @param p : the port to set
+     */
     void setPort(int p);
     
+    /**
+     * 
+     * @return the local list of users
+     */
     public List<User> getListUsers();
 
     public void clear();

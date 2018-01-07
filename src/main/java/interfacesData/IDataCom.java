@@ -66,13 +66,6 @@ public interface IDataCom {
      public void removeGameFromList(Game g);
 
     /**
-     * Takes the error message given as a parameter in order to transmit it to 
-     * IHM-Table or IHM-Main
-     * @param error : The error message to transmit
-     */
-    public void errorPrint(String error);
-
-    /**
      * Takes the chat message given as a parameter in order to transmit it to 
      * IHM-Table
      * @param message : The chat message to transmit

@@ -121,7 +121,7 @@ public class Game implements Serializable{
         timeToPlaceBoats = newTimeToPlaceBoats;
         spectator = newSpectator;
         spectatorChat = newSpectatorChat;
-        if (spectator) {
+        if (spectator == true) {
             listSpectators = lS;
         }
         else {
@@ -297,7 +297,6 @@ public class Game implements Serializable{
      */
     public void addSpectators(User spectator){
         listSpectators.add(spectator);
-        System.out.println("nombre de spectateur actuel : " + listSpectators.size());
     }
     
      /**

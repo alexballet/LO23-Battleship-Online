@@ -66,9 +66,7 @@ public class DataController {
     public void setInterfaceTable(GuiTableInterface i){
         interfaceTable = i;
         interfaceDataCom.setInterfaceTable(i);
-        /* ajout ihm-plateau débug   */
         interfaceDataTable.setInterfaceTable(i);
-        /* ajout ihm-plateau débug   */
     }
     
     /**
@@ -194,7 +192,6 @@ public class DataController {
      * @param u : User to remove
      */
     public void removeUserFromList(User u){
-        //comparer les UUID de u et des objets de listUser et enlever l'user si présent
         listUsers.remove(u);
     }
 
@@ -235,11 +232,11 @@ public class DataController {
      */
     public void addGameToList(Game g){
         if(g != null) {
-        		boolean isOk = true;
-        		for (Game game : listGames) {
-        			if (game.getIdGame().equals(g.getIdGame())) isOk = false;
-        		}
-        		if (isOk) listGames.add(g);
+            boolean isOk = true;
+            for (Game game : listGames) {
+                    if (game.getIdGame().equals(g.getIdGame())) isOk = false;
+            }
+            if (isOk) listGames.add(g);
         }
     }
     
@@ -263,11 +260,11 @@ public class DataController {
      */
     public void removeGameFromList(Game g){
     	for (Game game : listGames) {
-			if (game.getIdGame().equals(g.getIdGame())) {
-				listGames.remove(game); 
-				return;
-			}
-		}
+            if (game.getIdGame().equals(g.getIdGame())) {
+                listGames.remove(game); 
+                return;
+            }
+        }
         
     }
     
@@ -290,9 +287,10 @@ public class DataController {
     }
 
     /**
-     * Used by the method setGameJoinResponse of CDataCom
+     * Enable to know if the local player is the player 1
+     * @return true if the local player is player 1, false otherwise
      */
-    private boolean isPlayer1() {
+    public boolean isPlayer1() {
         return getLocalUser().getIdUser().equals(
                 getLocalGame().getPlayer1().getProfile().getIdUser());
     }
@@ -442,7 +440,6 @@ public class DataController {
      * @return a boolean indicating if the is player belongs to the game
      */
     public boolean isPlayerOf(Game game) {
-        Profile localProfile = getLocalProfile();
         Profile profilePlayer1 = game.getPlayer1().getProfile();
         Profile profilePlayer2 = game.getPlayer1().getProfile();
         return localProfile.getIdUser().equals(profilePlayer1.getIdUser()) ||
@@ -453,45 +450,41 @@ public class DataController {
      * When game is over
      */
     public void gameOver() {
-        System.out.println("GAME OVER");
-        //arreter la partie localPlayer a perdu
-                Game game = getLocalGame();
-                try {
-                game.setStatus(StatusGame.FINISHED);
-                interfaceCom.changeStatusGame(game);
-                 setLocalGame(game);
-                } catch (NullPointerException e) {
-                    // le jeu est déjà supprimé
-                }
+        // local player has losed
+        Game game = getLocalGame();
+        try {
+            game.setStatus(StatusGame.FINISHED);
+            interfaceCom.changeStatusGame(game);
+             setLocalGame(game);
+        } catch (NullPointerException e) {
+            // the game is already deleted
+        }
 
         
          Runnable command = new Runnable() {
-			@Override
-			public void run() {
-                            interfaceTable.displayDefeat();
-                            }
-        		};
-		Platform.runLater(command);
+            @Override
+            public void run() {
+                interfaceTable.displayDefeat();
+                }
+            };
+        Platform.runLater(command);
 
         
         //notify the other player that he has won
-        Player pl = getOtherPLayer(); // to know to which player we send the notification : it's the player who is not ourself
         interfaceCom.notifyGameWon();
         interfaceCom.removeGame(getLocalGame());
 
         immediateDefeat();
-        //interfaceMain.removeGame(controller.getLocalGame());
-        //interfaceCom.removeGame(controller.getLocalGame());
     }
 
     /**
      * When immediate defeat
      */
     public void immediateDefeat() {
-        Profile localProfile = getLocalProfile();
+        localProfile = getLocalProfile();
         localProfile.setGamesLost(localProfile.getGamesLost()+1);
         localProfile.setGamesPlayed(localProfile.getGamesPlayed()+1);
-        removeGameFromList(getLocalGame()); // Verifier comment est géré la notification que la partie n'existe plus
+        removeGameFromList(getLocalGame());
         localProfile.saveeditedProfile();
     }
 
@@ -499,7 +492,7 @@ public class DataController {
      * To record victory
      */
     public void recordVictory() {
-        Profile localProfile = getLocalProfile();
+        localProfile = getLocalProfile();
         localProfile.setGamesWon(localProfile.getGamesWon()+1);
         localProfile.setGamesPlayed(localProfile.getGamesPlayed()+1);
         localProfile.saveeditedProfile();
@@ -520,7 +513,6 @@ public class DataController {
             interfaceCom.sendChatMessage(m, getAttendedGame());
             setAttendedGame(null); // on retire le attended game
         } else if(game != null){
-            System.out.println("GAME : " + game.getStatus() );
         switch (game.getStatus()) {
             case PLAYING :
                 User u = getLocalUser();
@@ -535,7 +527,6 @@ public class DataController {
             case PLAYER1READY :
             case PLAYER2READY : 
             case BOATPHASE :
-              //  interfaceCom.quitMessage();
         } 
         removeGameFromList(game);
         interfaceCom.removeGame(game);
@@ -559,9 +550,11 @@ public class DataController {
         }
     }
 
+    /**
+     * erase the local data, after a disconnection
+     */
     void clearData() {
         localUser = null;
-        // private DataUser localDataUser;
         localGame = null;
         attendedGame = null;
         listUsers.clear();
