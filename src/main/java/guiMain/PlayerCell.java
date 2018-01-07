@@ -12,6 +12,14 @@ import guiMain.controller.menuController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+
+/**
+*
+* This class provide a specific cell for list with players' name and 
+* button to access at his profil.
+*
+* @author IHM-Main module
+*/
 public class PlayerCell extends ListCell<User> {
 	HBox hbox = new HBox();
 	HBox lookButtonBox = new HBox();
@@ -19,6 +27,11 @@ public class PlayerCell extends ListCell<User> {
 	Button lookButton = new Button("");
 	menuController controller;
 
+	
+	/** 
+	 * Init the gui parameter of the cell.
+	 * @param c : controller necessary for futur update.
+	 */
 	public PlayerCell(menuController c) {
 		super();
 
@@ -39,6 +52,10 @@ public class PlayerCell extends ListCell<User> {
 	}
 
 
+	/** 
+	 * Update the cell.
+	 * @param user : user's cell to update.
+	 */
 	protected void updateItem(final User user, boolean empty) {
 		super.updateItem(user, empty);
 		setText(null);

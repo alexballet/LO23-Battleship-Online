@@ -32,6 +32,14 @@ import structData.Game;
 import structData.Profile;
 import structData.User;
 
+
+/**
+*
+* This class implements the network controller. It contains references
+* to all Main-Gui controllers and interactions with data module.
+*
+* @author IHM-Main module
+*/
 public class GuiMainController implements GuiMainInterface {
 
 	List<User> playersList;
@@ -51,10 +59,19 @@ public class GuiMainController implements GuiMainInterface {
 	private CreateGameController createGameController;
 	private WaitingRoomController waitingRoomController;
 
+	
+	/** 
+	 * Get the interface with data module..
+	 * @return interface with data.
+	 */
 	public IDataMain getIdata() {
 		return idata;
 	}
-
+	
+	/** 
+	 * Add the user passed as a parameter to the list of users.
+	 * @param user : user to add to the list.
+	 */
 	@Override
 	public void addUser(final User user) {
 
@@ -66,7 +83,11 @@ public class GuiMainController implements GuiMainInterface {
 		};
 		Platform.runLater(command);
 	}
-
+	
+	/** 
+	 * Remove the user passed as a parameter to the list of users.
+	 * @param user : user to remove to the list.
+	 */
 	@Override
 	public void removeUser(final User user) {
 		Runnable command = new Runnable() {
@@ -78,6 +99,10 @@ public class GuiMainController implements GuiMainInterface {
 		Platform.runLater(command);
 	}
 
+	/** 
+	 * Add the game passed as a parameter to the list of games.
+	 * @param createdGame : game to add to the list.
+	 */
 	@Override
 	public void addGame(final Game createdGame) {
 		if (createdGame.doesProfileBelongToGame(idata.getLocalProfile())) return;
@@ -93,6 +118,10 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
 
+	/** 
+	 * Remove the game passed as a parameter to the list of games.
+	 * @param removedGame : game to remove to the list.
+	 */
         @Override
 	public void removeGame(final Game removedGame) {
 		if (removedGame != null) {
@@ -105,10 +134,13 @@ public class GuiMainController implements GuiMainInterface {
 			Platform.runLater(command);
 		}
 	}
-
+        
+        /** 
+    	 * Get statics from an other player..
+    	 * @param profil : user to show statistics.
+    	 */
 	@Override
 	public void sendStatistics(Profile profil) {
-		// TODO Auto-generated method stub
 		if (profilController != null) {
 			Runnable command = new Runnable() {
 				@Override
@@ -122,6 +154,10 @@ public class GuiMainController implements GuiMainInterface {
 
 	}
 
+	/** 
+	 * Change the game's status (joinable or not, spectator allowed or not)
+	 * @param game : game to update in the list.
+	 */
 	@Override
 	public void transmitNewStatus(final Game game) {
 		Runnable command = new Runnable() {
@@ -135,10 +171,11 @@ public class GuiMainController implements GuiMainInterface {
 
 	@Override
 	public void setGameJoinResponse(boolean isOk) {
-		// TODO Auto-generated method stub
-
 	}
 
+	/**
+     * Method called at the launch of the mainapp to init the gui.  
+     */
 	public void startIHM(){
 
 		FXMLLoader loader = new FXMLLoader();
@@ -159,6 +196,9 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
 
+	/**
+     * Access to the lobby view.  
+     */
         @Override
 	public void openMenuWindow(){
 		FXMLLoader loader = new FXMLLoader();
@@ -181,24 +221,17 @@ public class GuiMainController implements GuiMainInterface {
 			stage.show();
 			
 			System.out.println("start connection");
-			// idata.connection(loginController.);
 			System.out.println("Connection etablished");
-
-			/*
-			stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-				public void handle(WindowEvent we) {
-					idata.askDisconnection();
-					System.out.println("Stage is closing");
-				}
-			});
-			 */  
 
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
+        
+        /**
+         * Access to the create game view.  
+         */
 	public void openCreateGameWindow(){
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/createGame.fxml"));
@@ -217,7 +250,10 @@ public class GuiMainController implements GuiMainInterface {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+     * Access to the sign up view.  
+     */
 	public void openSignupWindow(){
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/fxml/Ihm-main/signup.fxml"));
@@ -238,6 +274,9 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
 
+	/**
+     * Access to the player configuration view. 
+     */
 	public void openConfigWindow(){
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -257,7 +296,11 @@ public class GuiMainController implements GuiMainInterface {
 			e.printStackTrace();
 		}
 	}
-        
+	
+	/**
+     * Access to the change profile view.  
+     * @param user : local current user
+     */
     @Override
     public void openPlacementPhase(final Game game) {
             try {
@@ -281,7 +324,11 @@ public class GuiMainController implements GuiMainInterface {
 			e.printStackTrace();
 		}
 	}
-
+    
+    /**
+     * Open the waiting room view.  
+     * @param game : the new game created
+     */
 	public void openWaitingRoomWindow(Game game){
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -306,7 +353,11 @@ public class GuiMainController implements GuiMainInterface {
 			e.printStackTrace();
 		}
 	} 
-
+	  /**
+     * Get the current user's ip list
+     * @return current user's ip list 
+     */
+	
 	public List<String> getIps(){
 		Profile p = idata.getLocalProfile();
 		if (p != null && p.getIdUser() != null) {
@@ -320,6 +371,10 @@ public class GuiMainController implements GuiMainInterface {
 		return this.ipsList;
 	}
 
+	  /**
+     * Set the current user's ip list
+     * @param list : ip list to upddate
+     */
 	public void setIps(List<String> list){
 		Profile p = idata.getLocalProfile();
 		
@@ -330,7 +385,6 @@ public class GuiMainController implements GuiMainInterface {
 					try {
 						ips.add(InetAddress.getByName(ip));
 					} catch (UnknownHostException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -340,16 +394,29 @@ public class GuiMainController implements GuiMainInterface {
 		
 		this.ipsList = list;
 	}
-
+	
+	
+	  /**
+     * Set an to the interface of data module
+     * @param idata : interface of data module
+     */
 	public void setIdata(IDataMain idata) {
 		this.idata = idata;
 	}
 
+	  /**
+     * Init the controller with the main stage  
+     * @param s : current stage
+     */
 	public GuiMainController(Stage s) {
 		super();
 		this.stage = s;
 	}
-
+	
+	 /**
+	    * Ask information about the game join ans notify others players.  
+	    * @param game : game joined
+	    */
 	public void askJoinGame(final Game game) {
 		Runnable command = new Runnable() {
 
@@ -362,6 +429,10 @@ public class GuiMainController implements GuiMainInterface {
 		Platform.runLater(command);
 	}
 
+	 /**
+    * Access to the profile view.  
+    * @param user : windows display this user profile 
+    */
 	public void openProfileWindow(User user){
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -382,6 +453,10 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
 
+	 /**
+     * Access to the change profile view.  
+     * @param user : local current user
+     */
 	public void openChangeProfileWindow(User user){
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -402,6 +477,10 @@ public class GuiMainController implements GuiMainInterface {
 		}
 	}
 
+	 /**
+     * Set the local user port
+     * @param num_port : new value of the port
+     */
 	public void setPort(int num_port) {
 		Profile p = idata.getLocalProfile();
 		
@@ -411,7 +490,11 @@ public class GuiMainController implements GuiMainInterface {
 		
 		this.port = num_port;
 	}
-
+	
+	 /**
+     * Get the local user port
+     * @return value of the local user port
+     */
 	public int getPort() {
 		Profile p = idata.getLocalProfile();
 		if (p != null && p.getIdUser() != null) {
@@ -421,6 +504,10 @@ public class GuiMainController implements GuiMainInterface {
 		return this.port;
 	}
 
+	 /**
+     * Ask of informations about the game  
+     * @param game : game asked for viewing
+     */
 	public void lookGame(Game game) {
 		idata.gameToSpec(game);
 		GuiTableController.getInstance().displayObserverPhase(stage, game);
