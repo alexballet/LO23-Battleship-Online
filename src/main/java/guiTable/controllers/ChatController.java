@@ -1,5 +1,5 @@
 package guiTable.controllers;
-import data.CDataTable;
+import interfacesData.IDataTable;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -24,7 +24,7 @@ public class ChatController {
     //profile area
     private Label profils;
     
-    private CDataTable dataController;
+    private IDataTable dataController;
     private String conversation;
     
     
@@ -84,10 +84,9 @@ public class ChatController {
     public void reloadConversation(){
         conversationArea.setText("");
         conversationArea.appendText(conversation);
-        //System.out.println("on reload \n conv : " + conversation);
     }
     
-    public void setDataController(CDataTable d) {
+    public void setDataController(IDataTable d) {
         this.dataController = d;
     }
 
