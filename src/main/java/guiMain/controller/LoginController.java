@@ -52,21 +52,24 @@ public class LoginController implements Initializable{
      */
     @FXML
     void login(ActionEvent event) {
-        String login = userLogin.getText();
-        String password = userPassword.getText();
+            // Get entered data
+            String login = userLogin.getText();
+            String password = userPassword.getText();
 
-        try {
-			if (mainController.getIdata().connection(login, password)){
-			    mainController.openMenuWindow();
-			} else{
-			   // User can not login. Show error message
-			   errorMessage.setText("Une erreur sauvage est apparue. Veuillez réessayer.");
-			   errorMessage.setVisible(true);
-			}
-		} catch (UnknownHostException e) {
-			errorMessage.setText("Une erreur sauvage est apparue. Veuillez réessayer.");
-			errorMessage.setVisible(true);
-		}
+            try {
+                    if (mainController.getIdata().connection(login, password)){
+                            // Connection success : open menu window
+                            mainController.openMenuWindow();
+                    } else{
+                            // Connection error. User can not login. Show error message
+                            errorMessage.setText("Une erreur sauvage est apparue. Veuillez réessayer.");
+                            errorMessage.setVisible(true);
+                    }
+            } catch (UnknownHostException e) {
+                    // Error. User can not login. Show error message
+                    errorMessage.setText("Une erreur sauvage est apparue. Veuillez réessayer.");
+                    errorMessage.setVisible(true);
+            }
     }
 
     /**
