@@ -112,7 +112,7 @@ public abstract class PlacementPhaseController extends BaseController implements
             rectangle.setOnMousePressed(activateBoat());
         }        
         activeBoat = null;
-
+        //Adds for each case of the board un pane and an event handler
         for (int i = 0 ; i < NB_CASES_GRID ; i++) {
             for (int j = 0; j < NB_CASES_GRID; j++) {
                 Pane pane = new Pane();
@@ -127,39 +127,11 @@ public abstract class PlacementPhaseController extends BaseController implements
         table.setOnMouseExited(disableRotation());
         // This probably will change after the addition of the chat.
         anchorPane.addEventHandler(KeyEvent.KEY_PRESSED, playKeyEvent());
-        
+        // The rotation is valide only if the mouse is over the board
         rotationIsValide = false;
         
         valider.setDisable(true);                        
     }
-    
-   
-    
-    /*public void displayQuitOpponent() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(getClass().getResource("/fxml/Ihm-main/waitingRoom.fxml"));
-			Parent root = (Parent) loader.load();
-
-			waitingRoomController = loader.getController();
-			waitingRoomController.initData(game);
-
-			Stage stage = new Stage();
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.setTitle("Salle d'attente");
-			stage.setScene(new Scene(root));
-			waitingRoomController.setStage(stage);
-			stage.show();
-
-			stage.setOnCloseRequest((WindowEvent event1) -> {
-				idata.removeGame(game);
-			});
-
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
-    }*/
     
     /**
      * Trigger validation of placement phase
@@ -168,16 +140,17 @@ public abstract class PlacementPhaseController extends BaseController implements
     protected void onValidate() {
         if (!this.isIsValidate()) {
             this.setIsValidate(true);
-            
+            //Makes a list of boats
             List<Boat> boats = new ArrayList<Boat>();
             for (Map.Entry<Rectangle, BoatDrawing> entry : boatMap.entrySet()) {
                 BoatDrawing myBoatDrawing = entry.getValue();
                 boats.add(new Boat(myBoatDrawing.getBoatType(), myBoatDrawing.isRotation(), new Position(myBoatDrawing.getGridCol(), myBoatDrawing.getGridRow(), false)));
             }
-            
+            //Stops the time
             if(timeline != null) {
             timeline.stop();
             }
+            //Waits for the other player to validate his boats
             timerLabel.setVisible(false);
             logMsg("en attente de la validation de l'autre joueur", "");
             GuiTableController.getInstance().validateBoats(boats);
@@ -299,13 +272,15 @@ public abstract class PlacementPhaseController extends BaseController implements
             (nb case-1)/2
         
         */
+        //Checks if the boat is rotated
         float offset = boat.isRotation()? ((float) boat.getBoatSize()-1)/2:0;
-            
+        //Calculates the new position
         float positionX = GRID_X + SPACE + GRID_ELEMENT_SIZE*(colIndex - offset);
         float positionY = GRID_Y + SPACE + GRID_ELEMENT_SIZE*(rowIndex + offset);
-            
+        //Draw the boat in the new position
         boat.getBoatRectangle().relocate(positionX, positionY);
         boat.setPosition(colIndex, rowIndex);
+        //Checks if the new position is valid and colors it with the appropriate colors
         if(positionCorrect(boat)) {
            boat.getBoatRectangle().setFill(boat.getActiveColor());            
            logMsg(EXPLAIN_PLACEMENT);
@@ -443,6 +418,10 @@ public abstract class PlacementPhaseController extends BaseController implements
         } 
     }
     
+    /**
+     * Sets the maximum time of placement of boats
+     * @param placementTime The time of placement
+     */
     public void setPlacementTime(Integer placementTime){
         if (placementTime != null) {
             this.timePlacement = LocalTime.MIN.plusSeconds(placementTime);
@@ -459,9 +438,11 @@ public abstract class PlacementPhaseController extends BaseController implements
                     time = time.minusSeconds(1);
                     timerLabel.setText(time.toString().substring(3));
                     if (time.isBefore(LocalTime.MIN.plusSeconds(10))) {
+                        // If there is not much time left
                         timerLabel.setTextFill(Color.RED);
                     }
                     if (time.isBefore(LocalTime.MIN.plusSeconds(1)) ) {
+                        //If time is over
                         timeline.stop();
                         timeIsOver();
                 }
@@ -475,8 +456,10 @@ public abstract class PlacementPhaseController extends BaseController implements
      * Places the boats randomly if time's over and there are boats to place
      */
     protected void timeIsOver(){
+        //Gets all the boats that are not placed
         for(BoatDrawing myBoat : boatMap.values()){
             while(!myBoat.isPlaced()){
+                //Sets a non placed boat with a random position with a random rotation
                 activeBoat=myBoat;
                 Random rn = new Random(); 
                 draw(activeBoat, rn.nextInt(NB_CASES_GRID), rn.nextInt(NB_CASES_GRID));
@@ -484,6 +467,7 @@ public abstract class PlacementPhaseController extends BaseController implements
                     drawRotation(activeBoat);
                 }                
                 if(positionCorrect(myBoat)){
+                    //If the position is corrrect, draws the boat
                     this.placeBoat(myBoat);
                 }
            }
@@ -505,6 +489,10 @@ public abstract class PlacementPhaseController extends BaseController implements
         this.isValidate = isValidate;
     }
 
+    /**
+     * Returns the chat pane
+     * @return The chat pane
+     */
     public AnchorPane getChatPane() {
         return this.chatPane;
     }

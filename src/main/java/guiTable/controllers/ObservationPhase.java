@@ -84,25 +84,36 @@ public class ObservationPhase extends BaseController{
         VICTORY_P2_MSG = "victoire du joueur ";
         tableController = GuiTableController.getInstance();
     }
-    
+    /**
+     * Sets ths GuiTableController
+     * @param c The GuiTableController
+     */
     public void setTableController(GuiTableController c) {
         tableController = c;
     }
     
+    /**
+     * Adds a shot on a board
+     * @param shot The shot to be added
+     * @param grid The board where the shot will be added
+     */
     protected void placeShotTo(Shot shot, GridPane grid) {
+        //Gets the shot's positions
         Integer col = shot.getX();
         Integer row = shot.getY();
         CaseDrawing.Type t;
+        //Verifies if it has touched any boat
         if(shot.getTouched()) {
             t = CaseDrawing.Type.TOUCHED;
         } else {
             t = CaseDrawing.Type.MISSED;
         }
+        //Adds it to the board
         CaseDrawing c = new CaseDrawing(t);
         grid.add(c, col, row);
     }
     
-        /**
+    /**
     * Shows victory message
     */
     public void showVictory(int player){
@@ -113,7 +124,7 @@ public class ObservationPhase extends BaseController{
         }
     }
 
-       /**
+    /**
      * log message into interface.
      * @param msg message to be displayed
      */
@@ -141,8 +152,13 @@ public class ObservationPhase extends BaseController{
         waitExit = true;
     }
     
-    
+    /**
+     * Draws a sunked boat
+     * @param grid The board where the boat sunked
+     * @param boat The boat that has been sunked
+     */
     protected void sunkABoat(GridPane grid, Boat boat) {
+        //For each position of the sunked boat, draws the sunked boat representation
         for(Position position : boat.getListCases()) {
             CaseDrawing c = new CaseDrawing(CaseDrawing.Type.SUNK_BOAT);
             grid.add(c, position.getX(), position.getY());
@@ -158,13 +174,10 @@ public class ObservationPhase extends BaseController{
             tableController.getDataController().gameEnded();
         } else {
             System.err.println("GuiTableController.getInstance().exitGame() renvoi false");
-            // Message d'erreur
+            // Error message
         }
     }
     
-    
-    
-
     /**
      * Sets the turn of the players and and colors the boards
      * @param t ; Boolean that defines the turn. True means player 1, False means player 2
@@ -182,14 +195,28 @@ public class ObservationPhase extends BaseController{
         turn = t;
     }
     
+    /**
+     * Calls another function to draw the sunked boat according to the parameters
+     * @param i Int that indicates the player
+     * @param boat The boat to be sunked
+     */
     public void sunkPlayerBoat(int i, Boat boat) {
         sunkABoat(tablePlayer.get(i), boat);
     }
-
+    
+    /**
+     * Calls another function to draw the shot made according to the parameters
+     * @param shot The shot to be added
+     * @param player Int that indicates the player
+     */
     void displayShot(Shot shot, int player) {
         this.placeShotTo(shot, tablePlayer.get(player));
     }
     
+    /**
+     * Exits the game
+     * @param event 
+     */
     @FXML
     void exitGame(ActionEvent event) {
         messageContainer.setVisible(true);

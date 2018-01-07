@@ -59,7 +59,7 @@ public class GamePhaseController extends gameInterface implements Initializable 
     public void initialize(URL location, ResourceBundle resources){        
         
         selectedCase = new CaseDrawing(CaseDrawing.Type.SHOT);
-
+        //Adds for each element of the board a pane and a event handler
         for (int i = 0 ; i < NB_CASES_GRID ; i++) {
             for (int j = 0; j < NB_CASES_GRID; j++) {
                 Pane pane = new Pane();
@@ -67,28 +67,36 @@ public class GamePhaseController extends gameInterface implements Initializable 
                 table.add(pane, i, j);
             }
         }
+        
         tableController = GuiTableController.getInstance();
         messageContainer.setVisible(false);
     }
     
     
     
-    
+    /**
+     * Funtion dispatched when the user clicks over a case in te boards
+     * @return the EventHandler of this situation
+     */
     protected EventHandler<MouseEvent> onClickCase() {
         EventHandler<MouseEvent> mousePositionHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                //If it is the user's turn
                 if (myTurn) {
+                    //Identifies the node that dispatched the event
                     Node source = (Node)event.getSource() ;
                     Integer colIndex = GridPane.getColumnIndex(source);
-                    Integer rowIndex = GridPane.getRowIndex(source);
+                    Integer rowIndex = GridPane.getRowIndex(source);                    
                     if (selectedCase.getParent() == null) {
+                        //If the player has not selected a case yet, adds the selected case
                         table.add(selectedCase, colIndex, rowIndex);
                     } else {
+                        //If the players has selected a case, but changed its ideia
                         GridPane.setColumnIndex(selectedCase, colIndex);
                         GridPane.setRowIndex(selectedCase, rowIndex);
                     }
-
+                    //Enables the button to validate the shot.
                     valider.setDisable(false);
                 }
                 event.consume();
@@ -97,17 +105,23 @@ public class GamePhaseController extends gameInterface implements Initializable 
         return mousePositionHandler;
     }
     
+    /**
+     * Sends the shot to the user's opponent and observers
+     */
     @FXML
     protected void validateShot() {
+        //Gets the coordinates of the shot
         Integer col = GridPane.getColumnIndex(selectedCase);
         Integer row = GridPane.getRowIndex(selectedCase);
         Byte colB = Byte.decode(col.toString());
         Byte rowB = Byte.decode(row.toString());
-        
+        //Makes a position variable with the coordinates
         Position shoot = new Position(colB, rowB, false);
+        //Stops the timer
         if(timeline != null) {
             timeline.stop();
         }
+        //Disables the label and the button and sends the shot.
         timerLabel.setVisible(false);
         GuiTableController.getInstance().validateShot(shoot);
         valider.setDisable(true);
@@ -131,13 +145,13 @@ public class GamePhaseController extends gameInterface implements Initializable 
     }
 
     /**
-     *
+     * Changes the colors of the boards according to the turns of the players
      * @param myTurn
      */
     public void setMyTurn(Boolean myTurn) {
         this.myTurn = myTurn;
         
-        // Grise le plateau non actif
+        // Makes the non active board gray
         if (myTurn) {
             logMsg(MY_TURN_MSG);
             table.setStyle(STYLE_MY_TURN);
