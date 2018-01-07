@@ -44,18 +44,8 @@ public class ConnectionRequestMessage extends Message {
      * @param senderAddress sender IP address.
      */
     public void process(IDataCom IData, InetAddress senderAddress) {
-
-        if(IData.getLocalUser() == null) // if user's machine is connected but user is not!
-            return;
-
-        System.out.println("New message received from: " + senderAddress);
-        System.out.println("Message Type: " + type);
-
         NetworkController controller = NetworkController.getInstance();
-
         controller.addToNetwork(sender, senderAddress, game);
-        System.out.println("1 - " + IData);
-        System.out.println("2 - " + controller);
 
         ConnectionEstablishedMessage connectionEstablishedMessage =
                 new ConnectionEstablishedMessage(IData.getLocalUser(), controller.getIPTable(), IData.getCreatedGame());
