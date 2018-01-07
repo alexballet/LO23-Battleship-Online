@@ -19,39 +19,29 @@ import javafx.scene.paint.Color;
 import structData.Game;
 
 public class CreateGameController implements Initializable{
+	
 	@FXML
 	private TextField gameName;
-
 	@FXML
 	private RadioButton classicGameType;
-
 	@FXML
 	private ToggleGroup gameType;
-
 	@FXML
 	private RadioButton belgiumGameType;
-
 	@FXML
 	private CheckBox spectatorsAutorise;
-
 	@FXML
-	private CheckBox chatAutorise;
-	
+	private CheckBox chatAutorise;	
 	@FXML
 	private CheckBox timeDisabled;
-
 	@FXML
-	private TextField positioningTime;
-	
+	private TextField positioningTime;	
 	@FXML
 	private TextField reflectionTime;
-
 	@FXML
 	private Label errorMessage;
-
 	@FXML
 	private Button createGame;
-
 	@FXML
 	private Button returnButton;
 
