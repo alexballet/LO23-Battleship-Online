@@ -9,39 +9,48 @@ import java.net.InetAddress;
 import java.util.HashSet;
 
 /**
- * SendNewSpectatorMessage,descendant class Message, notify everybody there is a new spectator.
- * @author Lejeune Lola
+ * This class implements the message sent when a user
+ * has been accepted as spectator by the creator of the game.
+ * The message is sent to all the current spectators and the other player to notify them of
+ * the new spectator's arrival.
+ *
+ * @see Message
+ * @author COM Module
  */
 
 public class SendNewSpectatorMessage extends Message {
 
-    Player player;
-    User spec;
-    HashSet<User> listS;
+    private User spec;
+    /**
+     * Allocates a new {@code SendNewSpectatorMessage} object
+     * @param s : {@code User}:
+     *          new spectator
+     * */
     public SendNewSpectatorMessage(User s) {
         this.type = "SendNewSpectatorMessage";
         this.spec = s;
     }
 
+    /**
+     * Returns the type of the message.
+     * Implementation of an abstract method.
+     * @return type : {@code String}
+     */
     public String getType() {
         return type;
     }
 
 
+    /**
+     * Adds the spectator to the list of spectators of the game
+     * using the data package interface <code>IData</code>
+
+     * @param IData : {@code IDataCom}
+     *              instance of IDataCom interface.
+     * @param senderAddress : {@code InetAddress}
+     *                      sender's IP address
+     */
     public void process(IDataCom IData, InetAddress senderAddress){
-        // TODO decommenter quand dans interface data
         IData.notifyToSpecGame(spec);
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("SHHHHIIIIITTT! : " + IData.getCreatedGame().getListSpectators().size());
-        System.out.println("NEWWWWWWWW: SPEC: " + spec.getUsername());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
     }
 }

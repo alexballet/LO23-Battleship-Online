@@ -20,8 +20,7 @@ import java.util.List;
 
 
 /**
- *
- * @author Irvin
+ * CDataCom : interface of Data for IHM Main
  */
 public class CDataMain implements IDataMain {
     
@@ -64,15 +63,6 @@ public class CDataMain implements IDataMain {
         
         Profile newProfile = new Profile(newDataUser,avatar,lastname,firstname,birthDate);
         newProfile.saveProfile();
-        
-        // controller.setLocalUser(newUser);
-        // controller.setLocalDataUser(newDataUser);
-        // controller.setLocalProfile(newProfile);
-    }
-
-    @Override
-    public void getStatistics(Profile p) {
-        //demander à l'interface de la com WHAT THE FUCK ????
     }
     
     /*
@@ -101,7 +91,6 @@ public class CDataMain implements IDataMain {
 
     @Override
     public Boolean connection(String login, String password) throws UnknownHostException {
-        controller.clearData();
         Boolean result = false;
         controller.reloadSavedProfile(login, password);
         if(controller.getLocalProfile() != null){
@@ -119,32 +108,9 @@ public class CDataMain implements IDataMain {
             Boolean newSpectator, Boolean newSpectatorChat) {
     		
         Game g = new Game(newClassicType, newName, newHumanOpponent, newTimePerShot, newTimeToPlaceBoats, newSpectator, newSpectatorChat, controller.getLocalProfile());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("JOIN NEW GAME LOCAL BEFORE SET: " + g.getListSpectators().size());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
         controller.addGameToList(g);
         interfaceCom.notifyNewGame(g);
         controller.setLocalGame(g);
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("JOIN NEW GAME LOCAL: " + controller.getLocalGame().getListSpectators().size());
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-        System.out.println("############################################");
-
         return g;
     }
     
@@ -198,5 +164,8 @@ public class CDataMain implements IDataMain {
     @Override
     public List<User> getListUsers() {
         return controller.getListUsers();
+    }
+    public void clear() {
+        controller.clearData();
     }
 }

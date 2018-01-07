@@ -199,13 +199,13 @@ public class CDataTable implements IDataTable {
         return s;
     }*/
     
+    @Override
     public Game getLocalGame() {
         return controller.getLocalGame();
     }
     
     @Override
-    public void changeStatusGameStarted(){ //to be called when boatphase is over
-    		System.out.println("CHANGE STATUS GAME STARTED");
+    public void changeStatusGameStarted(){
         Game g = controller.getLocalGame();
         g.setStatus(StatusGame.PLAYING);
         interfaceCom.changeStatusGame(g);
@@ -225,8 +225,5 @@ public class CDataTable implements IDataTable {
     @Override
     public Game getObserverGame(){
         return controller.getAttendedGame();
-    } 
-    
-
-
+    }
 }

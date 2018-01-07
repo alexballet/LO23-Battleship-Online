@@ -20,8 +20,6 @@ public interface IDataTable {
     */
     public void textMessage(String message);
 
-
-
     /**
      * Point out the position of shot.
      * @param pos : The position of shot. 
@@ -60,4 +58,10 @@ public interface IDataTable {
      * To end a game
      */
     public void gameEnded();
+    
+    /**
+     * 
+     * @return the local game
+     */
+    public Game getLocalGame();
 }

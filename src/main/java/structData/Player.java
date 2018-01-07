@@ -99,16 +99,16 @@ public class Player implements Serializable{
      * Mutator for listBoats
      * @param listBoatsData : the new value of the list of boats of the player
      */
-    public void setListBoats(List<Boat> listBoatsdata){
-        this.listBoats = listBoatsdata;
+    public void setListBoats(List<Boat> listBoatsData){
+        this.listBoats = listBoatsData;
     }
     
     /**
      * Mutator for listShots
      * @param listShotsData : the new value of the list of shots of the player
      */
-    public void setListShots(HashSet<Shot> listShotsdata){
-        this.listShots = listShotsdata;
+    public void setListShots(HashSet<Shot> listShotsData){
+        this.listShots = listShotsData;
     }
     
     /**

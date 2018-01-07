@@ -11,136 +11,118 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * Created by xzirva on 17/10/17.
+ *
+ * This class implements the COMInterface interface
+ * and the different methods (services) it offers.
+ * @author COM Module
+ *
+ * @see COMInterface
  */
 
 public class NetworkModuleInterface implements COMInterface {
     private IDataCom dataInterface;
     private NetworkController controller;
 
-    public NetworkModuleInterface(NetworkController cont) {
+    /**
+     * Allocates new {@code NetworkModuleInterface} object
+     * @param cont : {@code NetworkController}
+     *             Network Controller instance
+     * */
+    NetworkModuleInterface(NetworkController cont) {
         controller = cont;
     }
-    
-    public boolean notifyReady(User user, Player playerToNotify) {
 
+    @Override
+    public void notifyReady(User user, Player playerToNotify) {
         NotifyReadyMessage notifyReadyMessage = new NotifyReadyMessage(user, playerToNotify.getProfile());
 
-        controller.sendMessage(notifyReadyMessage, controller.getAddressForUser(playerToNotify.getProfile()));
-
-        return true;
+        controller.sendMessage(notifyReadyMessage,
+                controller.getAddressForUser(playerToNotify.getProfile()));
     }
 
-
-    public boolean sendChatMessage(ChatMessage chatMessage, Game g) {
-
+    @Override
+    public void sendChatMessage(ChatMessage chatMessage, Game g) {
         SendTextMessage sendTextMessage = new SendTextMessage(chatMessage);
-
         HashSet<User> listUsers = (HashSet<User>) g.getListSpectators().clone();
 
+        //Local user is player1
         if (dataInterface.getLocalUser().getIdUser().equals(g.getPlayer1().getProfile().getIdUser())) {
             listUsers.add(g.getPlayer2().getProfile());
         }
+        //Local user is player2
         else if(dataInterface.getLocalUser().getIdUser().equals(g.getPlayer1().getProfile().getIdUser())) {
             listUsers.add(g.getPlayer1().getProfile());
-        } else {
+        }
+        //Local user is a spectator
+        else {
             listUsers.add(g.getPlayer2().getProfile());
             listUsers.add(g.getPlayer1().getProfile());
         }
 
         for (User user : listUsers) {
-
             controller.sendMessage(sendTextMessage, controller.getAddressForUser(user));
-
         }
-
-        return true;
     }
 
+    @Override
     public void getProfile(User userRequested) {
+        GetProfileRequestMessage getProfileRequestMessage =
+                new GetProfileRequestMessage(dataInterface.getUserProfile());
 
-        GetProfileRequestMessage getProfileRequestMessage = new GetProfileRequestMessage(dataInterface.getUserProfile());
-
-        controller.sendMessage(getProfileRequestMessage, controller.getAddressForUser(userRequested));
+        controller.sendMessage(getProfileRequestMessage,
+                controller.getAddressForUser(userRequested));
     }
 
-    
-    public boolean notifyJoinGameResponse(Boolean isOk, Profile user, Game game) {
-        System.out.println("NMI isok " + isOk);
+    @Override
+    public void notifyJoinGameResponse(boolean isOk, Profile user, Game game) {
         JoinGameResponseMessage joinGameResponseMessage = new JoinGameResponseMessage(isOk, dataInterface.getUserProfile(), game);
-
         controller.sendMessage(joinGameResponseMessage, controller.getAddressForUser(user));
-
-        return true;
     }
 
-    
-    public boolean changeStatusGame(Game game) {
-    		System.out.println("CHANGE STATUS GAME COM " + game.getStatus());
-
+    @Override
+    public void changeStatusGame(Game game) {
         List<InetAddress> ipAddresses = controller.getIPTable();
-
         UpdateGameMessage updateGameMessage = new UpdateGameMessage(game);
 
         for (InetAddress ipAddress : ipAddresses) {
-
             controller.sendMessage(updateGameMessage, ipAddress);
-
         }
-
-        return true;
     }
 
-    
-    public boolean notifyNewGame(Game g) {
+    @Override
+    public void notifyNewGame(Game g) {
         List<InetAddress> ipAddresses = controller.getIPTable();
-
         CreatedGameNotificationMessage createdGameNotification = new CreatedGameNotificationMessage(g);
 
         for (InetAddress ipAddress : ipAddresses) {
-
             controller.sendMessage(createdGameNotification, ipAddress);
-
         }
-
-        return true;
     }
 
-    
-    public boolean joinGame(Game g) {
+    @Override
+    public void joinGame(Game g) {
         InetAddress destinationAddress = controller.getAddressForUser(g.getPlayer1().getProfile());
-
         Profile profile = dataInterface.getUserProfile();
         JoinGameRequestMessage joinGameRequest = new JoinGameRequestMessage(profile, g);
-
         controller.sendMessage(joinGameRequest, destinationAddress);
-
-        return true;
     }
 
-    
-    public boolean askDisconnection() {
-
+    @Override
+    public void askDisconnection() {
         User user = dataInterface.getLocalUser();
         List<InetAddress> ipAddresses = controller.getIPTable();
-
         DisconnectionMessage disconnection = new DisconnectionMessage(user, dataInterface.getCreatedGame());
 
         for (InetAddress ipAddress : ipAddresses) {
-
             controller.sendMessage(disconnection, ipAddress);
-
         }
+
         controller.closeListener();
-        return true;
     }
 
-
-    
-    public boolean sendShot(Player player, Game game, Shot shot) {
-
+    @Override
+    public void sendShot(Player player, Game game, Shot shot) {
         ShotNotificationMessage shotNotificationMessage = new ShotNotificationMessage(shot);
-
         InetAddress destAddress;
 
         if (dataInterface.getLocalUser().getIdUser().equals(game.getPlayer1().getProfile().getIdUser())) {
@@ -150,34 +132,26 @@ public class NetworkModuleInterface implements COMInterface {
         }
 
         controller.sendMessage(shotNotificationMessage, destAddress);
-
-        return true;
     }
 
-    
+    @Override
     public void searchForPlayers() {
         controller.launchServer();
         User user = dataInterface.getLocalUser();
         ConnectionRequestMessage connectionRequestMessage =
-                new ConnectionRequestMessage(user, new ArrayList<InetAddress>(), null);
+                new ConnectionRequestMessage(user, new ArrayList<>(), null);
 
         HashSet<InetAddress> knownUsersAddresses = user.getIPs();
         System.out.println("Sending CRM to " + knownUsersAddresses);
+
         for (InetAddress ipAddress : knownUsersAddresses) {
-
             controller.sendMessage(connectionRequestMessage, ipAddress);
-
         }
     }
 
-    public void setDataInterface(IDataCom IData) {
-        this.dataInterface = IData;
-    }
-
-
+    @Override
     public void notifyGameWon() {
-
-        Player winner = null;
+        Player winner;
         Game game = dataInterface.getCreatedGame();
         if(dataInterface.getUserProfile().getIdUser().equals(
                 game.getPlayer1().getProfile().getIdUser())) {
@@ -186,7 +160,6 @@ public class NetworkModuleInterface implements COMInterface {
         else {
             winner = game.getPlayer1();
         }
-
 
         GameWonMessage gameWonMessage = new GameWonMessage(winner);
         GameWonMessageToSpectator gameWonMessageToSpectator = new GameWonMessageToSpectator(winner);
@@ -197,12 +170,10 @@ public class NetworkModuleInterface implements COMInterface {
             controller.sendMessage(gameWonMessageToSpectator, address);
         }
         controller.sendMessage(gameWonMessage, controller.getAddressForUser(winner.getProfile()));
-
     }
-    
 
-
-    public boolean coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat) {
+    @Override
+    public void coordinates(Player destPlayer, Shot resultShot, Game game, Boat boat) {
         ShotNotificationResultForSpectatorMessage messageToSpectators =
                     new ShotNotificationResultForSpectatorMessage(destPlayer, resultShot, boat);
         ShotNotificationResultMessage shotNotificationResultMessage = new ShotNotificationResultMessage(resultShot, boat);
@@ -211,7 +182,6 @@ public class NetworkModuleInterface implements COMInterface {
         InetAddress destAddress;
 
         for (User s : listSpectator) {
-            System.out.println("adress user : " + controller.getAddressForUser(s));
             controller.sendMessage(messageToSpectators, controller.getAddressForUser(s));
         }
 
@@ -220,12 +190,10 @@ public class NetworkModuleInterface implements COMInterface {
         } else {
             destAddress = controller.getAddressForUser(game.getPlayer1().getProfile());
         }
-        System.out.println("dest ADDR : "+ destAddress);
         controller.sendMessage(shotNotificationResultMessage, destAddress);
-
-        return true;
     }
-    
+
+    @Override
     public void removeGame(Game game) {
         List<InetAddress> ipAddresses = controller.getIPTable();
         GameQuitMessage gameQuitMessage = new GameQuitMessage(game);
@@ -237,38 +205,27 @@ public class NetworkModuleInterface implements COMInterface {
         }
     }
 
-    public void quitGame() {
-        Game game = dataInterface.getCreatedGame();
-        User otherUser = dataInterface.getOtherPlayer().getProfile();
-        InetAddress address = controller.getAddressForUser(otherUser);
-        RageQuitMessage message = new RageQuitMessage(game);
-        controller.sendMessage(message, address);
-    }
-
-
+    @Override
     public void getInfoGameForSpectator(Player player, User spec) {
 
-        // spectateur(spec) demande au player(player) de lui filer les infos du game
         InetAddress address = controller.getAddressForUser(player.getProfile());
         GetInfoGameForSpectatorMessage message =
                 new GetInfoGameForSpectatorMessage(player, spec);
         controller.sendMessage(message, address);
     }
 
-
+    @Override
     public void sendInfoGameForSpectator(Game game, User spec) {
 
-        // player(localuser) envoie au spectateur(spec) les infos du game
         InetAddress address = controller.getAddressForUser(spec);
         SendInfoGameForSpectatorMessage sendInfoGameForSpectatorMessage =
                 new SendInfoGameForSpectatorMessage(game, spec);
         controller.sendMessage(sendInfoGameForSpectatorMessage, address);
     }
 
-
+    @Override
     public void sendNewSpectator(User u, Player p, HashSet<User> listSpectators)  {
 
-        // player1(localuser) envoie à tous (player2 et spectateur) l'arrivée d'un nouveau spectateur
         SendNewSpectatorMessage sendNewSpectatorMessage =
                 new SendNewSpectatorMessage(u);
         InetAddress otherPlayerAddress = controller.getAddressForUser(p.getProfile());
@@ -280,9 +237,9 @@ public class NetworkModuleInterface implements COMInterface {
         }
     }
 
+    @Override
     public void gameQuitSpectator(User spec, Game game) {
 
-        // signaler a tout le monde que le spectateur part du game
         GameQuitSpectatorMessage gameQuitSpectatorMessage =
                 new GameQuitSpectatorMessage(game, spec);
         HashSet<User> listSpectators = game.getListSpectators();
@@ -307,8 +264,16 @@ public class NetworkModuleInterface implements COMInterface {
         }
 
     }
+
+    @Override
     public void clearNetwork() {
         controller.clearNetwork();
     }
 
+    /**
+     * Sets the IDataCom instance (to call IDataCom services(methods))
+     * */
+    void setDataInterface(IDataCom IData) {
+        this.dataInterface = IData;
+    }
 }

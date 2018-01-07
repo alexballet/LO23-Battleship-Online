@@ -9,24 +9,26 @@ import java.net.InetAddress;
 /**
  * Network message class, extends Message class.
  * Message sent to provide the Profile requested by the network.
+ * @author COM Module
  */
 public class ProfileRequestAnswerMessage extends Message {
 
-    User user; //! whut?
-    Profile profile;
+    private User user;
+    private Profile profile;
 
     /**
-     * Class constructor.
-     * @param profile the Profile class which needs to be sent.
+     * Allocates a new {@code ProfileRequestAnswerMessage} object
+     * @param profile : {@code Profile} the Profile class which needs to be sent.
      */
-    public ProfileRequestAnswerMessage(Profile profile) {
+    ProfileRequestAnswerMessage(Profile profile) {
         this.profile = profile;
         this.type = "ProfileRequestAnswerMessage";
     }
 
     /**
-     * Message type getter. Implementation of an abstract method.
-     * @return type, this is the message type.
+     * Returns the type of the message.
+     * Implementation of an abstract method.
+     * @return type : {@code String}
      */
     public String getType() {
         return type;
@@ -34,9 +36,12 @@ public class ProfileRequestAnswerMessage extends Message {
     
 
     /**
-     * Unused method for this class.
-     * @param IData interface with Data.
-     * @param senderAddress sender IP address.
+     * Notifies the data package interface that profile which the local user asked for,
+     * has been received.
+     * @param IData : {@code IDataCom}
+     *              instance of IDataCom interface.
+     * @param senderAddress : {@code InetAddress}
+     *                      sender's IP address
      */
     public void process(IDataCom IData, InetAddress senderAddress){
         IData.sendStatistics(profile);

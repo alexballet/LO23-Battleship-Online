@@ -30,7 +30,7 @@ public class WaitingRoomController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //
+        // not implemented
     }
     
     /**
@@ -62,10 +62,17 @@ public class WaitingRoomController implements Initializable{
         }       
     }
     
+    /**
+     * Close waiting room window
+     */
     public void closeWindow() {
         this.stage.close();
     }
 
+    /**
+     * Set stage
+     * @param s 
+     */
     public void setStage(Stage s) {
         this.stage = s;
         System.out.println("stage : " + this.stage);

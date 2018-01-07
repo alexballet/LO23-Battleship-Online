@@ -7,8 +7,13 @@ import structData.User;
 import java.net.InetAddress;
 
 /**
- * SendInfoGameForSpectatorMessage,descendant class Message, localuser send the game to the spectator.
- * @author Lejeune Lola
+ * This class implements the message sent when the local user
+ * has been accepted as spectator.
+ * The local user receives this message with the current state(shots and sunk boats etc. ...)
+ * of the game.
+ *
+ * @see Message
+ * @author COM Module
  */
 
 public class SendInfoGameForSpectatorMessage extends Message{
@@ -19,22 +24,28 @@ public class SendInfoGameForSpectatorMessage extends Message{
         this.type = "SendInfoGameForSpectatorMessage";
         this.game = g;
         this.spec = s;
-        
-        System.out.println("SEND INFO GAME FOR SPEC " + g.getPlayer2());
     }
 
+    /**
+     * Returns the type of the message.
+     * Implementation of an abstract method.
+     * @return type : {@code String}
+     */
     public String getType() {
         return type;
     }
 
 
+    /**
+     * Sets the initial state of the game the spectator(local user) is watching
+     * using the data package interface <code>IData</code>
+
+     * @param IData : {@code IDataCom}
+     *              instance of IDataCom interface.
+     * @param senderAddress : {@code InetAddress}
+     *                      sender's IP address
+     */
     public void process(IDataCom IData, InetAddress senderAddress){
-        System.out.println("game : "+ game);
-        System.out.println("player 1 : "+ game.getPlayer1());
-        System.out.println("player 2 : "+ game.getPlayer2());
-        
-        System.out.println("listshot player 1 : "+ game.getPlayer1().getListShots());
-        
         IData.joinGameSpectator(game);
     }
 }

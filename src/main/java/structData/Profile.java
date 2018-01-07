@@ -67,7 +67,7 @@ public class Profile extends DataUser {
     /**
      * Constructor with all paramters
      * @param dUser a DataUser
-     * @param pathToImage path to the image for avatar
+     * @param image image for avatar
      * @param newLastname a lastname
      * @param newName a name
      * @param newBirthdate a birthdate
@@ -139,7 +139,6 @@ public class Profile extends DataUser {
     
     /**
      * Accessor for the image from avatar
-     * @return 
      * @return an avatar as an image
      */
     public Image getImage(){
@@ -267,6 +266,7 @@ public class Profile extends DataUser {
     
     /**
      * Safe clean of file
+     * @param file to delete
     */
     public boolean cleanUp(File file) throws IOException{
         Files.delete(file.toPath());

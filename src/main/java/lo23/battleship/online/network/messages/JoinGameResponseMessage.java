@@ -8,18 +8,25 @@ import java.net.InetAddress;
 
 
 /**
- * Network message class, extends Message class.
- * Message sent when the local player notify the distant player whether the local game is available for the distant
- * player willing to join it, or not.
+ * This class implements the message which is sent when
+ * when a creator of a game adds a second player to the game.
+ *
+ * The creator of the game sends this message to the user who was added as second player.
+ *
+ * This class extends the abstract Message and implements the two abstract methods:
+ * <code>getType</code> and <code>process</code>
+ *
+ * @see Message
+ * @author COM Module
  */
 public class JoinGameResponseMessage extends Message{
 
-    Game game;
-    Profile sender;
-    Boolean isOk;
+    private Game game;
+    private Profile sender;
+    private Boolean isOk;
 
     /**
-     * Class constructor.
+     * Allocates a new {@code JoinGameResponseMessage} object.
      * @param isOk is the answer  depending on whether the opponent slot is available for the distant player willing to
      *             join (true : the slot is available, false : the slot isn't available).
      * @param sender is the User class of the local player.
@@ -33,24 +40,25 @@ public class JoinGameResponseMessage extends Message{
     }
 
     /**
-     * Message type getter. Implementation of an abstract method.
-     * @return type, this is the message type.
+     * Returns the type of the message.
+     * Implementation of an abstract method.
+     * @return type : {@code String}
      */
     public String getType() {
         return type;
     }
 
     /**
-     * Method updating the game status in Data whether the opponent slot is available or not.
-     * @param IData interface with Data.
+     * Notifies the user receiving this message that he has (or has not) joined the game.
+     * @param IData : {@code IDataCom}
+     *              instance of IDataCom interface.
+     * @param senderAddress : {@code InetAddress}
+     *                      sender's IP address
      */
     public void process(IDataCom IData, InetAddress senderAddress){
-            System.out.println("Response received for game " + game.getName() + " from " + senderAddress.toString());
-
-            if (isOk) {
+        if (isOk) {
             IData.setLocalGame(game);
         } else {
-
             IData.setGameJoinResponse(false);
         }
     }
